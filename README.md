@@ -1,6 +1,6 @@
 # SUCC - SWADE Unlimited Condition Changer
 
-This module is meant to change the condition icons in the SWADE system (v.1+) on Foundry VTT. It will not be customisable until we find the time to do so. For now it's main purpose is to provide the features [Combat Utility Belt](https://github.com/death-save/combat-utility-belt) cannot offer to the SWADE system for the time being (since the change of how conditions work and are applied in SWADE v.1+) which I need for [SWIM](https://github.com/SalieriC/SWADE-Immersive-Macros).
+This module is meant to change the condition icons in the SWADE system (v.1+) on Foundry VTT. It will not be customisable until we find the time to do so. For now its main purpose is to provide the features [Combat Utility Belt](https://github.com/death-save/combat-utility-belt) cannot offer to the SWADE system for the time being (since the change of how conditions work and are applied in SWADE v.1+) which I need for [SWIM](https://github.com/SalieriC/SWADE-Immersive-Macros).
 
 ## Priotisation roadmap
 1. Forced (for now) custom icons for existing status effects and their AEs.
