@@ -1,0 +1,27 @@
+{
+	"name": "succ",
+	"title": "SWADE Ultimate Condition Changer",
+	"description": "<p>A module to change status icons in the SWADE system on Foundry VTT.</p><p><a href='https://ko-fi.com/salieric'>Please consider donating.</a></p>",
+	"minimumCoreVersion": "9.249",
+	"compatibleCoreVersion": "9.249",
+	"version": "0.0.0",
+	"author": "SalieriC , Javier Rivera",
+	"dependencies": [
+		{
+		  "name": "swade",
+		  "type": "system"
+		}
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"systems": ["swade"],
+	"esmodules": ["./scripts/init.js"],
+	"url": "https://github.com/SalieriC/SUCC",
+	"manifest": "",
+	"download": ""
+}
