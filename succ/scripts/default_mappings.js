@@ -1,5 +1,30 @@
 // Default mappings for icons
 
 export const SUCC_DEFAULT_MAPPING = {
-    'shaken': 'modules/succ/assets/icons/0-Shaken.png'
+    'shaken': 'modules/succ/assets/icons/0-Shaken.png',
+    'incapacitated': 'modules/succ/assets/icons/3-Incapacitated.png',
+    'aiming': 'modules/succ/assets/icons/1-Aiming.png',
+    'berserk': 'modules/succ/assets/icons/1-Berserking.png',
+    'defending': 'modules/succ/assets/icons/1-Defending.png',
+    'flying': 'modules/succ/assets/icons/1-Flying.png',
+    'holding': 'modules/succ/assets/icons/1-Holding.png',
+    'bound': 'modules/succ/assets/icons/2b-Bound.png',
+    'entangled': 'modules/succ/assets/icons/2b-Entangled.png',
+    'frightened': 'modules/succ/assets/icons/2c-Frightened.png',
+    'distracted': 'modules/succ/assets/icons/2-Distracted.png',
+    'encumbered': 'modules/succ/assets/icons/2-Encumbered.png',
+    'prone': 'modules/succ/assets/icons/2-Prone.png',
+    'stunned': 'modules/succ/assets/icons/2-Stunned.png',
+    'vulnerable': 'modules/succ/assets/icons/2-Vulnerable.png',
+    'bleeding-out': 'modules/succ/assets/icons/3-Bleeding out.png',
+    'diseased': 'modules/succ/assets/icons/3-Diseased.png',
+    'heart-attack': 'modules/succ/assets/icons/3-Heart attack.png',
+    'on-fire': 'modules/succ/assets/icons/3-On Fire.png',
+    'poisoned': 'modules/succ/assets/icons/3-Poisoned.png',
+    'cover-shield': 'modules/succ/assets/icons/4-Cover shield.png',
+    'reach': 'modules/succ/assets/icons/5-Reach.png',
+    'torch': 'modules/succ/assets/icons/5-Torch.png',
+    'invisible': 'modules/succ/assets/icons/m-Invisible.png',
+    'smite': 'modules/succ/assets/icons/m-Smite.png',
+    'protection': 'modules/succ/assets/icons/m-Protection.png'
 }
