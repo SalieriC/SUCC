@@ -1,7 +1,7 @@
 // Init script
 /* globals Hooks, console, CONFIG */
 
-/**Stuff to remember:
+/** Stuff to remember:
  * Turn on hooks: CONFIG.debug.hooks = true;
  * Turn off hooks: CONFIG.debug.hooks = false; (d'oh!)
  */
@@ -13,6 +13,7 @@ Hooks.on(`ready`, () => {
     change_conditions();
 });
 
+// Listening to hooks for creating the chat messages
 Hooks.on(`createActiveEffect`, (condition, _, __) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
     const createOrDelete = game.i18n.localize("SUCC.added");
@@ -33,14 +34,14 @@ function change_conditions() {
 }
 
 async function add_conditions() {
-    //Add custom conditions:
+    // Add custom conditions:
 }
 
 async function output_to_chat(condition, createOrDelete) {
     //console.log(condition);
     let actorOrTokenName = condition.parent.name;
     if (condition.parent.parent) {
-        //Use the tokens name if unlinked:
+        // Use the tokens name if unlinked:
         actorOrTokenName = condition.parent.parent.name;
     }
     const conditionName = condition.data.label;
