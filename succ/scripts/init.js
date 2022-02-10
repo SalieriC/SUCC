@@ -7,6 +7,7 @@
  */
 
 import {SUCC_DEFAULT_MAPPING} from "./default_mappings.js";
+import {SUCC_DEFAULT_SWADE_LINKS} from "./default_mappings.js";
 
 Hooks.on(`ready`, () => {
     console.log('SWADE Ultimate Condition Changer | Ready');
@@ -46,11 +47,22 @@ async function output_to_chat(condition, createOrDelete) {
     }
     const conditionName = condition.data.label;
     const icon = condition.data.icon;
+    let journalLink;
+    if (game.modules.get("swade-core-rules")?.active) {
+        if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWADE_LINKS) {
+            journalLink = SUCC_DEFAULT_SWADE_LINKS[condition.data.flags.core.statusId]
+        }
+    }
+
+    let conditionAndLink = conditionName;
+    if (journalLink) {
+        conditionAndLink = `${journalLink}{${conditionName}}`;
+    }
 
     ChatMessage.create({
         speaker: {
             alias: actorOrTokenName
         },
-        content: `${createOrDelete} ${conditionName}.`
+        content: `${createOrDelete} ${conditionAndLink}.`
     })
 }
