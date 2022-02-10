@@ -29,3 +29,34 @@ export const SUCC_DEFAULT_MAPPING = {
     'smite': 'modules/succ/assets/icons/m-smite.svg',
     'protection': 'modules/succ/assets/icons/m-protection.svg'
 }
+
+export const SUCC_DEFAULT_SWADE_LINKS = {
+    //These are the compendium links for the entries in the SWADE Module
+    'shaken': 'swade-core-rules.swade-rules.30TJKevSbgxK6jQy',
+    'incapacitated': 'swade-core-rules.swade-rules.30TJKevSbgxK6jQy',
+    'aiming': 'swade-core-rules.swade-rules.Fxh6qdmOiHPAO0VK',
+    'berserk': 'swade-core-rules.swade-edges.GdQ2ptJFFVleMX1Z',
+    'defending': 'swade-core-rules.swade-rules.ghXOj9Rpuw7vSQpu',
+    'flying': 'swade-core-rules.swade-rules.E1iVZqDIqKhbo8kX',
+    'holding': 'swade-core-rules.swade-rules.v5io2xKJNNM0US1H',
+    'bound': 'swade-core-rules.swade-rules.sTArFBzbesQkjLVg',
+    'entangled': 'swade-core-rules.swade-rules.sTArFBzbesQkjLVg',
+    'frightened': 'swade-core-rules.swade-rules.jaYcLBJnBk1ai5EH',
+    'distracted': 'swade-core-rules.swade-rules.vuud75GDkKL3NW10',
+    'encumbered': 'swade-core-rules.swade-rules.QhIMF8IRx263ockB',
+    'prone': 'swade-core-rules.swade-rules.JhBfyamFYWMA4T93',
+    'stunned': 'swade-core-rules.swade-rules.nHbnnGpaM8CgA5SI',
+    'vulnerable': 'swade-core-rules.swade-rules.vuud75GDkKL3NW10',
+    'bleeding-out': 'swade-core-rules.swade-rules.30TJKevSbgxK6jQy',
+    'diseased': 'swade-core-rules.swade-rules.5n806Gfv7FpIbpWh',
+    'heart-attack': 'swade-core-rules.swade-rules.jaYcLBJnBk1ai5EH',
+    'on-fire': 'swade-core-rules.swade-rules.6cgunuVilk355mfE',
+    'poisoned': 'swade-core-rules.swade-rules.492TZ3ZhWD452C3O',
+    'cover-shield': 'swade-core-rules.swade-rules.kO7fFCYkcuYbUReS',
+    'cover': 'swade-core-rules.swade-rules.854By7DpYevCCEfJ',
+    'reach': 'swade-core-rules.swade-rules.Oy34lVkZJFE8uNrt',
+    'torch': 'swade-core-rules.swade-rules.033IuoJfthTXBJ4w',
+    'invisible': 'swade-core-rules.swade-powers.2ulSAv39yoZ7wHoH',
+    'smite': 'swade-core-rules.swade-powers.trnibqLStQnp7hxu',
+    'protection': 'swade-core-rules.swade-powers.DPOBFvSuvQgDWF2c'
+}
