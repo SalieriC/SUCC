@@ -1,4 +1,6 @@
 {
     "SUCC.added": "Added",
-    "SUCC.removed": "Removed"
+    "SUCC.removed": "Removed",
+    "SUCC.setting.icon_definitions": "Icon definitions",
+    "SUCC.setting.icon_definitions_hint": "JSON for changing status images"
 }

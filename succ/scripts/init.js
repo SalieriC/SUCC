@@ -6,12 +6,12 @@
  * Turn off hooks: CONFIG.debug.hooks = false; or just reload the browser
  */
 
-import { SUCC_DEFAULT_MAPPING } from "./default_mappings.js";
-import { SUCC_DEFAULT_SWADE_LINKS } from "./default_mappings.js";
-import { SUCC_DEFAULT_SWPF_LINKS } from "./default_mappings.js";
+import {SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS} from "./default_mappings.js";
+import {register_settings} from "./settings.js"
 
 Hooks.on(`ready`, () => {
     console.log('SWADE Ultimate Condition Changer | Ready');
+    register_settings();
     change_conditions();
 
     /* Need to find the Enhanced Conditions setting first, so that CUB can be used without.
@@ -49,6 +49,16 @@ function change_conditions() {
     for (let status of CONFIG.statusEffects) {
         if (status.id in SUCC_DEFAULT_MAPPING) {
             status.icon = SUCC_DEFAULT_MAPPING[status.id]
+        }
+    }
+    let json_icons = game.settings.get('succ', 'icon_overwrites')
+    if (json_icons) {
+        json_icons = JSON.parse(json_icons)
+        for (let status of CONFIG.statusEffects) {
+            if (status.id in json_icons) {
+                status.icon = json_icons[status.id]
+                console.log(json_icons)
+            }
         }
     }
 }
