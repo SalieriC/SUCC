@@ -14,7 +14,7 @@ Hooks.on(`ready`, () => {
     console.log('SWADE Ultimate Condition Changer | Ready');
     change_conditions();
 
-    /*
+    /* Need to find the Enhanced Conditions setting first, so that CUB can be used without.
     if (game.modules.get("combat-utility-belt")?.active) {
         new Dialog({
             title: "Incompatibility Warning",
