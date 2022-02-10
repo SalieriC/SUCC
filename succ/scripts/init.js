@@ -66,6 +66,8 @@ function output_to_chat(condition, createOrDelete) {
     }
     const conditionName = condition.data.label;
     const icon = condition.data.icon;
+
+    // Get the journal link from the default mapping for SWADE/SWPF:
     let journalLink;
     if (game.modules.get("swpf-core-rules")?.active) {
         if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWPF_LINKS) {
@@ -77,11 +79,13 @@ function output_to_chat(condition, createOrDelete) {
         }
     }
 
+    // Add the journal link if found, otherwise just use the name of the condition:
     let conditionAndLink = conditionName;
     if (journalLink) {
         conditionAndLink = `${journalLink}{${conditionName}}`;
     }
 
+    // Chat message content soon to be replaced by a template... hopefully.
     ChatMessage.create({
         speaker: {
             alias: actorOrTokenName
