@@ -1,9 +1,9 @@
 // Init script
-/* globals Hooks, console, CONFIG */
+/* globals Hooks, console, CONFIG, ChatMessage, game */
 
 /** Stuff to remember:
  * Turn on hooks: CONFIG.debug.hooks = true;
- * Turn off hooks: CONFIG.debug.hooks = false; (d'oh!)
+ * Turn off hooks: CONFIG.debug.hooks = false; or just reload the browser
  */
 
 import { SUCC_DEFAULT_MAPPING } from "./default_mappings.js";
@@ -17,7 +17,7 @@ Hooks.on(`ready`, () => {
     /*
     if (game.modules.get("combat-utility-belt")?.active) {
         new Dialog({
-            title: "Incokmpatibility Warning",
+            title: "Incompatibility Warning",
             content: `
             <p>Warning, SUCC is incompatible with Combat Utility Belts Enhanced Conditions feature.</p>
             <p>Make sure Enhanced Conditions in CUB are turned off.</p>
@@ -57,7 +57,7 @@ async function add_conditions() {
     // Add custom conditions:
 }
 
-async function output_to_chat(condition, createOrDelete) {
+function output_to_chat(condition, createOrDelete) {
     //console.log(condition);
     let actorOrTokenName = condition.parent.name;
     if (condition.parent.parent) {
