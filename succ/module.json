@@ -21,6 +21,7 @@
 	],
 	"systems": ["swade"],
 	"esmodules": ["./scripts/init.js"],
+	"scripts": ["./scripts/succ-class.js"],
 	"url": "https://github.com/SalieriC/SUCC",
 	"manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/main/succ/module.json",
 	"download": ""
