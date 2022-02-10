@@ -6,12 +6,31 @@
  * Turn off hooks: CONFIG.debug.hooks = false; (d'oh!)
  */
 
-import {SUCC_DEFAULT_MAPPING} from "./default_mappings.js";
-import {SUCC_DEFAULT_SWADE_LINKS} from "./default_mappings.js";
+import { SUCC_DEFAULT_MAPPING } from "./default_mappings.js";
+import { SUCC_DEFAULT_SWADE_LINKS } from "./default_mappings.js";
+import { SUCC_DEFAULT_SWPF_LINKS } from "./default_mappings.js";
 
 Hooks.on(`ready`, () => {
     console.log('SWADE Ultimate Condition Changer | Ready');
     change_conditions();
+
+    /*
+    if (game.modules.get("combat-utility-belt")?.active) {
+        new Dialog({
+            title: "Incokmpatibility Warning",
+            content: `
+            <p>Warning, SUCC is incompatible with Combat Utility Belts Enhanced Conditions feature.</p>
+            <p>Make sure Enhanced Conditions in CUB are turned off.</p>
+            <p>You'll see this message on each login so make sure you obey my command or disable SUCC and leave an angry issue on the gitHub. :D</p>
+            `,
+            buttons: {
+                done: {
+                    label: "Got it!",
+                }
+            }
+        }).render(true)
+    }
+    */
 });
 
 // Listening to hooks for creating the chat messages
@@ -48,7 +67,11 @@ async function output_to_chat(condition, createOrDelete) {
     const conditionName = condition.data.label;
     const icon = condition.data.icon;
     let journalLink;
-    if (game.modules.get("swade-core-rules")?.active) {
+    if (game.modules.get("swpf-core-rules")?.active) {
+        if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWPF_LINKS) {
+            journalLink = SUCC_DEFAULT_SWPF_LINKS[condition.data.flags.core.statusId]
+        }
+    } else if (game.modules.get("swade-core-rules")?.active) {
         if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWADE_LINKS) {
             journalLink = SUCC_DEFAULT_SWADE_LINKS[condition.data.flags.core.statusId]
         }
