@@ -5,7 +5,8 @@ This module is meant to change the condition icons in the SWADE system (v.1+) on
 ## Priotisation roadmap
 1. Forced (for now) custom icons for existing status effects and their AEs.
 2. Adding new status effects needed in SWIM.
-3. Adding Active Effects to conditions.
-4. A proper GUI for customisability.
+3. Adding output to chat when conditions are applied.
+4. Adding Active Effects to conditions.
+5. A proper GUI for customisability.
 
 As you can see, customisability is both, low in priority but our ultimate goal. We love customisation but getting a working module done is top priority. Only if it all works as we need it to work, we can start implementing a GUI for non-devs to work with.
