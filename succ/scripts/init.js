@@ -36,14 +36,24 @@ Hooks.on(`ready`, () => {
 // Listening to hooks for creating the chat messages
 Hooks.on(`createActiveEffect`, (condition, _, __) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    const createOrDelete = game.i18n.localize("SUCC.added");
-    output_to_chat(condition, createOrDelete);
+    const state = game.i18n.localize("SUCC.added");
+    output_to_chat(condition, state);
 });
 Hooks.on(`deleteActiveEffect`, (condition, _, __) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    const createOrDelete = game.i18n.localize("SUCC.removed");
-    output_to_chat(condition, createOrDelete);
+    const state = game.i18n.localize("SUCC.removed");
+    output_to_chat(condition, state);
 });
+Hooks.on (`updateActiveEffect`, (condition, toggle, _, __) => {
+    // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
+    let state;
+    if (toggle.disabled === true) {
+        state = game.i18n.localize("SUCC.removed");
+    } else if (toggle.disabled === false) {
+        state = game.i18n.localize("SUCC.added");
+    }
+    output_to_chat(condition, state);
+})
 
 function change_conditions() {
     for (let status of CONFIG.statusEffects) {
@@ -67,7 +77,7 @@ async function add_conditions() {
     // Add custom conditions:
 }
 
-function output_to_chat(condition, createOrDelete) {
+function output_to_chat(condition, state) {
     //console.log(condition);
     let actorOrTokenName = condition.parent.name;
     if (condition.parent.parent) {
@@ -100,6 +110,6 @@ function output_to_chat(condition, createOrDelete) {
         speaker: {
             alias: actorOrTokenName
         },
-        content: `${createOrDelete} ${conditionAndLink}.`
+        content: `${state} ${conditionAndLink}.`
     })
 }
