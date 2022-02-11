@@ -40,27 +40,27 @@ Hooks.on(`ready`, () => {
 Hooks.on(`createActiveEffect`, (condition, _, __) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
     if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
-        const state = game.i18n.localize("SUCC.added");
-        output_to_chat(condition, state);
+        const removed = false
+        output_to_chat(condition, removed)
     }
 });
 Hooks.on(`deleteActiveEffect`, (condition, _, __) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
     if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
-        const state = game.i18n.localize("SUCC.removed");
-        output_to_chat(condition, state);
+        const removed = true
+        output_to_chat(condition, removed)
     }
 });
 Hooks.on(`updateActiveEffect`, (condition, toggle, _, __) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
     if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
-        let state;
+        let removed
         if (toggle.disabled === true) {
-            state = game.i18n.localize("SUCC.removed");
+            removed = true
         } else if (toggle.disabled === false) {
-            state = game.i18n.localize("SUCC.added");
+            removed = false
         }
-        output_to_chat(condition, state);
+        output_to_chat(condition, removed);
     }
 })
 //-----------------------------------------------------
@@ -92,32 +92,44 @@ async function add_conditions() {
 
 //-----------------------------------------------------
 // Condition output to chat:
-function output_to_chat(condition, state) {
+function output_to_chat(condition, removed) {
     //console.log(condition);
-    let actorOrTokenName = condition.parent.name;
+    let conditionID = condition.id
+    let actorOrTokenName = condition.parent.name
+    let actorOrTokenID = condition.parent.id
     if (condition.parent.parent) {
         // Use the tokens name if unlinked:
-        actorOrTokenName = condition.parent.parent.name;
+        actorOrTokenName = condition.parent.parent.name
+        actorOrTokenID = condition.parent.parent.id
     }
-    const conditionName = condition.data.label;
-    const icon = condition.data.icon;
+    const conditionName = condition.data.label
+    const conditionIcon = condition.data.icon
+
+    let state = game.i18n.localize("SUCC.added")
+    if (removed === true) {
+        state = game.i18n.localize("SUCC.removed")
+    }
 
     // Get the journal link from the default mapping for SWADE/SWPF:
-    let journalLink;
+    let journalLink
+    let hasReference = false
+    let linkAndName
     if (game.modules.get("swpf-core-rules")?.active) {
         if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWPF_LINKS) {
             journalLink = SUCC_DEFAULT_SWPF_LINKS[condition.data.flags.core.statusId]
+            hasReference = true
         }
     } else if (game.modules.get("swade-core-rules")?.active) {
         if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWADE_LINKS) {
             journalLink = SUCC_DEFAULT_SWADE_LINKS[condition.data.flags.core.statusId]
+            hasReference = true
         }
     }
 
     // Add the journal link if found, otherwise just use the name of the condition:
-    let conditionAndLink = conditionName;
+    let conditionAndLink = conditionName
     if (journalLink) {
-        conditionAndLink = `${journalLink}{${conditionName}}`;
+        conditionAndLink = `${journalLink}{${conditionName}}`
     }
 
     // Chat message content soon to be replaced by a template... hopefully.
