@@ -17,7 +17,7 @@ Hooks.on(`ready`, () => {
     change_conditions();
 
     // Registering templates:
-    const templatePaths = ["./templates/condition-to-chat.hbs"]
+    const templatePaths = ["modules/succ/templates/condition-to-chat.hbs"]
     loadTemplates(templatePaths)
 
     /* Need to find the Enhanced Conditions setting first, so that CUB can be used without.
@@ -138,7 +138,17 @@ async function output_to_chat(condition, removed, userID) {
 
     // Rendering template:
     const template = "modules/succ/templates/condition-to-chat.hbs"
-    let chatContent = await renderTemplate(template)
+    const variables = {
+        state,
+        actorOrTokenID,
+        conditionID,
+        conditionName,
+        conditionIcon,
+        hasReference,
+        conditionAndLink,
+        removed,
+    }
+    let chatContent = await renderTemplate(template, variables)
 
     // Chat message content soon to be replaced by a template... hopefully.
     ChatMessage.create({
