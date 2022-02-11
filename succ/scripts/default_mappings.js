@@ -30,6 +30,14 @@ export const SUCC_DEFAULT_MAPPING = {
     'protection': 'modules/succ/assets/icons/m-protection.svg'
 }
 
+export const SUCC_DEFAULT_ADDITIONAL_CONDITIONS = {
+    irradiated: {
+        id: 'irradiated',
+        label: 'Irradiated',
+        icon: 'modules/succ/assets/icons/0-irradiated.svg'
+    }
+}
+
 export const SUCC_DEFAULT_SWADE_LINKS = {
     //These are the compendium links for the entries in the SWADE Module
     'shaken': '@Compendium[swade-core-rules.swade-rules.30TJKevSbgxK6jQy]',
