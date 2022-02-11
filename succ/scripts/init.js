@@ -36,23 +36,29 @@ Hooks.on(`ready`, () => {
 // Listening to hooks for creating the chat messages
 Hooks.on(`createActiveEffect`, (condition, _, __) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    const state = game.i18n.localize("SUCC.added");
-    output_to_chat(condition, state);
+    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
+        const state = game.i18n.localize("SUCC.added");
+        output_to_chat(condition, state);
+    }
 });
 Hooks.on(`deleteActiveEffect`, (condition, _, __) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    const state = game.i18n.localize("SUCC.removed");
-    output_to_chat(condition, state);
-});
-Hooks.on (`updateActiveEffect`, (condition, toggle, _, __) => {
-    // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    let state;
-    if (toggle.disabled === true) {
-        state = game.i18n.localize("SUCC.removed");
-    } else if (toggle.disabled === false) {
-        state = game.i18n.localize("SUCC.added");
+    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
+        const state = game.i18n.localize("SUCC.removed");
+        output_to_chat(condition, state);
     }
-    output_to_chat(condition, state);
+});
+Hooks.on(`updateActiveEffect`, (condition, toggle, _, __) => {
+    // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
+    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
+        let state;
+        if (toggle.disabled === true) {
+            state = game.i18n.localize("SUCC.removed");
+        } else if (toggle.disabled === false) {
+            state = game.i18n.localize("SUCC.added");
+        }
+        output_to_chat(condition, state);
+    }
 })
 
 function change_conditions() {
