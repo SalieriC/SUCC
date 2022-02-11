@@ -6,7 +6,7 @@
  * Turn off hooks: CONFIG.debug.hooks = false; or just reload the browser
  */
 
-import { SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS } from "./default_mappings.js";
+import { SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_ADDITIONAL_CONDITIONS, SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS } from "./default_mappings.js";
 import { register_settings } from "./settings.js"
 
 //-----------------------------------------------------
@@ -15,6 +15,7 @@ Hooks.on(`ready`, () => {
     console.log('SWADE Ultimate Condition Changer | Ready');
     register_settings();
     change_conditions();
+    add_conditions();
 
     // Registering templates:
     const templatePaths = ["modules/succ/templates/condition-to-chat.hbs"]
@@ -83,7 +84,7 @@ function change_conditions() {
         for (let status of CONFIG.statusEffects) {
             if (status.id in json_icons) {
                 status.icon = json_icons[status.id]
-                console.log(json_icons)
+                //console.log(json_icons)
             }
         }
     }
@@ -91,6 +92,7 @@ function change_conditions() {
 
 async function add_conditions() {
     // Add custom conditions:
+    CONFIG.statusEffects.push({ id: "irradiated", label: "Irradiated", icon: "modules/succ/assets/icons/0-irradiated.svg" });
 }
 //-----------------------------------------------------
 
