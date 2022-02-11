@@ -18,7 +18,7 @@ Hooks.on(`ready`, () => {
 
     // Registering templates:
     const templatePaths = ["./templates/condition-to-chat.hbs"]
-    await loadTemplates(templatePaths)
+    loadTemplates(templatePaths)
 
     /* Need to find the Enhanced Conditions setting first, so that CUB can be used without.
     if (game.modules.get("combat-utility-belt")?.active) {
@@ -96,7 +96,7 @@ async function add_conditions() {
 
 //-----------------------------------------------------
 // Condition output to chat:
-function output_to_chat(condition, removed, userID) {
+async function output_to_chat(condition, removed, userID) {
     //console.log(condition);
     let conditionID = condition.id
     let actorOrTokenName = condition.parent.name
@@ -136,12 +136,16 @@ function output_to_chat(condition, removed, userID) {
         conditionAndLink = `${journalLink}{${conditionName}}`
     }
 
+    // Rendering template:
+    const template = "modules/succ/templates/condition-to-chat.hbs"
+    let chatContent = await renderTemplate(template)
+
     // Chat message content soon to be replaced by a template... hopefully.
     ChatMessage.create({
         speaker: {
             alias: actorOrTokenName
         },
-        content: `${state} ${conditionAndLink}.`,
+        content: chatContent,
         user: userID
     })
 }
