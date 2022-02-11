@@ -36,22 +36,22 @@ Hooks.on(`ready`, () => {
 });
 
 //-----------------------------------------------------
+// To avoid spamming the chat, implement a collecting debouncer outside of the hooks like here: https://discord.com/channels/170995199584108546/722559135371231352/941704126272770118
 // Listening to hooks for creating the chat messages:
-Hooks.on(`createActiveEffect`, (condition, _, __) => {
-    // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
+Hooks.on(`createActiveEffect`, (condition, _, userID) => {
     if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
         const removed = false
-        output_to_chat(condition, removed)
+        output_to_chat(condition, removed, userID)
     }
 });
-Hooks.on(`deleteActiveEffect`, (condition, _, __) => {
+Hooks.on(`deleteActiveEffect`, (condition, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
     if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
         const removed = true
-        output_to_chat(condition, removed)
+        output_to_chat(condition, removed, userID)
     }
 });
-Hooks.on(`updateActiveEffect`, (condition, toggle, _, __) => {
+Hooks.on(`updateActiveEffect`, (condition, toggle, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
     if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
         let removed
@@ -60,7 +60,7 @@ Hooks.on(`updateActiveEffect`, (condition, toggle, _, __) => {
         } else if (toggle.disabled === false) {
             removed = false
         }
-        output_to_chat(condition, removed);
+        output_to_chat(condition, removed, userID);
     }
 })
 //-----------------------------------------------------
@@ -92,7 +92,7 @@ async function add_conditions() {
 
 //-----------------------------------------------------
 // Condition output to chat:
-function output_to_chat(condition, removed) {
+function output_to_chat(condition, removed, userID) {
     //console.log(condition);
     let conditionID = condition.id
     let actorOrTokenName = condition.parent.name
@@ -137,7 +137,8 @@ function output_to_chat(condition, removed) {
         speaker: {
             alias: actorOrTokenName
         },
-        content: `${state} ${conditionAndLink}.`
+        content: `${state} ${conditionAndLink}.`,
+        user: userID
     })
 }
 //-----------------------------------------------------
