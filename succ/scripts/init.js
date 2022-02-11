@@ -44,21 +44,21 @@ Hooks.on(`ready`, () => {
 // To avoid spamming the chat, implement a collecting debouncer outside of the hooks like here: https://discord.com/channels/170995199584108546/722559135371231352/941704126272770118
 // Listening to hooks for creating the chat messages:
 Hooks.on(`createActiveEffect`, (condition, _, userID) => {
-    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
+    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING && game.settings.get('succ', 'output_to_chat') === true) {
         const removed = false
         output_to_chat(condition, removed, userID)
     }
 });
 Hooks.on(`deleteActiveEffect`, (condition, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
+    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING && game.settings.get('succ', 'output_to_chat') === true) {
         const removed = true
         output_to_chat(condition, removed, userID)
     }
 });
 Hooks.on(`updateActiveEffect`, (condition, toggle, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
+    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING && game.settings.get('succ', 'output_to_chat') === true) {
         let removed
         if (toggle.disabled === true) {
             removed = true
