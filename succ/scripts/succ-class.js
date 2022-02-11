@@ -1,11 +1,22 @@
 class succ {
   /**
    * Applies/Removes an active effect based status to either an actor or a token
-   * @param {SwadeActor, Token, abstract.Document} target: Who to apply the status
+   * @param {SwadeActor, Token, abstract.Document, String} target: Who to apply the status
    * @param {string} status_name: Name of the status
    * @param {boolean} final_state: True if we want the status applied, false to remove.
    */
   static async apply_status(target, status_name, final_state = true) {
+    if (typeof(target) === 'string') {
+        let new_target = await canvas.tokens.get(target)
+        if (! new_target) {
+            new_target = await game.actors.get(target)
+        }
+        if (! new_target) {
+            return
+        }
+        target = new_target
+    }
+    console.log(target)
     // We are going to apply the effect always to the actor
     if (target.actor) {
       // noinspection JSValidateTypes
