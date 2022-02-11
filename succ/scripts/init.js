@@ -117,7 +117,6 @@ async function output_to_chat(condition, removed, userID) {
     // Get the journal link from the default mapping for SWADE/SWPF:
     let journalLink
     let hasReference = false
-    let linkAndName
     if (game.modules.get("swpf-core-rules")?.active) {
         if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWPF_LINKS) {
             journalLink = SUCC_DEFAULT_SWPF_LINKS[condition.data.flags.core.statusId]
