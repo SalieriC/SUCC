@@ -6,8 +6,8 @@
  * Turn off hooks: CONFIG.debug.hooks = false; or just reload the browser
  */
 
-import {SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS} from "./default_mappings.js";
-import {register_settings} from "./settings.js"
+import { SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS } from "./default_mappings.js";
+import { register_settings } from "./settings.js"
 
 Hooks.on(`ready`, () => {
     console.log('SWADE Ultimate Condition Changer | Ready');
