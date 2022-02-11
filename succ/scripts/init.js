@@ -9,6 +9,8 @@
 import { SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS } from "./default_mappings.js";
 import { register_settings } from "./settings.js"
 
+//-----------------------------------------------------
+// Stuff to do on logging in:
 Hooks.on(`ready`, () => {
     console.log('SWADE Ultimate Condition Changer | Ready');
     register_settings();
@@ -33,7 +35,8 @@ Hooks.on(`ready`, () => {
     */
 });
 
-// Listening to hooks for creating the chat messages
+//-----------------------------------------------------
+// Listening to hooks for creating the chat messages:
 Hooks.on(`createActiveEffect`, (condition, _, __) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
     if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING) {
@@ -60,7 +63,10 @@ Hooks.on(`updateActiveEffect`, (condition, toggle, _, __) => {
         output_to_chat(condition, state);
     }
 })
+//-----------------------------------------------------
 
+//-----------------------------------------------------
+// Changing and adding condition icons
 function change_conditions() {
     for (let status of CONFIG.statusEffects) {
         if (status.id in SUCC_DEFAULT_MAPPING) {
@@ -82,7 +88,10 @@ function change_conditions() {
 async function add_conditions() {
     // Add custom conditions:
 }
+//-----------------------------------------------------
 
+//-----------------------------------------------------
+// Condition output to chat:
 function output_to_chat(condition, state) {
     //console.log(condition);
     let actorOrTokenName = condition.parent.name;
@@ -119,3 +128,4 @@ function output_to_chat(condition, state) {
         content: `${state} ${conditionAndLink}.`
     })
 }
+//-----------------------------------------------------
