@@ -97,6 +97,19 @@ async function add_conditions() {
 //-----------------------------------------------------
 
 //-----------------------------------------------------
+// First, collect all changes:
+/*
+let conditions = [];
+let timer;
+function condition_collector(condition) {
+    clearTimeout(timer);
+    conditions.push(condition);
+    setTimeout(test(conditions), 250);
+}
+function test(conditions) {
+    console.log(conditions)
+}
+*/
 // Condition output to chat:
 async function output_to_chat(condition, removed, userID) {
     //console.log(condition);
