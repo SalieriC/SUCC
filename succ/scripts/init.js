@@ -16,6 +16,10 @@ Hooks.on(`ready`, () => {
     register_settings();
     change_conditions();
 
+    // Registering templates:
+    const templatePaths = ["./templates/condition-to-chat.hbs"]
+    await loadTemplates(templatePaths)
+
     /* Need to find the Enhanced Conditions setting first, so that CUB can be used without.
     if (game.modules.get("combat-utility-belt")?.active) {
         new Dialog({
