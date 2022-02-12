@@ -8,13 +8,13 @@ Foundry core and SWADE system both provide functions to apply/remove conditions 
 
 This is why SUCC adds its own function to be used by developers which covers both problems for ease of use. It can be called like this:
 > succ.apply_status(actorOrToken, 'conditionName', boolean<sub>opt</sub>)
-- `actorOrToken` is the actor or token you want the condition to apply to.
+- `actorOrToken` is the actor or token you want the condition to apply to. It also accepts the ID of an actor or token if that's all you have.
 - `'conditionName'` is the name of the condition you want to apply, i.e. `'shaken'`.
 - `boolean`is optional. If not passed, the function will always add the effect (unless it is already present in which case it does nothing). If `false` is passed, it will remove the effect if present and do nothing if not, passing `true` will work the same as without passing it.
 
 ### Toggle Conditions
 This is closer to the way FVTT core works but doesn't need the full effect to be passed.
 > succ.toggle_status(actorOrToken, 'conditionName', boolean<sub>opt</sub>)
-- `actorOrToken` is the actor or token you want the condition to apply to.
+- `actorOrToken` is the actor or token you want the condition to apply to. It also accepts the ID of an actor or token if that's all you have.
 - `'conditionName'` is the name of the condition you want to apply, i.e. `'shaken'`.
 - `boolean`is optional. If not passed, the function will *toggle* the effect (remove if present, add if not). If `false` is passed, it will remove the effect if present and do nothing if not, passing `true` will work the same as without passing it.

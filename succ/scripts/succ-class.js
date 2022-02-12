@@ -6,17 +6,17 @@ class succ {
    * @param {boolean} final_state: True if we want the status applied, false to remove.
    */
   static async apply_status(target, status_name, final_state = true) {
-    if (typeof(target) === 'string') {
-        let new_target = await canvas.tokens.get(target)
-        if (! new_target) {
-            new_target = await game.actors.get(target)
-        }
-        if (! new_target) {
-            return
-        }
-        target = new_target
+    if (typeof (target) === 'string') {
+      let new_target = await canvas.tokens.get(target)
+      if (!new_target) {
+        new_target = await game.actors.get(target)
+      }
+      if (!new_target) {
+        return
+      }
+      target = new_target
     }
-    console.log(target)
+    //console.log(target)
     // We are going to apply the effect always to the actor
     if (target.actor) {
       // noinspection JSValidateTypes
@@ -44,7 +44,18 @@ class succ {
    * @param {string} status_name: Name of the status
    * @param {boolean} final_state: True if we want the status toggled, false to remove.
    */
-   static async toggle_status(target, status_name, final_state = true) {
+  static async toggle_status(target, status_name, final_state = true) {
+    if (typeof (target) === 'string') {
+      let new_target = await canvas.tokens.get(target)
+      if (!new_target) {
+        new_target = await game.actors.get(target)
+      }
+      if (!new_target) {
+        return
+      }
+      target = new_target
+    }
+    //console.log(target)
     // We are going to apply the effect always to the actor
     if (target.actor) {
       // noinspection JSValidateTypes
@@ -53,8 +64,10 @@ class succ {
     const effect = CONFIG.statusEffects.find(effect => effect.id === status_name)
     const applied_effects = target.effects.find(eff => eff.getFlag('core', 'statusId') === status_name)
     if (applied_effects && !final_state || applied_effects && final_state) {
+      // The actor has the effect but we want it off
       applied_effects.delete()
     } else if (!applied_effects && final_state) {
+      // We want the effect but the actor doesn't have it
       const new_effect = foundry.utils.deepClone(effect)
       new_effect.label = game.i18n.localize(new_effect.label)
       setProperty(new_effect, 'flags.core.statusId', effect.id)
