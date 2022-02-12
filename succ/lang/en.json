@@ -3,6 +3,8 @@
     "SUCC.removed": "Removed",
     "SUCC.undo": "Undo",
     "SUCC.remove": "Remove",
+    "SUCC.setting.default_icons": "Use SWADE default icons",
+    "SUCC.setting.default_icons_hint": "Setting this option will use the default icons from the SWADE system instead of the ones shipped with this module. Do not activate if you want to use your own icons configured below.",
     "SUCC.setting.icon_definitions": "Icon definitions",
     "SUCC.setting.icon_definitions_hint": "JSON for changing status images",
     "SUCC.setting.output_to_chat": "Output Conditions to Chat:",

@@ -15,7 +15,9 @@ import { output_to_chat } from "./conditions_to_chat.js"
 Hooks.on(`ready`, () => {
     console.log('SWADE Ultimate Condition Changer | Ready');
     register_settings();
-    change_conditions();
+    if (game.settings.get('succ', 'default_icons') === false) {
+        change_conditions();
+    }
     add_conditions();
 
     // Registering templates:

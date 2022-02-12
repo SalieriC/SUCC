@@ -2,6 +2,17 @@
 /* globals game */
 
 export function register_settings() {
+    game.settings.register('succ', 'default_icons', {
+        name : game.i18n.localize("SUCC.setting.default_icons"),
+        hint: game.i18n.localize("SUCC.setting.default_icons_hint"),
+        scope: "world",
+        default: false,
+        type: Boolean,
+        config: true,
+        onChange: () => {
+            window.location.reload();
+        }
+    })
     game.settings.register('succ', 'icon_overwrites', {
         name : game.i18n.localize("SUCC.setting.icon_definitions"),
         hint: game.i18n.localize("SUCC.setting.icon_definitions_hint"),
