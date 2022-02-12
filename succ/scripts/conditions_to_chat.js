@@ -74,7 +74,14 @@ export async function output_to_chat(condition, removed, userID) {
             alias: actorOrTokenName
         },
         content: chatContent,
-        user: userID
+        user: userID,
+        flags: {
+            succ: 
+                variables/*
+                actorOrTokenID: actorOrTokenID,
+                conditionName: conditionName*/
+            
+        }
     })
 }
 //-----------------------------------------------------

@@ -67,6 +67,25 @@ Hooks.on(`updateActiveEffect`, (condition, toggle, _, userID) => {
         output_to_chat(condition, removed, userID);
     }
 })
+
+// Add a button to the chat message:
+Hooks.on("renderChatMessage", (message, html) => {
+    if (html[0].querySelector("div.undo-remove.succ-undo")) {
+        html[0].querySelector("div.undo-remove.succ-undo > a[name='undo-remove']").addEventListener("click", () => {
+            let actorOrTokenID = message.data.flags.succ.actorOrTokenID
+            let condition = message.data.flags.succ.conditionName.toLowerCase()
+            console.log("button clicked!");
+            succ.apply_status(actorOrTokenID, condition, true)
+        });
+    } else if (html[0].querySelector("div.remove-row.succ-remove")) {
+        html[0].querySelector("div.remove-row.succ-remove > a[name='remove-row']").addEventListener("click", () => {
+            let actorOrTokenID = message.data.flags.succ.actorOrTokenID
+            let condition = message.data.flags.succ.conditionName.toLowerCase()
+            console.log("button clicked!");
+            succ.apply_status(actorOrTokenID, condition, false)
+        });
+    }
+});
 //-----------------------------------------------------
 
 //-----------------------------------------------------
