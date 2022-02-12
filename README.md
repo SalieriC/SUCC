@@ -14,7 +14,7 @@ As you can see, customisability is both, low in priority but our ultimate goal. 
 
 ## Mentions & Credits
 ### Chat messages
-The style (CSS) and part of the template (HBS) for the condition to chat messafes are used from [Combat Utility Belt](https://github.com/death-save/combat-utility-belt) with kind permission from errational.
+The style (CSS) and part of the template (HBS) for the condition to chat messages are used from [Combat Utility Belt](https://github.com/death-save/combat-utility-belt) with kind permission from errational.
 ### Icons
 The icons are modified icons used from [game-icons.net](https://game-icons.net/), modified in [photopea.com](https://www.photopea.com/).
 - Intoxicated: [Poison Bottle by Lorc](https://game-icons.net/1x1/lorc/poison-bottle.html)
