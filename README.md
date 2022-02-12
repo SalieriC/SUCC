@@ -52,6 +52,9 @@ The icons are modified icons used from [game-icons.net](https://game-icons.net/)
 - Protection: [Lamellar by Lorc](https://game-icons.net/1x1/lorc/lamellar.html)
 - Smite: [Pointy Sword by Lorc](https://game-icons.net/1x1/lorc/pointy-sword.html)
 All of these icons were modified by SalieriC, their original files are published under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+### Mentions
+Thank you very much to Javier Rivera Castro for his tireless efforts to teach me JavaScript, CSS, HTML and HBS.  
+Many thanks also go to the fine people of the Foundry VTT Discord server and their helpful advice and explanations.  
 ### Module Developers
 This module is brought to you by SalieriC and Javier Rivera Castro.
 Salieri is accepting donations, so if you wish to support him financially, please head over to his Ko-fi and leave him a donation. =)  
