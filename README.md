@@ -1,6 +1,6 @@
 # SUCC - SWADE Unlimited Condition Changer
 
-This module is meant to change the condition icons in the SWADE system (v.1+) on Foundry VTT. It will not be customisable until we find the time to do so. For now its main purpose is to provide the features [Combat Utility Belt](https://github.com/death-save/combat-utility-belt) cannot offer to the SWADE system for the time being (since the change of how conditions work and are applied in SWADE v.1+) which I need for [SWIM](https://github.com/SalieriC/SWADE-Immersive-Macros).
+This module is meant to change the condition icons in the SWADE system (v.1+) on Foundry VTT. It will not be customisable until we find the time to do so. For now its main purpose is to provide the features [Combat Utility Belt](https://github.com/death-save/combat-utility-belt) cannot offer to the SWADE system for the time being (since the change of how conditions work and are applied in SWADE v.1+) which I need for [SWIM](https://github.com/SalieriC/SWADE-Immersive-Macros).  
 [![Ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/salieric)
 
 ## Priotisation roadmap
@@ -54,5 +54,5 @@ The icons are modified icons used from [game-icons.net](https://game-icons.net/)
 All of these icons were modified by SalieriC, their original files are published under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 ### Module Developers
 This module is brought to you by SalieriC and Javier Rivera Castro.
-Salieri is accepting donations, so if you wish to support him financially, please head over to his Ko-fi and leave him a donation. =)
+Salieri is accepting donations, so if you wish to support him financially, please head over to his Ko-fi and leave him a donation. =)  
 [![Ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/salieric)
