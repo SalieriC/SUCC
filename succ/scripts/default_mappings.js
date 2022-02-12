@@ -66,7 +66,8 @@ export const SUCC_DEFAULT_SWADE_LINKS = {
     'torch': '@Compendium[swade-core-rules.swade-rules.033IuoJfthTXBJ4w]',
     'invisible': '@Compendium[swade-core-rules.swade-powers.2ulSAv39yoZ7wHoH]',
     'smite': '@Compendium[swade-core-rules.swade-powers.trnibqLStQnp7hxu]',
-    'protection': '@Compendium[swade-core-rules.swade-powers.DPOBFvSuvQgDWF2c]'
+    'protection': '@Compendium[swade-core-rules.swade-powers.DPOBFvSuvQgDWF2c]',
+    'irradiated': '@Compendium[swade-core-rules.swade-rules.S3WKO4LbfvERka9n]'
 }
 
 export const SUCC_DEFAULT_SWPF_LINKS = {

@@ -6,8 +6,9 @@
  * Turn off hooks: CONFIG.debug.hooks = false; or just reload the browser
  */
 
-import { SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_ADDITIONAL_CONDITIONS, SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS } from "./default_mappings.js";
+import { SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_ADDITIONAL_CONDITIONS } from "./default_mappings.js";
 import { register_settings } from "./settings.js"
+import { output_to_chat } from "./conditions_to_chat.js"
 
 //-----------------------------------------------------
 // Stuff to do on logging in:
@@ -21,13 +22,12 @@ Hooks.on(`ready`, () => {
     const templatePaths = ["modules/succ/templates/condition-to-chat.hbs"]
     loadTemplates(templatePaths)
 
-    /* Need to find the Enhanced Conditions setting first, so that CUB can be used without.
     if (game.modules.get("combat-utility-belt")?.active) {
         new Dialog({
             title: "Incompatibility Warning",
             content: `
-            <p>Warning, SUCC is incompatible with Combat Utility Belts Enhanced Conditions feature.</p>
-            <p>Make sure Enhanced Conditions in CUB are turned off.</p>
+            <p>Warning, SUCC is incompatible with Combat Utility Belt.</p>
+            <p>Disable Combat Utility Belt in the module settings to avoid bad things from happening.</p>
             <p>You'll see this message on each login so make sure you obey my command or disable SUCC and leave an angry issue on the gitHub. :D</p>
             `,
             buttons: {
@@ -37,28 +37,27 @@ Hooks.on(`ready`, () => {
             }
         }).render(true)
     }
-    */
 });
 
 //-----------------------------------------------------
 // To avoid spamming the chat, implement a collecting debouncer outside of the hooks like here: https://discord.com/channels/170995199584108546/722559135371231352/941704126272770118
 // Listening to hooks for creating the chat messages:
 Hooks.on(`createActiveEffect`, (condition, _, userID) => {
-    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING && game.settings.get('succ', 'output_to_chat') === true) {
+    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && game.settings.get('succ', 'output_to_chat') === true) {
         const removed = false
         output_to_chat(condition, removed, userID)
     }
 });
 Hooks.on(`deleteActiveEffect`, (condition, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING && game.settings.get('succ', 'output_to_chat') === true) {
+    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && game.settings.get('succ', 'output_to_chat') === true) {
         const removed = true
         output_to_chat(condition, removed, userID)
     }
 });
 Hooks.on(`updateActiveEffect`, (condition, toggle, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING && game.settings.get('succ', 'output_to_chat') === true) {
+    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && game.settings.get('succ', 'output_to_chat') === true) {
         let removed
         if (toggle.disabled === true) {
             removed = true
@@ -93,84 +92,5 @@ function change_conditions() {
 async function add_conditions() {
     // Add custom conditions:
     CONFIG.statusEffects.push({ id: "irradiated", label: "Irradiated", icon: "modules/succ/assets/icons/0-irradiated.svg" });
-}
-//-----------------------------------------------------
-
-//-----------------------------------------------------
-// First, collect all changes:
-/*
-let conditions = [];
-let timer;
-function condition_collector(condition) {
-    clearTimeout(timer);
-    conditions.push(condition);
-    setTimeout(test(conditions), 250);
-}
-function test(conditions) {
-    console.log(conditions)
-}
-*/
-// Condition output to chat:
-async function output_to_chat(condition, removed, userID) {
-    //console.log(condition);
-    let conditionID = condition.id
-    let actorOrTokenName = condition.parent.name
-    let actorOrTokenID = condition.parent.id
-    if (condition.parent.parent) {
-        // Use the tokens name if unlinked:
-        actorOrTokenName = condition.parent.parent.name
-        actorOrTokenID = condition.parent.parent.id
-    }
-    const conditionName = condition.data.label
-    const conditionIcon = condition.data.icon
-
-    let state = game.i18n.localize("SUCC.added")
-    if (removed === true) {
-        state = game.i18n.localize("SUCC.removed")
-    }
-
-    // Get the journal link from the default mapping for SWADE/SWPF:
-    let journalLink
-    let hasReference = false
-    if (game.modules.get("swpf-core-rules")?.active) {
-        if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWPF_LINKS) {
-            journalLink = SUCC_DEFAULT_SWPF_LINKS[condition.data.flags.core.statusId]
-            hasReference = true
-        }
-    } else if (game.modules.get("swade-core-rules")?.active) {
-        if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWADE_LINKS) {
-            journalLink = SUCC_DEFAULT_SWADE_LINKS[condition.data.flags.core.statusId]
-            hasReference = true
-        }
-    }
-
-    // Add the journal link if found, otherwise just use the name of the condition:
-    let conditionAndLink = conditionName
-    if (journalLink) {
-        conditionAndLink = `${journalLink}{${conditionName}}`
-    }
-
-    // Rendering template:
-    const template = "modules/succ/templates/condition-to-chat.hbs"
-    const variables = {
-        state,
-        actorOrTokenID,
-        conditionID,
-        conditionName,
-        conditionIcon,
-        hasReference,
-        conditionAndLink,
-        removed,
-    }
-    let chatContent = await renderTemplate(template, variables)
-
-    // Chat message content soon to be replaced by a template... hopefully.
-    ChatMessage.create({
-        speaker: {
-            alias: actorOrTokenName
-        },
-        content: chatContent,
-        user: userID
-    })
 }
 //-----------------------------------------------------
