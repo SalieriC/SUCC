@@ -3,7 +3,7 @@ This provides an overview of the functionality SUCC offers for module and macro 
 
 ## Check for Conditions
 SUCC provides an easy way to check whether or not a token or actor currently has a condition applied:
-> succ.check_status(actorOrToken, 'conditionName')
+> succ.check_status(actorOrToken, 'conditionName')  
 This will return `true` if the token currently has the requested condition or `false` if not. Since it is async, you'll want to `await` it.
 - `actorOrToken` is the actor or token you want to check. It also accepts the ID of an actor or token if that's all you have.
 - `'conditionName'` is the name of the condition you want to check, i.e. `'shaken'`.
