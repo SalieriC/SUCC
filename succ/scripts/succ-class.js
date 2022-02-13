@@ -76,4 +76,33 @@ class succ {
       await doc_class.create(new_effect, { parent: target })
     }
   }
+
+  /**
+   * Checks whether or not a token or actor has the status applied.
+   * @param {SwadeActor, Token, abstract.Document} target: Who is in question
+   * @param {string} status_name: Name of the status
+   */
+  static async check_status(target, status_name) {
+    if (typeof (target) === 'string') {
+      let new_target = await canvas.tokens.get(target)
+      if (!new_target) {
+        new_target = await game.actors.get(target)
+      }
+      if (!new_target) {
+        return
+      }
+      target = new_target
+    }
+    if (target.actor) {
+      // noinspection JSValidateTypes
+      target = target.actor
+    }
+    const effect = CONFIG.statusEffects.find(effect => effect.id === status_name)
+    const applied_effects = target.effects.find(eff => eff.getFlag('core', 'statusId') === status_name)
+    if (applied_effects) {
+      return true
+    } else if (!applied_effects) {
+      return false
+    }
+  }
 }
