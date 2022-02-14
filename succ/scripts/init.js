@@ -110,6 +110,6 @@ function change_conditions() {
 
 async function add_conditions() {
     // Add custom conditions:
-    CONFIG.statusEffects.push({ id: "irradiated", label: "Irradiated", icon: "modules/succ/assets/icons/0-irradiated.svg" });
+    //CONFIG.statusEffects.push({ id: "irradiated", label: "Irradiated", icon: "modules/succ/assets/icons/0-irradiated.svg" });
 }
 //-----------------------------------------------------
