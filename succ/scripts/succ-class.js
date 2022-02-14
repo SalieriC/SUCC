@@ -105,4 +105,15 @@ class succ {
       return false
     }
   }
+
+  /**
+   * Checks whether or not a condition exists and returns it or undefined if it doesn't exist.
+   * @param {string} condition_name: Name of the condition
+   */
+  static get_condition(condition_name) {
+    let condition = CONFIG.statusEffects.find(function (eff) {
+        return eff.id === condition_name
+      });
+    return condition;
+  }
 }
