@@ -75,13 +75,13 @@ Hooks.on("renderChatMessage", (message, html) => {
     if (html[0].querySelector("div.undo-remove.succ-undo")) {
         html[0].querySelector("div.undo-remove.succ-undo > a[name='undo-remove']").addEventListener("click", () => {
             let actorOrTokenID = message.data.flags.succ.actorOrTokenID
-            let condition = message.data.flags.succ.conditionName.toLowerCase()
+            let condition = message.data.flags.succ.conditionName.toLowerCase().replace(" - ", "-").replace(" ", "-")
             succ.apply_status(actorOrTokenID, condition, true)
         });
     } else if (html[0].querySelector("div.remove-row.succ-remove")) {
         html[0].querySelector("div.remove-row.succ-remove > a[name='remove-row']").addEventListener("click", () => {
             let actorOrTokenID = message.data.flags.succ.actorOrTokenID
-            let condition = message.data.flags.succ.conditionName.toLowerCase()
+            let condition = message.data.flags.succ.conditionName.toLowerCase().replace(" - ", "-").replace(" ", "-")
             succ.apply_status(actorOrTokenID, condition, false)
         });
     }

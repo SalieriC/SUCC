@@ -70,6 +70,38 @@ export const SUCC_DEFAULT_SWADE_LINKS = {
     'irradiated': '@Compendium[swade-core-rules.swade-rules.S3WKO4LbfvERka9n]'
 }
 
+export const SUCC_DEFAULT_SWADE_LINKS_106 = {
+    //These are the compendium links for the entries in the SWADE Module
+    'shaken': '@Compendium[swade-core-rules.swade-rules.HM1iVVbYciEa7X57]',
+    'incapacitated': '@Compendium[swade-core-rules.swade-rules.HM1iVVbYciEa7X57]',
+    'aiming': '@Compendium[swade-core-rules.swade-rules.tiuZ14SRpJkMG1xB]',
+    'berserk': '@Compendium[swade-core-rules.swade-edges.Xv6TAc0VcnkEqt20]',
+    'defending': '@Compendium[swade-core-rules.swade-rules.5cqlXaraNs8hMrQQ]',
+    'flying': '@Compendium[swade-core-rules.swade-rules.MkakfmaRoAbpKUz2]',
+    'holding': '@Compendium[swade-core-rules.swade-rules.JL7gvCeOKIW3xkgI]',
+    'bound': '@Compendium[swade-core-rules.swade-rules.9aLESwFXKn9TSGQh]',
+    'entangled': '@Compendium[swade-core-rules.swade-rules.9aLESwFXKn9TSGQh]',
+    'frightened': '@Compendium[swade-core-rules.swade-rules.YFDchwa1Y5Kapeh6]',
+    'distracted': '@Compendium[swade-core-rules.swade-rules.R5Zjq1jL3Xc5VkcH]',
+    'encumbered': '@Compendium[swade-core-rules.swade-rules.I4RmKAij22yaO0xG]',
+    'prone': '@Compendium[swade-core-rules.swade-rules.jKupoyGiLlNZ2CHt]',
+    'stunned': '@Compendium[swade-core-rules.swade-rules.a3G1OBl1agg2i5I9]',
+    'vulnerable': '@Compendium[swade-core-rules.swade-rules.R5Zjq1jL3Xc5VkcH]',
+    'bleeding-out': '@Compendium[swade-core-rules.swade-rules.HM1iVVbYciEa7X57]',
+    'diseased': '@Compendium[swade-core-rules.swade-rules.5jnVUzAJO00vQTPZ]',
+    'heart-attack': '@Compendium[swade-core-rules.swade-rules.YFDchwa1Y5Kapeh6]',
+    'on-fire': '@Compendium[swade-core-rules.swade-rules.KXwJARqrHkj0s0Ep]',
+    'poisoned': '@Compendium[swade-core-rules.swade-rules.kRjetx4dWnoyQTvd]',
+    'cover-shield': '@Compendium[swade-core-rules.swade-rules.DSnpXzDdXhiUikp1]',
+    'cover': '@Compendium[swade-core-rules.swade-rules.1sdLAUcO0LHm2YMz]',
+    'reach': '@Compendium[swade-core-rules.swade-rules.RgdOCAcp0y7cHXiC]',
+    'torch': '@Compendium[swade-core-rules.swade-rules.X1hnqs8z5PBxclT3]',
+    'invisible': '@Compendium[swade-core-rules.swade-powers.iS3duGwyTywaMOF7]',
+    'smite': '@Compendium[swade-core-rules.swade-powers.AlGYtSZmjUDRfUGM]',
+    'protection': '@Compendium[swade-core-rules.swade-powers.9Ia8jJNOCy0z7yXn]',
+    'irradiated': '@Compendium[swade-core-rules.swade-rules.JX5HX5IfR1RDjyfa]'
+}
+
 export const SUCC_DEFAULT_SWPF_LINKS = {
     //These are the compendium links for the entries in the SWADE Module
     'shaken': '@Compendium[swpf-core-rules.swpf-rules.zzh3mj1QDalp0RYf]',
