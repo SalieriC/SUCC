@@ -4,7 +4,7 @@
 	"description": "<p>A module to change status icons in the SWADE system on Foundry VTT.</p><p><a href='https://ko-fi.com/salieric'>Please consider donating.</a></p>",
 	"minimumCoreVersion": "9.249",
 	"compatibleCoreVersion": "9.249",
-	"version": "0.0.0",
+	"version": "0.1.0-pre",
 	"author": "SalieriC , Javier Rivera",
 	"dependencies": [
 		{
@@ -27,5 +27,5 @@
 	"styles": ["./styles/succ-styles.css"],
 	"url": "https://github.com/SalieriC/SUCC",
 	"manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/main/succ/module.json",
-	"download": ""
+	"download": "https://github.com/SalieriC/SUCC/blob/main/succ.zip?raw=true"
 }
