@@ -9,6 +9,7 @@
 import { SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_ADDITIONAL_CONDITIONS } from "./default_mappings.js";
 import { register_settings } from "./settings.js"
 import { output_to_chat } from "./conditions_to_chat.js"
+import { effect_updater } from "./effect_updater.js"
 
 //-----------------------------------------------------
 // Stuff to do on logging in:
@@ -48,6 +49,9 @@ Hooks.on(`createActiveEffect`, (condition, _, userID) => {
     if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && game.settings.get('succ', 'output_to_chat') === true) {
         const removed = false
         output_to_chat(condition, removed, userID)
+        if (condition.data.flags?.core?.statusId === "smite" || condition.data.flags?.core?.statusId === "protection") {
+            effect_updater(condition, userID)
+        }
     }
 });
 Hooks.on(`deleteActiveEffect`, (condition, _, userID) => {
