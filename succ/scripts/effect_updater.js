@@ -1,9 +1,6 @@
 export async function effect_updater(condition, userID) {
     let actorOrToken = condition.parent
-    if (condition.parent.parent) {
-        // Use the token if unlinked:
-        actorOrToken = condition.parent.parent
-    }
+
     //console.log(actorOrToken.data.effects)
     if (condition.data.flags?.core?.statusId === "smite" && game.user.id === userID) {
         let appliedCondition = actorOrToken.data.effects.find(function (e) {
