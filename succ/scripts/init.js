@@ -64,6 +64,11 @@ Hooks.on(`deleteActiveEffect`, (condition, _, userID) => {
 Hooks.on(`updateActiveEffect`, (condition, toggle, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
     if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && game.settings.get('succ', 'output_to_chat') === true) {
+        // Checking for the updated flag to prevent a repetitive message:
+        if (condition.data.flags?.succ?.updatedAE === true) {
+            return
+        }
+
         let removed
         if (toggle.disabled === true) {
             removed = true

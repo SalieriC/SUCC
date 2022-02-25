@@ -6,7 +6,7 @@ export async function effect_updater(condition, userID) {
     }
     //console.log(actorOrToken.data.effects)
     if (condition.data.flags?.core?.statusId === "smite" && game.user.id === userID) {
-        const appliedCondition = actorOrToken.data.effects.find(function (e) {
+        let appliedCondition = actorOrToken.data.effects.find(function (e) {
             return ((e.data.label === game.i18n.localize("SWADE.Smite")))
         })
         
@@ -35,11 +35,14 @@ export async function effect_updater(condition, userID) {
                 apply: {
                     label: game.i18n.localize("SUCC.dialogue.apply"),
                     callback: async (html) => {
+                        //Setting a flag to prevent repetitive chat message:                        
+                        appliedCondition.setFlag('succ', 'updatedAE', true)
+
                         let selectedWeaponName = html.find(`#weapon`)[0].value
-                        let damageBonus = Number(html.find("#damageBonus")[0].value);
+                        let damageBonus = Number(html.find("#damageBonus")[0].value)
                         if (damageBonus >= 0) { damageBonus = '+' + damageBonus }
 
-                        appliedCondition.setFlag('swade', 'expiration', 3);
+                        appliedCondition.setFlag('swade', 'expiration', 3)
                         let updates = appliedCondition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
                         let change = {key: `@Weapon{${selectedWeaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus}
                         updates.changes = [change]
@@ -53,7 +56,7 @@ export async function effect_updater(condition, userID) {
             }
         }).render(true)
     } else if (condition.data.flags?.core?.statusId === "protection" && game.user.id === userID) {
-        const appliedCondition = actorOrToken.data.effects.find(function (e) {
+        let appliedCondition = actorOrToken.data.effects.find(function (e) {
             return ((e.data.label === game.i18n.localize("SWADE.Protection")))
         })
         //console.log(appliedCondition)
@@ -72,7 +75,10 @@ export async function effect_updater(condition, userID) {
                 armor: {
                     label: game.i18n.localize("SWADE.Armor"),
                     callback: async (html) => {
-                        let protectionAmount = Number(html.find("#protectionAmount")[0].value);
+                        //Setting a flag to prevent repetitive chat message:                        
+                        appliedCondition.setFlag('succ', 'updatedAE', true)
+
+                        let protectionAmount = Number(html.find("#protectionAmount")[0].value)
                         let updates = appliedCondition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
                         updates[1].value = protectionAmount
                         await appliedCondition.update({"changes": updates})
@@ -81,7 +87,10 @@ export async function effect_updater(condition, userID) {
                 toughness: {
                     label: game.i18n.localize("SWADE.Tough"),
                     callback: async (html) => {
-                        let protectionAmount = Number(html.find("#protectionAmount")[0].value);
+                        //Setting a flag to prevent repetitive chat message:                        
+                        appliedCondition.setFlag('succ', 'updatedAE', true)
+
+                        let protectionAmount = Number(html.find("#protectionAmount")[0].value)
                         let updates = appliedCondition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
                         updates[0].value = protectionAmount
                         await appliedCondition.update({"changes": updates})
