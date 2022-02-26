@@ -16,5 +16,6 @@
     "SUCC.dialogue.amount_to_increase": "Amount to increase: ",
     "SUCC.dialogue.weapon_to_affect": "Weapon to affect: ",
     "SUCC.dialogue.apply": "Apply",
-    "SUCC.dialogue.cancel": "Cancel"
+    "SUCC.dialogue.cancel": "Cancel",
+    "SUCC.smite.no_weapons": "No weapon to apply smite to was found."
 }

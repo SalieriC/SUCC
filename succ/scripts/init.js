@@ -46,24 +46,33 @@ Hooks.on(`ready`, () => {
 // To avoid spamming the chat, implement a collecting debouncer outside of the hooks like here: https://discord.com/channels/170995199584108546/722559135371231352/941704126272770118
 // Listening to hooks for creating the chat messages:
 Hooks.on(`createActiveEffect`, (condition, _, userID) => {
-    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && game.settings.get('succ', 'output_to_chat') === true) {
+    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || 
+        condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && 
+        game.settings.get('succ', 'output_to_chat') === true &&
+        game.user.isGM === true) {
         const removed = false
         output_to_chat(condition, removed, userID)
-        if (condition.data.flags?.core?.statusId === "smite" || condition.data.flags?.core?.statusId === "protection") {
-            effect_updater(condition, userID)
-        }
+    }
+    if (condition.data.flags?.core?.statusId === "smite" || condition.data.flags?.core?.statusId === "protection") {
+        effect_updater(condition, userID)
     }
 });
 Hooks.on(`deleteActiveEffect`, (condition, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && game.settings.get('succ', 'output_to_chat') === true) {
+    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || 
+        condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && 
+        game.settings.get('succ', 'output_to_chat') === true &&
+        game.user.isGM === true) {
         const removed = true
         output_to_chat(condition, removed, userID)
     }
 });
 Hooks.on(`updateActiveEffect`, (condition, toggle, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && game.settings.get('succ', 'output_to_chat') === true) {
+    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || 
+        condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && 
+        game.settings.get('succ', 'output_to_chat') === true &&
+        game.user.isGM === true) {
         // Checking for the updated flag to prevent a repetitive message:
         if (condition.data.flags?.succ?.updatedAE === true) {
             return

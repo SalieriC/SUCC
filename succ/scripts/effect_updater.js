@@ -8,7 +8,9 @@ export async function effect_updater(condition, userID) {
         })
         
         const weapons = actorOrToken.data.items.filter(i => i.type === "weapon")
-        if (weapons.length === 0) {return}
+        if (weapons.length === 0) {
+            return ui.notifications.warn(`${game.i18n.localize("SUCC.smite.no_weapons")}`)
+        }
         let weapOptions
         for (let weapon of weapons) {
             weapOptions = weapOptions + `<option value="${weapon.data.name}">${weapon.data.name}</option>`
