@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]  
 
-## [0.1.0-pre.3] - 2022-02-25
+## [0.1.0-pre.3] - 2022-02-26
 **Make peace please!**
 ### Added
 - A warning message was added when applying *smite* to an actor or token without weapons. The condition is still applied, but no dialogue to add the effect to a weapon is prompted. This caused confusion which is why I added the warning.
