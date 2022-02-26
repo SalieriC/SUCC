@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]  
 
+## [0.1.0-pre.3] - 2022-02-25
+**Make peace please!**
+### Fixed
+- Fixed a bug where smite and protection couldn't be applied to unlinked tokens.
+- Fixed a bug that caused multiple chat messages and issued a warning to players that they have no permission to create chat messages. SUCC now handles the chat messages completely on the GMs side. A GM account logged in is thus required to make the chat messages work. (Might not even be the worst thing to do, like this players testing around don't fill the chat.)
+
 ## [0.1.0-pre.2] - 2022-02-25
 **Make peace please!**
 ### Added
