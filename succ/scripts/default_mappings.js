@@ -134,7 +134,6 @@ export const SUCC_DEFAULT_SWPF_LINKS = {
 }
 
 export const SUCC_DEFAULT_SWPF_LINKS_NEW = {
-    //These are the compendium links for the entries in the SWADE Module
     'shaken': '',
     'incapacitated': '',
     'aiming': '',
