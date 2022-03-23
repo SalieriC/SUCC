@@ -56,9 +56,14 @@ Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
     if (condition.data.flags?.core?.statusId === "smite" || condition.data.flags?.core?.statusId === "protection") {
         effect_updater(condition, userID)
     }
-    if (condition.data.flags?.core?.statusID === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
-        let token = condition.parent
-        await token.combatant.update({defeated: true})
+    if (condition.data.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
+        let actor = condition.parent
+        game.combat?.combatants.forEach(combatant => {
+            if (combatant.actor.id === actor.id) {
+                game.combat.updateEmbeddedDocuments('Combatant',
+                    [{_id: combatant.id, defeated: true}]);
+            }
+        });
     }
 });
 Hooks.on(`deleteActiveEffect`, (condition, _, userID) => {
