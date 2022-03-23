@@ -45,7 +45,7 @@ Hooks.on(`ready`, () => {
 //-----------------------------------------------------
 // To avoid spamming the chat, implement a collecting debouncer outside of the hooks like here: https://discord.com/channels/170995199584108546/722559135371231352/941704126272770118
 // Listening to hooks for creating the chat messages:
-Hooks.on(`createActiveEffect`, (condition, _, userID) => {
+Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
     if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING || 
         condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) && 
         game.settings.get('succ', 'output_to_chat') === true &&
@@ -55,6 +55,10 @@ Hooks.on(`createActiveEffect`, (condition, _, userID) => {
     }
     if (condition.data.flags?.core?.statusId === "smite" || condition.data.flags?.core?.statusId === "protection") {
         effect_updater(condition, userID)
+    }
+    if (condition.data.flags?.core?.statusID === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
+        let token = condition.parent
+        await token.combatant.update({defeated: true})
     }
 });
 Hooks.on(`deleteActiveEffect`, (condition, _, userID) => {

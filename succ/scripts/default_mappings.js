@@ -132,3 +132,34 @@ export const SUCC_DEFAULT_SWPF_LINKS = {
     'smite': '@Compendium[swpf-core-rules.swpf-powers.8bh4SI0ARxZsfPL1]',
     'protection': '@Compendium[swpf-core-rules.swpf-powers.ZErveSbnXzsKMXoA]'
 }
+
+export const SUCC_DEFAULT_SWPF_LINKS_NEW = {
+    //These are the compendium links for the entries in the SWADE Module
+    'shaken': '',
+    'incapacitated': '',
+    'aiming': '',
+    'berserk': '',
+    'defending': '',
+    'flying': '',
+    'holding': '',
+    'bound': '',
+    'entangled': '',
+    'frightened': '',
+    'distracted': '',
+    'encumbered': '',
+    'prone': '',
+    'stunned': '',
+    'vulnerable': '',
+    'bleeding-out': '',
+    'diseased': '',
+    'heart-attack': '',
+    'on-fire': '',
+    'poisoned': '',
+    'cover-shield': '',
+    'cover': '',
+    'reach': '',
+    'torch': '',
+    'invisible': '',
+    'smite': '',
+    'protection': ''
+}
