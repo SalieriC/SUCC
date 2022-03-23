@@ -29,4 +29,12 @@ export function register_settings() {
         type: Boolean,
         config: true,
     })
+    game.settings.register('succ', 'mark_inc_defeated', {
+        name : game.i18n.localize("SUCC.setting.mark_inc_defeated"),
+        hint: game.i18n.localize("SUCC.setting.mark_inc_defeated_hint"),
+        scope: "world",
+        default: true,
+        type: Boolean,
+        config: true,
+    })
 }
