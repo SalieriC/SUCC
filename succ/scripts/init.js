@@ -20,7 +20,7 @@ Hooks.on(`ready`, () => {
         change_conditions();
     }
     add_conditions();
-
+    conditions_deep_change();
     // Registering templates:
     const templatePaths = ["modules/succ/templates/condition-to-chat.hbs"]
     loadTemplates(templatePaths)
@@ -143,6 +143,29 @@ function change_conditions() {
             if (status.id in json_icons) {
                 status.icon = json_icons[status.id]
                 //console.log(json_icons)
+            }
+        }
+    }
+}
+
+function conditions_deep_change() {
+    const json_modify_conditions = game.settings.get('succ', 'modify_status')
+    if (json_modify_conditions) {
+        const json_conditions = JSON.parse(json_modify_conditions)
+        let change_conditions = {}
+        for (let i = 0; i < CONFIG.statusEffects.length; i++) {
+            console.log(i, CONFIG.statusEffects[i])
+            if (CONFIG.statusEffects[i].id in json_conditions) {
+                const new_obj = {...CONFIG.statusEffects[i],
+                    ...json_conditions[CONFIG.statusEffects[i].id]}
+                console.log(new_obj)
+                change_conditions[i] = new_obj
+            }
+        }
+        console.log(change_conditions)
+        if (change_conditions) {
+            for (let change in change_conditions) {
+                CONFIG.statusEffects[change] = change_conditions[change]
             }
         }
     }

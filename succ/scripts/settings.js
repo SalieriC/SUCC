@@ -37,4 +37,12 @@ export function register_settings() {
         type: Boolean,
         config: true,
     })
+    game.settings.register('succ', 'modify_status', {
+        name : game.i18n.localize("SUCC.setting.modify_status_definitions"),
+        hint: game.i18n.localize("SUCC.setting.modify_status_definitions_hint"),
+        scope: "world",
+        default: '',
+        type: String,
+        config: true,
+    })
 }

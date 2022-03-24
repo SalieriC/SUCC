@@ -18,6 +18,9 @@
     "SUCC.dialogue.apply": "Apply",
     "SUCC.dialogue.cancel": "Cancel",
     "SUCC.smite.no_weapons": "No weapon to apply smite to was found.",
+    "SUCC.setting.modify_status_definitions": "Modify system status",
+    "SUCC.setting.modify_status_definitions_hint": "JSON to modify the default system status values"
+    "SUCC.smite.no_weapons": "No weapon to apply smite to was found.",
     "SUCC.setting.mark_inc_defeated": "Mark incapacitated NPCs Dead:",
     "SUCC.setting.mark_inc_defeated_hint": "If set to true, NPC tokens with the Incapacitated condition will be set to defeated."
 }
