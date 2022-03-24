@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - New setting to mark NPCs as defeated if Incapacitated is applied to them.
 - German localisation by @Razortide.
+- Functionality to change conditions in any way the user would like. For now this requires in-depth knowledge (or a template). It will be well documented later.
 ### Fixed
 - The current version of the core rules did not fix the links. SUCC now displays the correct ones until they either fix it in the next update or they don't and it breaks SUCC again.
 - Broken SWPF links by @nchiasson.
