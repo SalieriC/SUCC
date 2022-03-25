@@ -37,6 +37,14 @@ export function register_settings() {
         type: Boolean,
         config: true,
     })
+    game.settings.register('succ', 'boost_lower', {
+        name : game.i18n.localize("SUCC.setting.boost_lower"),
+        hint: game.i18n.localize("SUCC.setting.boost_lower_hint"),
+        scope: "world",
+        default: true,
+        type: Boolean,
+        config: true,
+    })
     game.settings.register('succ', 'modify_status', {
         name : game.i18n.localize("SUCC.setting.modify_status_definitions"),
         hint: game.i18n.localize("SUCC.setting.modify_status_definitions_hint"),

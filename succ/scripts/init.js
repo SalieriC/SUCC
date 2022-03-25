@@ -40,6 +40,10 @@ Hooks.on(`ready`, () => {
             }
         }).render(true)
     }
+    if (game.settings.get('succ', 'boost_lower') === true) {
+        CONFIG.statusEffects.push({ id: "boost", label: game.i18n.localize("SUCC.condition.boost"), icon: "modules/succ/assets/icons/m-boost.svg" });
+        CONFIG.statusEffects.push({ id: "lower", label: game.i18n.localize("SUCC.condition.lower"), icon: "modules/succ/assets/icons/m-lower.svg" });
+    }
 });
 
 //-----------------------------------------------------
@@ -53,7 +57,10 @@ Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
         const removed = false
         output_to_chat(condition, removed, userID)
     }
-    if (condition.data.flags?.core?.statusId === "smite" || condition.data.flags?.core?.statusId === "protection") {
+    if (condition.data.flags?.core?.statusId === "smite" ||
+        condition.data.flags?.core?.statusId === "protection" ||
+        condition.data.flags?.core?.statusId === "boost" ||
+        condition.data.flags?.core?.statusId === "lower") {
         effect_updater(condition, userID)
     }
     if (condition.data.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
