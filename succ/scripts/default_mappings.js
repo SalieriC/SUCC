@@ -35,7 +35,15 @@ export const SUCC_DEFAULT_ADDITIONAL_CONDITIONS = {
         id: 'irradiated',
         label: 'Irradiated',
         icon: 'modules/succ/assets/icons/0-irradiated.svg'
-    }
+    },
+    boost: {
+        id: 'boost',
+        icon: 'modules/succ/assets/icons/m-boost.svg'
+    },
+    lower: {
+        id: 'lower',
+        icon: 'modules/succ/assets/icons/m-lower.svg'
+    },
 }
 
 export const SUCC_DEFAULT_SWADE_LINKS = {
@@ -67,7 +75,9 @@ export const SUCC_DEFAULT_SWADE_LINKS = {
     'invisible': '@Compendium[swade-core-rules.swade-powers.2ulSAv39yoZ7wHoH]',
     'smite': '@Compendium[swade-core-rules.swade-powers.trnibqLStQnp7hxu]',
     'protection': '@Compendium[swade-core-rules.swade-powers.DPOBFvSuvQgDWF2c]',
-    'irradiated': '@Compendium[swade-core-rules.swade-rules.S3WKO4LbfvERka9n]'
+    'irradiated': '@Compendium[swade-core-rules.swade-rules.S3WKO4LbfvERka9n]',
+    'boost': '@Compendium[swade-core-rules.swade-powers.F3Ilvu10MXERIGdo]',
+    'lower': '@Compendium[swade-core-rules.swade-powers.F3Ilvu10MXERIGdo]'
 }
 
 export const SUCC_DEFAULT_SWADE_LINKS_106 = {
@@ -99,7 +109,9 @@ export const SUCC_DEFAULT_SWADE_LINKS_106 = {
     'invisible': '@Compendium[swade-core-rules.swade-powers.iS3duGwyTywaMOF7]',
     'smite': '@Compendium[swade-core-rules.swade-powers.AlGYtSZmjUDRfUGM]',
     'protection': '@Compendium[swade-core-rules.swade-powers.9Ia8jJNOCy0z7yXn]',
-    'irradiated': '@Compendium[swade-core-rules.swade-rules.JX5HX5IfR1RDjyfa]'
+    'irradiated': '@Compendium[swade-core-rules.swade-rules.JX5HX5IfR1RDjyfa]',
+    'boost': '@Compendium[swade-core-rules.swade-powers.FSwGNyzYvYRMhOkV]',
+    'lower': '@Compendium[swade-core-rules.swade-powers.FSwGNyzYvYRMhOkV]'
 }
 
 export const SUCC_DEFAULT_SWPF_LINKS = {
@@ -130,7 +142,9 @@ export const SUCC_DEFAULT_SWPF_LINKS = {
     'torch': '@Compendium[swpf-core-rules.swpf-rules.AZ16LJMpcOFSGgRn]',
     'invisible': '@Compendium[swpf-core-rules.swpf-powers.K76tydAgjnrtu3tq]',
     'smite': '@Compendium[swpf-core-rules.swpf-powers.8bh4SI0ARxZsfPL1]',
-    'protection': '@Compendium[swpf-core-rules.swpf-powers.ZErveSbnXzsKMXoA]'
+    'protection': '@Compendium[swpf-core-rules.swpf-powers.ZErveSbnXzsKMXoA]',
+    'boost': '',
+    'lower': ''
 }
 
 export const SUCC_DEFAULT_SWPF_LINKS_NEW = {
@@ -160,5 +174,7 @@ export const SUCC_DEFAULT_SWPF_LINKS_NEW = {
     'torch': '@compendium[swpf-core-rules.swpf-rules.StKylZawGhVutsR8]',
     'invisible': '@compendium[swpf-core-rules.swpf-powers.FKymxmrz9ugwfFmb]',
     'smite': '@compendium[swpf-core-rules.swpf-powers.LiY5yCQkOOKz9T2L]',
-    'protection': '@compendium[swpf-core-rules.swpf-powers.4yGOUiND8lW5cKly]'
+    'protection': '@compendium[swpf-core-rules.swpf-powers.4yGOUiND8lW5cKly]',
+    'boost': '@Compendium[swpf-core-rules.swpf-powers.hBfpNdcd1WBsszu3]',
+    'lower': '@Compendium[swpf-core-rules.swpf-powers.hBfpNdcd1WBsszu3]'
     }
