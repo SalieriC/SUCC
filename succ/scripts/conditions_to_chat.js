@@ -1,4 +1,4 @@
-import { SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS, SUCC_DEFAULT_SWADE_LINKS_106 } from "./default_mappings.js";
+import { SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS_NEW, SUCC_DEFAULT_SWADE_LINKS_106 } from "./default_mappings.js";
 
 //-----------------------------------------------------
 // First, collect all changes:
