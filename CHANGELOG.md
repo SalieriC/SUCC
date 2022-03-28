@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]  
 
+## [0.1.0-pre.5] - 2022-03-28
+**Make peace please!**
+### Added
+- Boost/Lower Trait conditions and builder dialogues to apply the effects. Tries to respect all the rules as per SWADE.  
+- German translation update by @Razortide.
+### Fixed
+- Mark Dead was applied on Incapacitation to all combatants with the same actor, this should now be fixed.
+
 ## [0.1.0-pre.4] - 2022-03-24
 **Make peace please!**
 ### Added
