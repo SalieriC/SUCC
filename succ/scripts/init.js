@@ -67,7 +67,7 @@ Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
         let actor = condition.parent
         if (actor.data.type === "npc") {
             game.combat?.combatants.forEach(combatant => {
-                if (combatant.actor.id === actor.id) {
+                if (combatant.token.id === actor.token.id) { console.log(combatant)
                     game.combat.updateEmbeddedDocuments('Combatant',
                         [{ _id: combatant.id, defeated: true }]);
                 }
@@ -88,7 +88,7 @@ Hooks.on(`deleteActiveEffect`, async (condition, _, userID) => {
         let actor = condition.parent
         if (actor.data.type === "npc") {
             game.combat?.combatants.forEach(combatant => {
-                if (combatant.actor.id === actor.id) {
+                if (combatant.token.id === actor.token.id) {
                     game.combat.updateEmbeddedDocuments('Combatant',
                         [{ _id: combatant.id, defeated: false }]);
                 }
