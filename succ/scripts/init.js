@@ -65,7 +65,7 @@ Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
     }
     if (condition.data.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
         let actor = condition.parent
-        if (actor.data.type === "npc") {
+        if (actor.data.type === "npc" && game.user.isGM) {
             game.combat?.combatants.forEach(combatant => {
                 if (combatant.token.id === actor.token.id) {
                     game.combat.updateEmbeddedDocuments('Combatant',
@@ -86,7 +86,7 @@ Hooks.on(`deleteActiveEffect`, async (condition, _, userID) => {
     }
     if (condition.data.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
         let actor = condition.parent
-        if (actor.data.type === "npc") {
+        if (actor.data.type === "npc" && game.user.isGM) {
             game.combat?.combatants.forEach(combatant => {
                 if (combatant.token.id === actor.token.id) {
                     game.combat.updateEmbeddedDocuments('Combatant',
