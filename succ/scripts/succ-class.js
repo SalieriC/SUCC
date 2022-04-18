@@ -4,8 +4,9 @@ class succ {
    * @param {SwadeActor, Token, abstract.Document, String} target: Who to apply the status
    * @param {string} status_name: Name of the status
    * @param {boolean} final_state: True if we want the status applied, false to remove.
+   * @param {boolean} overlay: Add the icon as a big overlay
    */
-  static async apply_status(target, status_name, final_state = true) {
+  static async apply_status(target, status_name, final_state = true, overlay = false) {
     if (typeof (target) === 'string') {
       let new_target = await canvas.tokens.get(target)
       if (!new_target) {
@@ -31,6 +32,7 @@ class succ {
       // We want the effect but the actor doesn't have it
       const new_effect = foundry.utils.deepClone(effect)
       new_effect.label = game.i18n.localize(new_effect.label)
+      setProperty(new_effect, 'flags.core.overlay', overlay)
       setProperty(new_effect, 'flags.core.statusId', effect.id)
       new_effect.id = undefined
       const doc_class = getDocumentClass('ActiveEffect')
@@ -43,8 +45,9 @@ class succ {
    * @param {SwadeActor, Token, abstract.Document} target: Who to apply the status
    * @param {string} status_name: Name of the status
    * @param {boolean} final_state: True if we want the status toggled, false to remove.
+   * @param {boolean} overlay: Add the icon as a big overlay
    */
-  static async toggle_status(target, status_name, final_state = true) {
+  static async toggle_status(target, status_name, final_state = true, overlay=true) {
     if (typeof (target) === 'string') {
       let new_target = await canvas.tokens.get(target)
       if (!new_target) {
@@ -70,6 +73,7 @@ class succ {
       // We want the effect but the actor doesn't have it
       const new_effect = foundry.utils.deepClone(effect)
       new_effect.label = game.i18n.localize(new_effect.label)
+      setProperty(new_effect, 'flags.core.overlay', overlay)
       setProperty(new_effect, 'flags.core.statusId', effect.id)
       new_effect.id = undefined
       const doc_class = getDocumentClass('ActiveEffect')
