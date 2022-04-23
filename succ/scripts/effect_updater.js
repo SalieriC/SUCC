@@ -245,10 +245,10 @@ export async function effect_updater(condition, userID) {
                 console.error("Wrong protection type passed in additional data. It needs to be a string of 'armor' or 'toughness'.")
             }
         } else if (condition.data.flags.succ.additionalData.boost) {
-            let trait = condition.data.flags.succ.additionalData.lower.trait
+            let trait = condition.data.flags.succ.additionalData.boost.trait
             let type = "boost"
-            let degree = condition.data.flags.succ.additionalData.lower.degree
-            let duration = condition.data.flags.succ.additionalData.lower.duration
+            let degree = condition.data.flags.succ.additionalData.boost.degree
+            let duration = condition.data.flags.succ.additionalData.boost.duration
             boost_lower_builder(condition, actorOrToken, trait, type, degree, duration)
         } else if (condition.data.flags.succ.additionalData.lower) {
             let trait = condition.data.flags.succ.additionalData.lower.trait
