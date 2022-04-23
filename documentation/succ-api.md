@@ -71,7 +71,7 @@ await succ.apply_status(token, 'shaken', true, data)
 ### Additional Data for *smite*
 This is the data you want to use to bypass the smite effect builder dialogue:
 ```js
-const smiteData: {
+const smiteData = {
     smite: {                            //This is where SUCC will look for the data.
         bonus: 2,                       //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
         weapon: weaponItem,             //Safest way is to pass the weapon item itself but you can pass a string which SUCC will just assume to be the name (i.e. "Bow"). SUCC will not check if that item exists!
@@ -83,7 +83,7 @@ const smiteData: {
 ### Additional Data for *protection*
 This is the data you want to use to bypass the protection effect builder dialogue:
 ```js
-const protectionData: {
+const protectionData = {
     protection: {                       //This is where SUCC will look for the data.
         bonus: 2,                       //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
         type: "armor",                  //This can also be "toughness". It defines to which the bonus is applied to.
@@ -95,7 +95,7 @@ const protectionData: {
 ### Additional Data for *boost/lower*
 This is the data you want to use to bypass the boost/lower effect builder dialogue:
 ```js
-const boostLowerData: {
+const boostLowerData = {
     boost: {                            //This is where SUCC will look for the data, use 'lower' if the spell was cast using lower.
         degree: "success",              //This is the degree of success and failure. Can also be 'raise'.
         trait: skillItem,               //It's the safest to pass the skills' item directly but you can pass a string and the builder will search for that. For Attributes this is the only way to pass it.
