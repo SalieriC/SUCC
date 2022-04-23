@@ -69,7 +69,7 @@ This is the data you want to use to bypass the smite effect builder dialogue:
 const smiteData: {
     smite: {                            //This is where SUCC will look for the data.
         bonus: 2,                       //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
-        weapon: weaponItem,             //Safest way is to pass the weapon item itself but you can pass a string which SUCC will search for on the actor (i.e. "Bow"). You can set it to `null` in which case the owner (or GM if there is no owner) is asked for the weapon.
+        weapon: weaponItem,             //Safest way is to pass the weapon item itself but you can pass a string which SUCC will just assume to be the name (i.e. "Bow"). SUCC will not check if that item exists! You can set it to `null` in which case the owner of the actor (or GM if there is no owner) is asked for the weapon.
         duration: 5                     //A number specifying the duration of the effect. It defaults to 5.
     }
 }
