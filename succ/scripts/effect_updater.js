@@ -2,7 +2,8 @@ export async function effect_updater(condition, userID) {
     let actorOrToken = condition.parent
 
     //console.log(actorOrToken.data.effects)
-    if (condition.data.flags?.core?.statusId === "smite" && game.user.id === userID) {
+    if (condition.data.flags?.succ?.additionalData) { builder_hub() }
+    else if (condition.data.flags?.core?.statusId === "smite" && game.user.id === userID) {
         let appliedCondition = actorOrToken.data.effects.find(function (e) {
             return ((e.data.label === game.i18n.localize("SWADE.Smite")))
         })
@@ -80,6 +81,7 @@ export async function effect_updater(condition, userID) {
                         let protectionAmount = Number(html.find("#protectionAmount")[0].value)
                         let updates = appliedCondition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
                         updates[1].value = protectionAmount
+                        condition.setFlag('swade', 'expiration', 3)
                         await appliedCondition.update({ "changes": updates })
                     }
                 },
@@ -206,12 +208,62 @@ export async function effect_updater(condition, userID) {
         }).render(true)
     }
 
-    async function boost_lower_builder(appliedCondition, actorOrToken, trait, type, degree) {
+    async function builder_hub() {
+        //Setting a flag to prevent repetitive chat message:                        
+        condition.setFlag('succ', 'updatedAE', true)
+
+        if (condition.data.flags.succ.additionalData.smite) {
+            let weaponName
+            if (typeof condition.data.flags.succ.additionalData.smite.weapon === "string") {
+                weaponName = condition.data.flags.succ.additionalData.smite.weapon
+            } else {
+                weaponName = condition.data.flags.succ.additionalData.smite.weapon.name
+            }
+
+            let damageBonus = condition.data.flags.succ.additionalData.smite.bonus
+            if (damageBonus >= 0) { damageBonus = '+' + damageBonus }
+
+            condition.setFlag('swade', 'expiration', 3)
+            let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
+            let change = { key: `@Weapon{${selectedWeaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
+            updates.changes = [change]
+            updates.duration.rounds = condition.data.flags.succ.additionalData.smite.duration
+            await appliedCondition.update(updates)
+        } else if (condition.data.flags.succ.additionalData.protection) {
+            condition.setFlag('swade', 'expiration', 3)
+            if (condition.data.flags.succ.additionalData.protection.type === "armor") {
+                let protectionAmount = condition.data.flags.succ.additionalData.protection.bonus
+                let updates = condition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
+                updates[1].value = protectionAmount
+                await appliedCondition.update({ "changes": updates })
+            } else if (condition.data.flags.succ.additionalData.protection.type === "toughness") {
+                let protectionAmount = condition.data.flags.succ.additionalData.protection.bonus
+                let updates = condition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
+                updates[0].value = protectionAmount
+                await appliedCondition.update({ "changes": updates })
+            } else {
+                console.error("Wrong protection type passed in additional data. It needs to be a string of 'armor' or 'toughness'.")
+            }
+        } else if (condition.data.flags.succ.additionalData.boost) {
+            let trait = condition.data.flags.succ.additionalData.lower.trait
+            let type = "boost"
+            let degree = condition.data.flags.succ.additionalData.lower.degree
+            let duration = condition.data.flags.succ.additionalData.lower.duration
+            boost_lower_builder(condition, actorOrToken, trait, type, degree, duration)
+        } else if (condition.data.flags.succ.additionalData.lower) {
+            let trait = condition.data.flags.succ.additionalData.lower.trait
+            let type = "lower"
+            let degree = condition.data.flags.succ.additionalData.lower.degree
+            let duration = condition.data.flags.succ.additionalData.lower.duration
+            boost_lower_builder(condition, actorOrToken, trait, type, degree, duration)
+        }
+    }
+
+    async function boost_lower_builder(appliedCondition, actorOrToken, trait, type, degree, duration = 5) {
         let dieType
         let dieMod
         let keyPath
         let valueMod
-        let duration = 5
         if (type === "lower") { duration = 1 }
         let change = []
         if (
@@ -256,7 +308,12 @@ export async function effect_updater(condition, userID) {
             }
         } else {
             //Getting the skill:
-            let skill = actorOrToken.data.items.find(s => s.id === trait)
+            let skill
+            if (typeof trait === "string") {
+                skill = actorOrToken.data.items.find(s => s.id === trait)
+            } else {
+                skill = trait
+            }
             dieType = skill.data.data.die.sides
             dieMod = skill.data.data.die.modifier
             if (dieType === 12) {
