@@ -5,7 +5,7 @@ class succ {
    * @param {string} status_name: Name of the status
    * @param {boolean} final_state: True if we want the status applied, false to remove.
    */
-  static async apply_status(target, status_name, final_state = true) {
+  static async apply_status(target, status_name, final_state = true, data) {
     if (typeof (target) === 'string') {
       let new_target = await canvas.tokens.get(target)
       if (!new_target) {
@@ -23,6 +23,7 @@ class succ {
       target = target.actor
     }
     const effect = CONFIG.statusEffects.find(effect => effect.id === status_name)
+    console.log(effect)
     const applied_effects = target.effects.find(eff => eff.getFlag('core', 'statusId') === status_name)
     if (applied_effects && !final_state) {
       // The actor has the effect but we want it off
@@ -32,6 +33,7 @@ class succ {
       const new_effect = foundry.utils.deepClone(effect)
       new_effect.label = game.i18n.localize(new_effect.label)
       setProperty(new_effect, 'flags.core.statusId', effect.id)
+      setProperty(new_effect, 'flags.succ.additionalData', data)
       new_effect.id = undefined
       const doc_class = getDocumentClass('ActiveEffect')
       await doc_class.create(new_effect, { parent: target })
