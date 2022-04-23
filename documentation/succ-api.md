@@ -68,8 +68,8 @@ This is the data you want to use to bypass the smite effect builder dialogue:
 ```js
 const smiteData: {
     smite: {                            //This is where SUCC will look for the data.
-        bonus: 2                        //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
-        weapon: weaponItem              //Safest way is to pass the weapon item itself but you can pass a string which SUCC will search for on the actor (i.e. "Bow"). You can set it to `null` in which case the owner (or GM if there is no owner) is asked for the weapon.
+        bonus: 2,                       //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
+        weapon: weaponItem,             //Safest way is to pass the weapon item itself but you can pass a string which SUCC will search for on the actor (i.e. "Bow"). You can set it to `null` in which case the owner (or GM if there is no owner) is asked for the weapon.
         duration: 5                     //A number specifying the duration of the effect. It defaults to 5.
     }
 }
@@ -80,8 +80,8 @@ This is the data you want to use to bypass the protection effect builder dialogu
 ```js
 const protectionData: {
     protection: {                       //This is where SUCC will look for the data.
-        bonus: 2                        //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
-        type: "armor"                   //This can also be "toughness". It defines to which the bonus is applied to.
+        bonus: 2,                       //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
+        type: "armor",                  //This can also be "toughness". It defines to which the bonus is applied to.
         duration: 5                     //A number specifying the duration of the effect. It defaults to 5.
     }
 }
@@ -90,10 +90,10 @@ const protectionData: {
 ### Additional Data for *boost/lower*
 This is the data you want to use to bypass the boost/lower effect builder dialogue:
 ```js
-const protectionData: {
+const boostLowerData: {
     boost: {                            //This is where SUCC will look for the data, use 'lower' if the spell was cast using lower.
-        bonus: 1                        //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass. You need to pass the correct die steps (so from d6 to d8 would be 1), if the trait would exceed a d12, it will give it the bonus instead, you do not need to adjust the passed number, the builder automatically does that. If the trait would go below a d4, it'll set it to unskilled (d4-2) instead.
-        trait: skillItem                //It's the safest to pass the skills item directly but you can pass a string and the builder will search for that. For Attributes this is the only way to pass it.
+        bonus: 1,                       //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass. You need to pass the correct die steps (so from d6 to d8 would be 1), if the trait would exceed a d12, it will give it the bonus instead, you do not need to adjust the passed number, the builder automatically does that. If the trait would go below a d4, it'll set it to unskilled (d4-2) instead.
+        trait: skillItem,               //It's the safest to pass the skills item directly but you can pass a string and the builder will search for that. For Attributes this is the only way to pass it.
         duration: 5                     //A number specifying the duration of the effect. It defaults to 5.
     }
 }
