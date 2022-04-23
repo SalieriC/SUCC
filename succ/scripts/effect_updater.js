@@ -225,33 +225,39 @@ export async function effect_updater(condition, userID) {
 
             condition.setFlag('swade', 'expiration', 3)
             let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-            let change = { key: `@Weapon{${selectedWeaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
+            let change = { key: `@Weapon{${weaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
             updates.changes = [change]
             updates.duration.rounds = condition.data.flags.succ.additionalData.smite.duration
-            await appliedCondition.update(updates)
+            await condition.update(updates)
         } else if (condition.data.flags.succ.additionalData.protection) {
             condition.setFlag('swade', 'expiration', 3)
             if (condition.data.flags.succ.additionalData.protection.type === "armor") {
                 let protectionAmount = condition.data.flags.succ.additionalData.protection.bonus
                 let updates = condition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
                 updates[1].value = protectionAmount
-                await appliedCondition.update({ "changes": updates })
+                await condition.update({ "changes": updates })
             } else if (condition.data.flags.succ.additionalData.protection.type === "toughness") {
                 let protectionAmount = condition.data.flags.succ.additionalData.protection.bonus
                 let updates = condition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
                 updates[0].value = protectionAmount
-                await appliedCondition.update({ "changes": updates })
+                await condition.update({ "changes": updates })
             } else {
                 console.error("Wrong protection type passed in additional data. It needs to be a string of 'armor' or 'toughness'.")
             }
         } else if (condition.data.flags.succ.additionalData.boost) {
             let trait = condition.data.flags.succ.additionalData.boost.trait
+            if (typeof trait === "string") {
+                trait = actorOrToken.items.find(i => i.name.toLowerCase() === trait.toLowerCase()).id
+            } else (trait = traid.id)
             let type = "boost"
             let degree = condition.data.flags.succ.additionalData.boost.degree
             let duration = condition.data.flags.succ.additionalData.boost.duration
             boost_lower_builder(condition, actorOrToken, trait, type, degree, duration)
         } else if (condition.data.flags.succ.additionalData.lower) {
             let trait = condition.data.flags.succ.additionalData.lower.trait
+            if (typeof trait === "string") {
+                trait = actorOrToken.items.find(i => i.name.toLowerCase() === trait.toLowerCase()).id
+            } else (trait = traid.id)
             let type = "lower"
             let degree = condition.data.flags.succ.additionalData.lower.degree
             let duration = condition.data.flags.succ.additionalData.lower.duration
@@ -308,14 +314,10 @@ export async function effect_updater(condition, userID) {
             }
         } else {
             //Getting the skill:
-            let skill
-            if (typeof trait === "string") {
-                skill = actorOrToken.data.items.find(s => s.id === trait)
-            } else {
-                skill = trait
-            }
+            let skill = actorOrToken.data.items.find(s => s.id === trait)
             dieType = skill.data.data.die.sides
             dieMod = skill.data.data.die.modifier
+
             if (dieType === 12) {
                 keyPath = `@Skill{${skill.name}}[data.die.modifier]`
                 valueMod = 1
