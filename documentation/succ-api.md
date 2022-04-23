@@ -48,6 +48,11 @@ If additional data is passed to the `succ.apply_status()` and `succ.toogle_statu
 > data.flags.succ.additionalData  
 Inside is the data object placed, which were passed to the aforementioned functions.  
 
+### Caveat
+It is highly recommended you pass the execution of the setup to a GMs account. Otherwise the person executing the script will get error messages for actors they have no permission to edit. Passing the script execution to a GM will circumvent this. For macros you can do this using the Advances Macros module. For Modules you can either do it via a Hook only a GM listens to (preferably only the first active GM) or using the notification feature of the Warp Gate module.  
+Ideally you will create the data as below and pass it to another function that calls the apply or toggle function of SUCC on the first active GMs account.  
+Be very vareful when executing scripts that may be edited by players on a GMs account though. Mischievous players can do all sorts of things then.
+
 ### How to build data
 If you're an experienced developer you may skip this section.  
 Building the data object is rather simple. Here is an example:  
@@ -69,7 +74,7 @@ This is the data you want to use to bypass the smite effect builder dialogue:
 const smiteData: {
     smite: {                            //This is where SUCC will look for the data.
         bonus: 2,                       //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
-        weapon: weaponItem,             //Safest way is to pass the weapon item itself but you can pass a string which SUCC will just assume to be the name (i.e. "Bow"). SUCC will not check if that item exists! You can set it to `null` in which case the owner of the actor (or GM if there is no owner) is asked for the weapon.
+        weapon: weaponItem,             //Safest way is to pass the weapon item itself but you can pass a string which SUCC will just assume to be the name (i.e. "Bow"). SUCC will not check if that item exists!
         duration: 5                     //A number specifying the duration of the effect. It defaults to 5.
     }
 }
@@ -93,7 +98,7 @@ This is the data you want to use to bypass the boost/lower effect builder dialog
 const boostLowerData: {
     boost: {                            //This is where SUCC will look for the data, use 'lower' if the spell was cast using lower.
         degree: "success",              //This is the degree of success and failure. Can also be 'raise'.
-        trait: skillItem,               //It's the safest to pass the skills item directly but you can pass a string and the builder will search for that. For Attributes this is the only way to pass it.
+        trait: skillItem,               //It's the safest to pass the skills' item directly but you can pass a string and the builder will search for that. For Attributes this is the only way to pass it.
         duration: 5                     //A number specifying the duration of the effect. It defaults to 5.
     }
 }
