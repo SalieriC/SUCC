@@ -19,6 +19,14 @@ This will return `true` if the token currently has the requested condition or `f
 - `actorOrToken` is the actor or token you want to check. It also accepts the ID of an actor or token if that's all you have.
 - `'conditionName'` is the name of the condition you want to check, i.e. `'shaken'`.
 
+### Get the Condition document
+Contrary to `check_status()`, with this you can get the condition itself:  
+`(async) succ.get_condition_from(actorOrToken, 'conditionName')`
+  
+This will return the condition document itself if the token currently has the requested condition or `null` if not. Since it is async, you'll want to `await` it.  
+- `actorOrToken` is the actor or token you want to check. It also accepts the ID of an actor or token if that's all you have.
+- `'conditionName'` is the name of the condition you want to check, i.e. `'shaken'`.
+
 ### Apply/Remove Conditions
 Foundry core and SWADE system both provide functions to apply/remove conditions (`token.toggleActiveEffect()` in case of FVTT and `actor.toggleActiveEffect()` in case of SWADE). Both however work exactly the same and have two major problems:  
 1. You need to pass the full effect, you can *not* just call its name.
