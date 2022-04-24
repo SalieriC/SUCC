@@ -343,6 +343,11 @@ export async function effect_updater(condition, userID) {
                 if (type === "boost" && degree === "raise" && dieType === 10) {
                     valueMod = 2
                     change.push({ key: `@Skill{${skill.name}}[data.die.modifier]`, mode: 2, priority: undefined, value: 1 })
+                } else if (type === "boost" && (skill.name === game.i18n.localize("SWADE.Unskilled") || skill.name === game.i18n.localize("SUCC.effectBuilder.unskilled-coreRules"))) {
+                    if (dieMod <= -2 && dieType === 4) {
+                        change.push({ key: `@Skill{${skill.name}}[data.die.modifier]`, mode: 2, priority: undefined, value: 2 })
+                        if (degree === "success") { valueMod = 0 }
+                    }
                 } else if (type === "boost" && degree === "raise") {
                     valueMod = 4
                 } else if (type === "lower" && degree === "success" && dieType === 4) {
