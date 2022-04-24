@@ -6,14 +6,14 @@ Below you'll find a documentation of currently exposed functions that can be uti
 
 ### Get Condition
 An easy way to check if a condition is set up and available from the token context menu and to get the condition itself.  
-> succ.get_condition('conditionName')  
+`(async) succ.get_condition('conditionName')`  
 
 This will return the requested condition if it is set up in the world, or return undefined if it is not.  
 - `'conditionName'` is the name of the condition you want returned, i.e. `'shaken'`.
 
 ### Check for Conditions
 SUCC provides an easy way to check whether or not a token or actor currently has a condition applied:  
-> succ.check_status(actorOrToken, 'conditionName')
+`(async) succ.check_status(actorOrToken, 'conditionName')`
   
 This will return `true` if the token currently has the requested condition or `false` if not. Since it is async, you'll want to `await` it.  
 - `actorOrToken` is the actor or token you want to check. It also accepts the ID of an actor or token if that's all you have.
@@ -25,7 +25,7 @@ Foundry core and SWADE system both provide functions to apply/remove conditions 
 2. Without arguments, it'll toggle the effect (remove if active, add if not). If `active:false` is passed to it, it will remove the effect and on `active:true` it will add it. But it will force add it in this case, that means that it will add the condition *again* even if it was already there.
 
 This is why SUCC adds its own function to be used by developers which covers both problems for ease of use. It can be called like this:  
-> succ.apply_status(actorOrToken, 'conditionName', boolean<sub>opt</sub>, overlay<sub>opt</sub>, additionalData<sub>opt</sub>)
+`(async) succ.apply_status(actorOrToken, 'conditionName', boolean<sub>opt</sub>, overlay<sub>opt</sub>, additionalData<sub>opt</sub>)`
 - `actorOrToken` is the actor or token you want the condition to apply to. It also accepts the ID of an actor or token if that's all you have.
 - `'conditionName'` is the name of the condition you want to apply, i.e. `'shaken'`.
 - `boolean`is optional. If not passed, the function will always add the effect (unless it is already present in which case it does nothing). If `false` is passed, it will remove the effect if present and do nothing if not, passing `true` will work the same as without passing it.
@@ -34,7 +34,7 @@ This is why SUCC adds its own function to be used by developers which covers bot
 
 ### Toggle Conditions
 This is closer to the way FVTT core works but doesn't need the full effect to be passed.  
-> succ.toggle_status(actorOrToken, 'conditionName', boolean<sub>opt</sub>, overlay<sub>opt</sub>, additionalData<sub>opt</sub>)
+`(async) succ.toggle_status(actorOrToken, 'conditionName', boolean<sub>opt</sub>, overlay<sub>opt</sub>, additionalData<sub>opt</sub>)`
 - `actorOrToken` is the actor or token you want the condition to apply to. It also accepts the ID of an actor or token if that's all you have.
 - `'conditionName'` is the name of the condition you want to apply, i.e. `'shaken'`.
 - `boolean`is optional. If not passed, the function will *toggle* the effect (remove if present, add if not). If `false` is passed, it will remove the effect if present and do nothing if not, passing `true` will work the same as without passing it.
@@ -47,7 +47,7 @@ Of course there is also the possibility of using the set up flags for your own p
 
 ### Basic data structure
 If additional data is passed to the `succ.apply_status()` and `succ.toogle_status()` functions, it will be set up like this on the active effect:  
-> data.flags.succ.additionalData  
+`data.flags.succ.additionalData`  
 Inside is the data object placed, which were passed to the aforementioned functions.  
 
 ### Caveat
