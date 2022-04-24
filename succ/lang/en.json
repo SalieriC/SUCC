@@ -34,5 +34,6 @@
     "SUCC.dialogue.attribute": "|ATTRIBUTE|",
     "SUCC.dialogue.skill": "|SKILL|",
     "SUCC.dialogue.success": "Success",
-    "SUCC.dialogue.raise": "Raise"
+    "SUCC.dialogue.raise": "Raise",
+    "SUCC.effectBuilder.unskilled-coreRules": "Unskilled Attempt"
 }

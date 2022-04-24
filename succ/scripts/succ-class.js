@@ -5,8 +5,9 @@ class succ {
    * @param {string} status_name: Name of the status
    * @param {boolean} final_state: True if we want the status applied, false to remove.
    * @param {boolean} overlay: Add the icon as a big overlay
+   * @param {object} additionalData: Various data to be saved as flags on the status.
    */
-  static async apply_status(target, status_name, final_state = true, overlay = false) {
+  static async apply_status(target, status_name, final_state = true, additionalData) {
     if (typeof (target) === 'string') {
       let new_target = await canvas.tokens.get(target)
       if (!new_target) {
@@ -24,6 +25,7 @@ class succ {
       target = target.actor
     }
     const effect = CONFIG.statusEffects.find(effect => effect.id === status_name)
+    console.log(effect)
     const applied_effects = target.effects.find(eff => eff.getFlag('core', 'statusId') === status_name)
     if (applied_effects && !final_state) {
       // The actor has the effect but we want it off
@@ -34,6 +36,7 @@ class succ {
       new_effect.label = game.i18n.localize(new_effect.label)
       setProperty(new_effect, 'flags.core.overlay', overlay)
       setProperty(new_effect, 'flags.core.statusId', effect.id)
+      setProperty(new_effect, 'flags.succ.additionalData', additionalData)
       new_effect.id = undefined
       const doc_class = getDocumentClass('ActiveEffect')
       await doc_class.create(new_effect, { parent: target })
@@ -46,8 +49,9 @@ class succ {
    * @param {string} status_name: Name of the status
    * @param {boolean} final_state: True if we want the status toggled, false to remove.
    * @param {boolean} overlay: Add the icon as a big overlay
+   * @param {object} additionalData: Various data to be saved as flags on the status.
    */
-  static async toggle_status(target, status_name, final_state = true, overlay=true) {
+  static async toggle_status(target, status_name, final_state = true, overlay=true, additionalData) {
     if (typeof (target) === 'string') {
       let new_target = await canvas.tokens.get(target)
       if (!new_target) {
@@ -75,6 +79,7 @@ class succ {
       new_effect.label = game.i18n.localize(new_effect.label)
       setProperty(new_effect, 'flags.core.overlay', overlay)
       setProperty(new_effect, 'flags.core.statusId', effect.id)
+      setProperty(new_effect, 'flags.succ.additionalData', additionalData)
       new_effect.id = undefined
       const doc_class = getDocumentClass('ActiveEffect')
       await doc_class.create(new_effect, { parent: target })
