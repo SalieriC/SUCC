@@ -4,8 +4,9 @@ class succ {
    * @param {SwadeActor, Token, abstract.Document, String} target: Who to apply the status
    * @param {string} status_name: Name of the status
    * @param {boolean} final_state: True if we want the status applied, false to remove.
+   * @param {object} additionalData: Various data to be saved as flags on the status.
    */
-  static async apply_status(target, status_name, final_state = true, data) {
+  static async apply_status(target, status_name, final_state = true, additionalData) {
     if (typeof (target) === 'string') {
       let new_target = await canvas.tokens.get(target)
       if (!new_target) {
@@ -33,7 +34,7 @@ class succ {
       const new_effect = foundry.utils.deepClone(effect)
       new_effect.label = game.i18n.localize(new_effect.label)
       setProperty(new_effect, 'flags.core.statusId', effect.id)
-      setProperty(new_effect, 'flags.succ.additionalData', data)
+      setProperty(new_effect, 'flags.succ.additionalData', additionalData)
       new_effect.id = undefined
       const doc_class = getDocumentClass('ActiveEffect')
       await doc_class.create(new_effect, { parent: target })
@@ -45,8 +46,9 @@ class succ {
    * @param {SwadeActor, Token, abstract.Document} target: Who to apply the status
    * @param {string} status_name: Name of the status
    * @param {boolean} final_state: True if we want the status toggled, false to remove.
+   * @param {object} additionalData: Various data to be saved as flags on the status.
    */
-  static async toggle_status(target, status_name, final_state = true) {
+  static async toggle_status(target, status_name, final_state = true, additionalData) {
     if (typeof (target) === 'string') {
       let new_target = await canvas.tokens.get(target)
       if (!new_target) {
@@ -73,6 +75,7 @@ class succ {
       const new_effect = foundry.utils.deepClone(effect)
       new_effect.label = game.i18n.localize(new_effect.label)
       setProperty(new_effect, 'flags.core.statusId', effect.id)
+      setProperty(new_effect, 'flags.succ.additionalData', additionalData)
       new_effect.id = undefined
       const doc_class = getDocumentClass('ActiveEffect')
       await doc_class.create(new_effect, { parent: target })
