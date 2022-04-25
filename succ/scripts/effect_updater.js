@@ -211,7 +211,12 @@ export async function effect_updater(condition, userID) {
     async function builder_hub() {
         //Setting a flag to prevent repetitive chat message:                        
         await condition.setFlag('succ', 'updatedAE', true)
-        const attributes = [`${game.i18n.localize("SWADE.AttrAgi")}`, `${game.i18n.localize("SWADE.AttrSma")}`, `${game.i18n.localize("SWADE.AttrSpr")}`, `${game.i18n.localize("SWADE.AttrStr")}`, `${game.i18n.localize("SWADE.AttrVig")}`]
+        const attributes = [
+            `${game.i18n.localize("SWADE.AttrAgi").toLowerCase()}`,
+            `${game.i18n.localize("SWADE.AttrSma").toLowerCase()}`,
+            `${game.i18n.localize("SWADE.AttrSpr").toLowerCase()}`,
+            `${game.i18n.localize("SWADE.AttrStr").toLowerCase()}`,
+            `${game.i18n.localize("SWADE.AttrVig").toLowerCase()}`]
 
         if (condition.data.flags.succ.additionalData.smite) {
             let weaponName
@@ -247,18 +252,18 @@ export async function effect_updater(condition, userID) {
             }
         } else if (condition.data.flags.succ.additionalData.boost) {
             let trait = condition.data.flags.succ.additionalData.boost.trait
-            if (typeof trait === "string" && (attributes.includes(trait) === false)) {
+            if (typeof trait === "string" && (attributes.includes(trait.toLowerCase()) === false)) {
                 trait = actorOrToken.items.find(i => i.name.toLowerCase() === trait.toLowerCase()).id
-            } else (trait = traid.id)
+            } else if (typeof trait != "string") {trait = traid.id}
             let type = "boost"
             let degree = condition.data.flags.succ.additionalData.boost.degree
             let duration = condition.data.flags.succ.additionalData.boost.duration
             boost_lower_builder(condition, actorOrToken, trait, type, degree, duration)
         } else if (condition.data.flags.succ.additionalData.lower) {
             let trait = condition.data.flags.succ.additionalData.lower.trait
-            if (typeof trait === "string" && (attributes.includes(trait) === false)) {
+            if (typeof trait === "string" && (attributes.includes(trait.toLowerCase()) === false)) {
                 trait = actorOrToken.items.find(i => i.name.toLowerCase() === trait.toLowerCase()).id
-            } else (trait = traid.id)
+            } else if (typeof trait != "string") {trait = traid.id}
             let type = "lower"
             let degree = condition.data.flags.succ.additionalData.lower.degree
             let duration = condition.data.flags.succ.additionalData.lower.duration
