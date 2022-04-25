@@ -36,13 +36,13 @@ export async function effect_updater(condition, userID) {
                     label: game.i18n.localize("SUCC.dialogue.apply"),
                     callback: async (html) => {
                         //Setting a flag to prevent repetitive chat message:                        
-                        appliedCondition.setFlag('succ', 'updatedAE', true)
+                        await appliedCondition.setFlag('succ', 'updatedAE', true)
 
                         let selectedWeaponName = html.find(`#weapon`)[0].value
                         let damageBonus = Number(html.find("#damageBonus")[0].value)
                         if (damageBonus >= 0) { damageBonus = '+' + damageBonus }
 
-                        appliedCondition.setFlag('swade', 'expiration', 3)
+                        await appliedCondition.setFlag('swade', 'expiration', 3)
                         let updates = appliedCondition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
                         let change = { key: `@Weapon{${selectedWeaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
                         updates.changes = [change]
@@ -76,12 +76,12 @@ export async function effect_updater(condition, userID) {
                     label: game.i18n.localize("SWADE.Armor"),
                     callback: async (html) => {
                         //Setting a flag to prevent repetitive chat message:                        
-                        appliedCondition.setFlag('succ', 'updatedAE', true)
+                        await appliedCondition.setFlag('succ', 'updatedAE', true)
 
                         let protectionAmount = Number(html.find("#protectionAmount")[0].value)
                         let updates = appliedCondition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
                         updates[1].value = protectionAmount
-                        condition.setFlag('swade', 'expiration', 3)
+                        await condition.setFlag('swade', 'expiration', 3)
                         await appliedCondition.update({ "changes": updates })
                     }
                 },
@@ -89,7 +89,7 @@ export async function effect_updater(condition, userID) {
                     label: game.i18n.localize("SWADE.Tough"),
                     callback: async (html) => {
                         //Setting a flag to prevent repetitive chat message:                        
-                        appliedCondition.setFlag('succ', 'updatedAE', true)
+                        await appliedCondition.setFlag('succ', 'updatedAE', true)
 
                         let protectionAmount = Number(html.find("#protectionAmount")[0].value)
                         let updates = appliedCondition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
@@ -229,14 +229,14 @@ export async function effect_updater(condition, userID) {
             let damageBonus = condition.data.flags.succ.additionalData.smite.bonus
             if (damageBonus >= 0) { damageBonus = '+' + damageBonus }
 
-            condition.setFlag('swade', 'expiration', 3)
+            await condition.setFlag('swade', 'expiration', 3)
             let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
             let change = { key: `@Weapon{${weaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
             updates.changes = [change]
             updates.duration.rounds = condition.data.flags.succ.additionalData.smite.duration
             await condition.update(updates)
         } else if (condition.data.flags.succ.additionalData.protection) {
-            condition.setFlag('swade', 'expiration', 3)
+            await condition.setFlag('swade', 'expiration', 3)
             if (condition.data.flags.succ.additionalData.protection.type === "armor") {
                 let protectionAmount = condition.data.flags.succ.additionalData.protection.bonus
                 let updates = condition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
@@ -368,7 +368,7 @@ export async function effect_updater(condition, userID) {
         //Setting a flag to prevent repetitive chat message:                        
         await appliedCondition.setFlag('succ', 'updatedAE', true)
 
-        appliedCondition.setFlag('swade', 'expiration', 3)
+        await appliedCondition.setFlag('swade', 'expiration', 3)
         let updates = appliedCondition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
         change.push({ key: keyPath, mode: 2, priority: undefined, value: valueMod })
         updates.changes = change
