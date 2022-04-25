@@ -210,7 +210,7 @@ export async function effect_updater(condition, userID) {
 
     async function builder_hub() {
         //Setting a flag to prevent repetitive chat message:                        
-        condition.setFlag('succ', 'updatedAE', true)
+        await condition.setFlag('succ', 'updatedAE', true)
         const attributes = [`${game.i18n.localize("SWADE.AttrAgi")}`, `${game.i18n.localize("SWADE.AttrSma")}`, `${game.i18n.localize("SWADE.AttrSpr")}`, `${game.i18n.localize("SWADE.AttrStr")}`, `${game.i18n.localize("SWADE.AttrVig")}`]
 
         if (condition.data.flags.succ.additionalData.smite) {
