@@ -7,7 +7,7 @@ class succ {
    * @param {boolean} overlay: Add the icon as a big overlay
    * @param {object} additionalData: Various data to be saved as flags on the status.
    */
-  static async apply_status(target, status_name, final_state = true, additionalData) {
+  static async apply_status(target, status_name, final_state = true, overlay = false, additionalData) {
     if (typeof (target) === 'string') {
       let new_target = await canvas.tokens.get(target)
       if (!new_target) {
@@ -51,7 +51,7 @@ class succ {
    * @param {boolean} overlay: Add the icon as a big overlay
    * @param {object} additionalData: Various data to be saved as flags on the status.
    */
-  static async toggle_status(target, status_name, final_state = true, overlay=true, additionalData) {
+  static async toggle_status(target, status_name, final_state = true, overlay = false, additionalData) {
     if (typeof (target) === 'string') {
       let new_target = await canvas.tokens.get(target)
       if (!new_target) {
