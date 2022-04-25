@@ -366,7 +366,7 @@ export async function effect_updater(condition, userID) {
             }
         }
         //Setting a flag to prevent repetitive chat message:                        
-        appliedCondition.setFlag('succ', 'updatedAE', true)
+        await appliedCondition.setFlag('succ', 'updatedAE', true)
 
         appliedCondition.setFlag('swade', 'expiration', 3)
         let updates = appliedCondition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
