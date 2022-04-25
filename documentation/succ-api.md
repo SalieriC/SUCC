@@ -75,7 +75,7 @@ const data = {
     },
     number: 4
 }
-await succ.apply_status(token, 'shaken', true, data)
+await succ.apply_status(token, 'shaken', true, false, data)
 ```
 
 ### Additional Data for *smite*
