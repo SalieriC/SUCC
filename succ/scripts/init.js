@@ -161,15 +161,15 @@ function conditions_deep_change() {
         const json_conditions = JSON.parse(json_modify_conditions)
         let change_conditions = {}
         for (let i = 0; i < CONFIG.statusEffects.length; i++) {
-            console.log(i, CONFIG.statusEffects[i])
+            //console.log(i, CONFIG.statusEffects[i])
             if (CONFIG.statusEffects[i].id in json_conditions) {
                 const new_obj = {...CONFIG.statusEffects[i],
                     ...json_conditions[CONFIG.statusEffects[i].id]}
-                console.log(new_obj)
+                //console.log(new_obj)
                 change_conditions[i] = new_obj
             }
         }
-        console.log(change_conditions)
+        //console.log(change_conditions)
         if (change_conditions) {
             for (let change in change_conditions) {
                 CONFIG.statusEffects[change] = change_conditions[change]
