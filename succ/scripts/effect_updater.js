@@ -231,6 +231,7 @@ export async function effect_updater(condition, userID) {
 
             await condition.setFlag('swade', 'expiration', 3)
             let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
+            updates.icon =  condition.data.flags.succ.additionalData.smite.icon ? condition.data.flags.succ.additionalData.smite.icon : updates.icon
             let change = { key: `@Weapon{${weaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
             updates.changes = [change]
             updates.duration.rounds = condition.data.flags.succ.additionalData.smite.duration
@@ -239,14 +240,16 @@ export async function effect_updater(condition, userID) {
             await condition.setFlag('swade', 'expiration', 3)
             if (condition.data.flags.succ.additionalData.protection.type === "armor") {
                 let protectionAmount = condition.data.flags.succ.additionalData.protection.bonus
-                let updates = condition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                updates[1].value = protectionAmount
-                await condition.update({ "changes": updates })
+                let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
+                updates.icon =  condition.data.flags.succ.additionalData.protection.icon ? condition.data.flags.succ.additionalData.protection.icon : updates.icon
+                updates.changes[1].value = protectionAmount
+                await condition.update(updates)
             } else if (condition.data.flags.succ.additionalData.protection.type === "toughness") {
                 let protectionAmount = condition.data.flags.succ.additionalData.protection.bonus
-                let updates = condition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                updates[0].value = protectionAmount
-                await condition.update({ "changes": updates })
+                let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
+                updates.icon =  condition.data.flags.succ.additionalData.protection.icon ? condition.data.flags.succ.additionalData.protection.icon : updates.icon
+                updates.changes[0].value = protectionAmount
+                await condition.update(updates)
             } else {
                 console.error("Wrong protection type passed in additional data. It needs to be a string of 'armor' or 'toughness'.")
             }
@@ -258,7 +261,8 @@ export async function effect_updater(condition, userID) {
             let type = "boost"
             let degree = condition.data.flags.succ.additionalData.boost.degree
             let duration = condition.data.flags.succ.additionalData.boost.duration
-            boost_lower_builder(condition, actorOrToken, trait, type, degree, duration)
+            let icon = condition.data.flags.succ.additionalData.boost.icon
+            boost_lower_builder(condition, actorOrToken, trait, type, degree, duration, icon)
         } else if (condition.data.flags.succ.additionalData.lower) {
             let trait = condition.data.flags.succ.additionalData.lower.trait
             if (typeof trait === "string" && (attributes.includes(trait.toLowerCase()) === false)) {
@@ -267,11 +271,12 @@ export async function effect_updater(condition, userID) {
             let type = "lower"
             let degree = condition.data.flags.succ.additionalData.lower.degree
             let duration = condition.data.flags.succ.additionalData.lower.duration
-            boost_lower_builder(condition, actorOrToken, trait, type, degree, duration)
+            let icon = condition.data.flags.succ.additionalData.lower.icon
+            boost_lower_builder(condition, actorOrToken, trait, type, degree, duration, icon)
         }
     }
 
-    async function boost_lower_builder(appliedCondition, actorOrToken, trait, type, degree, duration = 5) {
+    async function boost_lower_builder(appliedCondition, actorOrToken, trait, type, degree, duration = 5, icon = false) {
         let dieType
         let dieMod
         let keyPath
@@ -370,6 +375,7 @@ export async function effect_updater(condition, userID) {
 
         await appliedCondition.setFlag('swade', 'expiration', 3)
         let updates = appliedCondition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
+        updates.icon = icon ? icon : updates.icon
         change.push({ key: keyPath, mode: 2, priority: undefined, value: valueMod })
         updates.changes = change
         updates.duration.rounds = duration

@@ -85,7 +85,8 @@ const smiteData = {
     smite: {                            //This is where SUCC will look for the data.
         bonus: 2,                       //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
         weapon: weaponItem,             //Safest way is to pass the weapon item itself but you can pass a string which SUCC will just assume to be the name (i.e. "Bow"). SUCC will not check if that item exists!
-        duration: 5                     //A number specifying the duration of the effect. It defaults to 5.
+        duration: 5,                    //A number specifying the duration of the effect. It defaults to 5.
+        icon: false                     //A string type file path to change the icon of the Active Effect. Will use the default icon if 'false'.
     }
 }
 ```
@@ -97,7 +98,8 @@ const protectionData = {
     protection: {                       //This is where SUCC will look for the data.
         bonus: 2,                       //This is the bonus applied by the AE. Negative numbers are possible so be careful what you pass.
         type: "armor",                  //This can also be "toughness". It defines to which the bonus is applied to.
-        duration: 5                     //A number specifying the duration of the effect. It defaults to 5.
+        duration: 5,                    //A number specifying the duration of the effect. It defaults to 5.
+        icon: false                     //A string type file path to change the icon of the Active Effect. Will use the default icon if 'false'.
     }
 }
 ```
@@ -109,7 +111,8 @@ const boostLowerData = {
     boost: {                            //This is where SUCC will look for the data, use 'lower' if the spell was cast using lower.
         degree: "success",              //This is the degree of success and failure. Can also be 'raise'.
         trait: skillItem,               //It's the safest to pass the skills' item directly but you can pass a string and the builder will search for that. For Attributes this is the only way to pass it.
-        duration: 5                     //A number specifying the duration of the effect. It defaults to 5.
+        duration: 5,                    //A number specifying the duration of the effect. It defaults to 5.
+        icon: false                     //A string type file path to change the icon of the Active Effect. Will use the default icon if 'false'.
     }
 }
 ```
