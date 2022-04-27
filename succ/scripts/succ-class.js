@@ -25,7 +25,7 @@ class succ {
       target = target.actor
     }
     const effect = CONFIG.statusEffects.find(effect => effect.id === status_name)
-    console.log(effect)
+    //console.log(effect)
     const applied_effects = target.effects.find(eff => eff.getFlag('core', 'statusId') === status_name)
     if (applied_effects && !final_state) {
       // The actor has the effect but we want it off
