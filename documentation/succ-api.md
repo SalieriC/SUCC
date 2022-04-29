@@ -39,6 +39,7 @@ This is why SUCC adds its own function to be used by developers which covers bot
 - `boolean`is optional. If not passed, the function will always add the effect (unless it is already present in which case it does nothing). If `false` is passed, it will remove the effect if present and do nothing if not, passing `true` will work the same as without passing it.
 - `overlay` (boolean) is also optional. If passed true, the condition will be added as an overlay (displaying a big icon instead of a small one.)
 - `additionalData` is optional as well. It's an object holding all sorts of information to be processed by other functions in SWADE. In order for the functions to work properly, the object must be built correctly and carefully. See the section "Additional Data" for detailed information on how to build it for your purposes.  
+The function returns the AE for further use.  
 
 ### Toggle Conditions
 This is closer to the way FVTT core works but doesn't need the full effect to be passed.  
@@ -48,6 +49,7 @@ This is closer to the way FVTT core works but doesn't need the full effect to be
 - `boolean`is optional. If not passed, the function will *toggle* the effect (remove if present, add if not). If `false` is passed, it will remove the effect if present and do nothing if not, passing `true` will work the same as without passing it.
 - `overlay` (boolean) is also optional. If passed true, the condition will be added as an overlay (displaying a big icon instead of a small one.)
 - `data` is optional as well. It's an object holding all sorts of information to be processed by other functions in SWADE. In order for the functions to work properly, the object must be built correctly and carefully. See the section "Additional Data" for detailed information on how to build it for your purposes.  
+The function returns the AE for further use.  
 
 ## Additional Data
 As mentioned above, SUCC enables you to pass an object holding additional data. This object is set up in the flags of the AE in question. These flags are utilised by SUCC in other scripts such as the effect builder for smite, protection and the like. This allows you as a dev to bypass the effect builder dialogues, i.e. to further enhance the automation of your game.  

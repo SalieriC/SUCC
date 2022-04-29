@@ -39,7 +39,8 @@ class succ {
       setProperty(new_effect, 'flags.succ.additionalData', additionalData)
       new_effect.id = undefined
       const doc_class = getDocumentClass('ActiveEffect')
-      await doc_class.create(new_effect, { parent: target })
+      const statusAE = await doc_class.create(new_effect, { parent: target })
+      return statusAE
     }
   }
 
@@ -82,7 +83,8 @@ class succ {
       setProperty(new_effect, 'flags.succ.additionalData', additionalData)
       new_effect.id = undefined
       const doc_class = getDocumentClass('ActiveEffect')
-      await doc_class.create(new_effect, { parent: target })
+      const statusAE = await doc_class.create(new_effect, { parent: target })
+      return statusAE
     }
   }
 
