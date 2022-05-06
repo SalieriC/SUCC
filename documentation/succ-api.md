@@ -133,3 +133,28 @@ const protectionData = {
 }
 ```
 There is no harm in not passing additionalChanges. If you don't need them it's best to ignore them and to take the other examples above. If you do need them, they can be incredibly powerful if you build them properly.
+
+### Passing flags
+Similar to additional changes above, this is optional and to be used carefully. Only use it if you must and know what you're doing.  
+```js
+const protectionData = {
+    protection: {
+        bonus: 2,
+        type: "armor",
+        duration: 5,
+        icon: false,
+        flags: {
+            world: {
+                foo: bar
+            }
+        }
+    }
+}
+```
+SUCC will incorporate the flags from `protectionData.protection.flags` onwards. So in this case your effect would get the following flags added:
+```
+world: {
+    foo: bar
+}
+```
+In addition to any other flags already present.
