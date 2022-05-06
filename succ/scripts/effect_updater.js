@@ -418,13 +418,11 @@ export async function effect_updater(condition, userID) {
             updates.changes = updates.changes.concat(additionalChanges)
         }
         updates.duration.rounds = duration
-        console.log(updates)
         if (flags) { updates.flags = {
             ...updates.flags,
             ...flags
             } 
         }
-        console.log(updates.flags)
         await appliedCondition.update(updates)
     }
 }
