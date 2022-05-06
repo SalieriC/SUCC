@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Support for calling the builders using script with predefined values, bypassing the dalogues in the process. This also allows to apply the effects to multiple tokens at once.  
 - - The builders also accept additional changes to incorporate changes of your choice in addition to their usual changes.
+- - The builders accept flags as well, see documentation and only use if you have to and know what you're doing.
 - Documentation updates in the API detailing the above feature.
 - Apply and toggle status functions now return the applied condition.
 
