@@ -118,3 +118,18 @@ const boostLowerData = {
     }
 }
 ```
+
+### Additional Changes
+You have the ability to push additional changes as well, those will be incorporated into the changes of the effect just before upading the effect. It uses the `concat` method to merge the changes into the changes array. This means that you have to pass an object which holds all the arrays of changes you want to include. Failing to build this properly will result in failure, so be extra careful when doing so. Taking *protection* as an example, it would look like this:  
+```js
+const protectionData = {
+    protection: {
+        bonus: 2,
+        type: "armor",
+        duration: 5,
+        icon: false,
+        additionalChanges: [{ key: `@Skill{Spellcasting}[data.die.modifier]`, mode: 2, priority: undefined, value: -1 }]
+    }
+}
+```
+There is no harm in not passing additionalChanges. If you don't need them it's best to ignore them and to take the other examples above. If you do need them, they can be incredibly powerful if you build them properly.
