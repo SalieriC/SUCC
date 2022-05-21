@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] 
 
+## [0.1.0-pre.8] - 2022-05-21
+☮️ Peace in the world, or the world in pieces. 🕊️
+### Fixed
+- A small error in the effect changer that caused it to not get the correct data.
+
 ## [0.1.0-pre.7] - 2022-05-07
 ☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added

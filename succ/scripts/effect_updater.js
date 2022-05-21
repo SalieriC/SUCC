@@ -305,7 +305,7 @@ export async function effect_updater(condition, userID) {
             let degree = condition.data.flags.succ.additionalData.lower.degree
             let duration = condition.data.flags.succ.additionalData.lower.duration
             let icon = condition.data.flags.succ.additionalData.lower.icon
-            let additionalChanges = condition.data.flags.succ.additionalData.boost.additionalChanges
+            let additionalChanges = condition.data.flags.succ.additionalData.lower.additionalChanges
             let flags
             if (condition.data.flags.succ.additionalData.lower.flags) { flags = condition.data.flags.succ.additionalData.lower.flags }
             boost_lower_builder(condition, actorOrToken, trait, type, degree, duration, icon, additionalChanges, flags)
