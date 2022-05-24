@@ -53,4 +53,12 @@ export function register_settings() {
         type: String,
         config: true,
     })
+    game.settings.register('succ', 'disable_status_dialogue', {
+        name : game.i18n.localize("SUCC.setting.disable_status_dialogue"),
+        hint: game.i18n.localize("SUCC.setting.disable_status_dialogue_hint"),
+        scope: "world",
+        default: false,
+        type: Boolean,
+        config: true,
+    })
 }

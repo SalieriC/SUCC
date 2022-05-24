@@ -35,5 +35,7 @@
     "SUCC.dialogue.skill": "|SKILL|",
     "SUCC.dialogue.success": "Success",
     "SUCC.dialogue.raise": "Raise",
-    "SUCC.effectBuilder.unskilled-coreRules": "Unskilled Attempt"
+    "SUCC.effectBuilder.unskilled-coreRules": "Unskilled Attempt",
+    "SUCC.setting.disable_status_dialogue": "Disable Shaken and Stunned removal dialogue:",
+    "SUCC.setting.disable_status_dialogue_hint": "If set to true, the game will not show the dialogue to remove Shaken and Stunned, allowing you to make rolls for it without the need to dismiss the dialogue."
 }
