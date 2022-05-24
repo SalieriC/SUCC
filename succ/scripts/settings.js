@@ -60,5 +60,8 @@ export function register_settings() {
         default: false,
         type: Boolean,
         config: true,
+        onChange: () => {
+            window.location.reload();
+        }
     })
 }
