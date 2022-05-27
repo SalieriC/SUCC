@@ -5,16 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [0.1.0-pre.9] - 2022-05-27
+☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
 - New setting to disable the dialogue to remove shaken and stunned, making removal rolls from Modules like SWIM and BR2 more viable.
 
 ## [0.1.0-pre.8] - 2022-05-21
-☮️ Peace in the world, or the world in pieces. 🕊️
 ### Fixed
 - A small error in the effect changer that caused it to not get the correct data.
 
 ## [0.1.0-pre.7] - 2022-05-07
-☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
 - Support for calling the builders using script with predefined values, bypassing the dalogues in the process. This also allows to apply the effects to multiple tokens at once.  
 - - The builders also accept additional changes to incorporate changes of your choice in addition to their usual changes.
