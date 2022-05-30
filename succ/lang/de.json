@@ -35,5 +35,7 @@
     "SUCC.dialogue.skill": "|FERTIGKEIT|",
     "SUCC.dialogue.success": "Erfolg",
     "SUCC.dialogue.raise": "Steigerung",
-    "SUCC.effectBuilder.unskilled-coreRules": "Ungeübter Versuch"
+    "SUCC.effectBuilder.unskilled-coreRules": "Ungeübter Versuch",
+    "SUCC.setting.disable_status_dialogue": "Deaktiviere den Angeschlagen/Betäubt Entfernungsdialog:",
+    "SUCC.setting.disable_status_dialogue_hint": "Wenn aktiv wir kein Dialog zur Entfernung von Angeschlagen oder Betäubt gesendet. Damit können die Würfe gemacht werden, ohne zuerst den Dialog schließen zu müssen."
 }
