@@ -45,7 +45,7 @@ Hooks.on(`ready`, () => {
         CONFIG.statusEffects.push({ id: "lower", label: game.i18n.localize("SUCC.condition.lower"), icon: "modules/succ/assets/icons/m-lower.svg" });
     }
     // Disable Shaken removal dialogue
-    if (game.settings.get('succ', 'disable_status_dialogue') && game.user.isGM) {
+    if (game.settings.get('succ', 'disable_status_dialogue') /*&& game.user.isGM*/) {
         for (let status of CONFIG.SWADE.statusEffects) {
             if (status.id === 'shaken' || status.id === 'stunned') {
                 status.flags.swade.expiration = null
