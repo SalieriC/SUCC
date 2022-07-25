@@ -26,6 +26,7 @@
     "SUCC.setting.boost_lower_hint": "If set to true, two new conditions will be added to apply the effects of the boost/lower power.",
     "SUCC.condition.boost": "Boost Trait",
     "SUCC.condition.lower": "Lower Trait",
+    "SUCC.condition.the_drop": "The Drop",
     "SUCC.dialogue.boost_builder_name": "Boost Trait Builder",
     "SUCC.dialogue.boost_builder_dialogue": "<p><i>Boost</i> raises a single Trait of the recipient. Please choose the affected Trait and the degree of success the caster had.</p>",
     "SUCC.dialogue.lower_builder_name": "Lower Trait Builder",

@@ -43,6 +43,7 @@ Hooks.on(`ready`, () => {
     if (game.settings.get('succ', 'boost_lower') === true) {
         CONFIG.statusEffects.push({ id: "boost", label: game.i18n.localize("SUCC.condition.boost"), icon: "modules/succ/assets/icons/m-boost.svg" });
         CONFIG.statusEffects.push({ id: "lower", label: game.i18n.localize("SUCC.condition.lower"), icon: "modules/succ/assets/icons/m-lower.svg" });
+        CONFIG.statusEffects.splice(15, 0, { id: "the-drop", label: game.i18n.localize("SUCC.condition.the_drop"), icon: "modules/succ/assets/icons/2-the_drop.svg" })
     }
     // Disable Shaken removal dialogue
     if (game.settings.get('succ', 'disable_status_dialogue') /*&& game.user.isGM*/) {
