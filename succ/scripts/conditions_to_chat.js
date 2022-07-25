@@ -47,7 +47,6 @@ export async function output_to_chat(condition, removed, userID) {
         conditionAndLink = `${journalLink}{${conditionName}}`
     }
     const last_message = game.messages.contents[game.messages.size - 1]
-    console.log(last_message)
     if (last_message && last_message.data.flags.hasOwnProperty("succ") &&
             last_message.data.speaker.alias === actorOrTokenName &&
             last_message.data.flags.succ.state === state) {
