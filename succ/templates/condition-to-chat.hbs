@@ -6,28 +6,6 @@
 </div>
 <div class="enhanced-conditions content" data-token-id="{{actorOrTokenID}}">
     <ul class="chat-message condition-list">
-        <li class="flexrow" id="{{conditionID}}" data-condition-name="{{conditionName}}">
-            <div class="condition-icon">
-                <img src="{{conditionIcon}}" class="condition-icon chat-message" title="{{conditionName}}">
-            </div>
-            {{#if hasReference}}
-            <div class="condition-reference">
-                {{conditionAndLink}}
-            </div>
-            {{else}}
-            <div class="condition-name" style="flex: 2; margin: 3px 0px 0px 0px" height="20px">
-                {{conditionAndLink}}
-            </div>
-            {{/if}}
-            {{#if removed}}
-            <div class="undo-remove succ-undo">
-                <a name="undo-remove" title="{{localize "SUCC.undo"}}"><i class="fas fa-undo"></i></a>
-            </div>
-            {{else}}
-            <div class="remove-row succ-remove">
-                <a name="remove-row" title="{{localize "SUCC.remove"}}"><i class="fas fa-times"></i></a>
-            </div>
-            {{/if}}
-        </li>
+        {{>"modules/succ/templates/condition_line.hbs"}}
     </ul>
 </div>

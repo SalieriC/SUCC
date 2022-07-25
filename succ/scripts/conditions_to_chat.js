@@ -1,20 +1,8 @@
+/* globals game, renderTemplate, ChatMessage */
+
 import { SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS_NEW, SUCC_DEFAULT_SWADE_LINKS_106 } from "./default_mappings.js";
 
-//-----------------------------------------------------
-// First, collect all changes:
-/*
-let conditions = [];
-let timer;
-function condition_collector(condition) {
-    clearTimeout(timer);
-    conditions.push(condition);
-    setTimeout(test(conditions), 250);
-}
-function test(conditions) {
-    console.log(conditions)
-}
-*/
-// Condition output to chat:
+
 export async function output_to_chat(condition, removed, userID) {
     //console.log(condition);
     let conditionID = condition.id
@@ -58,35 +46,43 @@ export async function output_to_chat(condition, removed, userID) {
     if (journalLink) {
         conditionAndLink = `${journalLink}{${conditionName}}`
     }
-
-    // Rendering template:
-    const template = "modules/succ/templates/condition-to-chat.hbs"
-    const variables = {
-        state,
-        actorOrTokenID,
-        conditionID,
-        conditionName,
-        conditionIcon,
-        hasReference,
-        conditionAndLink,
-        removed,
-    }
-    let chatContent = await renderTemplate(template, variables)
-
-    // Chat message content soon to be replaced by a template... hopefully.
-    ChatMessage.create({
-        speaker: {
-            alias: actorOrTokenName
-        },
-        content: chatContent,
-        user: userID,
-        flags: {
-            succ: 
-                variables/*
-                actorOrTokenID: actorOrTokenID,
-                conditionName: conditionName*/
-            
+    const last_message = game.messages.contents[game.messages.size - 1]
+    console.log(last_message)
+    if (last_message && last_message.data.flags.hasOwnProperty("succ") &&
+            last_message.data.speaker.alias === actorOrTokenName &&
+            last_message.data.flags.succ.state === state) {
+        // We can Merge with the last message
+        let content = last_message.data.content
+        const variables = {conditionID, conditionIcon, conditionName,
+            hasReference, conditionAndLink, removed}
+        const new_li = await renderTemplate(
+            "modules/succ/templates/condition_line.hbs", variables)
+        const las_ul_position = content.indexOf("</ul>")
+        content = content.substring(0,las_ul_position)
+        content += new_li
+        last_message.update({content: content})
+    } else {
+        const template = "modules/succ/templates/condition-to-chat.hbs"
+        const variables = {
+            state,
+            actorOrTokenID,
+            conditionID,
+            conditionName,
+            conditionIcon,
+            hasReference,
+            conditionAndLink,
+            removed,
         }
-    })
+        let chatContent = await renderTemplate(template, variables)
+        ChatMessage.create({
+            speaker: {
+                alias: actorOrTokenName
+            },
+            content: chatContent,
+            user: userID,
+            flags: {
+                succ: variables
+            }
+        })
+    }
 }
-//-----------------------------------------------------

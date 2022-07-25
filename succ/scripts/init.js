@@ -22,7 +22,8 @@ Hooks.on(`ready`, () => {
     add_conditions();
     conditions_deep_change();
     // Registering templates:
-    const templatePaths = ["modules/succ/templates/condition-to-chat.hbs"]
+    const templatePaths = ["modules/succ/templates/condition-to-chat.hbs",
+        "modules/succ/templates/condition_line.hbs"]
     loadTemplates(templatePaths)
 
     if (game.modules.get("combat-utility-belt")?.active) {
