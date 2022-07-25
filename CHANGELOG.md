@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - The Drop condition.
 - Chat output on applying conditions merge into a single chat message when multiple conditions are applied/removed.
+- Translation update via weblate.
 
 ## [0.1.0-pre.9] - 2022-05-27
 ☮️ Peace in the world, or the world in pieces. 🕊️
