@@ -26,6 +26,7 @@
     "SUCC.setting.boost_lower_hint": "Ist diese Einstellung aktiv, werden zwei neue Status-Effekte für die Eigenschaft erhöhen/senken Macht hinzugefügt.",
     "SUCC.condition.boost": "Eigenschaft erhöhen",
     "SUCC.condition.lower": "Eigenschaft senken",
+    "SUCC.condition.the_drop": "Überraschungsangriff",
     "SUCC.dialogue.boost_builder_name": "Generator: Eigenschaft erhöhen",
     "SUCC.dialogue.boost_builder_dialogue": "<p><em>Erhöht</em> eine Eigenschaft des Ziels. Bitte wähle die betroffene Eigenschaft und den Erfolgsgrad des Wirkers.</p>",
     "SUCC.dialogue.lower_builder_name": "Eigenschaft senken Generator",
