@@ -70,7 +70,7 @@ export async function output_to_chat(condition, removed, userID) {
             conditionIcon,
             hasReference,
             conditionAndLink,
-            removed,
+            removed
         }
         let chatContent = await renderTemplate(template, variables)
         ChatMessage.create({

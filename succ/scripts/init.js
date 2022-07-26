@@ -132,20 +132,28 @@ Hooks.on(`updateActiveEffect`, (condition, toggle, _, userID) => {
 
 // Add buttons to the chat message:
 Hooks.on("renderChatMessage", (message, html) => {
-    const undo_div = html[0].querySelector("div.undo-remove.succ-undo")
-    const redo_div = html[0].querySelector("div.remove-row.succ-remove")
-    if (undo_div) {
-        undo_div.addEventListener("click", () => {
-            let actorOrTokenID = message.data.flags.succ.actorOrTokenID
-            let condition = message.data.flags.succ.conditionName.toLowerCase().replace(" - ", "-").replace(" ", "-")
-            succ.apply_status(actorOrTokenID, condition, true)
-        });
-    } else if (redo_div) {
-        redo_div.addEventListener("click", () => {
-            let actorOrTokenID = message.data.flags.succ.actorOrTokenID
-            let condition = message.data.flags.succ.conditionName.toLowerCase().replace(" - ", "-").replace(" ", "-")
-            succ.apply_status(actorOrTokenID, condition, false)
-        });
+    const undo_divs = html[0].querySelectorAll("div.undo-remove.succ-undo")
+    const redo_divs = html[0].querySelectorAll("div.remove-row.succ-remove")
+    if (undo_divs.length) {
+        for (let undo_div of undo_divs) {
+            undo_div.addEventListener("click", (ev) => {
+                const condition = ev.currentTarget.dataset.conditionName.toLowerCase().replace(
+                    " - ", "-").replace(" ", "-")
+                let actorOrTokenID = message.data.flags.succ.actorOrTokenID
+                succ.apply_status(actorOrTokenID, condition, true)
+            });
+        }
+    } else if (redo_divs.length) {
+        console.log(redo_divs)
+        for (let redo_div of redo_divs) {
+            redo_div.addEventListener("click", (ev) => {
+                const condition = ev.currentTarget.dataset.conditionName.toLowerCase().replace(
+                    " - ", "-").replace(" ", "-")
+                let actorOrTokenID = message.data.flags.succ.actorOrTokenID
+                console.log(condition)
+                succ.apply_status(actorOrTokenID, condition, false)
+            });
+        }
     }
 });
 //-----------------------------------------------------
