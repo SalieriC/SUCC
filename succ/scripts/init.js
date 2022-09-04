@@ -49,27 +49,13 @@ Hooks.on(`ready`, () => {
         CONFIG.statusEffects.push({ id: "lower", label: game.i18n.localize("SUCC.condition.lower"), icon: "modules/succ/assets/icons/m-lower.svg" });
     }
 
-    //Changing and adding current status effects:
-    const fightingSkill = game.settings.get("swade", "parryBaseSkill")
-    for (let status of CONFIG.statusEffects) {
-        if (status.id === 'prone') {
-            status.changes = [{
-                "key": "system.stats.parry.value",
-                "value": "-2",
-                "mode": 2
-            },
-            {
-                "key": `@Skill{${fightingSkill}}[system.die.modifier]`,
-                "value": "-2",
-                "mode": 2
-            }]
-        }
-    }
-
     // Disable Shaken removal dialogue
     if (game.settings.get('succ', 'disable_status_dialogue') /*&& game.user.isGM*/) {
-        game.swade.effectCallbacks.set('shaken', ()=>{})
-        game.swade.effectCallbacks.set('stunned', ()=>{})
+        for (let status of CONFIG.SWADE.statusEffects) {
+            if (status.id === 'shaken' || status.id === 'stunned') {
+                status.flags.swade.expiration = null
+            }
+        }
     }
 });
 
@@ -77,22 +63,22 @@ Hooks.on(`ready`, () => {
 // To avoid spamming the chat, implement a collecting debouncer outside of the hooks like here: https://discord.com/channels/170995199584108546/722559135371231352/941704126272770118
 // Listening to hooks for creating the chat messages:
 Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
-    if ((condition.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
-        condition.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
+    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
+        condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
         game.settings.get('succ', 'output_to_chat') === true &&
         game.user.isGM === true) {
         const removed = false
         output_to_chat(condition, removed, userID)
     }
-    if (condition.flags?.core?.statusId === "smite" ||
-        condition.flags?.core?.statusId === "protection" ||
-        condition.flags?.core?.statusId === "boost" ||
-        condition.flags?.core?.statusId === "lower") {
+    if (condition.data.flags?.core?.statusId === "smite" ||
+        condition.data.flags?.core?.statusId === "protection" ||
+        condition.data.flags?.core?.statusId === "boost" ||
+        condition.data.flags?.core?.statusId === "lower") {
         effect_updater(condition, userID)
     }
-    if (condition.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
+    if (condition.data.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
         let actor = condition.parent
-        if (actor.type === "npc" && game.user.isGM) {
+        if (actor.data.type === "npc" && game.user.isGM) {
             game.combat?.combatants.forEach(combatant => {
                 if (combatant.token.id === actor.token.id) {
                     game.combat.updateEmbeddedDocuments('Combatant',
@@ -104,16 +90,16 @@ Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
 });
 Hooks.on(`deleteActiveEffect`, async (condition, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if ((condition.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
-        condition.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
+    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
+        condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
         game.settings.get('succ', 'output_to_chat') === true &&
         game.user.isGM === true) {
         const removed = true
         output_to_chat(condition, removed, userID)
     }
-    if (condition.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
+    if (condition.data.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
         let actor = condition.parent
-        if (actor.type === "npc" && game.user.isGM) {
+        if (actor.data.type === "npc" && game.user.isGM) {
             game.combat?.combatants.forEach(combatant => {
                 if (combatant.token.id === actor.token.id) {
                     game.combat.updateEmbeddedDocuments('Combatant',
@@ -125,12 +111,12 @@ Hooks.on(`deleteActiveEffect`, async (condition, _, userID) => {
 });
 Hooks.on(`updateActiveEffect`, (condition, toggle, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if ((condition.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
-        condition.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
+    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
+        condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
         game.settings.get('succ', 'output_to_chat') === true &&
         game.user.isGM === true) {
         // Checking for the updated flag to prevent a repetitive message:
-        if (condition.flags?.succ?.updatedAE === true) {
+        if (condition.data.flags?.succ?.updatedAE === true) {
             return
         }
 
@@ -153,18 +139,18 @@ Hooks.on("renderChatMessage", (message, html) => {
             undo_div.addEventListener("click", (ev) => {
                 const condition = ev.currentTarget.dataset.conditionName.toLowerCase().replace(
                     " - ", "-").replace(" ", "-")
-                let actorOrTokenID = message.flags.succ.actorOrTokenID
+                let actorOrTokenID = message.data.flags.succ.actorOrTokenID
                 succ.apply_status(actorOrTokenID, condition, true)
             });
         }
     } else if (redo_divs.length) {
-        console.log(redo_divs)
+        //console.log(redo_divs)
         for (let redo_div of redo_divs) {
             redo_div.addEventListener("click", (ev) => {
                 const condition = ev.currentTarget.dataset.conditionName.toLowerCase().replace(
                     " - ", "-").replace(" ", "-")
-                let actorOrTokenID = message.flags.succ.actorOrTokenID
-                console.log(condition)
+                let actorOrTokenID = message.data.flags.succ.actorOrTokenID
+                //console.log(condition)
                 succ.apply_status(actorOrTokenID, condition, false)
             });
         }
