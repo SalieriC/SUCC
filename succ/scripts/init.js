@@ -57,6 +57,11 @@ Hooks.on(`ready`, () => {
             }
         }
     }
+    // change defending string to a sensible option:
+    let defending = CONFIG.statusEffects.find(s => s.id === 'defending')
+    if (defending) {
+        defending.changes[0].key = "data.stats.parry.value"
+    }
 });
 
 //-----------------------------------------------------
