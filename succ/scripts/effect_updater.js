@@ -2,25 +2,25 @@ export async function effect_updater(condition, userID) {
     let actorOrToken = condition.parent
 
     //console.log(actorOrToken.data.effects)
-    if (condition.data.flags?.succ?.additionalData) { builder_hub() }
-    else if (condition.data.flags?.core?.statusId === "smite" && game.user.id === userID) {
-        let appliedCondition = actorOrToken.data.effects.find(function (e) {
-            return ((e.data.label === game.i18n.localize("SWADE.Smite")))
+    if (condition.flags?.succ?.additionalData) { builder_hub() }
+    else if (condition.flags?.core?.statusId === "smite" && game.user.id === userID) {
+        let appliedCondition = actorOrToken.effects.find(function (e) {
+            return ((e.label === game.i18n.localize("SWADE.Smite")))
         })
 
-        const weapons = actorOrToken.data.items.filter(i => i.type === "weapon")
+        const weapons = actorOrToken.items.filter(i => i.type === "weapon")
         if (weapons.length === 0) {
             return ui.notifications.warn(`${game.i18n.localize("SUCC.smite.no_weapons")}`)
         }
         let weapOptions
         for (let weapon of weapons) {
-            weapOptions = weapOptions + `<option value="${weapon.data.name}">${weapon.data.name}</option>`
+            weapOptions = weapOptions + `<option value="${weapon.name}">${weapon.name}</option>`
         }
 
         new Dialog({
             title: game.i18n.localize("SUCC.dialogue.smite_builder_name"),
             content: `
-            <h2><img src=${condition.data.icon} width="30" height="30" style="border:0;" /> ${game.i18n.localize("SUCC.dialogue.smite_builder_name")}</h2>
+            <h2><img src=${condition.icon} width="30" height="30" style="border:0;" /> ${game.i18n.localize("SUCC.dialogue.smite_builder_name")}</h2>
             ${game.i18n.localize("SUCC.dialogue.smite_builder_dialogue")}
             <div style="display:flex">
                 <p style="flex:3">${game.i18n.localize("SUCC.dialogue.weapon_to_affect")}</p>
@@ -55,16 +55,16 @@ export async function effect_updater(condition, userID) {
                 }
             }
         }).render(true)
-    } else if (condition.data.flags?.core?.statusId === "protection" && game.user.id === userID) {
-        let appliedCondition = actorOrToken.data.effects.find(function (e) {
-            return ((e.data.label === game.i18n.localize("SWADE.Protection")))
+    } else if (condition.flags?.core?.statusId === "protection" && game.user.id === userID) {
+        let appliedCondition = actorOrToken.effects.find(function (e) {
+            return ((e.label === game.i18n.localize("SWADE.Protection")))
         })
         //console.log(appliedCondition)
         //Protection stuff
         new Dialog({
             title: game.i18n.localize("SUCC.dialogue.protection_builder_name"),
             content: `
-            <h2><img src=${condition.data.icon} width="30" height="30" style="border:0;" /> ${game.i18n.localize("SUCC.dialogue.protection_builder_name")}</h2>
+            <h2><img src=${condition.icon} width="30" height="30" style="border:0;" /> ${game.i18n.localize("SUCC.dialogue.protection_builder_name")}</h2>
             ${game.i18n.localize("SUCC.dialogue.protection_builder_dialogue")}
             <div style="display:flex">
                 <p style="flex:3">${game.i18n.localize("SUCC.dialogue.amount_to_increase")}</p>
@@ -102,9 +102,9 @@ export async function effect_updater(condition, userID) {
                 }
             }
         }).render(true)
-    } else if (condition.data.flags?.core?.statusId === "boost" && game.user.id === userID) {
-        let appliedCondition = actorOrToken.data.effects.find(function (e) {
-            return ((e.data.label === game.i18n.localize("SUCC.condition.boost")))
+    } else if (condition.flags?.core?.statusId === "boost" && game.user.id === userID) {
+        let appliedCondition = actorOrToken.effects.find(function (e) {
+            return ((e.label === game.i18n.localize("SUCC.condition.boost")))
         })
         //Building options
         let traitOptions = `
@@ -123,7 +123,7 @@ export async function effect_updater(condition, userID) {
         new Dialog({
             title: game.i18n.localize("SUCC.dialogue.boost_builder_name"),
             content: `
-            <h2><img src=${condition.data.icon} width="30" height="30" style="border:0;" /> ${game.i18n.localize("SUCC.dialogue.boost_builder_name")}</h2>
+            <h2><img src=${condition.icon} width="30" height="30" style="border:0;" /> ${game.i18n.localize("SUCC.dialogue.boost_builder_name")}</h2>
             ${game.i18n.localize("SUCC.dialogue.boost_builder_dialogue")}
             <div class="form-group">
                 <label for="selected_trait">${game.i18n.localize("SUCC.dialogue.trait")} </label>
@@ -154,9 +154,9 @@ export async function effect_updater(condition, userID) {
                 }
             }
         }).render(true)
-    } else if (condition.data.flags?.core?.statusId === "lower" && game.user.id === userID) {
-        let appliedCondition = actorOrToken.data.effects.find(function (e) {
-            return ((e.data.label === game.i18n.localize("SUCC.condition.lower")))
+    } else if (condition.flags?.core?.statusId === "lower" && game.user.id === userID) {
+        let appliedCondition = actorOrToken.effects.find(function (e) {
+            return ((e.label === game.i18n.localize("SUCC.condition.lower")))
         })
         //Building options
         let traitOptions = `
@@ -167,7 +167,7 @@ export async function effect_updater(condition, userID) {
             <option value="vigor">${game.i18n.localize("SUCC.dialogue.attribute")} ${game.i18n.localize("SWADE.AttrVig")}</option>
         `
         // Adding Skills
-        for (let each of actorOrToken.data.items) {
+        for (let each of actorOrToken.items) {
             if (each.type === "skill") {
                 traitOptions = traitOptions + `<option value="${each.id}">${game.i18n.localize("SUCC.dialogue.skill")} ${each.name}</option>`
             }
@@ -175,7 +175,7 @@ export async function effect_updater(condition, userID) {
         new Dialog({
             title: game.i18n.localize("SUCC.dialogue.lower_builder_name"),
             content: `
-            <h2><img src=${condition.data.icon} width="30" height="30" style="border:0;" /> ${game.i18n.localize("SUCC.dialogue.lower_builder_name")}</h2>
+            <h2><img src=${condition.icon} width="30" height="30" style="border:0;" /> ${game.i18n.localize("SUCC.dialogue.lower_builder_name")}</h2>
             ${game.i18n.localize("SUCC.dialogue.lower_builder_dialogue")}
             <div class="form-group">
                 <label for="selected_trait">${game.i18n.localize("SUCC.dialogue.trait")} </label>
@@ -218,64 +218,64 @@ export async function effect_updater(condition, userID) {
             `${game.i18n.localize("SWADE.AttrStr").toLowerCase()}`,
             `${game.i18n.localize("SWADE.AttrVig").toLowerCase()}`]
 
-        if (condition.data.flags.succ.additionalData.smite) {
+        if (condition.flags.succ.additionalData.smite) {
             let weaponName
-            if (typeof condition.data.flags.succ.additionalData.smite.weapon === "string") {
-                weaponName = condition.data.flags.succ.additionalData.smite.weapon
+            if (typeof condition.flags.succ.additionalData.smite.weapon === "string") {
+                weaponName = condition.flags.succ.additionalData.smite.weapon
             } else {
-                weaponName = condition.data.flags.succ.additionalData.smite.weapon.name
+                weaponName = condition.flags.succ.additionalData.smite.weapon.name
             }
 
-            let damageBonus = condition.data.flags.succ.additionalData.smite.bonus
+            let damageBonus = condition.flags.succ.additionalData.smite.bonus
             if (damageBonus >= 0) { damageBonus = '+' + damageBonus }
 
             await condition.setFlag('swade', 'expiration', 3)
             let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-            updates.icon =  condition.data.flags.succ.additionalData.smite.icon ? condition.data.flags.succ.additionalData.smite.icon : updates.icon
+            updates.icon =  condition.flags.succ.additionalData.smite.icon ? condition.flags.succ.additionalData.smite.icon : updates.icon
             let change = { key: `@Weapon{${weaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
             updates.changes = [change]
-            updates.duration.rounds = condition.data.flags.succ.additionalData.smite.duration
-            if (condition.data.flags.succ.additionalData.smite.additionalChanges) {
-                updates.changes = updates.changes.concat(condition.data.flags.succ.additionalData.smite.additionalChanges)
+            updates.duration.rounds = condition.flags.succ.additionalData.smite.duration
+            if (condition.flags.succ.additionalData.smite.additionalChanges) {
+                updates.changes = updates.changes.concat(condition.flags.succ.additionalData.smite.additionalChanges)
             }
-            if (condition.data.flags.succ.additionalData.smite.flags) { 
+            if (condition.flags.succ.additionalData.smite.flags) { 
                 { updates.flags = {
                     ...updates.flags,
-                    ...condition.data.flags.succ.additionalData.smite.flags
+                    ...condition.flags.succ.additionalData.smite.flags
                     } 
                 }
             }
             await condition.update(updates)
-        } else if (condition.data.flags.succ.additionalData.protection) {
+        } else if (condition.flags.succ.additionalData.protection) {
             await condition.setFlag('swade', 'expiration', 3)
-            if (condition.data.flags.succ.additionalData.protection.type === "armor") {
-                let protectionAmount = condition.data.flags.succ.additionalData.protection.bonus
+            if (condition.flags.succ.additionalData.protection.type === "armor") {
+                let protectionAmount = condition.flags.succ.additionalData.protection.bonus
                 let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                updates.icon =  condition.data.flags.succ.additionalData.protection.icon ? condition.data.flags.succ.additionalData.protection.icon : updates.icon
+                updates.icon =  condition.flags.succ.additionalData.protection.icon ? condition.flags.succ.additionalData.protection.icon : updates.icon
                 updates.changes[1].value = protectionAmount
-                if (condition.data.flags.succ.additionalData.protection.additionalChanges) {
-                    updates.changes = updates.changes.concat(condition.data.flags.succ.additionalData.protection.additionalChanges)
+                if (condition.flags.succ.additionalData.protection.additionalChanges) {
+                    updates.changes = updates.changes.concat(condition.flags.succ.additionalData.protection.additionalChanges)
                 }
-                if (condition.data.flags.succ.additionalData.protection.flags) {
+                if (condition.flags.succ.additionalData.protection.flags) {
                     { updates.flags = {
                         ...updates.flags,
-                        ...condition.data.flags.succ.additionalData.protection.flags
+                        ...condition.flags.succ.additionalData.protection.flags
                         } 
                     }
                 }
                 await condition.update(updates)
-            } else if (condition.data.flags.succ.additionalData.protection.type === "toughness") {
-                let protectionAmount = condition.data.flags.succ.additionalData.protection.bonus
+            } else if (condition.flags.succ.additionalData.protection.type === "toughness") {
+                let protectionAmount = condition.flags.succ.additionalData.protection.bonus
                 let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                updates.icon =  condition.data.flags.succ.additionalData.protection.icon ? condition.data.flags.succ.additionalData.protection.icon : updates.icon
+                updates.icon =  condition.flags.succ.additionalData.protection.icon ? condition.flags.succ.additionalData.protection.icon : updates.icon
                 updates.changes[0].value = protectionAmount
-                if (condition.data.flags.succ.additionalData.protection.additionalChanges) {
-                    updates.changes = updates.changes.concat(condition.data.flags.succ.additionalData.protection.additionalChanges)
+                if (condition.flags.succ.additionalData.protection.additionalChanges) {
+                    updates.changes = updates.changes.concat(condition.flags.succ.additionalData.protection.additionalChanges)
                 }
-                if (condition.data.flags.succ.additionalData.protection.flags) {
+                if (condition.flags.succ.additionalData.protection.flags) {
                     { updates.flags = {
                         ...updates.flags,
-                        ...condition.data.flags.succ.additionalData.protection.flags
+                        ...condition.flags.succ.additionalData.protection.flags
                         } 
                     }
                 }
@@ -283,31 +283,31 @@ export async function effect_updater(condition, userID) {
             } else {
                 console.error("Wrong protection type passed in additional data. It needs to be a string of 'armor' or 'toughness'.")
             }
-        } else if (condition.data.flags.succ.additionalData.boost) {
-            let trait = condition.data.flags.succ.additionalData.boost.trait
+        } else if (condition.flags.succ.additionalData.boost) {
+            let trait = condition.flags.succ.additionalData.boost.trait
             if (typeof trait === "string" && (attributes.includes(trait.toLowerCase()) === false)) {
                 trait = actorOrToken.items.find(i => i.name.toLowerCase() === trait.toLowerCase()).id
             } else if (typeof trait != "string") {trait = traid.id}
             let type = "boost"
-            let degree = condition.data.flags.succ.additionalData.boost.degree
-            let duration = condition.data.flags.succ.additionalData.boost.duration
-            let icon = condition.data.flags.succ.additionalData.boost.icon
-            let additionalChanges = condition.data.flags.succ.additionalData.boost.additionalChanges
+            let degree = condition.flags.succ.additionalData.boost.degree
+            let duration = condition.flags.succ.additionalData.boost.duration
+            let icon = condition.flags.succ.additionalData.boost.icon
+            let additionalChanges = condition.flags.succ.additionalData.boost.additionalChanges
             let flags
-            if (condition.data.flags.succ.additionalData.boost.flags) { flags = condition.data.flags.succ.additionalData.boost.flags }
+            if (condition.flags.succ.additionalData.boost.flags) { flags = condition.flags.succ.additionalData.boost.flags }
             boost_lower_builder(condition, actorOrToken, trait, type, degree, duration, icon, additionalChanges, flags)
-        } else if (condition.data.flags.succ.additionalData.lower) {
-            let trait = condition.data.flags.succ.additionalData.lower.trait
+        } else if (condition.flags.succ.additionalData.lower) {
+            let trait = condition.flags.succ.additionalData.lower.trait
             if (typeof trait === "string" && (attributes.includes(trait.toLowerCase()) === false)) {
                 trait = actorOrToken.items.find(i => i.name.toLowerCase() === trait.toLowerCase()).id
             } else if (typeof trait != "string") {trait = traid.id}
             let type = "lower"
-            let degree = condition.data.flags.succ.additionalData.lower.degree
-            let duration = condition.data.flags.succ.additionalData.lower.duration
-            let icon = condition.data.flags.succ.additionalData.lower.icon
-            let additionalChanges = condition.data.flags.succ.additionalData.lower.additionalChanges
+            let degree = condition.flags.succ.additionalData.lower.degree
+            let duration = condition.flags.succ.additionalData.lower.duration
+            let icon = condition.flags.succ.additionalData.lower.icon
+            let additionalChanges = condition.flags.succ.additionalData.lower.additionalChanges
             let flags
-            if (condition.data.flags.succ.additionalData.lower.flags) { flags = condition.data.flags.succ.additionalData.lower.flags }
+            if (condition.flags.succ.additionalData.lower.flags) { flags = condition.flags.succ.additionalData.lower.flags }
             boost_lower_builder(condition, actorOrToken, trait, type, degree, duration, icon, additionalChanges, flags)
         }
     }
@@ -327,33 +327,33 @@ export async function effect_updater(condition, userID) {
             trait === "vigor"
         ) {
             //Get current die type:
-            dieType = actorOrToken.data.data.attributes[trait].die.sides
-            dieMod = actorOrToken.data.data.attributes[trait].die.modifier
+            dieType = actorOrToken.data.system.attributes[trait].die.sides
+            dieMod = actorOrToken.data.system.attributes[trait].die.modifier
             if (dieType === 12) {
-                keyPath = `data.attributes.${trait}.die.modifier`
+                keyPath = `system.attributes.${trait}.die.modifier`
                 valueMod = 1
                 if (type === "boost" && degree === "raise" && dieType != 10) { valueMod = 2 }
                 else if (type === "lower" && degree === "success" && dieMod <= 0) {
-                    keyPath = `data.attributes.${trait}.die.sides`
+                    keyPath = `system.attributes.${trait}.die.sides`
                     valueMod = -2
                 } else if (type === "lower" && degree === "raise" && dieMod <= 0) {
-                    keyPath = `data.attributes.${trait}.die.sides`
+                    keyPath = `system.attributes.${trait}.die.sides`
                     valueMod = -4
                 } else if (type === "lower" && degree === "success" && dieMod >= 1) {
                     valueMod = -1
                 } else if (type === "lower" && degree === "raise" && dieMod > 1) {
                     valueMod = -2
                 } else if (type === "lower" && degree === "raise" && dieMod === 1) {
-                    keyPath = `data.attributes.${trait}.die.sides`
+                    keyPath = `system.attributes.${trait}.die.sides`
                     valueMod = -2
-                    change.push({ key: `data.attributes.${trait}.die.modifier`, mode: 2, priority: undefined, value: -1 })
+                    change.push({ key: `system.attributes.${trait}.die.modifier`, mode: 2, priority: undefined, value: -1 })
                 }
             } else {
-                keyPath = `data.attributes.${trait}.die.sides`
+                keyPath = `system.attributes.${trait}.die.sides`
                 valueMod = 2
                 if (type === "boost" && degree === "raise" && dieType === 10) {
                     valueMod = 2
-                    change.push({ key: `data.attributes.${trait}.die.modifier`, mode: 2, priority: undefined, value: 1 })
+                    change.push({ key: `system.attributes.${trait}.die.modifier`, mode: 2, priority: undefined, value: 1 })
                 } else if (type === "boost" && degree === "raise") {
                     valueMod = 4
                 } else if (type === "lower" && degree === "raise") { valueMod = -4 }
