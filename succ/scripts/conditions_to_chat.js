@@ -25,18 +25,18 @@ export async function output_to_chat(condition, removed, userID) {
     let journalLink
     let hasReference = false
     if (game.modules.get("swpf-core-rules")?.active) {
-        if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWPF_LINKS_NEW) {
-            journalLink = SUCC_DEFAULT_SWPF_LINKS_NEW[condition.data.flags.core.statusId]
+        if (condition.flags?.core?.statusId in SUCC_DEFAULT_SWPF_LINKS_NEW) {
+            journalLink = SUCC_DEFAULT_SWPF_LINKS_NEW[condition.flags.core.statusId]
             hasReference = true
         }
     } else if (game.modules.get("swade-core-rules")?.active && (game.modules.get("swade-core-rules").data.version === "1.0.6" || game.modules.get("swade-core-rules").data.version === "1.0.7") ) { //temporary solution for changed IDs in SWADE core 1.0.6
-        if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWADE_LINKS_106) {
-            journalLink = SUCC_DEFAULT_SWADE_LINKS_106[condition.data.flags.core.statusId]
+        if (condition.flags?.core?.statusId in SUCC_DEFAULT_SWADE_LINKS_106) {
+            journalLink = SUCC_DEFAULT_SWADE_LINKS_106[condition.flags.core.statusId]
             hasReference = true
         }
     } else if (game.modules.get("swade-core-rules")?.active) {
-        if (condition.data.flags?.core?.statusId in SUCC_DEFAULT_SWADE_LINKS) {
-            journalLink = SUCC_DEFAULT_SWADE_LINKS[condition.data.flags.core.statusId]
+        if (condition.flags?.core?.statusId in SUCC_DEFAULT_SWADE_LINKS) {
+            journalLink = SUCC_DEFAULT_SWADE_LINKS[condition.flags.core.statusId]
             hasReference = true
         }
     }

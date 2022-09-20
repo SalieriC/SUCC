@@ -115,7 +115,7 @@ export async function effect_updater(condition, userID) {
             <option value="vigor">${game.i18n.localize("SUCC.dialogue.attribute")} ${game.i18n.localize("SWADE.AttrVig")}</option>
         `
         // Adding Skills
-        for (let each of actorOrToken.data.items) {
+        for (let each of actorOrToken.items) {
             if (each.type === "skill") {
                 traitOptions = traitOptions + `<option value="${each.id}">${game.i18n.localize("SUCC.dialogue.skill")} ${each.name}</option>`
             }
@@ -327,8 +327,8 @@ export async function effect_updater(condition, userID) {
             trait === "vigor"
         ) {
             //Get current die type:
-            dieType = actorOrToken.data.system.attributes[trait].die.sides
-            dieMod = actorOrToken.data.system.attributes[trait].die.modifier
+            dieType = actorOrToken.system.attributes[trait].die.sides
+            dieMod = actorOrToken.system.attributes[trait].die.modifier
             if (dieType === 12) {
                 keyPath = `system.attributes.${trait}.die.modifier`
                 valueMod = 1
@@ -361,38 +361,38 @@ export async function effect_updater(condition, userID) {
             }
         } else {
             //Getting the skill:
-            let skill = actorOrToken.data.items.find(s => s.id === trait)
-            dieType = skill.data.data.die.sides
-            dieMod = skill.data.data.die.modifier
+            let skill = actorOrToken.items.find(s => s.id === trait)
+            dieType = skill.system.die.sides
+            dieMod = skill.system.die.modifier
 
             if (dieType === 12) {
-                keyPath = `@Skill{${skill.name}}[data.die.modifier]`
+                keyPath = `@Skill{${skill.name}}[system.die.modifier]`
                 valueMod = 1
                 if (type === "boost" && degree === "raise" && dieType != 10) { valueMod = 2 }
                 else if (type === "lower" && degree === "success" && dieMod <= 0) {
-                    keyPath = `@Skill{${skill.name}}[data.die.sides]`
+                    keyPath = `@Skill{${skill.name}}[system.die.sides]`
                     valueMod = -2
                 } else if (type === "lower" && degree === "raise" && dieMod <= 0) {
-                    keyPath = `@Skill{${skill.name}}[data.die.sides]`
+                    keyPath = `@Skill{${skill.name}}[system.die.sides]`
                     valueMod = -4
                 } else if (type === "lower" && degree === "success" && dieMod >= 1) {
                     valueMod = -1
                 } else if (type === "lower" && degree === "raise" && dieMod > 1) {
                     valueMod = -2
                 } else if (type === "lower" && degree === "raise" && dieMod === 1) {
-                    keyPath = `@Skill{${skill.name}}[data.die.sides]`
+                    keyPath = `@Skill{${skill.name}}[system.die.sides]`
                     valueMod = -2
-                    change.push({ key: `@Skill{${skill.name}}[data.die.modifier]`, mode: 2, priority: undefined, value: -1 })
+                    change.push({ key: `@Skill{${skill.name}}[system.die.modifier]`, mode: 2, priority: undefined, value: -1 })
                 }
             } else {
-                keyPath = `@Skill{${skill.name}}[data.die.sides]`
+                keyPath = `@Skill{${skill.name}}[system.die.sides]`
                 valueMod = 2
                 if (type === "boost" && degree === "raise" && dieType === 10) {
                     valueMod = 2
-                    change.push({ key: `@Skill{${skill.name}}[data.die.modifier]`, mode: 2, priority: undefined, value: 1 })
+                    change.push({ key: `@Skill{${skill.name}}[system.die.modifier]`, mode: 2, priority: undefined, value: 1 })
                 } else if (type === "boost" && (skill.name === game.i18n.localize("SWADE.Unskilled") || skill.name === game.i18n.localize("SUCC.effectBuilder.unskilled-coreRules"))) {
                     if (dieMod <= -2 && dieType === 4) {
-                        change.push({ key: `@Skill{${skill.name}}[data.die.modifier]`, mode: 2, priority: undefined, value: 2 })
+                        change.push({ key: `@Skill{${skill.name}}[system.die.modifier]`, mode: 2, priority: undefined, value: 2 })
                         if (degree === "success") { valueMod = 0 }
                     }
                 } else if (type === "boost" && degree === "raise") {
