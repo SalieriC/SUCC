@@ -63,20 +63,20 @@ Hooks.on(`ready`, () => {
 // To avoid spamming the chat, implement a collecting debouncer outside of the hooks like here: https://discord.com/channels/170995199584108546/722559135371231352/941704126272770118
 // Listening to hooks for creating the chat messages:
 Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
-    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
-        condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
+    if ((condition.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
+        condition.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
         game.settings.get('succ', 'output_to_chat') === true &&
         game.user.isGM === true) {
         const removed = false
         output_to_chat(condition, removed, userID)
     }
-    if (condition.data.flags?.core?.statusId === "smite" ||
-        condition.data.flags?.core?.statusId === "protection" ||
-        condition.data.flags?.core?.statusId === "boost" ||
-        condition.data.flags?.core?.statusId === "lower") {
+    if (condition.flags?.core?.statusId === "smite" ||
+        condition.flags?.core?.statusId === "protection" ||
+        condition.flags?.core?.statusId === "boost" ||
+        condition.flags?.core?.statusId === "lower") {
         effect_updater(condition, userID)
     }
-    if (condition.data.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
+    if (condition.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
         let actor = condition.parent
         if (actor.data.type === "npc" && game.user.isGM) {
             game.combat?.combatants.forEach(combatant => {
@@ -90,16 +90,16 @@ Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
 });
 Hooks.on(`deleteActiveEffect`, async (condition, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
-        condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
+    if ((condition.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
+        condition.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
         game.settings.get('succ', 'output_to_chat') === true &&
         game.user.isGM === true) {
         const removed = true
         output_to_chat(condition, removed, userID)
     }
-    if (condition.data.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
+    if (condition.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
         let actor = condition.parent
-        if (actor.data.type === "npc" && game.user.isGM) {
+        if (actor.type === "npc" && game.user.isGM) {
             game.combat?.combatants.forEach(combatant => {
                 if (combatant.token.id === actor.token.id) {
                     game.combat.updateEmbeddedDocuments('Combatant',
@@ -111,12 +111,12 @@ Hooks.on(`deleteActiveEffect`, async (condition, _, userID) => {
 });
 Hooks.on(`updateActiveEffect`, (condition, toggle, _, userID) => {
     // __ is the ID of the user who executed the hook, possibly irrelevant in this context.
-    if ((condition.data.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
-        condition.data.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
+    if ((condition.flags?.core?.statusId in SUCC_DEFAULT_MAPPING ||
+        condition.flags?.core?.statusId in SUCC_DEFAULT_ADDITIONAL_CONDITIONS) &&
         game.settings.get('succ', 'output_to_chat') === true &&
         game.user.isGM === true) {
         // Checking for the updated flag to prevent a repetitive message:
-        if (condition.data.flags?.succ?.updatedAE === true) {
+        if (condition.flags?.succ?.updatedAE === true) {
             return
         }
 

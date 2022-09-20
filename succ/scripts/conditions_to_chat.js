@@ -13,8 +13,8 @@ export async function output_to_chat(condition, removed, userID) {
         actorOrTokenName = condition.parent.parent.name
         actorOrTokenID = condition.parent.parent.id
     }
-    const conditionName = condition.data.label
-    const conditionIcon = condition.data.icon
+    const conditionName = condition.label
+    const conditionIcon = condition.icon
 
     let state = game.i18n.localize("SUCC.added")
     if (removed === true) {
@@ -47,11 +47,11 @@ export async function output_to_chat(condition, removed, userID) {
         conditionAndLink = `${journalLink}{${conditionName}}`
     }
     const last_message = game.messages.contents[game.messages.size - 1]
-    if (last_message && last_message.data.flags.hasOwnProperty("succ") &&
-            last_message.data.speaker.alias === actorOrTokenName &&
-            last_message.data.flags.succ.state === state) {
+    if (last_message && last_message.flags.hasOwnProperty("succ") &&
+            last_message.speaker.alias === actorOrTokenName &&
+            last_message.flags.succ.state === state) {
         // We can Merge with the last message
-        let content = last_message.data.content
+        let content = last_message.content
         const variables = {conditionID, conditionIcon, conditionName,
             hasReference, conditionAndLink, removed}
         const new_li = await renderTemplate(
