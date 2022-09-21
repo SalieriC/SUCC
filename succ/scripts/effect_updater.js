@@ -1,7 +1,6 @@
 export async function effect_updater(condition, userID) {
     let actorOrToken = condition.parent
 
-    //console.log(actorOrToken.data.effects)
     if (condition.flags?.succ?.additionalData) { builder_hub() }
     else if (condition.flags?.core?.statusId === "smite" && game.user.id === userID) {
         let appliedCondition = actorOrToken.effects.find(function (e) {
@@ -44,7 +43,7 @@ export async function effect_updater(condition, userID) {
 
                         await appliedCondition.setFlag('swade', 'expiration', 3)
                         let updates = appliedCondition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                        let change = { key: `@Weapon{${selectedWeaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
+                        let change = { key: `@Weapon{${selectedWeaponName}}[system.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
                         updates.changes = [change]
                         updates.duration.rounds = 5
                         await appliedCondition.update(updates)

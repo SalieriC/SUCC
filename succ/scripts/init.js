@@ -78,7 +78,7 @@ Hooks.on(`createActiveEffect`, async (condition, _, userID) => {
     }
     if (condition.flags?.core?.statusId === "incapacitated" && game.settings.get('succ', 'mark_inc_defeated') === true) {
         let actor = condition.parent
-        if (actor.data.type === "npc" && game.user.isGM) {
+        if (actor.type === "npc" && game.user.isGM) {
             game.combat?.combatants.forEach(combatant => {
                 if (combatant.token.id === actor.token.id) {
                     game.combat.updateEmbeddedDocuments('Combatant',
@@ -139,7 +139,7 @@ Hooks.on("renderChatMessage", (message, html) => {
             undo_div.addEventListener("click", (ev) => {
                 const condition = ev.currentTarget.dataset.conditionName.toLowerCase().replace(
                     " - ", "-").replace(" ", "-")
-                let actorOrTokenID = message.data.flags.succ.actorOrTokenID
+                let actorOrTokenID = message.flags.succ.actorOrTokenID
                 succ.apply_status(actorOrTokenID, condition, true)
             });
         }
@@ -149,7 +149,7 @@ Hooks.on("renderChatMessage", (message, html) => {
             redo_div.addEventListener("click", (ev) => {
                 const condition = ev.currentTarget.dataset.conditionName.toLowerCase().replace(
                     " - ", "-").replace(" ", "-")
-                let actorOrTokenID = message.data.flags.succ.actorOrTokenID
+                let actorOrTokenID = message.flags.succ.actorOrTokenID
                 console.log(condition)
                 succ.apply_status(actorOrTokenID, condition, false)
             });
