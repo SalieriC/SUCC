@@ -8,7 +8,7 @@
 		"verified": "10.285",
 		"maximum": "10"
 	},
-	"version": "0.2.0",
+	"version": "0.5.0",
 	"author": "SalieriC, Javier Rivera",
 	"relationships": {
 		"systems": [{
@@ -34,6 +34,6 @@
 	],
 	"styles": ["./styles/succ-styles.css"],
 	"url": "https://github.com/SalieriC/SUCC",
-	"manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/main/succ/module.json",
-	"download": "https://github.com/SalieriC/SUCC/blob/main/succ.zip?raw=true"
+	"manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/v10_test/succ/module.json",
+	"download": "https://github.com/SalieriC/SUCC/raw/v10_test/succ.zip"
 }
