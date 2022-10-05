@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed a bug with Shaken/Stunned expiration setup.
 
-## [0.2.0] - 2022-07-26 aka "Javier doing everything, Sal doing nothing."
+## [0.2.0] - 2022-10-05 aka "Javier doing everything, Sal doing nothing."
 ☮️ Peace in the world, or the world in pieces. 🕊️
 ### Changed
 - Updated the module to be v10 compatible.
