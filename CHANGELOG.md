@@ -10,19 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed a bug with Shaken/Stunned expiration setup.
 
-## [0.2.2] - 2022-10-28 aka "Getting ready for SWIM."
+## [0.2.0] - 2022-07-26 aka "Javier doing everything, Sal doing nothing."
 ☮️ Peace in the world, or the world in pieces. 🕊️
-### Added
-- Proper changes to Fighting and Parry on the Prone status effect.
-### Changed
-- The additional data for the `apply_status` function now accepts a new property (`force`). It allows devs to apply the same condition multiple times as active effects. [See the Wiki on details how it works.](https://github.com/SalieriC/SUCC/wiki/SUCC-API#the-force-property)
-
-## [0.2.1] - 2022-10-21 aka "A job half done."
-### Changed
-- **Potetntially breaking:** Changed the `apply_status()` function so that it renews effects if they are already applied. This means that your code now needs be aware of applied status effects and don't apply them if already active unless you want to renew it.
-- Journal Links to conditions for the chat messages (SWADE core rules only, SWPF still needs to be done).
-
-## [0.2.0] - 2022-10-05 aka "Javier doing everything, Sal doing nothing."
 ### Changed
 - Updated the module to be v10 compatible.
 
