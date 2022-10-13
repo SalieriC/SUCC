@@ -1,39 +1,50 @@
 {
-	"id": "succ",
-	"title": "SWADE Ultimate Condition Changer",
-	"description": "<p>A module to change status icons in the SWADE system on Foundry VTT.</p><p><a href='https://ko-fi.com/salieric'>Please consider donating.</a></p>",
-	"minimumCoreVersion": "9.249",
-	"compatibility": {
-		"minimum": "10",
-		"verified": "10.285",
-		"maximum": "10"
-	},
-	"version": "0.5.0",
-	"author": "SalieriC, Javier Rivera",
-	"relationships": {
-		"systems": [{
-			"id": "swade",
-			"type": "system"
-		}]
-	},
-	"languages": [
-		{
-			"lang": "en",
-			"name": "English",
-			"path": "lang/en.json"
-		},
-		{
-			"lang": "de",
-			"name": "Deutsch",
-			"path": "lang/de.json"
-		}
-	],
-	"esmodules": ["./scripts/init.js"],
-	"scripts": [
-		"./scripts/succ-class.js"
-	],
-	"styles": ["./styles/succ-styles.css"],
-	"url": "https://github.com/SalieriC/SUCC",
-	"manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/v10_test/succ/module.json",
-	"download": "https://github.com/SalieriC/SUCC/raw/v10_test/succ.zip"
+  "id": "succ",
+  "title": "SWADE Ultimate Condition Changer",
+  "description": "<p>A module to change status icons in the SWADE system on Foundry VTT.</p><p><a href=\"https://ko-fi.com/salieric\">Please consider donating.</a></p>",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10.285",
+    "maximum": "10"
+  },
+  "version": "0.5.0",
+  "relationships": {
+    "systems": [
+      {
+        "id": "swade",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "scripts/init.js"
+  ],
+  "scripts": [
+    "scripts/succ-class.js"
+  ],
+  "styles": [
+    "styles/succ-styles.css"
+  ],
+  "url": "https://github.com/SalieriC/SUCC",
+  "manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/v10_test/succ/module.json",
+  "download": "https://github.com/SalieriC/SUCC/raw/v10_test/succ.zip",
+  "authors": [
+    {"name": "SalieriCZ"},
+    {"name": "Javier Rivera"}
+  ]
 }
