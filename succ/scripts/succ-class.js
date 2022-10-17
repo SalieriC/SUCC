@@ -29,7 +29,7 @@ class succ {
     const applied_effects = target.effects.find(eff => eff.getFlag('core', 'statusId') === status_name)
     if (applied_effects && !final_state) {
       // The actor has the effect but we want it off
-      applied_effects.delete()
+      await applied_effects.delete()
     } else if (!applied_effects && final_state) {
       // We want the effect but the actor doesn't have it
       const new_effect = foundry.utils.deepClone(effect)
