@@ -51,11 +51,8 @@ Hooks.on(`ready`, () => {
 
     // Disable Shaken removal dialogue
     if (game.settings.get('succ', 'disable_status_dialogue') /*&& game.user.isGM*/) {
-        for (let status of CONFIG.SWADE.statusEffects) {
-            if (status.id === 'shaken' || status.id === 'stunned') {
-                status.flags.swade.expiration = null
-            }
-        }
+        game.swade.effectCallbacks.set('shaken', ()=>{})
+        game.swade.effectCallbacks.set('stunned', ()=>{})
     }
 });
 
