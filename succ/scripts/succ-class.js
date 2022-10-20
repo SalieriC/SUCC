@@ -41,6 +41,14 @@ class succ {
       const doc_class = getDocumentClass('ActiveEffect')
       const statusAE = await doc_class.create(new_effect, { parent: target })
       return statusAE
+    } else if (applied_effects && final_state) {
+      // Renew and already existing effect
+      // console.log('Renewing effect: ', applied_effects)
+      const currRound = game.combats.active.round
+      if (currRound) {
+        await applied_effects.update({"duration.startRound": currRound})
+      }
+      return applied_effects
     }
   }
 
