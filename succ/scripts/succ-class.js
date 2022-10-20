@@ -44,7 +44,7 @@ class succ {
     } else if (applied_effects && final_state) {
       // Renew and already existing effect
       // console.log('Renewing effect: ', applied_effects)
-      const currRound = game.combats.active.round
+      const currRound = game.combats.active?.round
       if (currRound) {
         await applied_effects.update({"duration.startRound": currRound})
       }
