@@ -49,6 +49,23 @@ Hooks.on(`ready`, () => {
         CONFIG.statusEffects.push({ id: "lower", label: game.i18n.localize("SUCC.condition.lower"), icon: "modules/succ/assets/icons/m-lower.svg" });
     }
 
+    //Changing and adding current status effects:
+    const fightingSkill = game.settings.get("swade", "parryBaseSkill")
+    for (let status of CONFIG.statusEffects) {
+        if (status.id === 'prone') {
+            status.changes = [{
+                "key": "system.stats.parry.value",
+                "value": "-2",
+                "mode": 2
+            },
+            {
+                "key": `@Skill{${fightingSkill}}[system.die.modifier]`,
+                "value": "-2",
+                "mode": 2
+            }]
+        }
+    }
+
     // Disable Shaken removal dialogue
     if (game.settings.get('succ', 'disable_status_dialogue') /*&& game.user.isGM*/) {
         game.swade.effectCallbacks.set('shaken', ()=>{})
