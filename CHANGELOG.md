@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Proper changes to Fighting and Parry on the Prone status effect.
+### Changed
+- The additional data for the `apply_status` function now accepts a new property (`force`). It allows devs to apply the same condition multiple times as active effects. [See the Wiki on details how it works.](https://github.com/SalieriC/SUCC/wiki/SUCC-API#the-force-property)
 
 ## [0.2.1] - 2022-10-21 aka "A job half done."
 ☮️ Peace in the world, or the world in pieces. 🕊️

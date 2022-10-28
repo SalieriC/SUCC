@@ -41,6 +41,13 @@ class succ {
       const doc_class = getDocumentClass('ActiveEffect')
       const statusAE = await doc_class.create(new_effect, { parent: target })
       return statusAE
+    } else if (applied_effects && final_state && additionalData && additionalData.force === true) {
+      // The effect is already applied but we want to force a new effect (i.e. a secong Boost trait buff)
+      const new_effect = foundry.utils.deepClone(effect)
+      new_effect.label = game.i18n.localize(new_effect.label)
+      setProperty(new_effect, 'flags.succ.additionalData', additionalData)
+      const statusAE = await target.createEmbeddedDocuments("ActiveEffect", [new_effect])
+      return statusAE
     } else if (applied_effects && final_state) {
       // Renew and already existing effect
       // console.log('Renewing effect: ', applied_effects)
