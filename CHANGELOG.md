@@ -5,13 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.2.2] - 2022-10-28 aka "Getting ready for SWIM."
+☮️ Peace in the world, or the world in pieces. 🕊️
+### Added
+- Proper changes to Fighting and Parry on the Prone status effect.
 ### Changed
-- The defending option was changed so that it adds directly to parry instead of the modifier.
-### Fixed
-- Fixed a bug with Shaken/Stunned expiration setup.
+- The additional data for the `apply_status` function now accepts a new property (`force`). It allows devs to apply the same condition multiple times as active effects. [See the Wiki on details how it works.](https://github.com/SalieriC/SUCC/wiki/SUCC-API#the-force-property)
 
 ## [0.2.1] - 2022-10-21 aka "A job half done."
-☮️ Peace in the world, or the world in pieces. 🕊️
 ### Changed
 - **Potetntially breaking:** Changed the `apply_status()` function so that it renews effects if they are already applied. This means that your code now needs be aware of applied status effects and don't apply them if already active unless you want to renew it.
 - Journal Links to conditions for the chat messages (SWADE core rules only, SWPF still needs to be done).
