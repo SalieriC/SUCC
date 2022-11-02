@@ -5,9 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+☮️ Peace in the world, or the world in pieces. 🕊️
+### Added
+- Added hesitant effect to frightened condition.
 
 ## [0.2.2] - 2022-10-28 aka "Getting ready for SWIM."
-☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
 - Proper changes to Fighting and Parry on the Prone status effect.
 ### Changed

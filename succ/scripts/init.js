@@ -63,6 +63,12 @@ Hooks.on(`ready`, () => {
                 "value": "-2",
                 "mode": 2
             }]
+        } if (status.id === "frightened") {
+            status.changes = [{
+                "key": "system.initiative.hasHesitant",
+                "value": "true",
+                "mode": 5
+            }]
         }
     }
 
