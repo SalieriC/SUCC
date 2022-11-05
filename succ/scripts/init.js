@@ -74,12 +74,6 @@ Hooks.on(`ready`, () => {
                 "value": "true",
                 "mode": 5
             }]
-        } if (status.id === "conviction") {
-            status.changes = [{
-                "key": "system.details.conviction.active",
-                "value": "true",
-                "mode": 5
-            }]
         }
     }
 
