@@ -6,8 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.3] - 2022-11-03 aka "Little without 'Many' and 'Mickle'."
+## [0.2.4] - 2022-11-05 aka "Convicted to eternal maintenance."
 ☮️ Peace in the world, or the world in pieces. 🕊️
+### Added
+- Conviction condition if the systems setting is enabled.
+- Toggling conviction (as condition or from the character sheet) (de-)activates both, condition and conviction and deducts one conviction token.
+- Added Bleeding Out callback function removal to the option that disables callback functions.
+### Changed
+- Refactored init.js
+- Translation key `SUCC.setting.disable_status_dialogue` was changed.
+- SWPF Journal Links to conditions for the chat messages.
+
+## [0.2.3] - 2022-11-03 aka "Little without 'Many' and 'Mickle'."
 ### Added
 - Added hesitant effect to frightened condition.
 

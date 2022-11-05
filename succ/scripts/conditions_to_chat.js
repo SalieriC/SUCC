@@ -1,6 +1,6 @@
 /* globals game, renderTemplate, ChatMessage */
 
-import { SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS_NEW} from "./default_mappings.js";
+import { SUCC_DEFAULT_SWADE_LINKS, SUCC_DEFAULT_SWPF_LINKS} from "./default_mappings.js";
 
 
 export async function output_to_chat(condition, removed, userID) {
@@ -25,8 +25,8 @@ export async function output_to_chat(condition, removed, userID) {
     let journalLink
     let hasReference = false
     if (game.modules.get("swpf-core-rules")?.active) {
-        if (condition.flags?.core?.statusId in SUCC_DEFAULT_SWPF_LINKS_NEW) {
-            journalLink = SUCC_DEFAULT_SWPF_LINKS_NEW[condition.flags.core.statusId]
+        if (condition.flags?.core?.statusId in SUCC_DEFAULT_SWPF_LINKS) {
+            journalLink = SUCC_DEFAULT_SWPF_LINKS[condition.flags.core.statusId]
             hasReference = true
         }
     } else if (game.modules.get("swade-core-rules")?.active) {
