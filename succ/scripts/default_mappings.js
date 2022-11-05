@@ -32,6 +32,10 @@ export const SUCC_DEFAULT_MAPPING = {
 }
 
 export const SUCC_DEFAULT_ADDITIONAL_CONDITIONS = {
+    conviction: {
+        id: 'conviction',
+        icon: 'modules/succ/assets/icons/1-conviction.svg'
+    },
     irradiated: {
         id: 'irradiated',
         label: 'Irradiated',
@@ -56,6 +60,7 @@ export const SUCC_DEFAULT_SWADE_LINKS = {
     'defending': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03defend00000000#defend]',
     'flying': '@UUID[Compendium.swade-core-rules.swade-specialabilities.bvNxxTm14d8tD9aF]',
     'holding': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03hold0000000000#hold]',
+    'conviction': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor04theadv.JournalEntryPage.04conviction0000#conviction]',
     'bound': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03boundandenta00#bound-and-entangled]',
     'entangled': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03boundandenta00#bound-and-entangled]',
     'frightened': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor04theadv.JournalEntryPage.04fear0000000000#fear]',
