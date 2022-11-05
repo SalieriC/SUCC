@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Bleeding Out callback function removal to the option that disables callback functions.
 ### Changed
 - Refactored init.js
+- Translation key `SUCC.setting.disable_status_dialogue` was changed.
 
 ## [0.2.3] - 2022-11-03 aka "Little without 'Many' and 'Mickle'."
 ### Added
