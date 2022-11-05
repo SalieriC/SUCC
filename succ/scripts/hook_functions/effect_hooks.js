@@ -1,4 +1,4 @@
-import { output_to_chat } from "./conditions_to_chat.js"
+import { output_to_chat } from "../conditions_to_chat.js";
 
 export async function effect_hooks() {
     //-----------------------------------------------------
