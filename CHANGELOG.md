@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Conviction condition if the systems setting is enabled.
 - Toggling conviction (as condition or from the character sheet) (de-)activates both, condition and conviction and deducts one conviction token.
+- Added Bleeding Out callback function removal to the option that disables callback functions.
 ### Changed
 - Refactored init.js
 

@@ -81,6 +81,7 @@ Hooks.on(`ready`, () => {
     if (game.settings.get('succ', 'disable_status_dialogue') /*&& game.user.isGM*/) {
         game.swade.effectCallbacks.set('shaken', ()=>{})
         game.swade.effectCallbacks.set('stunned', ()=>{})
+        game.swade.effectCallbacks.set("bleeding-out", ()=>{})
     }
 });
 
