@@ -37,8 +37,9 @@ export async function effect_hooks() {
                 return
             } else if (actor.system.details.conviction.value >= 1 && actor.system.details.conviction.active === false) {
                 //Condition was toggled instead of the button on the actor sheet and actor has at least one conviction token.
+                const currValue = actor.system.details.conviction.value
                 await actor.update({
-                    "system.details.conviction.value": actor.system.details.conviction.value -1,
+                    "system.details.conviction.value": currValue -1,
                     "system.details.conviction.active": true
                 })
                 ChatMessage.create({
@@ -47,6 +48,15 @@ export async function effect_hooks() {
                       alias: actor.name,
                     },
                     content: game.i18n.localize('SWADE.ConvictionActivate'),
+                })
+                //Add the same flags as if toggled from the sheet:
+                await condition.update({
+                    flags: {
+                        succ: {
+                            updatedAE: true,
+                            userId: userID,
+                        }
+                    }
                 })
             } else if (actor.system.details.conviction.value < 1 && actor.system.details.conviction.active === false) {
                 //Condition was toggled instead of the button on the actor sheet but actor has no conviction tokens.
