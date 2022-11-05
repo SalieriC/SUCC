@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Refactored init.js
 - Translation key `SUCC.setting.disable_status_dialogue` was changed.
+- SWPF Journal Links to conditions for the chat messages.
 
 ## [0.2.3] - 2022-11-03 aka "Little without 'Many' and 'Mickle'."
 ### Added
