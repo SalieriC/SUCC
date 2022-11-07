@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.6] - 2022-MM-DD aka "Things you'll never notice."
+## [0.2.6] - 2022-11-07 aka "Things you'll never notice."
 ☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
 - Cold Bodied to the default mapping (and thus chat output) and an icon that is in line with the rest of SUCCs icons.
