@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.6] - 2022-MM-DD aka "*Forced* to eternal maintenance."
 ☮️ Peace in the world, or the world in pieces. 🕊️
+### Added
+- Cold Bodied to the default mapping (and thus chat output) and an icon that is in line with the rest of SUCCs icons.
 ### Changed
 - SUCC now uses the `actor.toggleConviction()` function of SWADE v. 2.1.0 instead of recreating it.
 

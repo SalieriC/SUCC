@@ -27,6 +27,7 @@ export const SUCC_DEFAULT_MAPPING = {
     'reach': 'modules/succ/assets/icons/5-reach.svg',
     'torch': 'modules/succ/assets/icons/5-torch.svg',
     'invisible': 'modules/succ/assets/icons/m-invisible.svg',
+    'cold-bodied': 'modules/succ/assets/icons/m-cold_bodied.svg',
     'smite': 'modules/succ/assets/icons/m-smite.svg',
     'protection': 'modules/succ/assets/icons/m-protection.svg'
 }
@@ -80,6 +81,7 @@ export const SUCC_DEFAULT_SWADE_LINKS = {
     'reach': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor02gear00.JournalEntryPage.02reach000000000#reach]',
     'torch': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03illumination00#illumination]',
     'invisible': '@UUID[Compendium.swade-core-rules.swade-powers.iS3duGwyTywaMOF7]',
+    'cold-bodied': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor06bestia.JournalEntryPage.06specialabili18#infravision]',
     'smite': '@UUID[Compendium.swade-core-rules.swade-powers.AlGYtSZmjUDRfUGM]',
     'protection': '@UUID[Compendium.swade-core-rules.swade-powers.9Ia8jJNOCy0z7yXn]',
     'irradiated': '@UUID[Compendium.swade-core-rules.swade-rules.swadecor04theadv.JournalEntryPage.04radiation00000#radiation]',
@@ -116,6 +118,7 @@ export const SUCC_DEFAULT_SWPF_LINKS = {
     'reach': '@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02gear0000000000#reach]',
     'torch': '@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#illumination]',
     'invisible': '@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore05powers.JournalEntryPage.05powers00000001#invisibility]',
+    //'cold-bodied': '',
     'smite': '@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore05powers.JournalEntryPage.05powers00000001#smite]',
     'protection': '@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore05powers.JournalEntryPage.05powers00000001#protection]',
     'boost': '@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore05powers.JournalEntryPage.05powers00000001#boost/lower-trait]',
