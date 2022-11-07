@@ -6,13 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.5] - 2022-11-07 aka "Exporting bugs since 2022."
+## [0.2.6] - 2022-MM-DD aka "*Forced* to eternal maintenance."
 ☮️ Peace in the world, or the world in pieces. 🕊️
+### Changed
+- SUCC now uses the `actor.toggleConviction()` function of SWADE v. 2.1.0 instead of recreating it.
+
+## [0.2.5] - 2022-11-07 aka "Exporting bugs since 2022."
 ### Fixed
 - Fixed Effect Builder (Protection, Smite, Boost/Lower Trait) not functioning due to missing import.
 
 ## [0.2.4] - 2022-11-05 aka "Convicted to eternal maintenance."
-☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
 - Conviction condition if the systems setting is enabled.
 - Toggling conviction (as condition or from the character sheet) (de-)activates both, condition and conviction and deducts one conviction token.
