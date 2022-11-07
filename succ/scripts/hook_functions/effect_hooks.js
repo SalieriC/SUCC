@@ -1,5 +1,6 @@
 import { output_to_chat } from "../conditions_to_chat.js";
 import { SUCC_DEFAULT_MAPPING, SUCC_DEFAULT_ADDITIONAL_CONDITIONS } from "../default_mappings.js";
+import { effect_updater } from "../effect_updater.js"
 
 export async function effect_hooks() {
     //-----------------------------------------------------
