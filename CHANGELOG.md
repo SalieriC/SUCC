@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.5] - 2022-11-07 aka "Exporting bugs since 2022."
+☮️ Peace in the world, or the world in pieces. 🕊️
+### Fixed
+- Fixed Effect Builder (Protection, Smite, Boost/Lower Trait) not functioning due to missing import.
+
 ## [0.2.4] - 2022-11-05 aka "Convicted to eternal maintenance."
 ☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
