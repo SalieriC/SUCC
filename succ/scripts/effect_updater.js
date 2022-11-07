@@ -312,8 +312,6 @@ export async function effect_updater(condition, userID) {
     }
 
     async function boost_lower_builder(appliedCondition, actorOrToken, trait, type, degree, duration = 5, icon = false, additionalChanges, flags = false) {
-        let dieType
-        let dieMod
         let keyPath
         let valueMod
         if (type === "lower") { duration = 1 }
@@ -325,85 +323,16 @@ export async function effect_updater(condition, userID) {
             trait === "strength" ||
             trait === "vigor"
         ) {
-            //Get current die type:
-            dieType = actorOrToken.system.attributes[trait].die.sides
-            dieMod = actorOrToken.system.attributes[trait].die.modifier
-            if (dieType === 12) {
-                keyPath = `system.attributes.${trait}.die.modifier`
-                valueMod = 1
-                if (type === "boost" && degree === "raise" && dieType != 10) { valueMod = 2 }
-                else if (type === "lower" && degree === "success" && dieMod <= 0) {
-                    keyPath = `system.attributes.${trait}.die.sides`
-                    valueMod = -2
-                } else if (type === "lower" && degree === "raise" && dieMod <= 0) {
-                    keyPath = `system.attributes.${trait}.die.sides`
-                    valueMod = -4
-                } else if (type === "lower" && degree === "success" && dieMod >= 1) {
-                    valueMod = -1
-                } else if (type === "lower" && degree === "raise" && dieMod > 1) {
-                    valueMod = -2
-                } else if (type === "lower" && degree === "raise" && dieMod === 1) {
-                    keyPath = `system.attributes.${trait}.die.sides`
-                    valueMod = -2
-                    change.push({ key: `system.attributes.${trait}.die.modifier`, mode: 2, priority: undefined, value: -1 })
-                }
-            } else {
-                keyPath = `system.attributes.${trait}.die.sides`
-                valueMod = 2
-                if (type === "boost" && degree === "raise" && dieType === 10) {
-                    valueMod = 2
-                    change.push({ key: `system.attributes.${trait}.die.modifier`, mode: 2, priority: undefined, value: 1 })
-                } else if (type === "boost" && degree === "raise") {
-                    valueMod = 4
-                } else if (type === "lower" && degree === "raise") { valueMod = -4 }
-                else if (type === "lower" && degree === "success") { valueMod = -2 }
-            }
+            //Setting values:
+            keyPath = `system.attributes.${trait}.die.sides`
+            if (type === "lower") { valueMod = degree === "raise" ? -4 : -2 }
+            else { valueMod = degree === "raise" ? 4 : 2 } //System now handles going over d12 or under d4.
         } else {
             //Getting the skill:
             let skill = actorOrToken.items.find(s => s.id === trait)
-            dieType = skill.system.die.sides
-            dieMod = skill.system.die.modifier
-
-            if (dieType === 12) {
-                keyPath = `@Skill{${skill.name}}[system.die.modifier]`
-                valueMod = 1
-                if (type === "boost" && degree === "raise" && dieType != 10) { valueMod = 2 }
-                else if (type === "lower" && degree === "success" && dieMod <= 0) {
-                    keyPath = `@Skill{${skill.name}}[system.die.sides]`
-                    valueMod = -2
-                } else if (type === "lower" && degree === "raise" && dieMod <= 0) {
-                    keyPath = `@Skill{${skill.name}}[system.die.sides]`
-                    valueMod = -4
-                } else if (type === "lower" && degree === "success" && dieMod >= 1) {
-                    valueMod = -1
-                } else if (type === "lower" && degree === "raise" && dieMod > 1) {
-                    valueMod = -2
-                } else if (type === "lower" && degree === "raise" && dieMod === 1) {
-                    keyPath = `@Skill{${skill.name}}[system.die.sides]`
-                    valueMod = -2
-                    change.push({ key: `@Skill{${skill.name}}[system.die.modifier]`, mode: 2, priority: undefined, value: -1 })
-                }
-            } else {
-                keyPath = `@Skill{${skill.name}}[system.die.sides]`
-                valueMod = 2
-                if (type === "boost" && degree === "raise" && dieType === 10) {
-                    valueMod = 2
-                    change.push({ key: `@Skill{${skill.name}}[system.die.modifier]`, mode: 2, priority: undefined, value: 1 })
-                } else if (type === "boost" && (skill.name === game.i18n.localize("SWADE.Unskilled") || skill.name === game.i18n.localize("SUCC.effectBuilder.unskilled-coreRules"))) {
-                    if (dieMod <= -2 && dieType === 4) {
-                        change.push({ key: `@Skill{${skill.name}}[system.die.modifier]`, mode: 2, priority: undefined, value: 2 })
-                        if (degree === "success") { valueMod = 0 }
-                    }
-                } else if (type === "boost" && degree === "raise") {
-                    valueMod = 4
-                } else if (type === "lower" && degree === "success" && dieType === 4) {
-                    valueMod = 0
-                } else if (type === "lower" && degree === "raise" && dieType <= 6) {
-                    if (dieType === 6) {valueMod = -2}
-                    else if (dieType === 4) {valueMod = 0}
-                } else if (type === "lower" && degree === "raise") { valueMod = -4 }
-                else if (type === "lower" && degree === "success") { valueMod = -2 }
-            }
+            keyPath = `@Skill{${skill.name}}[system.die.sides]`
+            if (type === "lower") { valueMod = degree === "raise" ? -4 : -2 }
+            else { valueMod = degree === "raise" ? 4 : 2 } //System now handles going over d12 or under d4.
         }
         //Setting a flag to prevent repetitive chat message:                        
         await appliedCondition.setFlag('succ', 'updatedAE', true)
