@@ -114,8 +114,10 @@ export async function effect_updater(condition, userID) {
             <option value="vigor">${game.i18n.localize("SUCC.dialogue.attribute")} ${game.i18n.localize("SWADE.AttrVig")}</option>
         `
         // Adding Skills
-        for (let each of actorOrToken.items) {
-            if (each.type === "skill") {
+        let allSkills = actorOrToken.items.filter(i => i.type === "skill")
+        if (allSkills.length >= 1) {
+            allSkills = skill_sorter(allSkills)
+            for (let each of allSkills) {
                 traitOptions = traitOptions + `<option value="${each.id}">${game.i18n.localize("SUCC.dialogue.skill")} ${each.name}</option>`
             }
         }
@@ -166,8 +168,10 @@ export async function effect_updater(condition, userID) {
             <option value="vigor">${game.i18n.localize("SUCC.dialogue.attribute")} ${game.i18n.localize("SWADE.AttrVig")}</option>
         `
         // Adding Skills
-        for (let each of actorOrToken.items) {
-            if (each.type === "skill") {
+        let allSkills = actorOrToken.items.filter(i => i.type === "skill")
+        if (allSkills.length >= 1) {
+            allSkills = skill_sorter(allSkills)
+            for (let each of allSkills) {
                 traitOptions = traitOptions + `<option value="${each.id}">${game.i18n.localize("SUCC.dialogue.skill")} ${each.name}</option>`
             }
         }
@@ -230,18 +234,19 @@ export async function effect_updater(condition, userID) {
 
             await condition.setFlag('swade', 'expiration', 3)
             let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-            updates.icon =  condition.flags.succ.additionalData.smite.icon ? condition.flags.succ.additionalData.smite.icon : updates.icon
+            updates.icon = condition.flags.succ.additionalData.smite.icon ? condition.flags.succ.additionalData.smite.icon : updates.icon
             let change = { key: `@Weapon{${weaponName}}[data.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
             updates.changes = [change]
             updates.duration.rounds = condition.flags.succ.additionalData.smite.duration
             if (condition.flags.succ.additionalData.smite.additionalChanges) {
                 updates.changes = updates.changes.concat(condition.flags.succ.additionalData.smite.additionalChanges)
             }
-            if (condition.flags.succ.additionalData.smite.flags) { 
-                { updates.flags = {
-                    ...updates.flags,
-                    ...condition.flags.succ.additionalData.smite.flags
-                    } 
+            if (condition.flags.succ.additionalData.smite.flags) {
+                {
+                    updates.flags = {
+                        ...updates.flags,
+                        ...condition.flags.succ.additionalData.smite.flags
+                    }
                 }
             }
             await condition.update(updates)
@@ -250,32 +255,34 @@ export async function effect_updater(condition, userID) {
             if (condition.flags.succ.additionalData.protection.type === "armor") {
                 let protectionAmount = condition.flags.succ.additionalData.protection.bonus
                 let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                updates.icon =  condition.flags.succ.additionalData.protection.icon ? condition.flags.succ.additionalData.protection.icon : updates.icon
+                updates.icon = condition.flags.succ.additionalData.protection.icon ? condition.flags.succ.additionalData.protection.icon : updates.icon
                 updates.changes[1].value = protectionAmount
                 if (condition.flags.succ.additionalData.protection.additionalChanges) {
                     updates.changes = updates.changes.concat(condition.flags.succ.additionalData.protection.additionalChanges)
                 }
                 if (condition.flags.succ.additionalData.protection.flags) {
-                    { updates.flags = {
-                        ...updates.flags,
-                        ...condition.flags.succ.additionalData.protection.flags
-                        } 
+                    {
+                        updates.flags = {
+                            ...updates.flags,
+                            ...condition.flags.succ.additionalData.protection.flags
+                        }
                     }
                 }
                 await condition.update(updates)
             } else if (condition.flags.succ.additionalData.protection.type === "toughness") {
                 let protectionAmount = condition.flags.succ.additionalData.protection.bonus
                 let updates = condition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                updates.icon =  condition.flags.succ.additionalData.protection.icon ? condition.flags.succ.additionalData.protection.icon : updates.icon
+                updates.icon = condition.flags.succ.additionalData.protection.icon ? condition.flags.succ.additionalData.protection.icon : updates.icon
                 updates.changes[0].value = protectionAmount
                 if (condition.flags.succ.additionalData.protection.additionalChanges) {
                     updates.changes = updates.changes.concat(condition.flags.succ.additionalData.protection.additionalChanges)
                 }
                 if (condition.flags.succ.additionalData.protection.flags) {
-                    { updates.flags = {
-                        ...updates.flags,
-                        ...condition.flags.succ.additionalData.protection.flags
-                        } 
+                    {
+                        updates.flags = {
+                            ...updates.flags,
+                            ...condition.flags.succ.additionalData.protection.flags
+                        }
                     }
                 }
                 await condition.update(updates)
@@ -286,7 +293,7 @@ export async function effect_updater(condition, userID) {
             let trait = condition.flags.succ.additionalData.boost.trait
             if (typeof trait === "string" && (attributes.includes(trait.toLowerCase()) === false)) {
                 trait = actorOrToken.items.find(i => i.name.toLowerCase() === trait.toLowerCase()).id
-            } else if (typeof trait != "string") {trait = traid.id}
+            } else if (typeof trait != "string") { trait = traid.id }
             let type = "boost"
             let degree = condition.flags.succ.additionalData.boost.degree
             let duration = condition.flags.succ.additionalData.boost.duration
@@ -299,7 +306,7 @@ export async function effect_updater(condition, userID) {
             let trait = condition.flags.succ.additionalData.lower.trait
             if (typeof trait === "string" && (attributes.includes(trait.toLowerCase()) === false)) {
                 trait = actorOrToken.items.find(i => i.name.toLowerCase() === trait.toLowerCase()).id
-            } else if (typeof trait != "string") {trait = traid.id}
+            } else if (typeof trait != "string") { trait = traid.id }
             let type = "lower"
             let degree = condition.flags.succ.additionalData.lower.degree
             let duration = condition.flags.succ.additionalData.lower.duration
@@ -346,11 +353,21 @@ export async function effect_updater(condition, userID) {
             updates.changes = updates.changes.concat(additionalChanges)
         }
         updates.duration.rounds = duration
-        if (flags) { updates.flags = {
-            ...updates.flags,
-            ...flags
-            } 
+        if (flags) {
+            updates.flags = {
+                ...updates.flags,
+                ...flags
+            }
         }
         await appliedCondition.update(updates)
     }
+}
+
+function skill_sorter(allSkills) {
+    allSkills.sort(function (a, b) {
+        let textA = a.name.toUpperCase();
+        let textB = b.name.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
+    return allSkills
 }

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Cold Bodied to the default mapping (and thus chat output) and an icon that is in line with the rest of SUCCs icons.
 ### Changed
+- Effect Builder Dialogues for boost/lower now sort skills alphabetically.
 - SUCC now uses the `actor.toggleConviction()` function of SWADE v. 2.1.0 instead of recreating it.
 - SUCC now lets the system figure out the proper values for boost/lower in case of going above a d12 / below a d4.
 
