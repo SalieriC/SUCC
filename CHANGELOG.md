@@ -5,9 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+☮️ Peace in the world, or the world in pieces. 🕊️
+### Fixed
+- Fixed a bug that caused forced conditions to not get updated properly.
 
 ## [0.2.6] - 2022-11-07 aka "Things you'll never notice."
-☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
 - Cold Bodied to the default mapping (and thus chat output) and an icon that is in line with the rest of SUCCs icons.
 ### Changed
