@@ -42,11 +42,14 @@ class succ {
       const statusAE = await doc_class.create(new_effect, { parent: target })
       return statusAE
     } else if (applied_effects && final_state && additionalData && additionalData.force === true) {
-      // The effect is already applied but we want to force a new effect (i.e. a secong Boost trait buff)
+      // The effect is already applied but we want to force a new effect (i.e. a second Boost trait buff)
       const new_effect = foundry.utils.deepClone(effect)
       new_effect.label = game.i18n.localize(new_effect.label)
       setProperty(new_effect, 'flags.succ.additionalData', additionalData)
-      const statusAE = await target.createEmbeddedDocuments("ActiveEffect", [new_effect])
+      setProperty(new_effect, 'flags.core.statusId', status_name)
+      const statusAEs = await target.createEmbeddedDocuments("ActiveEffect", [new_effect])
+      const statusAE = statusAEs[0]
+      console.log(statusAE)
       return statusAE
     } else if (applied_effects && final_state) {
       // Renew and already existing effect
