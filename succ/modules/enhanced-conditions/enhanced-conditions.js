@@ -518,7 +518,7 @@ export class EnhancedConditions {
         entries.forEach((v, i, a) => {
             if (v.referenceId) {
                 if (!v.referenceId.match(/\{.+\}/)) {
-                    v.referenceId += `{${v.name}}`;
+                    v.referenceId += `{${game.i18n.localize(v.name)}}`;
                 }
 
                 a[i].hasReference = true;

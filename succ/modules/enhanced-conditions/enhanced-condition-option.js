@@ -34,12 +34,10 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
      */
     getData() {
         const optionData = this.object.options;
-        let swade = game.system.id === "swade";
 
         const data = {
             condition: this.object,
-            optionData,
-            swade
+            optionData
         };
 
         return data;

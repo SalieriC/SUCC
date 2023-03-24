@@ -29,6 +29,10 @@ export const KNOWN_GAME_SYSTEMS = {
         id: "swade",
         name: "SWADE"
     },
+    "swpf": {
+        id: "swpf",
+        name: "Pathfinder for Savage Worlds"
+    },
     other: {
         id: "other",
         name: "Custom/Other",
