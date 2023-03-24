@@ -180,15 +180,15 @@ export class EnhancedConditions {
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
 
         // If any of the addConditions Marks Defeated, mark the token's combatants defeated
-        if (addConditions.some(c => c?.options?.markDefeated)) EnhancedConditions._toggleDefeated(token);
+        if (addConditions.some(c => c?.options?.markDefeated)) EnhancedConditions.toggleDefeated(token);
 
         // If any of the removeConditions Marks Defeated, remove the defeated from the token's combatants
-        if (removeConditions.some(c => c?.options?.markDefeated)) EnhancedConditions._toggleDefeated(token, {markDefeated: false});
+        if (removeConditions.some(c => c?.options?.markDefeated)) EnhancedConditions.toggleDefeated(token, {markDefeated: false});
 
         // If any of the conditions Removes Others, remove the other Conditions
         addConditions.some(c => {
             if (c?.options?.removeOthers) {
-                EnhancedConditions._removeOtherConditions(token, c.id);
+                EnhancedConditions.removeOtherConditions(token, c.id);
                 return true;
             }
         }); 
@@ -317,7 +317,7 @@ export class EnhancedConditions {
          */
         removeConditionAnchor.on("click", event => {
             const conditionListItem = event.target.closest("li");
-            const conditionName = conditionListItem.dataset.conditionName;
+            const conditionId = conditionListItem.dataset.conditionId;
             const messageListItem = conditionListItem?.parentElement?.closest("li");
             const messageId = messageListItem?.dataset?.messageId;
             const message = messageId ? game.messages.get(messageId) : null;
@@ -326,12 +326,12 @@ export class EnhancedConditions {
 
             const actor = ChatMessage.getSpeakerActor(message.speaker);
 
-            EnhancedConditions.removeCondition(conditionName, actor, {warn: false});
+            EnhancedConditions.removeCondition(conditionId, actor, {warn: false});
         });
 
         undoRemoveAnchor.on("click", event => {
             const conditionListItem = event.target.closest("li");
-            const conditionName = conditionListItem.dataset.conditionName;
+            const conditionId = conditionListItem.dataset.conditionId;
             const messageListItem = conditionListItem?.parentElement?.closest("li");
             const messageId = messageListItem?.dataset?.messageId;
             const message = messageId ? game.messages.get(messageId) : null;
@@ -348,7 +348,7 @@ export class EnhancedConditions {
 
             if (!entity) return;
 
-            EnhancedConditions.addCondition(conditionName, entity);
+            EnhancedConditions.addCondition(conditionId, entity);
         });
     }
 
@@ -418,18 +418,20 @@ export class EnhancedConditions {
         switch (type) {
             case "create":
                 macros = condition.macros?.filter(m => m.type === "apply");
-                if (condition.options?.removeOthers) EnhancedConditions._removeOtherConditions(actor, condition.id);
-                if (condition.options?.markDefeated) EnhancedConditions._toggleDefeated(actor, {markDefeated: true});
-                if (condition.options?.boostTrait) EnhancedConditions._boostLowerTrait(actor, condition, true);
-                if (condition.options?.lowerTrait) EnhancedConditions._boostLowerTrait(actor, condition, false);
-                if (condition.options?.smite) EnhancedConditions._smite(actor, condition);
-                if (condition.options?.protection) EnhancedConditions._protection(actor, condition);
+                if (condition.options?.removeOthers) EnhancedConditions.removeOtherConditions(actor, condition.id);
+                if (condition.options?.markDefeated) EnhancedConditions.toggleDefeated(actor, {markDefeated: true});
+                if (condition.options?.boostTrait) EnhancedConditions.boostLowerTrait(actor, condition, true);
+                if (condition.options?.lowerTrait) EnhancedConditions.boostLowerTrait(actor, condition, false);
+                if (condition.options?.smite) EnhancedConditions.smite(actor, condition);
+                if (condition.options?.protection) EnhancedConditions.protection(actor, condition);
+                if (condition.options?.conviction) EnhancedConditions.toggleConviction(actor, condition, {activateConviction: true});
                 
                 break;
 
             case "delete":
                 macros = condition.macros?.filter(m => m.type === "remove");
-                if (condition.options?.markDefeated) EnhancedConditions._toggleDefeated(actor, {markDefeated: false});
+                if (condition.options?.markDefeated) EnhancedConditions.toggleDefeated(actor, {markDefeated: false});
+                if (condition.options?.conviction) EnhancedConditions.toggleConviction(actor, condition, {activateConviction: false});
                 break;
 
             default:
@@ -565,7 +567,7 @@ export class EnhancedConditions {
      * @param {Actor | Token} entities  the entity to mark defeated
      * @param {Boolean} options.markDefeated  an optional state flag (default=true)
      */
-    static _toggleDefeated(entities, {markDefeated=true}={}) {
+    static toggleDefeated(entities, {markDefeated=true}={}) {
         const combat = game.combat;
 
         if (!entities) {
@@ -607,6 +609,45 @@ export class EnhancedConditions {
         combat.updateEmbeddedDocuments("Combatant", updates.length > 1 ? update : updates.shift());
     }
 
+    /**
+     * Marks a Combatants for a particular entity as defeated
+     * @param {Actor | Token} entities  the entity to mark defeated
+     * @param {Boolean} options.markDefeated  an optional state flag (default=true)
+     */
+    static async toggleConviction(actor, condition, {activateConviction=true}={}) {
+        if (activateConviction) {
+            if (actor.system.details.conviction.active === true) {
+                //Condition was toggled due to click on the actor sheet.
+                return
+            } else if (actor.system.details.conviction.value >= 1 && actor.system.details.conviction.active === false) {
+                //Condition was toggled instead of the button on the actor sheet and actor has at least one conviction token.
+                actor.toggleConviction()
+                //Add the same flags as if toggled from the sheet:
+                await condition.update({
+                    flags: {
+                        succ: {
+                            updatedAE: true,
+                            userId: userID,
+                        }
+                    }
+                })
+            } else if (actor.system.details.conviction.value < 1 && actor.system.details.conviction.active === false) {
+                //Condition was toggled instead of the button on the actor sheet but actor has no conviction tokens.
+                ui.notifications.warn(game.i18n.localize("SUCC.notification.no_conviction_token_left"))
+                await EnhancedConditions.addCondition('conviction', actor)
+            }
+        }
+        else {
+            if (actor.system.details.conviction.active === false) {
+                //Condition was toggled due to click on the actor sheet.
+                return
+            } else if (actor.system.details.conviction.active === true) {
+                //Condition was toggled instead of the button on the actor sheet.
+                actor.toggleConviction()
+            }
+        }
+    }
+
     static getTraitOptions(entity) {
         // Start with attributes
         let traitOptions = `
@@ -628,7 +669,7 @@ export class EnhancedConditions {
         return traitOptions;
     }
 
-    static async _boostLowerTrait(entity, condition, boost) {
+    static async boostLowerTrait(entity, condition, boost) {
         let appliedCondition = entity.effects.find(function (e) {
             return ((e.label === game.i18n.localize(condition.name)))
         })
@@ -666,7 +707,7 @@ export class EnhancedConditions {
         }).render(true)
     }
 
-    static async _smite(entity, condition) {
+    static async smite(entity, condition) {
         let appliedCondition = entity.effects.find(function (e) {
             return ((e.label === game.i18n.localize(condition.name)))
         })
@@ -714,7 +755,7 @@ export class EnhancedConditions {
         }).render(true)
     }
 
-    static async _protection(entity, condition) {
+    static async protection(entity, condition) {
         let appliedCondition = entity.effects.find(function (e) {
             return ((e.label === game.i18n.localize(condition.name)))
         })
@@ -762,7 +803,7 @@ export class EnhancedConditions {
      * @param {*} entity 
      * @param {*} conditionId 
      */
-    static async _removeOtherConditions(entity, conditionId) {
+    static async removeOtherConditions(entity, conditionId) {
         const entityConditions = EnhancedConditions.getConditions(entity, {warn: false});
         let conditions = entityConditions ? entityConditions.conditions : [];
         conditions = conditions instanceof Array ? conditions : [conditions];
@@ -1024,17 +1065,17 @@ export class EnhancedConditions {
 
     /**
      * Gets one or more conditions from the map by their name
-     * @param {String} conditionName  the condition to get
+     * @param {String} conditionId  the condition to get
      * @param {Array} map  the condition map to search
      */
-    static _lookupConditionByName(conditionName, map=null) {
-        if (!conditionName) return;
+    static lookupConditionById(conditionId, map=null) {
+        if (!conditionId) return;
 
-        conditionName = conditionName instanceof Array ? conditionName : [conditionName];
+        conditionId = conditionId instanceof Array ? conditionId : [conditionId];
 
         if (!map) map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
 
-        const conditions = map.filter(c => conditionName.includes(c.name)) ?? [];
+        const conditions = map.filter(c => conditionId.includes(c.id)) ?? [];
 
         if (!conditions.length) return null;
 
@@ -1286,19 +1327,8 @@ export class EnhancedConditions {
     /* -------------------------------------------- */
 
     /**
-     * Apply the named condition to the provided entities (Actors or Tokens)
-     * @deprecated
-     * @param  {...any} params 
-     * @see EnhancedConditions#addCondition
-     */
-    static async applyCondition(...params) {
-        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.ApplyCondition`)});
-        return EnhancedConditions.addCondition(...params);
-    }
-
-    /**
      * Applies the named condition to the provided entities (Actors or Tokens)
-     * @param {String[] | String} conditionName  the name of the condition to add
+     * @param {String[] | String} conditionId  the id of the condition to add
      * @param {(Actor[] | Token[] | Actor | Token)} [entities=null] one or more Actors or Tokens to apply the Condition to
      * @param {Boolean} [options.warn=true]  raise warnings on errors
      * @param {Boolean} [options.allowDuplicates=false]  if one or more of the Conditions specified is already active on the Entity, this will still add the Condition. Use in conjunction with `replaceExisting` to determine how duplicates are handled
@@ -1313,7 +1343,7 @@ export class EnhancedConditions {
      * // Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
      * game.cub.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
      */
-    static async addCondition(conditionName, entities=null, {warn=true, allowDuplicates=false, replaceExisting=false}={}) {
+    static async addCondition(conditionId, entities=null, {warn=true, allowDuplicates=false, replaceExisting=false, overlay=false}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -1326,16 +1356,16 @@ export class EnhancedConditions {
             return;
         }
 
-        let conditions = EnhancedConditions._lookupConditionByName(conditionName);
+        let conditions = EnhancedConditions.lookupConditionById(conditionId);
         
         if (!conditions) {
-            ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")} ${conditionName}`);
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")}`, conditionName);
+            ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")} ${conditionId}`);
+            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")}`, conditionId);
             return;
         }
 
         conditions = conditions instanceof Array ? conditions : [conditions];
-        const conditionNames = conditions.map(c => c.name);
+        const conditionIds = conditions.map(c => c.id);
 
         let effects = EnhancedConditions.getActiveEffect(conditions);
         
@@ -1356,7 +1386,7 @@ export class EnhancedConditions {
             
             if (!actor) continue;
 
-            const hasDuplicates = EnhancedConditions.hasCondition(conditionNames, actor, {warn: false});
+            const hasDuplicates = EnhancedConditions.hasCondition(conditionIds, actor, {warn: false});
             const newEffects = [];
             const updateEffects = [];
             
@@ -1366,8 +1396,8 @@ export class EnhancedConditions {
                 // @todo #348 determine the best way to raise warnings in this scenario
                 /*
                 if (warn) {
-                    ui.notifications.warn(`${entity.name}: ${conditionName} ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
-                    console.log(`Combat Utility Belt - Enhanced Conditions | ${entity.name}: ${conditionName} ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
+                    ui.notifications.warn(`${entity.name}: ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
+                    console.log(`Combat Utility Belt - Enhanced Conditions | ${entity.name}: ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
                 }
                 */
 
@@ -1418,18 +1448,18 @@ export class EnhancedConditions {
 
     /**
      * Gets a condition by name from the Condition Map
-     * @param {*} conditionName 
+     * @param {*} conditionId 
      * @param {*} map 
      * @param {*} options.warn 
      */
-    static getCondition(conditionName, map=null, {warn=false}={}) {
-        if (!conditionName) {
+    static getCondition(conditionId, map=null, {warn=false}={}) {
+        if (!conditionId) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetCondition.Failed.NoCondition"));
         }
 
         if (!map) map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
 
-        return EnhancedConditions._lookupConditionByName(conditionName, map);
+        return EnhancedConditions.lookupConditionById(conditionId, map);
     }
 
     /**
@@ -1556,7 +1586,7 @@ export class EnhancedConditions {
 
     /**
      * Checks if the provided Entity (Actor or Token) has the given condition
-     * @param {String | Array} conditionName  the name/s of the condition or conditions to check for
+     * @param {String | Array} conditionId  the id/s of the condition or conditions to check for
      * @param {Actor | Token | Array} entities  the entity or entities to check (Actor/s or Token/s)
      * @param {Object} [options]  options object  
      * @param {Boolean} [options.warn]  whether or not to output notifications
@@ -1568,8 +1598,8 @@ export class EnhancedConditions {
      * // Check for the "Charmed" and "Deafened" conditions on the controlled tokens
      * game.cub.hasCondition(["Charmed", "Deafened"]);
      */
-    static hasCondition(conditionName, entities=null, {warn=true}={}) {
-        if (!conditionName) {
+    static hasCondition(conditionId, entities=null, {warn=true}={}) {
+        if (!conditionId) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition"));
             console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition")}`);
             return false;
@@ -1591,7 +1621,7 @@ export class EnhancedConditions {
 
         entities = entities instanceof Array ? entities : [entities];
 
-        let conditions = EnhancedConditions._lookupConditionByName(conditionName);
+        let conditions = EnhancedConditions.lookupConditionById(conditionId);
 
         if (!conditions) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoMapping"));
@@ -1620,7 +1650,7 @@ export class EnhancedConditions {
     /**
      * Removes one or more named conditions from an Entity (Actor/Token)
      * @param {Actor | Token} entities  One or more Actors or Tokens
-     * @param {String} conditionName  the name of the Condition to remove
+     * @param {String} conditionId  the id of the Condition to remove
      * @param {Object} options  options for removal
      * @param {Boolean} options.warn  whether or not to raise warnings on errors
      * @example 
@@ -1630,7 +1660,7 @@ export class EnhancedConditions {
      * // Remove Condition named "Charmed" from the currently controlled Token, but don't show any warnings if it fails.
      * game.cub.removeCondition("Charmed", {warn=false});
      */
-    static async removeCondition(conditionName, entities=null, {warn=true}={}) {
+    static async removeCondition(conditionId, entities=null, {warn=true}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -1645,13 +1675,13 @@ export class EnhancedConditions {
             return;
         }
 
-        if (!(conditionName instanceof Array)) conditionName = [conditionName];
+        if (!(conditionId instanceof Array)) conditionId = [conditionId];
 
-        const conditions = EnhancedConditions._lookupConditionByName(conditionName);
+        const conditions = EnhancedConditions.lookupConditionById(conditionId);
 
         if (!conditions || (conditions instanceof Array && !conditions.length)) {
-            if (warn) ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition")} ${conditionName}`);
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition")}`, conditionName);
+            if (warn) ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition")} ${conditionId}`);
+            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition")}`, conditionId);
             return;
         }
 
@@ -1672,8 +1702,8 @@ export class EnhancedConditions {
             const activeEffects = actor.effects.contents.filter(e => effects.map(e => e.flags[BUTLER.NAME].conditionId).includes(e.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId)));
 
             if (!activeEffects || (activeEffects && !activeEffects.length)) {
-                if (warn) ui.notifications.warn(`${conditionName} ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive")}`);
-                console.log(`Combat Utility Belt - Enhanced Conditions | ${conditionName} ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive")}")`);
+                if (warn) ui.notifications.warn(`${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive")}`);
+                console.log(`Combat Utility Belt - Enhanced Conditions | ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive")}")`);
                 return;
             }
 

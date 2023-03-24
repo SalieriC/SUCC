@@ -40,6 +40,15 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03hold0000000000#hold]"
         },
         {
+            "name":"SWADE.Conv", 
+            "icon": "modules/succ/icons/swade/conviction.svg",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor04theadv.JournalEntryPage.04conviction0000#conviction]",
+            "id": "conviction",
+            "options": {
+                "conviction": true
+            }
+        },
+        {
             "name":"SWADE.Bound", 
             "icon": "modules/succ/icons/swade/bound.svg",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03boundandenta00#bound-and-entangled]{Bound}"

@@ -963,8 +963,8 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [._processActiveEffectChange(effect, type)](#EnhancedConditions._processActiveEffectChange)
     * [.lookupEntryMapping(effectIds, [map])](#EnhancedConditions.lookupEntryMapping)
     * [.outputChatMessage()](#EnhancedConditions.outputChatMessage)
-    * [._toggleDefeated(entities)](#EnhancedConditions._toggleDefeated)
-    * [._removeOtherConditions(entity, conditionId)](#EnhancedConditions._removeOtherConditions)
+    * [.toggleDefeated(entities)](#EnhancedConditions.toggleDefeated)
+    * [.removeOtherConditions(entity, conditionId)](#EnhancedConditions.removeOtherConditions)
     * [._migrateConditionIds(conditionMap)](#EnhancedConditions._migrateConditionIds)
     * [._processMacros(macroIds, entity)](#EnhancedConditions._processMacros)
     * [.updateConditionTimestamps()](#EnhancedConditions.updateConditionTimestamps)
@@ -974,7 +974,7 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [._prepareMap(conditionMap)](#EnhancedConditions._prepareMap)
     * [._backupCoreEffects()](#EnhancedConditions._backupCoreEffects)
     * [._createJournalEntry(condition)](#EnhancedConditions._createJournalEntry)
-    * [._lookupConditionByName(conditionName, map)](#EnhancedConditions._lookupConditionByName)
+    * [.lookupConditionById(conditionId, map)](#EnhancedConditions.lookupConditionById)
     * [._updateStatusEffects(conditionMap)](#EnhancedConditions._updateStatusEffects)
     * [._prepareStatusEffects(conditionMap)](#EnhancedConditions._prepareStatusEffects) ⇒ <code>Array</code>
     * [._prepareActiveEffects(effects)](#EnhancedConditions._prepareActiveEffects)
@@ -985,7 +985,6 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [.getDefaultMap(system)](#EnhancedConditions.getDefaultMap)
     * [.buildDefaultMap(system)](#EnhancedConditions.buildDefaultMap)
     * [._preventativeSaveReminder()](#EnhancedConditions._preventativeSaveReminder)
-    * ~~[.applyCondition(...params)](#EnhancedConditions.applyCondition)~~
     * [.addCondition(conditionName, [entities])](#EnhancedConditions.addCondition)
     * [.getCondition(conditionName, map)](#EnhancedConditions.getCondition)
     * [.getConditions(entities)](#EnhancedConditions.getConditions) ⇒ <code>Array</code>
@@ -1144,9 +1143,9 @@ Output one or more condition entries to chat
 
 - [ ] refactor to use actor or token
 
-<a name="EnhancedConditions._toggleDefeated"></a>
+<a name="EnhancedConditions.toggleDefeated"></a>
 
-### EnhancedConditions.\_toggleDefeated(entities)
+### EnhancedConditions.\toggleDefeated(entities)
 Marks a Combatants for a particular entity as defeated
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
@@ -1156,9 +1155,9 @@ Marks a Combatants for a particular entity as defeated
 | entities | <code>Actor</code> \| <code>Token</code> | the entity to mark defeated |
 | options.markDefeated | <code>Boolean</code> | an optional state flag (default=true) |
 
-<a name="EnhancedConditions._removeOtherConditions"></a>
+<a name="EnhancedConditions.removeOtherConditions"></a>
 
-### EnhancedConditions.\_removeOtherConditions(entity, conditionId)
+### EnhancedConditions.\removeOtherConditions(entity, conditionId)
 For a given entity, removes conditions other than the one supplied
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
@@ -1255,10 +1254,10 @@ Creates journal entries for any conditions that don't have one
 | --- | --- | --- |
 | condition | <code>String</code> | the condition being evaluated |
 
-<a name="EnhancedConditions._lookupConditionByName"></a>
+<a name="EnhancedConditions.lookupConditionById"></a>
 
-### EnhancedConditions.\_lookupConditionByName(conditionName, map)
-Gets one or more conditions from the map by their name
+### EnhancedConditions.\lookupConditionById(conditionId, map)
+Gets one or more conditions from the map by their id
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
 

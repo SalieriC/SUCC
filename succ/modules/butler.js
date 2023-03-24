@@ -2,9 +2,7 @@ import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js
 
 export const NAME = "succ";
 
-export const TITLE = "Combat Utility Belt";
-
-export const SHORTNAME = "cub";
+export const TITLE = "SWADE Ultimate Condition Changer";
 
 export const PATH = "modules/succ";
 
@@ -15,11 +13,6 @@ export const GADGETS = {
         name: "Enhanced Conditions",
         info: "Provides the ability to map Conditions to Status Effect icons",
         wiki: `${WIKIPATH}/enhanced-conditions`
-    },
-    actorUtility: {
-        name: "Misc Actor",
-        info: "Miscellaneous Actor enhancements",
-        wiki: `${WIKIPATH}/actor-misc`
     },
     tokenUtility: {
         name: "Misc Token",
@@ -44,13 +37,6 @@ export const KNOWN_GAME_SYSTEMS = {
         initiative: "--Unknown--"
     }
 } 
-     
-export const HEALTH_STATES = {
-    HEALTHY: "healthy",
-    INJURED: "injured",
-    DEAD: "dead",
-    UNCONSCIOUS: "unconscious"
-}
 
 export const DEFAULT_CONFIG = {
     enhancedConditions: {
@@ -126,6 +112,9 @@ export const DEFAULT_CONFIG = {
             },
             protection: {
                 optionProperty: "protection"
+            },
+            conviction: {
+                optionProperty: "conviction"
             }
         }
     },

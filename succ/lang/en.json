@@ -82,14 +82,15 @@
                     "Label": "Protection",
                     "Notes": "When applied, this Condition will open the Protection dialog"
                 },
+                "Conviction": {
+                    "Label": "Conviction",
+                    "Notes": "When applied, this Condition will activate Conviction on the affected Token"
+                },
                 "SpecialStatusEffectOverride": {
                     "Title": "Override Existing Condition for this Status Effect?",
                     "Content": "Another Condition ({existingCondition}) is already setup to apply this special Status Effect: {statusEffect}. <p>If you click 'Yes' and Save this Condition's Options you will override that existing mapping.</p>"
                 },
                 "SaveNote": "Note: Clicking Save will Save Condition Lab Mapping"
-            },
-            "Warnings": {
-                "ApplyCondition": "applyCondition was replaced with addCondition. Please update your code."
             }
         },
         "CONCENTRATOR": {

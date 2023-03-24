@@ -52,7 +52,6 @@
             </label>
             <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Notes"}}</p>
         </div>
-        {{#if swade}}
         <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Label"}}">
             <input type="checkbox" name="boost-trait" {{checked condition.options.boostTrait}} {{#if ../isDefault}}disabled{{/if}}>
             <label for="boost-trait">
@@ -85,7 +84,14 @@
             </label>
             <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Notes"}}</p>
         </div>
-        {{/if}}
+        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Label"}}">
+            <input type="checkbox" name="conviction" {{checked condition.options.conviction}} {{#if ../isDefault}}disabled{{/if}}>
+            <label for="conviction">
+                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Label"}}
+                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
+            </label>
+            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Notes"}}</p>
+        </div>
     {{!-- </div> --}}
     <br/>    
     <div class="footer">

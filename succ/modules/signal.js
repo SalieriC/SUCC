@@ -50,7 +50,6 @@ export class Signal {
             game.cub.enhancedConditions = new EnhancedConditions();
 
             // Instantiate utility classes
-            game.cub.actorUtility = new ActorUtility();
             game.cub.tokenUtility = new TokenUtility();
             
             // Handle any monkeypatching
@@ -65,19 +64,13 @@ export class Signal {
             game.cub.getConditions = EnhancedConditions.getConditions;
             game.cub.getConditionEffects = EnhancedConditions.getConditionEffects;
             game.cub.hasCondition = EnhancedConditions.hasCondition;
-            game.cub.applyCondition = EnhancedConditions.applyCondition;
             game.cub.addCondition = EnhancedConditions.addCondition;
             game.cub.removeCondition = EnhancedConditions.removeCondition;
             game.cub.removeAllConditions = EnhancedConditions.removeAllConditions;
 
         });
 
-        Hooks.on("canvasInit", () => {
-           
-        });
-
         Hooks.on("ready", () => {
-            game.socket.on(`module.${BUTLER.NAME}`, Signal._onSocket);
             EnhancedConditions._onReady();
             MigrationHelper._onReady();          
         });
@@ -97,13 +90,6 @@ export class Signal {
         });
 
         /* ------------------- Token ------------------ */
-
-        Hooks.on("preCreateToken", (tokenDocument, createData, options, userId) => {
-        });
-
-        Hooks.on("createToken", (tokenDocument, options, userId) => {
-            TokenUtility._onCreateToken(tokenDocument, options, userId);
-        });
 
         Hooks.on("preUpdateToken", (tokenDocument, updateData, options, userId) => {
             EnhancedConditions._onPreUpdateToken(tokenDocument, updateData, options, userId);
