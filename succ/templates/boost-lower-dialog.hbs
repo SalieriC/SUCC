@@ -1,0 +1,16 @@
+<h2><img src={{condition.icon}} width="30" height="30" style="border:0;" />
+{{#if boost}}
+{{{localize "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name"}}}
+{{else}}
+{{{localize "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Name"}}}
+{{/if}} 
+</h2>
+{{#if boost}}
+{{{localize "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Body"}}}
+{{else}}
+{{{localize "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Body"}}}
+{{/if}} 
+<div class="form-group">
+    <label for="selected_trait">{{localize "ENHANCED_CONDITIONS.Dialog.Trait"}} </label>
+    <select id="selected_trait">{{{traitOptions}}}</select>
+</div>

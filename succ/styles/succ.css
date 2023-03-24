@@ -1,0 +1,654 @@
+/* CONDITIONS CHAT MESSAGE */
+ul.chat-message.condition-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.chat-message.condition-list li {
+    align-items: center;
+}
+
+.chat-message.condition-list .remove-row,
+.chat-message.condition-list .undo-remove {
+   flex: 0 0 20px;
+}
+
+
+label.xp-checkbox {
+    flex: 2;
+    font-weight: bold;
+    margin: 0;
+    line-height: 20px;
+    font-size: 11px;
+    text-align: right;
+}
+
+img.condition-icon {
+    width: 50px;
+    height: 50px;
+    background:rgba(0,0,0,0.5);
+}
+
+.enhanced-conditions div.condition-icon {
+    display: flex;
+    flex: 0 0 24px; 
+    margin: 0px 6px 0px 0px;
+}
+
+.enhanced-conditions div.add-remove {
+    display: flex;
+    flex: 0 0 15px;
+}
+
+.enhanced-conditions div.condition-name,
+.enhanced-conditions div.condition-reference {
+    flex: 2;
+    margin: 3px 0px 0px 0px;
+    height: 20px;
+}
+
+img.condition-icon.chat-message {
+    height: 20px;
+    width: 20px;
+    padding: unset;
+}
+
+.token-resource input[name="resource"] {
+    color: white;
+    background: none;
+    border: 1px solid transparent;
+}
+
+.token-resource input[name="resource"]:hover {
+    border: 1px solid white;
+}
+
+a.add-temporary {
+    margin: 10px;
+}
+
+/* -------------------------------------------- */
+/*                 CONDITION LAB                */
+/* -------------------------------------------- */
+
+#cub-condition-lab .hidden {
+  display: none;
+}
+
+#cub-condition-lab ol.condition-lab {
+    list-style: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 530px;
+    margin: 10px 0px;
+    padding: 0px;
+    border: 2px inset;
+    /* background: url('/ui/denim025.png'); */
+    background: rgba(0,0,0,0.5);
+}
+
+#cub-condition-lab div.sort {
+    flex: 0 1 20px;
+    margin-right: 3px;
+}
+
+#cub-condition-lab div.filter {
+    margin-left: 25px;
+    max-width: 50%;
+    display: flex;
+}
+
+#cub-condition-lab div.filter div.input-wrapper {
+  position: relative;
+}
+
+#cub-condition-lab div.filter div.input-wrapper i {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+#cub-condition-lab div.filter div.input-wrapper input {
+  padding-left: 20px;
+}
+
+#cub-condition-lab div.condition-list-controls {
+    flex: 2;
+}
+
+#cub-condition-lab div.condition-list-controls .sort i {
+    font-size: x-large;
+}
+
+#cub-condition-lab .condition-list-controls button {
+    flex: 0 1 28px;
+    height: 28px;
+    width: 28px;
+    padding: 0px;
+}
+
+.condition-lab li.row {
+    /* border-bottom: 2px groove beige; */
+    background: url('/ui/parchment.jpg');
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.condition-lab .flexcol {
+    margin: 3px;
+}
+
+.condition-lab .flexcol.grabber {
+    flex: 0;
+}
+
+.condition-lab .flexcol.content1 {
+    flex: 4;
+}
+
+.condition-lab .flexcol.content2 {
+    flex: 3;
+    padding-left: 26px;
+}
+
+.condition-lab .flexcol.text-entry {
+    flex: 8;
+}
+
+.condition-lab .active-effect {
+    flex: 0 0 20px;
+    display: flex;
+    align-items: center;
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .flexcol.text-entry .path,
+.condition-lab .flexcol.text-entry .condition {
+    display: flex;
+    flex: 1;
+    /* margin: 0px 3px 3px 0px; */
+}
+
+.condition-lab .flexcol.text-entry.journal {
+    flex: 2;
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .reference div.enriched-link {
+  flex: 0 1 0%;
+  margin: 3px;
+}
+
+.condition-lab .reference-type {
+    flex: 0 0 115px;
+    margin: 0px 3px 0px 0px;
+}
+
+.condition-lab .compendium {
+    flex: 1;
+    margin: 0px 3px 0px 0px;
+}
+
+.condition-lab .reference-item {
+    flex: 2;
+    margin: 0px 3px 0px 0px;
+}
+
+.condition-lab .text-entry.reference.flexcol {
+    flex: 1;
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .reference-item select {
+    width: 100%;
+}
+
+.condition-lab .text-entry.trigger.flexcol {
+    flex: 2;
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .flexcol.condition-lab.text-entry.icon.flexcol {
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .flexrow {
+    justify-content: space-around;
+}
+
+.condition-lab a.macro {
+    border: none;
+}
+
+.condition-lab img {
+    width: 60px;
+    height: 60px;
+    background-color:rgba(0,0,0,0.5);
+}
+
+.condition-lab a.trash {
+    /* flex: none;
+    margin: 6px 3px 3px 3px; */
+}
+
+.condition-lab div.journal-icon {
+    flex: 0 0 25px;
+    text-align: center;
+    line-height: 26px;
+}
+
+.condition-lab div.trigger-icon {
+    flex: 0 0 25px;
+    text-align: center;
+    line-height: 26px;
+    margin: 0 2px 0 0;
+    padding: 0 0 0 3px;
+}
+
+.condition-lab .trash {
+    /* flex: 0 0 20px;
+    line-height: 60px;
+    text-align: center; */
+}
+
+.condition-lab .add-row {
+    color: white;
+    border-style: dotted;
+    line-height: 25px;
+    margin: 5px;
+    padding: 2px;
+}
+
+.condition-lab .icon {
+    flex: 0 0 60px;
+    width: 60px;
+    height: 60px;
+}
+
+.condition-lab .trash button {
+    /* flex: 0 0 30px;
+    width: 30px;
+    line-height: 60px; */
+}
+
+.condition-lab .grabber {
+    flex: 0;
+    cursor: grab;
+    line-height: 60px;
+    opacity: 0.5;
+}
+
+.condition-lab div.row-controls {
+    position: relative;
+    max-width: 25px;
+}
+
+.condition-lab .row-controls div {
+  display: flex;
+}
+
+.condition-lab .row-controls div.remove-row {
+  flex: 4;
+  align-items: center;
+}
+
+.condition-lab .row-controls div.move-down {
+  align-items: flex-end;
+}
+
+.condition-lab .row-controls a {
+    /* position: absolute; */
+}
+
+.condition-lab .row-controls a.move-up {
+    /* top: 20%; */
+}
+
+.condition-lab .row-controls a.move-down {
+    /* bottom: 20%; */
+}
+
+.condition-lab .options {
+    /* padding: 0 0 0 26px; */
+}
+
+.condition-lab .tooltip {
+    font-size: x-small;
+    vertical-align: text-top;
+}
+
+#cub-condition-lab button.highlight {
+    background-color: rgba(0, 0, 255, 0.5);
+    color: white;
+    text-shadow: 1px 1px black;
+    font-weight: bold;
+}
+
+#cub-condition-lab li.highlight {
+    border-left: 2px solid rgb(0, 255, 0);
+}
+
+#cub-condition-lab .wrapper-rel {
+    position: relative;
+    flex: 1;
+    height: fit-content;
+}
+
+#cub-condition-lab .inset-label {
+    position: absolute;
+    /* background: rgba(0,0,0,0.5); */
+    /* color: white; */
+    background: rgba(0, 0, 0, 0.05);
+    height: 100%;
+    padding: 4px 2px;
+    font-size: small;
+}
+
+#cub-condition-lab .condition-text-input {
+    padding-left: 45px;
+}
+
+#cub-condition-lab .reference input {
+    padding-left: 70px;
+}
+
+#cub-condition-lab .icon-path {
+    padding-left: 35px;
+}
+
+#cub-condition-lab .related-buttons {
+    justify-content: start;
+}
+
+#cub-condition-lab .related-buttons button {
+    /* flex: 0; */
+}
+
+#cub-condition-lab .flex-break {
+    flex-basis: 100%;
+    height: 0;
+}
+/* -------------------------------------------- */
+/*                   CUBPUTER                   */
+/* -------------------------------------------- */
+
+.cub-puter ul.gadget-list {
+    list-style: none;
+    border: 1px solid grey;
+    background: url("/ui/parchment.jpg") repeat;
+    width: fit-content;
+    max-height: 185px;
+    padding: 3px;
+    position: fixed;
+    margin-top: -10px;
+    z-index: 99;
+    overflow: visible;
+}
+
+/*
+.container {
+    
+}
+*/
+
+.cub-puter-crt .terminal {
+    padding: 2px;    
+    color: lime;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    position: relative;
+}
+
+.cub-puter-crt ul.gadget-list {
+    background: rgba(0,0,0,0.9);
+}
+
+.cub-puter footer.terminal {
+    border: none;
+}
+
+.cub-puter span .sudo-prompt {
+    font-weight: bold;
+}
+
+.cub-puter footer.hidden {
+  visibility: hidden;
+}
+
+.cub-puter-crt .terminal button {
+    border-color: lime;
+    color: lime;
+}
+
+.cub-puter-crt .terminal p.notes {
+    color: beige;
+}
+
+.cub-puter-crt .terminal input {
+    color: lime;
+}
+
+.cub-puter-crt span .sudo-prompt {
+    color: white;
+}
+
+.cub-puter-crt .terminal select {
+    color: lime;
+    background: black;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.cub-puter-crt .terminal select option {
+  color: inherit;
+  background: inherit;
+  font-family: inherit;
+}
+
+@keyframes flicker {
+    0% {
+      opacity: 0.71022;
+    }
+    5% {
+      opacity: 0.5346;
+    }
+    10% {
+      opacity: 0.05756;
+    }
+    15% {
+      opacity: 0.21552;
+    }
+    20% {
+      opacity: 0.00985;
+    }
+    25% {
+      opacity: 0.36972;
+    }
+    30% {
+      opacity: 0.92383;
+    }
+    35% {
+      opacity: 0.35087;
+    }
+    40% {
+      opacity: 0.66002;
+    }
+    45% {
+      opacity: 0.93634;
+    }
+    50% {
+      opacity: 0.9103;
+    }
+    55% {
+      opacity: 0.01886;
+    }
+    60% {
+      opacity: 0.73994;
+    }
+    65% {
+      opacity: 0.82783;
+    }
+    70% {
+      opacity: 0.92903;
+    }
+    75% {
+      opacity: 0.07575;
+    }
+    80% {
+      opacity: 0.2142;
+    }
+    85% {
+      opacity: 0.82368;
+    }
+    90% {
+      opacity: 0.33183;
+    }
+    95% {
+      opacity: 0.87035;
+    }
+    100% {
+      opacity: 0.82041;
+    }
+}
+
+.cub-puter-crt {
+    background: #121010;
+    border-radius: 5px;
+    background-color: black;
+    overflow: hidden;
+}
+
+.cub-puter-crt::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+}
+
+.cub-puter-crt::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.cub-puter-crt .window-content {
+      background: black;
+}
+
+@keyframes turn-on {
+    0% {
+      transform: scale(1, 0.8) translate3d(0, 0, 0);
+      -webkit-filter: brightness(30);
+      filter: brightness(30);
+      opacity: 1;
+    }
+    3.5% {
+      transform: scale(1, 0.8) translate3d(0, 100%, 0);
+    }
+    3.6% {
+      transform: scale(1, 0.8) translate3d(0, -100%, 0);
+      opacity: 1;
+    }
+    9% {
+      transform: scale(1.3, 0.6) translate3d(0, 100%, 0);
+      -webkit-filter: brightness(30);
+      filter: brightness(30);
+      opacity: 0;
+    }
+    11% {
+      transform: scale(1, 1) translate3d(0, 0, 0);
+      -webkit-filter: contrast(0) brightness(0);
+      filter: contrast(0) brightness(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1, 1) translate3d(0, 0, 0);
+      -webkit-filter: contrast(1) brightness(1.2) saturate(1.3);
+      filter: contrast(1) brightness(1.2) saturate(1.3);
+      opacity: 1;
+    }
+  }
+  @keyframes turn-off {
+    0% {
+      transform: scale(1, 1.3) translate3d(0, 0, 0);
+      -webkit-filter: brightness(1);
+      filter: brightness(1);
+      opacity: 1;
+    }
+    60% {
+      transform: scale(1.3, 0.001) translate3d(0, 0, 0);
+      -webkit-filter: brightness(10);
+      filter: brightness(10);
+    }
+    100% {
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      transform: scale(0, 0.0001) translate3d(0, 0, 0);
+      -webkit-filter: brightness(50);
+      filter: brightness(50);
+    }
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+  
+.cub-puter-crt-off {
+    animation: turn-off 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+    animation-fill-mode: forwards;
+}
+  
+.cub-puter-crt-on {
+    animation: turn-on 3s linear;
+    animation-fill-mode: forwards;
+}
+  
+@keyframes overlay-anim {
+    0% {
+      visibility: hidden;
+    }
+    20% {
+      visibility: hidden;
+    }
+    21% {
+      visibility: visible;
+    }
+    100% {
+      visibility: hidden;
+    }
+}
+
+  .cub-puter .overlay {
+    color: #00FF00;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 60px;
+    visibility: hidden;
+    pointer-events: none;
+}
+  
+  #switch:checked ~ .cub-puter-crt .overlay {
+    animation: overlay-anim 5s linear;
+    animation-fill-mode: forwards;
+}
+
+#settings div#succ {
+  margin: 0;
+}
