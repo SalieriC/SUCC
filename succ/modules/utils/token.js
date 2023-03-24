@@ -85,7 +85,7 @@ export class TokenUtility {
             
             for (const src in effects) {
                 const effect = effects[src];
-                const condition = game.cub?.conditions?.find(c => c.icon === src);
+                const condition = game.succ?.conditions?.find(c => c.icon === src);
 
                 //if (condition && !effect.id?.includes(NAME)) {
                 //    effect.id = `${NAME}.${condition.id}`;

@@ -2,14 +2,14 @@
     "Localization Provided By": "touge",
     "succ": {
         "SHORT_NAME": "CUB",
-        "NAME": "Combat Utility Belt",
+        "NAME": "SWADE Ultimate Condition Changer",
         "ID": "succ",
         "ENHANCED_CONDITIONS.OutputChatConfirm": {
             "Title": "チャットにすべての状態異常を出力しますか？",
             "Content": "「はい」ですべての状態異常が設定関係なくチャットに出力されます。"
         },
         "CONCENTRATOR": {
-            "MessagePrefix": "Combat Utility Belt - 集中管理",
+            "MessagePrefix": "SWADE Ultimate Condition Changer - 集中管理",
             "NoMatchingCondition": "集中管理のための状態異常が見つかりませんでした。コンディションラボより対応する状態異常を設定してください。",
             "Prompts": {
                 "Check": {
@@ -65,7 +65,7 @@
     "APPS.CUBPuter.NoInfo": "追加の情報が存在しません。",
     "APPS.CUBPuter.SelectGadget": "--機能選択--",
 
-    "APPS.Wiki.Title": "Combat Utility Belt（戦闘補助ツール）解説Wiki",
+    "APPS.Wiki.Title": "SWADE Ultimate Condition Changer（戦闘補助ツール）解説Wiki",
 
     "CONCENTRATOR.ConditionName": "精神集中状態",
     "CONCENTRATOR.Alias": "集中状態管理",
@@ -167,8 +167,8 @@
     "CUB.TRIGGLER.App.AdvancedTrigger.Name.Placeholder": "（高度なトリガーには必須）",
     "CUB.TRIGGLER.App.AdvancedTrigger.Name.Warning": "高度なトリガーには名前が必要です！",
 
-    "SETTINGS.AboutApp.ButtonN": "Combat Utility Beltについて",
-    "SETTINGS.AboutApp.ButtonH": "Combat Utility Beltの詳細情報を表示します。",
+    "SETTINGS.AboutApp.ButtonN": "SWADE Ultimate Condition Changerについて",
+    "SETTINGS.AboutApp.ButtonH": "SWADE Ultimate Condition Changerの詳細情報を表示します。",
     "SETTINGS.CUBPuter.ButtonN": "戦闘補助ツール設定",
     "SETTINGS.CUBPuter.ButtonH": "戦闘補助ツール用の追加設定を操作可能にします。",
 

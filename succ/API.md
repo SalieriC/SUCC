@@ -1403,17 +1403,17 @@ Applies the named condition to the provided entities (Actors or Tokens)
 **Example**  
 ```js
 // Add the Condition "Blinded" to an Actor named "Bob". Duplicates will not be created.
-game.cub.addCondition("Blinded", game.actors.getName("Bob"));
+game.succ.addCondition("Blinded", game.actors.getName("Bob"));
 ```
 **Example**  
 ```js
 // Add the Condition "Charmed" to the currently controlled Token/s. Duplicates will not be created.
-game.cub.addCondition("Charmed");
+game.succ.addCondition("Charmed");
 ```
 **Example**  
 ```js
 // Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
-game.cub.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
+game.succ.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
 ```
 <a name="EnhancedConditions.getCondition"></a>
 
@@ -1444,12 +1444,12 @@ Retrieves all active conditions for one or more given entities (Actors or Tokens
 **Example**  
 ```js
 // Get conditions for an Actor named "Bob"
-game.cub.getConditions(game.actors.getName("Bob"));
+game.succ.getConditions(game.actors.getName("Bob"));
 ```
 **Example**  
 ```js
 // Get conditions for the currently controlled Token
-game.cub.getConditions();
+game.succ.getConditions();
 ```
 <a name="EnhancedConditions.getActiveEffect"></a>
 
@@ -1494,12 +1494,12 @@ Checks if the provided Entity (Actor or Token) has the given condition
 **Example**  
 ```js
 // Check for the "Blinded" condition on Actor "Bob"
-game.cub.hasCondition("Blinded", game.actors.getName("Bob"));
+game.succ.hasCondition("Blinded", game.actors.getName("Bob"));
 ```
 **Example**  
 ```js
 // Check for the "Charmed" and "Deafened" conditions on the controlled tokens
-game.cub.hasCondition(["Charmed", "Deafened"]);
+game.succ.hasCondition(["Charmed", "Deafened"]);
 ```
 <a name="EnhancedConditions.removeCondition"></a>
 
@@ -1518,12 +1518,12 @@ Removes one or more named conditions from an Entity (Actor/Token)
 **Example**  
 ```js
 // Remove Condition named "Blinded" from an Actor named Bob
-game.cub.removeCondition("Blinded", game.actors.getName("Bob"));
+game.succ.removeCondition("Blinded", game.actors.getName("Bob"));
 ```
 **Example**  
 ```js
 // Remove Condition named "Charmed" from the currently controlled Token, but don't show any warnings if it fails.
-game.cub.removeCondition("Charmed", {warn=false});
+game.succ.removeCondition("Charmed", {warn=false});
 ```
 <a name="EnhancedConditions.removeAllConditions"></a>
 
@@ -1540,12 +1540,12 @@ Removes all conditions from the provided entities
 **Example**  
 ```js
 // Remove all Conditions on an Actor named Bob
-game.cub.removeAllConditions(game.actors.getName("Bob"));
+game.succ.removeAllConditions(game.actors.getName("Bob"));
 ```
 **Example**  
 ```js
 // Remove all Conditions on the currently controlled Token
-game.cub.removeAllConditions();
+game.succ.removeAllConditions();
 ```
 <a name="PanSelect"></a>
 

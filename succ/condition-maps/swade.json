@@ -11,7 +11,8 @@
             "icon":"modules/succ/icons/swade/incapacitated.svg",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03damageeffect00#incapacitation]{Incapacitation}",
             "options": {
-                "markDefeated": true
+                "markDefeated": true,
+                "overlay": true
             }
         },
         {
@@ -196,12 +197,12 @@
             }
         },
         {
-            "name":"Slumber", 
+            "name":"ENHANCED_CONDITIONS.Condition.Slumber", 
             "icon": "modules/succ/icons/swade/slumber.svg",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.QElMPOZK7jJDDGCP]{Slumber}"
         },
         {
-            "name":"Boost Trait", 
+            "name":"ENHANCED_CONDITIONS.Condition.Boost", 
             "icon": "modules/succ/icons/swade/boost.svg",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.FSwGNyzYvYRMhOkV]{Boost Trait}",
             "options": {
@@ -209,7 +210,7 @@
             }
         },
         {
-            "name":"Lower Trait", 
+            "name":"ENHANCED_CONDITIONS.Condition.Lower", 
             "icon": "modules/succ/icons/swade/lower.svg",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.FSwGNyzYvYRMhOkV]{Lower Trait}",
             "options": {

@@ -11,7 +11,7 @@ import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
 export class ConditionLab extends FormApplication {
     constructor(object, options={}) {
         super(object, options);
-        this.data = (game.cub.conditionLab ? game.cub.conditionLab.data : object) ?? null;
+        this.data = (game.succ.conditionLab ? game.succ.conditionLab.data : object) ?? null;
         this.system = game.system.id;
         this.initialMapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
         this.mapType = null;
@@ -349,7 +349,7 @@ export class ConditionLab extends FormApplication {
         }
 
         // Trigger file save procedure
-        const filename = `cub-${game.system.id}-condition-map.json`;
+        const filename = `succ-${game.system.id}-condition-map.json`;
         saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
     }
     
@@ -442,7 +442,7 @@ export class ConditionLab extends FormApplication {
      * @param {*} data 
      */
      static _onRender(app, html, data) {
-        ui.cub.conditionLab = app;
+        ui.succ.conditionLab = app;
     }
     
     /**
@@ -465,7 +465,7 @@ export class ConditionLab extends FormApplication {
      * @param {*} data 
      */
     static async _onRenderRestoreDefaultsDialog(app, html, data) {
-        if (game.cub.conditionLab.mapType !== Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default)) {
+        if (game.succ.conditionLab.mapType !== Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default)) {
             return;
         }
 

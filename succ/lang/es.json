@@ -22,7 +22,7 @@
     "APPS.CUBPuter.NoInfo": "No hay más información disponible.",
     "APPS.CUBPuter.SelectGadget": "--Selecciona un artilugio--",
 
-    "APPS.Wiki.Title": "Wiki Combat Utility Belt",
+    "APPS.Wiki.Title": "Wiki SWADE Ultimate Condition Changer",
 
     "CONCENTRATOR.ConditionName": "Concentración",
     "CONCENTRATOR.Alias": "Concentrador",
@@ -111,10 +111,10 @@
     "CUB.TRIGGLER.App.AdvancedTrigger.Name.Placeholder": "(necesario para los activadores avanzados)",
     "CUB.TRIGGLER.App.AdvancedTrigger.Name.Warning": "¡El nombre es necesario para los activadores avanzados!",
 
-    "SETTINGS.AboutApp.ButtonN": "Acerca de Combat Utility Belt",
-    "SETTINGS.AboutApp.ButtonH": "Más información sobre Combat Utility Belt",
-    "SETTINGS.CUBPuter.ButtonN": "Configuración Combat Utility Belt",
-    "SETTINGS.CUBPuter.ButtonH": "Provee configuración adicional para Combat Utility Belt",
+    "SETTINGS.AboutApp.ButtonN": "Acerca de SWADE Ultimate Condition Changer",
+    "SETTINGS.AboutApp.ButtonH": "Más información sobre SWADE Ultimate Condition Changer",
+    "SETTINGS.CUBPuter.ButtonN": "Configuración SWADE Ultimate Condition Changer",
+    "SETTINGS.CUBPuter.ButtonH": "Provee configuración adicional para SWADE Ultimate Condition Changer",
     
     "SETTINGS.Concentrator.EnableN": "Activar Concentrador",
     "SETTINGS.Concentrator.EnableH": "(Probado solo con el sistema D&D5e)(Requiere de Enhanced Conditions) Fuerza la comprobación de la concentración en los tokens que tienen el estado Concentrado cuando reciben daño.",

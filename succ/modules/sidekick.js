@@ -12,7 +12,7 @@ export class Sidekick {
         
         const cubDiv = $(
             `<div id="succ">
-                    <h4>Combat Utility Belt</h4>
+                    <h4>SWADE Ultimate Condition Changer</h4>
                 </div>`
         );
 
@@ -172,7 +172,7 @@ export class Sidekick {
      * Adds additional handlebars helpers
      */
     static handlebarsHelpers() {
-        Handlebars.registerHelper("cub-concat", () => {
+        Handlebars.registerHelper("succ-concat", () => {
             let result;
 
             for (let a in arguments) {
@@ -277,10 +277,10 @@ export class Sidekick {
                return id;
            }
            i++;
-           console.log(`Combat Utility Belt - Sidekick | Id ${id} already exists in the provided list of ids. ${i ? `This is attempt ${i} of ${iterations} `: ""}Trying again...`);
+           console.log(`SWADE Ultimate Condition Changer - Sidekick | Id ${id} already exists in the provided list of ids. ${i ? `This is attempt ${i} of ${iterations} `: ""}Trying again...`);
        }
 
-       throw new Error(`Combat Utility Belt - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`)
+       throw new Error(`SWADE Ultimate Condition Changer - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`)
     };
 
     /**
@@ -466,5 +466,23 @@ export class Sidekick {
         return stringParts instanceof Array ? stringParts.reduce((camelString, part, index) => {
             return camelString += index > 0 ? Sidekick.toTitleCase(part) : part;
         }, "") : stringParts;
+    }
+
+    static showCUBWarning() {
+        if (game.modules.get("combat-utility-belt")?.active) {
+            new Dialog({
+                title: "Incompatibility Warning",
+                content: `
+                <p>Warning, SUCC is incompatible with Combat Utility Belt.</p>
+                <p>Disable Combat Utility Belt in the module settings to avoid bad things from happening.</p>
+                <p>You'll see this message on each login so make sure you obey my command or disable SUCC and leave an angry issue on the gitHub. :D</p>
+                `,
+                buttons: {
+                    done: {
+                        label: "Got it!",
+                    }
+                }
+            }).render(true)
+        }
     }
 }

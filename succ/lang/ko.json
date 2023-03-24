@@ -1,14 +1,14 @@
 {
     "succ": {
                 "SHORT_NAME": "CUB",
-        "NAME": "Combat Utility Belt",
+        "NAME": "SWADE Ultimate Condition Changer",
         "ID": "succ",
         "ENHANCED_CONDITIONS.OutputChatConfirm": {
             "Title": "모든 상태에 대한 채팅 출력을 활성화 하시겠습니까?",
             "Content": "모든 상태에 대해 '채팅으로 출력'을 활성화하려면 '예'를 클릭하십시오."
                     },
         "CONCENTRATOR": {
-            "MessagePrefix": "Combat Utility Belt - 집중",
+            "MessagePrefix": "SWADE Ultimate Condition Changer - 집중",
             "NoMatchingCondition": "집중 상태 효과가 존재하지 않습니다. 집중 설정과 컨디션 랩을 확인하세요.",
             "Prompts": {
                 "Check": {
@@ -64,7 +64,7 @@
     "APPS.CUBPuter.NoInfo": "사용 가능한 추가 정보 없음",
     "APPS.CUBPuter.SelectGadget": "--가젯 선택--",
 
-    "APPS.Wiki.Title": "Combat Utility Belt 위키",
+    "APPS.Wiki.Title": "SWADE Ultimate Condition Changer 위키",
     
     "CONCENTRATOR.ConditionName": "집중",
     "CONCENTRATOR.Alias": "집중 관리자",
@@ -166,10 +166,10 @@
     "CUB.TRIGGLER.App.AdvancedTrigger.Name.Placeholder": "(고급 triggers에 요구됩니다)",
     "CUB.TRIGGLER.App.AdvancedTrigger.Name.Warning": "고급 triggers에는 이름이 필요합니다!",
 
-    "SETTINGS.AboutApp.ButtonN": "Combat Utility Belt에 대하여",
-    "SETTINGS.AboutApp.ButtonH": "Combat Utility Belt의 추가 정보",
-    "SETTINGS.CUBPuter.ButtonN": "Combat Utility Belt 환경설정",
-    "SETTINGS.CUBPuter.ButtonH": "Combat Utility Belt에 대한 추가 설정을 제공합니다.",
+    "SETTINGS.AboutApp.ButtonN": "SWADE Ultimate Condition Changer에 대하여",
+    "SETTINGS.AboutApp.ButtonH": "SWADE Ultimate Condition Changer의 추가 정보",
+    "SETTINGS.CUBPuter.ButtonN": "SWADE Ultimate Condition Changer 환경설정",
+    "SETTINGS.CUBPuter.ButtonH": "SWADE Ultimate Condition Changer에 대한 추가 설정을 제공합니다.",
 
     "SETTINGS.Concentrator.EnableN": "집중 활성화",
     "SETTINGS.Concentrator.EnableH": "(D&D5e에서 시험됨)(고급 상태 필요) 집중 중인 토큰이 피해를 입었을 때 집중 판정을 요구합니다.",

@@ -46,16 +46,16 @@ export const DEFAULT_CONFIG = {
         outputCombat: false,
         removeDefaultEffects: false,
         conditionLab: {
-            id: "cub-condition-lab",
+            id: "succ-condition-lab",
             title: "Condition Lab",
         },
         macroConfig: {
-            id: "cub-enhanced-condition-macro-config",
-            title: "CUB Enhanced Condition - Macro Config"
+            id: "succ-enhanced-condition-macro-config",
+            title: "SUCC Enhanced Condition - Macro Config"
         },
         optionConfig: {
-            id: "cub-enhanced-condition-option-config",
-            title: "CUB Enhanced Condition - Option Config"
+            id: "succ-enhanced-condition-option-config",
+            title: "SUCC Enhanced Condition - Option Config"
         },
         title: "Enhanced Conditions",
         mapTypes: {
@@ -161,7 +161,6 @@ export const FLAGS = {
 export const SETTING_KEYS = {
     enhancedConditions: {
         enable: "enableEnhancedConditions",
-        coreIcons: "coreStatusIcons",
         coreEffects: "coreStatusEffects",
         system: "activeSystem",
         map: "activeConditionMap",

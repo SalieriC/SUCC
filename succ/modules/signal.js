@@ -37,20 +37,21 @@ export class Signal {
 
         Hooks.on("init", () => {
             // Assign the namespace Object if it already exists or instantiate it as an object if not
-            game.cub = game.cub ?? {};
-            ui.cub = ui.cub ?? {};
+            game.succ = game.succ ?? {};
+            ui.succ = ui.succ ?? {};
 
             // Execute housekeeping
+            Sidekick.showCUBWarning();
             Sidekick.handlebarsHelpers();
             Sidekick.jQueryHelpers();
             Sidekick.loadTemplates();
             registerSettings();
 
             // Instantiate gadget classes
-            game.cub.enhancedConditions = new EnhancedConditions();
+            game.succ.enhancedConditions = new EnhancedConditions();
 
             // Instantiate utility classes
-            game.cub.tokenUtility = new TokenUtility();
+            game.succ.tokenUtility = new TokenUtility();
             
             // Handle any monkeypatching
             const effectSize = Sidekick.getSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize);
@@ -60,13 +61,13 @@ export class Signal {
             }
 
             // Expose API methods
-            game.cub.getCondition = EnhancedConditions.getCondition;
-            game.cub.getConditions = EnhancedConditions.getConditions;
-            game.cub.getConditionEffects = EnhancedConditions.getConditionEffects;
-            game.cub.hasCondition = EnhancedConditions.hasCondition;
-            game.cub.addCondition = EnhancedConditions.addCondition;
-            game.cub.removeCondition = EnhancedConditions.removeCondition;
-            game.cub.removeAllConditions = EnhancedConditions.removeAllConditions;
+            game.succ.getCondition = EnhancedConditions.getCondition;
+            game.succ.getConditions = EnhancedConditions.getConditions;
+            game.succ.getConditionEffects = EnhancedConditions.getConditionEffects;
+            game.succ.hasCondition = EnhancedConditions.hasCondition;
+            game.succ.addCondition = EnhancedConditions.addCondition;
+            game.succ.removeCondition = EnhancedConditions.removeCondition;
+            game.succ.removeAllConditions = EnhancedConditions.removeAllConditions;
 
         });
 

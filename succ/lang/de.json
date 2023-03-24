@@ -1,7 +1,7 @@
 {
     "succ": {
         "SHORT_NAME": "CUB",
-        "NAME": "Combat Utility Belt",
+        "NAME": "SWADE Ultimate Condition Changer",
         "ID": "succ",
         "ENHANCED_CONDITIONS": {
             "OutputChatConfirm": {
@@ -74,7 +74,7 @@
             }
         },
         "CONCENTRATOR": {
-            "MessagePrefix": "Combat Utility Belt - Konzentrator",
+            "MessagePrefix": "SWADE Ultimate Condition Changer - Konzentrator",
             "NoMatchingCondition": "Kein passender Zustand für Konzentrator gefunden. Bitte prüfe Konzentrator und Condition Lab.",
             "Prompts": {
                 "Check": {
@@ -172,7 +172,7 @@
     "APPS.CUBPuter.WikiLinkTitle": "Wiki/Weitere Informationen",
     "APPS.CUBPuter.NoInfo": "Keine zusätzlichen Informationen verfügbar",
     "APPS.CUBPuter.SelectGadget": "--Wähle ein Gadget--",
-    "APPS.Wiki.Title": "Combat Utility Belt Wiki",
+    "APPS.Wiki.Title": "SWADE Ultimate Condition Changer Wiki",
     "CONCENTRATOR.ConditionName": "Konzentriert",
     "CONCENTRATOR.Alias": "Konzentrator",
     "ENHANCED_CONDITIONS.GameSystemNotSupported": "CUB Verbesserte Zustände funktionieren nicht mit diesem Spielsystem. Bitte sieh ins CUB Wiki für weitere Informationen!",
@@ -246,10 +246,10 @@
     "CUB.TRIGGLER.App.SaveSuccessful": "Trigger erfolgreich gespeichert!",
     "CUB.TRIGGLER.App.AdvancedTrigger.OperatorValue.Heading": "Operator/Wert",
     "CUB.TRIGGLER.App.AdvancedTrigger.Name.Label": "Trigger-Name",
-    "SETTINGS.AboutApp.ButtonN": "Über Combat Utility Belt",
-    "SETTINGS.AboutApp.ButtonH": "Mehr Informationen über Combat Utility Belt",
-    "SETTINGS.CUBPuter.ButtonN": "Combat Utility Belt Konfiguration",
-    "SETTINGS.CUBPuter.ButtonH": "Zusätzliche Einstellungen für Combat Utility Belt",
+    "SETTINGS.AboutApp.ButtonN": "Über SWADE Ultimate Condition Changer",
+    "SETTINGS.AboutApp.ButtonH": "Mehr Informationen über SWADE Ultimate Condition Changer",
+    "SETTINGS.CUBPuter.ButtonN": "SWADE Ultimate Condition Changer Konfiguration",
+    "SETTINGS.CUBPuter.ButtonH": "Zusätzliche Einstellungen für SWADE Ultimate Condition Changer",
     "SETTINGS.Concentrator.EnableN": "Konzentrator aktivieren",
     "SETTINGS.Concentrator.EnableH": "(Nur in D&D5e getestet)(Erfordert erweiterte Zustände) Erzwingt Konzentrationsproben bei Spielfiguren mit dem Konzentrations-Zustand, wenn sie Schaden nehmen",
     "SETTINGS.Concentrator.ConditionNameN": "Name des Konzentrationszustands",

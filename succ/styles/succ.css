@@ -71,11 +71,11 @@ a.add-temporary {
 /*                 CONDITION LAB                */
 /* -------------------------------------------- */
 
-#cub-condition-lab .hidden {
+#succ-condition-lab .hidden {
   display: none;
 }
 
-#cub-condition-lab ol.condition-lab {
+#succ-condition-lab ol.condition-lab {
     list-style: none;
     overflow-y: auto;
     overflow-x: hidden;
@@ -87,40 +87,40 @@ a.add-temporary {
     background: rgba(0,0,0,0.5);
 }
 
-#cub-condition-lab div.sort {
+#succ-condition-lab div.sort {
     flex: 0 1 20px;
     margin-right: 3px;
 }
 
-#cub-condition-lab div.filter {
+#succ-condition-lab div.filter {
     margin-left: 25px;
     max-width: 50%;
     display: flex;
 }
 
-#cub-condition-lab div.filter div.input-wrapper {
+#succ-condition-lab div.filter div.input-wrapper {
   position: relative;
 }
 
-#cub-condition-lab div.filter div.input-wrapper i {
+#succ-condition-lab div.filter div.input-wrapper i {
   position: absolute;
   top: 5px;
   left: 5px;
 }
 
-#cub-condition-lab div.filter div.input-wrapper input {
+#succ-condition-lab div.filter div.input-wrapper input {
   padding-left: 20px;
 }
 
-#cub-condition-lab div.condition-list-controls {
+#succ-condition-lab div.condition-list-controls {
     flex: 2;
 }
 
-#cub-condition-lab div.condition-list-controls .sort i {
+#succ-condition-lab div.condition-list-controls .sort i {
     font-size: x-large;
 }
 
-#cub-condition-lab .condition-list-controls button {
+#succ-condition-lab .condition-list-controls button {
     flex: 0 1 28px;
     height: 28px;
     width: 28px;
@@ -317,24 +317,24 @@ a.add-temporary {
     vertical-align: text-top;
 }
 
-#cub-condition-lab button.highlight {
+#succ-condition-lab button.highlight {
     background-color: rgba(0, 0, 255, 0.5);
     color: white;
     text-shadow: 1px 1px black;
     font-weight: bold;
 }
 
-#cub-condition-lab li.highlight {
+#succ-condition-lab li.highlight {
     border-left: 2px solid rgb(0, 255, 0);
 }
 
-#cub-condition-lab .wrapper-rel {
+#succ-condition-lab .wrapper-rel {
     position: relative;
     flex: 1;
     height: fit-content;
 }
 
-#cub-condition-lab .inset-label {
+#succ-condition-lab .inset-label {
     position: absolute;
     /* background: rgba(0,0,0,0.5); */
     /* color: white; */
@@ -344,27 +344,27 @@ a.add-temporary {
     font-size: small;
 }
 
-#cub-condition-lab .condition-text-input {
+#succ-condition-lab .condition-text-input {
     padding-left: 45px;
 }
 
-#cub-condition-lab .reference input {
+#succ-condition-lab .reference input {
     padding-left: 70px;
 }
 
-#cub-condition-lab .icon-path {
+#succ-condition-lab .icon-path {
     padding-left: 35px;
 }
 
-#cub-condition-lab .related-buttons {
+#succ-condition-lab .related-buttons {
     justify-content: start;
 }
 
-#cub-condition-lab .related-buttons button {
+#succ-condition-lab .related-buttons button {
     /* flex: 0; */
 }
 
-#cub-condition-lab .flex-break {
+#succ-condition-lab .flex-break {
     flex-basis: 100%;
     height: 0;
 }

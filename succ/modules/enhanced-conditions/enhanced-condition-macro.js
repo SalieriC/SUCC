@@ -64,7 +64,7 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
             this.object.macros.push(tempMacro);
         }
 
-        const map = game.cub.conditions;
+        const map = game.succ.conditions;
         const newMap = foundry.utils.duplicate(map);
 
         let conditionIndex = newMap.findIndex(c => c.id === this.object.id);

@@ -21,7 +21,7 @@ export class EnhancedConditions {
      * 4. Override status effects
      */
     static async _onReady() {
-        game.cub.enhancedConditions.supported = false;
+        game.succ.enhancedConditions.supported = false;
         const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
 
         // Return early if gadget not enabled
@@ -90,12 +90,23 @@ export class EnhancedConditions {
             setInterval(EnhancedConditions.updateConditionTimestamps, 15000);
         }
 
-        // Save the active condition map to a convenience property
-        if (game.cub) {
-            game.cub.conditions = conditionMap;
+        let proneCondition = EnhancedConditions.lookupConditionById("prone");
+        if (proneCondition) {
+            // We have to add the fighting die modifier for prone here rather than in the json because we need to know the fighting skill name
+            const fightingSkill = game.settings.get("swade", "parryBaseSkill");
+            proneCondition.activeEffect.changes.push({
+                "key": `@Skill{${fightingSkill}}[system.die.modifier]`,
+                "value": "-2",
+                "mode": 2
+            });
         }
 
-        game.cub.enhancedConditions.supported = true;
+        // Save the active condition map to a convenience property
+        if (game.succ) {
+            game.succ.conditions = conditionMap;
+        }
+
+        game.succ.enhancedConditions.supported = true;
     }
 
     /**
@@ -633,7 +644,7 @@ export class EnhancedConditions {
                 })
             } else if (actor.system.details.conviction.value < 1 && actor.system.details.conviction.active === false) {
                 //Condition was toggled instead of the button on the actor sheet but actor has no conviction tokens.
-                ui.notifications.warn(game.i18n.localize("SUCC.notification.no_conviction_token_left"))
+                ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Notification.NoConvictionToken"))
                 await EnhancedConditions.addCondition('conviction', actor)
             }
         }
@@ -917,8 +928,8 @@ export class EnhancedConditions {
         cubDiv.append(labButton);
 
         labButton.on("click", event => {
-            if (game.cub.enhancedConditions.supported) {
-                return game.cub.conditionLab = new ConditionLab().render(true)
+            if (game.succ.enhancedConditions.supported) {
+                return game.succ.conditionLab = new ConditionLab().render(true)
             } else {
                 ui.notifications.warn(game.i18n.localize(`ENHANCED_CONDITIONS.GameSystemNotSupported`));
             }
@@ -1335,15 +1346,15 @@ export class EnhancedConditions {
      * @param {Boolean} [options.replaceExisting=false]  whether or not to replace existing Conditions with any duplicates in the `conditionName` parameter. If `allowDuplicates` is true and `replaceExisting` is false then a duplicate condition is created. Has no effect is `keepDuplicates` is `false`
      * @example
      * // Add the Condition "Blinded" to an Actor named "Bob". Duplicates will not be created.
-     * game.cub.addCondition("Blinded", game.actors.getName("Bob"));
+     * game.succ.addCondition("Blinded", game.actors.getName("Bob"));
      * @example
      * // Add the Condition "Charmed" to the currently controlled Token/s. Duplicates will not be created.
-     * game.cub.addCondition("Charmed");
+     * game.succ.addCondition("Charmed");
      * @example
      * // Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
-     * game.cub.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
+     * game.succ.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
      */
-    static async addCondition(conditionId, entities=null, {warn=true, allowDuplicates=false, replaceExisting=false, overlay=false}={}) {
+    static async addCondition(conditionId, entities=null, {warn=true, allowDuplicates=false, replaceExisting=false}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -1352,7 +1363,7 @@ export class EnhancedConditions {
         
         if (!entities) {
             ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken")}`);
             return;
         }
 
@@ -1360,7 +1371,7 @@ export class EnhancedConditions {
         
         if (!conditions) {
             ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")} ${conditionId}`);
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")}`, conditionId);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")}`, conditionId);
             return;
         }
 
@@ -1371,7 +1382,7 @@ export class EnhancedConditions {
         
         if (!effects) {
             ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDTIONS.ApplyCondition.Failed.NoEffect")} ${conditions}`);
-            console.log(`Combat Utility Belt - Enhanced Condition | ${game.i18n.localize("ENHANCED_CONDTIONS.ApplyCondition.Failed.NoEffect")}`, conditions);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Condition | ${game.i18n.localize("ENHANCED_CONDTIONS.ApplyCondition.Failed.NoEffect")}`, conditions);
             return;
         }
 
@@ -1397,7 +1408,7 @@ export class EnhancedConditions {
                 /*
                 if (warn) {
                     ui.notifications.warn(`${entity.name}: ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
-                    console.log(`Combat Utility Belt - Enhanced Conditions | ${entity.name}: ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
+                    console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${entity.name}: ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
                 }
                 */
 
@@ -1469,10 +1480,10 @@ export class EnhancedConditions {
      * @returns {Array} entityConditionMap  a mapping of conditions for each provided entity
      * @example
      * // Get conditions for an Actor named "Bob"
-     * game.cub.getConditions(game.actors.getName("Bob"));
+     * game.succ.getConditions(game.actors.getName("Bob"));
      * @example
      * // Get conditions for the currently controlled Token
-     * game.cub.getConditions();
+     * game.succ.getConditions();
      */
     static getConditions(entities=null, {warn=true}={}) {
         if (!entities) {
@@ -1486,7 +1497,7 @@ export class EnhancedConditions {
 
         if (!entities) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoToken"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoToken")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoToken")}`);
             return;
         }
 
@@ -1494,7 +1505,7 @@ export class EnhancedConditions {
 
         if (!map || !map.length) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition")}`);
             return;
         }
 
@@ -1525,7 +1536,7 @@ export class EnhancedConditions {
         
         if (!results.length) {
             if (warn) ui.notifications.notify(game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoResults"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoResults")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoResults")}`);
             return null;
         }
 
@@ -1556,7 +1567,7 @@ export class EnhancedConditions {
         
         if (!entities) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetConditionEffects.Failed.NoEntity"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken")}`);
             return;
         }
 
@@ -1593,15 +1604,15 @@ export class EnhancedConditions {
      * @returns {Boolean} hasCondition  Returns true if one or more of the provided entities has one or more of the provided conditions
      * @example
      * // Check for the "Blinded" condition on Actor "Bob"
-     * game.cub.hasCondition("Blinded", game.actors.getName("Bob"));
+     * game.succ.hasCondition("Blinded", game.actors.getName("Bob"));
      * @example
      * // Check for the "Charmed" and "Deafened" conditions on the controlled tokens
-     * game.cub.hasCondition(["Charmed", "Deafened"]);
+     * game.succ.hasCondition(["Charmed", "Deafened"]);
      */
     static hasCondition(conditionId, entities=null, {warn=true}={}) {
         if (!conditionId) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition")}`);
             return false;
         }
 
@@ -1615,7 +1626,7 @@ export class EnhancedConditions {
 
         if (!entities) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoToken"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoToken")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoToken")}`);
             return false;
         }
 
@@ -1625,7 +1636,7 @@ export class EnhancedConditions {
 
         if (!conditions) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoMapping"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoMapping")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoMapping")}`);
             return false;
         }
 
@@ -1655,10 +1666,10 @@ export class EnhancedConditions {
      * @param {Boolean} options.warn  whether or not to raise warnings on errors
      * @example 
      * // Remove Condition named "Blinded" from an Actor named Bob
-     * game.cub.removeCondition("Blinded", game.actors.getName("Bob"));
+     * game.succ.removeCondition("Blinded", game.actors.getName("Bob"));
      * @example 
      * // Remove Condition named "Charmed" from the currently controlled Token, but don't show any warnings if it fails.
-     * game.cub.removeCondition("Charmed", {warn=false});
+     * game.succ.removeCondition("Charmed", {warn=false});
      */
     static async removeCondition(conditionId, entities=null, {warn=true}={}) {
         if (!entities) {
@@ -1666,12 +1677,11 @@ export class EnhancedConditions {
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
             else if (game.user.character) entities = game.user.character;
             else entities = null;
-        }
-        
+        }        
 
         if (!entities) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken")}`);
             return;
         }
 
@@ -1681,7 +1691,7 @@ export class EnhancedConditions {
 
         if (!conditions || (conditions instanceof Array && !conditions.length)) {
             if (warn) ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition")} ${conditionId}`);
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition")}`, conditionId);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition")}`, conditionId);
             return;
         }
 
@@ -1689,7 +1699,7 @@ export class EnhancedConditions {
 
         if (!effects) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDTIONS.RemoveCondition.Failed.NoEffect"));
-            console.log(`Combat Utility Belt - Enhanced Condition | ${game.i18n.localize("ENHANCED_CONDTIONS.RemoveCondition.Failed.NoEffect")}`, condition);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Condition | ${game.i18n.localize("ENHANCED_CONDTIONS.RemoveCondition.Failed.NoEffect")}`, condition);
             return;
         }
 
@@ -1703,7 +1713,7 @@ export class EnhancedConditions {
 
             if (!activeEffects || (activeEffects && !activeEffects.length)) {
                 if (warn) ui.notifications.warn(`${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive")}`);
-                console.log(`Combat Utility Belt - Enhanced Conditions | ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive")}")`);
+                console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive")}")`);
                 return;
             }
 
@@ -1719,10 +1729,10 @@ export class EnhancedConditions {
      * @param {Boolean} options.warn  output notifications
      * @example 
      * // Remove all Conditions on an Actor named Bob
-     * game.cub.removeAllConditions(game.actors.getName("Bob"));
+     * game.succ.removeAllConditions(game.actors.getName("Bob"));
      * @example
      * // Remove all Conditions on the currently controlled Token
-     * game.cub.removeAllConditions();
+     * game.succ.removeAllConditions();
      */
     static async removeAllConditions(entities=null, {warn=true}={}) {
         if (!entities) {
@@ -1733,7 +1743,7 @@ export class EnhancedConditions {
         
         if (!entities) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken"));
-            console.log(`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken")}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken")}`);
             return;
         }
 
@@ -1759,7 +1769,7 @@ export class EnhancedConditions {
 
         if (foundry.utils.isNewerVersion(cubVersion, conditionMigrationVersion)) {
             console.log(`${BUTLER.NAME} | Performing Enhanced Condition migration...`);
-            EnhancedConditions._migrateConditionIds(game.cub?.conditions);
+            EnhancedConditions._migrateConditionIds(game.succ?.conditions);
             await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion, cubVersion);
             console.log(`${BUTLER.NAME} | Enhanced Condition migration complete!`);
         } 

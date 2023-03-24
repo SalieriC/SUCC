@@ -19,25 +19,14 @@ export function registerSettings() {
         onChange: async (s) => {
             if (s) {
                 await EnhancedConditions._onReady();
-                if (!game.cub.enhancedConditions.supported) {
+                if (!game.succ.enhancedConditions.supported) {
                     ui.notifications.warn(game.i18n.localize(`ENHANCED_CONDITIONS.GameSystemNotSupported`));
                     await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable, false);
-                    if (ui.cub.cubPuter) ui.cub.cubPuter.render();
                 }
             }
 
-            EnhancedConditions._toggleLabButtonVisibility(s && game.cub.enhancedConditions.supported);
+            EnhancedConditions._toggleLabButtonVisibility(s && game.succ.enhancedConditions.supported);
         }
-    });
-
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreIcons, {
-        name: "SETTINGS.EnhancedConditions.CoreIconsN",
-        hint: "SETTINGS.EnhancedConditions.CoreIconsH",
-        scope: "world",
-        type: Object,
-        default: [],
-        config: false,
-        onChange: s => {}
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, {
@@ -94,8 +83,8 @@ export function registerSettings() {
             await EnhancedConditions._updateStatusEffects(conditionMap);
 
             // Save the active condition map to a convenience property
-            if (game.cub) {
-                game.cub.conditions = conditionMap;
+            if (game.succ) {
+                game.succ.conditions = conditionMap;
             }
         }
     });
@@ -113,7 +102,7 @@ export function registerSettings() {
                     title: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.OutputChatConfirm.Title`),
                     content: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.OutputChatConfirm.Content`),
                     yes: () => {
-                        const newMap = deepClone(game.cub.conditions);
+                        const newMap = deepClone(game.succ.conditions);
                         if (!newMap.length) return;
                         newMap.forEach(c => c.options.outputChat = true);
                         Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
