@@ -6,11 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
+
+## [0.2.7] - 2023-03-25 aka "Convicted to do a hotfix"
 ### Added
 - Blind condition icon and default mapping.
 ### Fixed
-- Fixed a bug that caused forced conditions to not get updated properly.
 - Fixed a bug that caused Conviction to be added multiple times.
+- Fixed a bug that caused forced conditions to not get updated properly.
 
 ## [0.2.6] - 2022-11-07 aka "Things you'll never notice."
 ### Added
