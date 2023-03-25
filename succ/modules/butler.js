@@ -47,7 +47,6 @@ export const DEFAULT_CONFIG = {
         iconPath: `${PATH}/icons/`,
         conditionMapsPath: `${PATH}/condition-maps`,
         outputChat: false,
-        outputCombat: false,
         removeDefaultEffects: false,
         conditionLab: {
             id: "succ-condition-lab",
@@ -172,7 +171,6 @@ export const SETTING_KEYS = {
         mapType: "conditionMapType",
         removeDefaultEffects: "removeDefaultEffects",
         outputChat: "conditionsOutputToChat",
-        outputCombat: "conditionsOutputDuringCombat",
         suppressPreventativeSaveReminder: "conditionsSuppressPreventativeSaveReminder",
         migrationVersion: "enhancedConditionsMigrationVersion",
         showSortDirectionDialog: "showSortDirectionDialog",

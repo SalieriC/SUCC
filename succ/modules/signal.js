@@ -62,6 +62,7 @@ export class Signal {
 
             // Expose API methods
             game.succ.getCondition = EnhancedConditions.getCondition;
+            game.succ.getConditionFrom = EnhancedConditions.getConditionFrom;
             game.succ.getConditions = EnhancedConditions.getConditions;
             game.succ.getConditionEffects = EnhancedConditions.getConditionEffects;
             game.succ.hasCondition = EnhancedConditions.hasCondition;
@@ -90,6 +91,10 @@ export class Signal {
             EnhancedConditions._onDeleteActiveEffect(effect, options, userId);
         });
 
+        Hooks.on("updateActor", (tokenDocument, updateData, options, userId) => {
+            EnhancedConditions._onUpdateActor(tokenDocument, updateData, options, userId);
+        });
+
         /* ------------------- Token ------------------ */
 
         Hooks.on("preUpdateToken", (tokenDocument, updateData, options, userId) => {
@@ -98,12 +103,6 @@ export class Signal {
 
         Hooks.on("updateToken", (tokenDocument, updateData, options, userId) => {
             EnhancedConditions._onUpdateToken(tokenDocument, updateData, options, userId);
-        });
-
-        /* ------------------ Combat ------------------ */
-
-        Hooks.on("updateCombat", (combat, updateData, options, userId) => {
-            EnhancedConditions._onUpdateCombat(combat, updateData, options, userId);
         });
 
         /* -------------------------------------------- */
