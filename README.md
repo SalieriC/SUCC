@@ -52,7 +52,8 @@ The icons are modified icons used from [game-icons.net](https://game-icons.net/)
 - Protection: [Lamellar by Lorc](https://game-icons.net/1x1/lorc/lamellar.html)
 - Smite: [Pointy Sword by Lorc](https://game-icons.net/1x1/lorc/pointy-sword.html)  
 - Conviction: [Angel wings by Lorc](https://game-icons.net/1x1/lorc/angel-wings.html)  
-- Conviction: [Thermometer cold by Delapoutite](https://game-icons.net/1x1/delapouite/thermometer-cold.html)  
+- Cold Blooded: [Thermometer cold by Delapoutite](https://game-icons.net/1x1/delapouite/thermometer-cold.html)  
+- Blind: [Sight disabled by Skoll](https://game-icons.net/1x1/skoll/sight-disabled.html)  
 All of these icons were modified by SalieriC, their original files are published under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 ### Mentions
 Thank you very much to Javier Rivera Castro for his tireless efforts to teach me JavaScript, CSS, HTML and HBS.  
