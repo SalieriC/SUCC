@@ -38,9 +38,6 @@
   "esmodules": [
     "succ.js"
   ],
-	"scripts": [
-		"succ-class.js"
-	],
   "styles": [
     "styles/succ.css"
   ],

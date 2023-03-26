@@ -1,6 +1,6 @@
 import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
-import { EnhancedConditions } from "./enhanced-conditions.js";
+import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
 
 export class DeprecatedAPI {
 
@@ -12,12 +12,12 @@ export class DeprecatedAPI {
      * @see EnhancedConditions#removeCondition
      */
     static async apply_status(target, status_name, final_state = true, overlay = false, additionalData) {
-        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.apply_status`)});
+        Sidekick.consoleMessage("warn", BUTLER.NAME, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.apply_status`)});
         const allowDuplicates = additionalData ? additionalData.force : false;
         if (final_state) {
-            return EnhancedConditions.addCondition(status_name, target, {allowDuplicates: allowDuplicates});
+            return await EnhancedConditionsAPI.addCondition(status_name, target, {allowDuplicates: allowDuplicates});
         } else {
-            return EnhancedConditions.removeCondition(status_name, target);
+            return await EnhancedConditionsAPI.removeCondition(status_name, target);
         }
     }
 
@@ -29,11 +29,11 @@ export class DeprecatedAPI {
      * @see EnhancedConditions#removeCondition
      */
     static async toggle_status(target, status_name, final_state = true, overlay = false, additionalData) {
-        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.toggle_status`)});
+        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.toggle_status`)});
         if (final_state) {
-            return EnhancedConditions.addCondition(status_name, target);
+            return await EnhancedConditionsAPI.addCondition(status_name, target);
         } else {
-            return EnhancedConditions.removeCondition(status_name, target);
+            return await EnhancedConditionsAPI.removeCondition(status_name, target);
         }
     }
     
@@ -44,8 +44,8 @@ export class DeprecatedAPI {
      * @see EnhancedConditions#hasCondition
      */
     static async check_status(target, status_name) {
-        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.check_status`)});
-        return EnhancedConditions.hasCondition(status_name, target);
+        Sidekick.consoleMessage("warn", BUTLER.NAME, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.check_status`)});
+        return await EnhancedConditionsAPI.hasCondition(status_name, target);
     }
     
     /**
@@ -55,8 +55,8 @@ export class DeprecatedAPI {
      * @see EnhancedConditions#getCondition
      */
     static async get_condition(condition_name) {
-        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.get_condition`)});
-        return EnhancedConditions.getCondition(condition_name);
+        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.get_condition`)});
+        return await EnhancedConditionsAPI.getCondition(condition_name);
     }
     
     /**
@@ -66,7 +66,7 @@ export class DeprecatedAPI {
      * @see EnhancedConditions#getConditionFrom
      */
     static async get_condition_from(target, status_name) {
-        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.get_condition_from`)});
-        return EnhancedConditions.getConditionFrom(status_name, target);
+        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.get_condition_from`)});
+        return await EnhancedConditionsAPI.getConditionFrom(status_name, target);
     }
 }

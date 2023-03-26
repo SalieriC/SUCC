@@ -8,6 +8,7 @@ import { registerSettings } from "./settings.js";
 /* ------------------ Gadgets ----------------- */
 
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
+import { EnhancedConditionsAPI } from "./enhanced-conditions/enhanced-conditions-api.js";
 import { DeprecatedAPI } from "./enhanced-conditions/dep-api.js";
 
 /* ------------------- Utils ------------------ */
@@ -60,22 +61,22 @@ export class Signal {
             }
 
             // Expose API methods
-            game.succ.getCondition = EnhancedConditions.getCondition;
-            game.succ.getConditionFrom = EnhancedConditions.getConditionFrom;
-            game.succ.getConditions = EnhancedConditions.getConditions;
-            game.succ.getConditionEffects = EnhancedConditions.getConditionEffects;
-            game.succ.hasCondition = EnhancedConditions.hasCondition;
-            game.succ.addCondition = EnhancedConditions.addCondition;
-            game.succ.removeCondition = EnhancedConditions.removeCondition;
-            game.succ.removeAllConditions = EnhancedConditions.removeAllConditions;
+            game.succ.getCondition = EnhancedConditionsAPI.getCondition;
+            game.succ.getConditionFrom = EnhancedConditionsAPI.getConditionFrom;
+            game.succ.getConditions = EnhancedConditionsAPI.getConditions;
+            game.succ.getConditionEffects = EnhancedConditionsAPI.getConditionEffects;
+            game.succ.hasCondition = EnhancedConditionsAPI.hasCondition;
+            game.succ.addCondition = EnhancedConditionsAPI.addCondition;
+            game.succ.removeCondition = EnhancedConditionsAPI.removeCondition;
+            game.succ.removeAllConditions = EnhancedConditionsAPI.removeAllConditions;
             
             // Expose deprecated API methods
-            //succ = succ ?? {};
-            //succ.apply_status = EnhancedConditions.addCondition;
-            //succ.toggle_status = DeprecatedAPI.toggle_status;
-            //succ.check_status = DeprecatedAPI.check_status;
-            //succ.get_condition = DeprecatedAPI.get_condition;
-            //succ.get_condition_from = DeprecatedAPI.get_condition_from;
+            window.succ = window.succ ?? {};
+            window.succ.apply_status = DeprecatedAPI.apply_status;
+            window.succ.toggle_status = DeprecatedAPI.toggle_status;
+            window.succ.check_status = DeprecatedAPI.check_status;
+            window.succ.get_condition = DeprecatedAPI.get_condition;
+            window.succ.get_condition_from = DeprecatedAPI.get_condition_from;
         });
 
         Hooks.on("ready", () => {

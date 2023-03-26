@@ -617,7 +617,7 @@ export class ConditionLab extends FormApplication {
 
         if (!condition) return;
 
-        const conditionEffect = condition.activeEffect ?? EnhancedConditions.getActiveEffect(condition);
+        const conditionEffect = condition.activeEffect ?? EnhancedConditionsAPI.getActiveEffect(condition);
         
         if (!conditionEffect) return;
 
