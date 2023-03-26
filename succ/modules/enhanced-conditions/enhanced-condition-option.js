@@ -1,6 +1,5 @@
 import { DEFAULT_CONFIG, NAME, SETTING_KEYS } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
-import { EnhancedConditions } from "./enhanced-conditions.js";
 
 /**
  * Enhanced Condition Trigger Config Application
@@ -117,6 +116,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
         const newMap = foundry.utils.deepClone(map);
         let conditionIndex = newMap.findIndex(c => c.id === this.object.id);
 
+        // Loop over the list of options and see if any of them need to be pushed up to the Foundry config
         for (const field in formData) {
             const value = formData[field];
             const element = event.target?.querySelector(`input[name="${field}"]`);
@@ -151,7 +151,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
     }
 
     /**
-     * Get the enum for a special status effect based on the field name
+     * Get the enum for a special status effect in Foundry based on the field name
      * @param {*} field 
      * @returns {String} enum for the special status effect 
      */

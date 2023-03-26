@@ -1,25 +1,9 @@
-import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
-
 export const NAME = "succ";
 
 export const TITLE = "SWADE Ultimate Condition Changer";
 
 export const PATH = "modules/succ";
 
-export const WIKIPATH = "https://github.com/death-save/succ/wiki"
-
-export const GADGETS = {
-    enhancedConditions: {
-        name: "Enhanced Conditions",
-        info: "Provides the ability to map Conditions to Status Effect icons",
-        wiki: `${WIKIPATH}/enhanced-conditions`
-    },
-    tokenUtility: {
-        name: "Misc Token",
-        info: "Miscellaneous Token enhancements",
-        wiki: null
-    }
-}
 /**
  * Stores information about well known game systems. All other systems will resolve to "other"
  * Keys must match id
@@ -46,8 +30,9 @@ export const DEFAULT_CONFIG = {
     enhancedConditions: {
         iconPath: `${PATH}/icons/`,
         conditionMapsPath: `${PATH}/condition-maps`,
-        outputChat: false,
-        removeDefaultEffects: false,
+        enable: true,
+        outputChat: true,
+        removeDefaultEffects: true,
         conditionLab: {
             id: "succ-condition-lab",
             title: "Condition Lab",
@@ -66,28 +51,6 @@ export const DEFAULT_CONFIG = {
             custom: "System - Custom",
             other: "Other/Imported"
         },
-        referenceTypes: [
-            {
-                id: "journalEntry",
-                name: "Journal",
-                icon: `fas fa-book-open`
-            },
-            {
-                id: "compendium.journalEntry",
-                name: "Journal (C)",
-                icon: `fas fa-atlas`
-            },
-            {
-                id: "item",
-                name: "Item",
-                icon: `fas fa-suitcase`
-            },
-            {
-                id: "compendium.item",
-                name: "Item (C)",
-                icon: `fas fa-suitcase`
-            }
-        ],
         templates: {
             conditionLab: `${PATH}/templates/condition-lab.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
@@ -96,7 +59,6 @@ export const DEFAULT_CONFIG = {
             macroConfig: `${PATH}/templates/enhanced-condition-macro-config.hbs`,
             optionConfig: `${PATH}/templates/enhanced-condition-option-config.hbs`
         },
-        migrationVersion: "",
         specialStatusEffects: {
             blinded: {
                 optionProperty: "blindToken"
@@ -119,14 +81,10 @@ export const DEFAULT_CONFIG = {
             conviction: {
                 optionProperty: "conviction"
             }
-        }
-    },
-    actorUtility: {
-        initiativeFromSheet: false
+        },
+        proneName : "SWADE.Prone"
     },
     tokenUtility: {
-        autoRollHP: false,
-        hideAutoRoll: false,
         effectSize: {
             xLarge: {
                 multiplier: 5,
@@ -171,8 +129,6 @@ export const SETTING_KEYS = {
         mapType: "conditionMapType",
         removeDefaultEffects: "removeDefaultEffects",
         outputChat: "conditionsOutputToChat",
-        suppressPreventativeSaveReminder: "conditionsSuppressPreventativeSaveReminder",
-        migrationVersion: "enhancedConditionsMigrationVersion",
         showSortDirectionDialog: "showSortDirectionDialog",
         defaultSpecialStatusEffects: "defaultSpecialStatusEffects",
         specialStatusEffectMapping: "specialStatusEffectMapping"

@@ -12,9 +12,7 @@ import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js
 /* ------------------- Utils ------------------ */
 
 import { TokenUtility } from "./utils/token.js";
-import { ActorUtility } from "./utils/actor.js";
 import { ConditionLab } from "./enhanced-conditions/condition-lab.js";
-import MigrationHelper from "./utils/migration.js";
 
 /* -------------------------------------------- */
 /*                     Class                    */
@@ -69,12 +67,10 @@ export class Signal {
             game.succ.addCondition = EnhancedConditions.addCondition;
             game.succ.removeCondition = EnhancedConditions.removeCondition;
             game.succ.removeAllConditions = EnhancedConditions.removeAllConditions;
-
         });
 
         Hooks.on("ready", () => {
-            EnhancedConditions._onReady();
-            MigrationHelper._onReady();          
+            EnhancedConditions._onReady();       
         });
 
         /* -------------------------------------------- */
@@ -112,7 +108,7 @@ export class Signal {
         /* ------------------- Misc ------------------- */
 
         Hooks.on("renderSettings", (app, html) => {
-            Sidekick.createCUBDiv(html);
+            Sidekick.createSUCCDiv(html);
             EnhancedConditions._createLabButton(html);
             EnhancedConditions._toggleLabButtonVisibility(Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable));
         });

@@ -175,10 +175,7 @@
         {
             "name":"EFFECT.StatusBlind", 
             "icon": "modules/succ/icons/swade/blind.svg",
-            "referenceId": "{Blind}",
-            "options": {
-                "blindToken": true
-            }
+            "referenceId": "{Blind}"
         },
         {
             "name":"SWADE.Smite", 

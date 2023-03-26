@@ -175,10 +175,7 @@
         {
             "name":"EFFECT.StatusBlind", 
             "icon": "modules/succ/icons/swade/blind.svg",
-            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.GxPhaUI4jQtFiXIr]{Blind}",
-            "options": {
-                "blindToken": true
-            }
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.GxPhaUI4jQtFiXIr]{Blind}"
         },
         {
             "name":"SWADE.Smite", 

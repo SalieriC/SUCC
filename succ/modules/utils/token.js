@@ -1,12 +1,11 @@
 import { Sidekick } from "../sidekick.js";
-import { NAME, SETTING_KEYS, DEFAULT_CONFIG, FLAGS } from "../butler.js";
+import { SETTING_KEYS, DEFAULT_CONFIG } from "../butler.js";
 
 export class TokenUtility {
     /**
      * Patch core methods
      */
     static patchCore() {
-        TokenUtility._wrapperGetStatusEffectChoices();
         Token.prototype._refreshEffects = TokenUtility._refreshEffectsOverride;
     }
 
@@ -50,50 +49,4 @@ export class TokenUtility {
       }
     }
   }
-
-    /**
-     * Draw a status effect icon
-     * @return {Promise<void>}
-     * @private
-     */
-    static async _drawEffect(src, i, bg, w, tint) {
-        const effectSize = Sidekick.getSetting(SETTING_KEYS.tokenUtility.effectSize); 
-
-        // Use the default values if no setting found
-        const multiplier = effectSize ? DEFAULT_CONFIG.tokenUtility.effectSize[effectSize].multiplier : 2;
-        const divisor = effectSize ? DEFAULT_CONFIG.tokenUtility.effectSize[effectSize].divisor : 5;
-
-        // By default the width is multipled by 2, so divide by 2 first then use the new multiplier
-        w = (w / 2) * multiplier;
-
-        let tex = await loadTexture(src, {fallback: 'icons/svg/hazard.svg'});
-        let icon = this.effects.addChild(new PIXI.Sprite(tex));
-        icon.width = icon.height = w;
-        //const nr = Math.floor(this.data.height * 5);
-        const nr = Math.floor(this.document.height * divisor);
-        icon.x = Math.floor(i / nr) * w;
-        icon.y = (i % nr) * w;
-        if ( tint ) icon.tint = tint;
-        bg.drawRoundedRect(icon.x + 1, icon.y + 1, w - 2, w - 2, 2);
-    }
-
-    static _wrapperGetStatusEffectChoices() {
-        const coreMethod = TokenHUD.prototype._getStatusEffectChoices;
-
-        TokenHUD.prototype._getStatusEffectChoices = function() {
-            const effects = coreMethod.call(this);
-            
-            for (const src in effects) {
-                const effect = effects[src];
-                const condition = game.succ?.conditions?.find(c => c.icon === src);
-
-                //if (condition && !effect.id?.includes(NAME)) {
-                //    effect.id = `${NAME}.${condition.id}`;
-                //    effect.label = condition.label;
-                //}
-            }
-
-            return effects;
-        }
-    }
 }

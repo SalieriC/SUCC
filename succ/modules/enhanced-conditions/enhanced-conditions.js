@@ -78,27 +78,11 @@ export class EnhancedConditions {
             if (game.user.isGM) {
                 EnhancedConditions._backupCoreEffects();
                 EnhancedConditions._backupCoreSpecialStatusEffects();
-                // If the reminder is not suppressed, advise users to save the Condition Lab
-                const suppressPreventativeSaveReminder = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.suppressPreventativeSaveReminder);
-                if (!suppressPreventativeSaveReminder) {
-                    EnhancedConditions._preventativeSaveReminder();
-                }
             }
             const specialStatusEffectMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping);
             if (conditionMap.length) EnhancedConditions._updateStatusEffects(conditionMap);
             if (specialStatusEffectMap) foundry.utils.mergeObject(CONFIG.specialStatusEffects, specialStatusEffectMap);
             setInterval(EnhancedConditions.updateConditionTimestamps, 15000);
-        }
-
-        let proneCondition = EnhancedConditions.lookupConditionById("prone");
-        if (proneCondition) {
-            // We have to add the fighting die modifier for prone here rather than in the json because we need to know the fighting skill name
-            const fightingSkill = game.settings.get("swade", "parryBaseSkill");
-            proneCondition.activeEffect.changes.push({
-                "key": `@Skill{${fightingSkill}}[system.die.modifier]`,
-                "value": "-2",
-                "mode": 2
-            });
         }
 
         // Save the active condition map to a convenience property
@@ -118,16 +102,16 @@ export class EnhancedConditions {
      * @param {*} userId 
      */
     static _onPreUpdateToken(token, update, options, userId) {
-        const cubOption = options[BUTLER.NAME] = options[BUTLER.NAME] ?? {};
+        const succOption = options[BUTLER.NAME] = options[BUTLER.NAME] ?? {};
 
         if (hasProperty(update, "actorData.effects")) {
-            cubOption.existingEffects = token.actorData.effects ?? [];
-            cubOption.updateEffects = update.actorData.effects ?? [];
+            succOption.existingEffects = token.actorData.effects ?? [];
+            succOption.updateEffects = update.actorData.effects ?? [];
         }
 
         if (hasProperty(update, "overlayEffect")) {
-            cubOption.existingOverlay = token.overlayEffect ?? null;
-            cubOption.updateOverlay = update.overlayEffect ?? null;
+            succOption.existingOverlay = token.overlayEffect ?? null;
+            succOption.updateOverlay = update.overlayEffect ?? null;
         }
 
         return true;
@@ -171,25 +155,25 @@ export class EnhancedConditions {
 
         if (!hasProperty(options, `${BUTLER.NAME}`)) return;
 
-        const cubOption = options[BUTLER.NAME];
-        const addUpdate = cubOption ? cubOption?.updateEffects?.length > cubOption?.existingEffects?.length : false;
-        const removeUpdate = cubOption ? cubOption?.existingEffects?.length > cubOption?.updateEffects?.length : false;
+        const succOption = options[BUTLER.NAME];
+        const addUpdate = succOption ? succOption?.updateEffects?.length > succOption?.existingEffects?.length : false;
+        const removeUpdate = succOption ? succOption?.existingEffects?.length > succOption?.updateEffects?.length : false;
         const updateEffects = [];
         
         if (addUpdate) {
-            for (const e of cubOption.updateEffects) {
-                if (!cubOption.existingEffects.find(x => x._id === e._id)) updateEffects.push({effect: e, type: "effect", changeType: "add"});
+            for (const e of succOption.updateEffects) {
+                if (!succOption.existingEffects.find(x => x._id === e._id)) updateEffects.push({effect: e, type: "effect", changeType: "add"});
             }
         }
         
         if (removeUpdate) {
-            for (const e of cubOption.existingEffects) {
-                if (!cubOption.updateEffects.find(u => u._id === e._id)) updateEffects.push({effect: e, type: "effect", changeType: "remove"});
+            for (const e of succOption.existingEffects) {
+                if (!succOption.updateEffects.find(u => u._id === e._id)) updateEffects.push({effect: e, type: "effect", changeType: "remove"});
             }
         }
 
-        if (!cubOption.existingOverlay && cubOption.updateOverlay) updateEffects.push({effect: cubOption.updateOverlay, type: "overlay", changeType: "add"});
-        else if (cubOption.existingOverlay && !cubOption.updateOverlay) updateEffects.push({effect: cubOption.existingOverlay, type: "overlay", changeType: "remove"});
+        if (!succOption.existingOverlay && succOption.updateOverlay) updateEffects.push({effect: succOption.updateOverlay, type: "overlay", changeType: "add"});
+        else if (succOption.existingOverlay && !succOption.updateOverlay) updateEffects.push({effect: succOption.existingOverlay, type: "overlay", changeType: "remove"});
 
         if (!updateEffects.length) return;
 
@@ -818,28 +802,6 @@ export class EnhancedConditions {
     }
 
     /**
-     * Migrates Condition Ids to be truly unique-ish
-     * @param {*} conditionMap 
-     */
-    static async _migrateConditionIds(conditionMap) {
-        if (!conditionMap?.length) return;
-
-        const existingIds = conditionMap.filter(c => c.id).map(c => c.id);
-        const processedIds = [];
-        const newMap = foundry.utils.deepClone(conditionMap);
-        newMap.forEach((c) => {
-            if (processedIds.includes(c.id)) {
-                console.log(`${BUTLER.NAME} | Duplicate Condition found:`, c);
-                const oldId = c.id;
-                c.id = Sidekick.createId(existingIds);
-                console.log(`${BUTLER.NAME} | New id:`, c.id);
-            }
-            processedIds.push(c.id);
-        });
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
-    }
-
-    /**
      * Process macros based on given Ids
      * @param {*} macroIds 
      * @param {*} entity 
@@ -906,7 +868,7 @@ export class EnhancedConditions {
     static _createLabButton(html) {
         if (!game.user.isGM) return;
 
-        const cubDiv = html.find("#succ");
+        const succDiv = html.find("#succ");
 
         const labButton = $(
             `<button id="condition-lab" data-action="condition-lab">
@@ -914,7 +876,7 @@ export class EnhancedConditions {
                 </button>`
         );
         
-        cubDiv.append(labButton);
+        succDiv.append(labButton);
 
         labButton.on("click", event => {
             if (game.succ.enhancedConditions.supported) {
@@ -961,6 +923,35 @@ export class EnhancedConditions {
             obj[current.system] = current.map;
             return obj;
         },{});
+
+        const proneName = BUTLER.DEFAULT_CONFIG.enhancedConditions.proneName;
+            
+        for (let defaultMap of Object.values(defaultMaps)) {
+            // We have to add the fighting die modifier for prone here rather than in the json because we need to know the fighting skill name
+            let proneCondition = defaultMap.find(c => c.name === proneName);
+            if (proneCondition) {
+                const fightingSkill = game.settings.get("swade", "parryBaseSkill");
+                proneCondition.activeEffect.changes.push({
+                    "key": `@Skill{${fightingSkill}}[system.die.modifier]`,
+                    "value": "-2",
+                    "mode": 2
+                });
+            }
+            
+            // If the default config contains changes and we have not overridden them in the system definition, copy those over
+            const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
+            for (let statusEffect of statusEffects) {
+                let condition = defaultMap.find(c => c.name === statusEffect.label);
+                if (!condition) {
+                    continue;
+                } else if (!condition.activeEffect) {
+                    condition.activeEffect = statusEffect;
+                    condition.activeEffect.icon = condition.icon;
+                } else if (!condition.activeEffect.changes) {
+                    condition.activeEffect.changes = statusEffect.changes;
+                }
+            }
+        }
 
         return defaultMaps;
     }
@@ -1294,33 +1285,6 @@ export class EnhancedConditions {
         return map;
     }
 
-    /**
-     * Create a dialog reminding users to Save the Condition Lab as a preventation for issues arising from the transition to Active Effects
-     */
-    static async _preventativeSaveReminder() {
-        const content = await renderTemplate(`${BUTLER.PATH}/templates/preventative-save-dialog.hbs`);
-
-        const dialog = new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.PreventativeSaveReminder.Title"),
-            content,
-            buttons: {
-                ok: {
-                    label: game.i18n.localize("WORDS.IUnderstand"),
-                    icon: `<i class="fas fa-check"></i>`,
-                    callback: (html, event) => {
-                        const suppressCheckbox = html.find("input[name='suppress']");
-                        const suppress = suppressCheckbox.val();
-                        if (suppress) {
-                            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.suppressPreventativeSaveReminder, true)
-                        }
-                    }
-                }
-            }
-        });
-
-        dialog.render(true);
-    }
-
     /* -------------------------------------------- */
     /*                      API                     */
     /* -------------------------------------------- */
@@ -1381,7 +1345,7 @@ export class EnhancedConditions {
         }
 
         for (let entity of entities) {
-            const actor = entity instanceof Actor ? entity : entity instanceof Token || entity instanceof TokenDocument ? entity.actor : null;
+            const actor = getActorFromEntity(entity);
             
             if (!actor) continue;
 
@@ -1476,22 +1440,10 @@ export class EnhancedConditions {
             return;
         }
 
-        let target = entity;
-        if (typeof (entity) === "string") {
-            target = await canvas.tokens.get(entity);
-
-            if (!target) {
-                target = await game.actors.get(entity);
-            }
-
-            if (!target) {
-                return;
-            }
-        }
-
-        if (target.actor) {
-            // noinspection JSValidateTypes
-            target = target.actor
+        const actor = getActorFromEntity(entity);
+        
+        if (!actor) {
+            return;
         }
 
         let conditions = EnhancedConditions.lookupConditionById(conditionId);
@@ -1505,7 +1457,7 @@ export class EnhancedConditions {
         conditions = EnhancedConditions._prepareStatusEffects(conditions);
         conditions = conditions instanceof Array ? conditions : [conditions];
 
-        const conditionEffect = target.effects.contents.find(ae => {
+        const conditionEffect = actor.effects.contents.find(ae => {
             return conditions.find(e => e?.flags[BUTLER.NAME][BUTLER.FLAGS.enhancedConditions.conditionId] === ae.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId));
         });
 
@@ -1555,7 +1507,7 @@ export class EnhancedConditions {
         const results = [];
 
         for (let entity of entities) {
-            const actor = entity instanceof Actor ? entity : (entity instanceof Token || entity instanceof TokenDocument) ? entity.actor : null;
+            const actor = getActorFromEntity(entity);
 
             const effects = actor?.effects.contents;
 
@@ -1617,7 +1569,7 @@ export class EnhancedConditions {
         let results = new Collection();
 
         for (const entity of entities) {
-            const actor = entity instanceof Actor ? entity : (entity instanceof Token || entity instanceof TokenDocument) ? entity.actor : null;
+            const actor = getActorFromEntity(entity);
             const activeEffects = actor.effects.contents;
 
             if (!activeEffects.length) continue;
@@ -1683,7 +1635,7 @@ export class EnhancedConditions {
         conditions = conditions instanceof Array ? conditions : [conditions];
 
         for (let entity of entities) {
-            const actor = entity instanceof Actor ? entity : (entity instanceof Token || entity instanceof TokenDocument) ? entity.actor : null;
+            const actor = getActorFromEntity(entity);
 
             if (!actor.effects.size) continue;
 
@@ -1747,7 +1699,7 @@ export class EnhancedConditions {
         if (entities && !(entities instanceof Array)) entities = [entities];
 
         for (let entity of entities) {
-            const actor = entity instanceof Actor ? entity : (entity instanceof Token || entity instanceof TokenDocument) ? entity.actor : null;
+            const actor = getActorFromEntity(entity);
             const activeEffects = actor.effects.contents.filter(e => effects.map(e => e.flags[BUTLER.NAME].conditionId).includes(e.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId)));
 
             if (!activeEffects || (activeEffects && !activeEffects.length)) {
@@ -1789,7 +1741,7 @@ export class EnhancedConditions {
         entities = entities instanceof Array ? entities : [entities];
 
         for (let entity of entities) {
-            const actor = entity instanceof Actor ? entity : (entity instanceof Token || entity instanceof TokenDocument) ? entity.actor : null;
+            const actor = getActorFromEntity(entity);
 
             let actorConditionEffects = EnhancedConditions.getConditionEffects(actor, {warn: false});
 
@@ -1803,15 +1755,12 @@ export class EnhancedConditions {
         }
     }
 
-    static async _migrationHelper(cubVersion) {
-        const conditionMigrationVersion = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion);
+    static async getActorFromEntity(entity) {        
+        const actor = typeof (entity) === 'string' ? await canvas.tokens.get(target) : 
+        entity instanceof Actor ? entity : 
+        (entity instanceof Token || entity instanceof TokenDocument) ? entity.actor : null;
 
-        if (foundry.utils.isNewerVersion(cubVersion, conditionMigrationVersion)) {
-            console.log(`${BUTLER.NAME} | Performing Enhanced Condition migration...`);
-            EnhancedConditions._migrateConditionIds(game.succ?.conditions);
-            await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion, cubVersion);
-            console.log(`${BUTLER.NAME} | Enhanced Condition migration complete!`);
-        } 
+        return actor;
     }
 
     static skill_sorter(allSkills) {
@@ -1863,5 +1812,75 @@ export class EnhancedConditions {
             }
         }
         await appliedCondition.update(updates)
+    }
+}
+
+
+export class DeprecatedAPI {
+
+    /**
+     * Apply the named condition to the provided entities (Actors or Tokens)
+     * @deprecated
+     * @param  {...any} params 
+     * @see EnhancedConditions#addCondition
+     * @see EnhancedConditions#removeCondition
+     */
+    static async apply_status(target, status_name, final_state = true, overlay = false, additionalData) {
+        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.apply_status`)});
+        const allowDuplicates = additionalData ? additionalData.force : false;
+        if (final_state) {
+            return EnhancedConditions.addCondition(status_name, target, {allowDuplicates: allowDuplicates});
+        } else {
+            return EnhancedConditions.removeCondition(status_name, target);
+        }
+    }
+
+    /**
+     * Apply the named condition to the provided entities (Actors or Tokens)
+     * @deprecated
+     * @param  {...any} params 
+     * @see EnhancedConditions#addCondition
+     * @see EnhancedConditions#removeCondition
+     */
+    static async toggle_status(target, status_name, final_state = true, overlay = false, additionalData) {
+        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.toggle_status`)});
+        if (final_state) {
+            return EnhancedConditions.addCondition(status_name, target);
+        } else {
+            return EnhancedConditions.removeCondition(status_name, target);
+        }
+    }
+    
+    /**
+     * Apply the named condition to the provided entities (Actors or Tokens)
+     * @deprecated
+     * @param  {...any} params 
+     * @see EnhancedConditions#hasCondition
+     */
+    static async check_status(target, status_name) {
+        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.check_status`)});
+        return EnhancedConditions.hasCondition(status_name, target);
+    }
+    
+    /**
+     * Apply the named condition to the provided entities (Actors or Tokens)
+     * @deprecated
+     * @param  {...any} params 
+     * @see EnhancedConditions#getCondition
+     */
+    static async get_condition(condition_name) {
+        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.get_condition`)});
+        return EnhancedConditions.getCondition(condition_name);
+    }
+    
+    /**
+     * Apply the named condition to the provided entities (Actors or Tokens)
+     * @deprecated
+     * @param  {...any} params 
+     * @see EnhancedConditions#getConditionFrom
+     */
+    static async get_condition_from(target, status_name) {
+        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Warnings.get_condition_from`)});
+        return EnhancedConditions.getConditionFrom(status_name, target);
     }
 }

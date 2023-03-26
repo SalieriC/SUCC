@@ -1,6 +1,3 @@
-import { SETTING_KEYS } from "../butler.js";
-import { Sidekick } from "../sidekick.js";
-import { EnhancedConditions } from "./enhanced-conditions.js";
 import { NAME, FLAGS } from "../butler.js";
 
 export default class EnhancedEffectConfig extends ActiveEffectConfig {

@@ -9,12 +9,13 @@ export function registerSettings() {
     /*              EnhancedConditions              */
     /* -------------------------------------------- */
 
+    // Enable enhanced conditions
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable, {
         name: "SETTINGS.EnhancedConditions.EnableN",
         hint: "SETTINGS.EnhancedConditions.EnableH",
         scope: "world",
         type: Boolean,
-        default: false,
+        default: BUTLER.DEFAULT_CONFIG.enhancedConditions.enable,
         config: true,
         onChange: async (s) => {
             if (s) {
@@ -29,6 +30,7 @@ export function registerSettings() {
         }
     });
 
+    // Storage for the backup of the core effects map
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, {
         name: "SETTINGS.EnhancedConditions.CoreEffectsN",
         hint: "SETTINGS.EnhancedConditions.CoreEffectsH",
@@ -123,27 +125,6 @@ export function registerSettings() {
         onChange: s => {
             EnhancedConditions._updateStatusEffects();
         }
-    });
-
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.suppressPreventativeSaveReminder, {
-        name: "SETTINGS.EnhancedConditions.SuppressPreventativeSaveReminderN",
-        hint: "SETTINGS.EnhancedConditions.SuppressPreventativeSaveReminderH",
-        scope: "world",
-        type: Boolean,
-        config: false,
-        default: false,
-        onChange: s => {}
-    });
-    
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion, {
-        name:  `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.MigrationVersionN`,
-        hint: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.MigrationVersionH`,
-        scope: "world",
-        type: String,
-        config: false,
-        apiOnly: true,
-        default: BUTLER.DEFAULT_CONFIG.enhancedConditions.migrationVersion,
-        onChange: s => {}
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog, {

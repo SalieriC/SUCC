@@ -239,21 +239,7 @@ export class ConditionLab extends FormApplication {
         const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
         if (clearCache) {
-            defaultMaps = await EnhancedConditions._loadDefaultMaps();
-
-            // If the default config contains changes and we have not overridden them in the system definition, copy those over
-            for (let defaultStatusEffect of CONFIG.defaultStatusEffects) {
-                let condition = defaultMaps[system].find(c => c.name === defaultStatusEffect.label);
-                if (!condition) {
-                    continue;
-                } else if (!condition.activeEffect) {
-                    condition.activeEffect = defaultStatusEffect;
-                    condition.activeEffect.icon = condition.icon;
-                } else if (!condition.activeEffect.changes) {
-                    condition.activeEffect.changes = defaultStatusEffect.changes;
-                }
-            }
-            
+            defaultMaps = await EnhancedConditions._loadDefaultMaps();            
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
         }
         const tempMap = (this.mapType != otherMapType && defaultMaps && defaultMaps[system]) ? defaultMaps[system] : [];

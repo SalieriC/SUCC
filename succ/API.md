@@ -61,9 +61,6 @@ LICENSE: <a href="https://github.com/Moerill/Mess/blob/master/LICENSE">https://g
 ## Functions
 
 <dl>
-<dt><a href="#createCUBPuterButton">createCUBPuterButton(html)</a></dt>
-<dd><p>Create the sidebar button</p>
-</dd>
 <dt><a href="#getData">getData(options)</a></dt>
 <dd><p>Get data for template rendering</p>
 </dd>
@@ -625,7 +622,6 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [.mapFromJson(json)](#EnhancedConditions.mapFromJson)
     * [.getDefaultMap(system)](#EnhancedConditions.getDefaultMap)
     * [.buildDefaultMap(system)](#EnhancedConditions.buildDefaultMap)
-    * [._preventativeSaveReminder()](#EnhancedConditions._preventativeSaveReminder)
     * [.addCondition(conditionName, [entities])](#EnhancedConditions.addCondition)
     * [.getCondition(conditionName, map)](#EnhancedConditions.getCondition)
     * [.getConditions(entities)](#EnhancedConditions.getConditions) ⇒ <code>Array</code>
@@ -1006,19 +1002,6 @@ Builds a default map for a given system
 | --- | --- |
 | system | <code>\*</code> | 
 
-<a name="EnhancedConditions._preventativeSaveReminder"></a>
-
-### EnhancedConditions.\_preventativeSaveReminder()
-Create a dialog reminding users to Save the Condition Lab as a preventation for issues arising from the transition to Active Effects
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-<a name="EnhancedConditions.applyCondition"></a>
-
-### ~~EnhancedConditions.applyCondition(...params)~~
-***Deprecated***
-
-Apply the named condition to the provided entities (Actors or Tokens)
-
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
 **See**: EnhancedConditions#addCondition  
 
@@ -1355,7 +1338,7 @@ Provides helper methods for use elsewhere in the module (and has your back in a 
 **Kind**: global class  
 
 * [Sidekick](#Sidekick)
-    * [.createCUBDiv(html)](#Sidekick.createCUBDiv)
+    * [.createSUCCDiv(html)](#Sidekick.createSUCCDiv)
     * [.getSetting(key)](#Sidekick.getSetting) ⇒ <code>Object</code>
     * [.getAllSettings()](#Sidekick.getAllSettings) ⇒ <code>Array</code>
     * [.setSetting(key, value, awaitResult)](#Sidekick.setSetting) ⇒ <code>Promise</code> \| <code>ClientSetting</code>
@@ -1389,10 +1372,10 @@ Provides helper methods for use elsewhere in the module (and has your back in a 
     * [.loadTemplates()](#Sidekick.loadTemplates)
     * [.getDocumentOwners(document)](#Sidekick.getDocumentOwners) ⇒ <code>Array</code>
 
-<a name="Sidekick.createCUBDiv"></a>
+<a name="Sidekick.createSUCCDiv"></a>
 
-### Sidekick.createCUBDiv(html)
-Creates the CUB div in the Sidebar
+### Sidekick.createSUCCDiv(html)
+Creates the SUCC div in the Sidebar
 
 **Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
 
@@ -1415,7 +1398,7 @@ Get a single setting using the provided key
 <a name="Sidekick.getAllSettings"></a>
 
 ### Sidekick.getAllSettings() ⇒ <code>Array</code>
-Get all CUB settings
+Get all SUCC settings
 
 **Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
 **Returns**: <code>Array</code> - settings  
@@ -1866,28 +1849,12 @@ Update token handler
 | html | <code>\*</code> | 
 | data | <code>\*</code> | 
 
-<a name="DraggableList"></a>
-
-## DraggableList
-From Valentin "Moerill" Henkys
-the code is licensed under LGPL v3.
-Original is implemented in his module "Mess":
-https://github.com/Moerill/Mess
-LICENSE: https://github.com/Moerill/Mess/blob/master/LICENSE
-
-**Kind**: global class  
 <a name="KNOWN_GAME_SYSTEMS"></a>
 
 ## KNOWN\_GAME\_SYSTEMS
 Stores information about well known game systems. All other systems will resolve to "other"
 
-**Kind**: global constant  
-<a name="createCUBPuterButton"></a>
-
-## createCUBPuterButton(html)
-Create the sidebar button
-
-**Kind**: global function  
+**Kind**: global constant
 
 | Param | Type |
 | --- | --- |

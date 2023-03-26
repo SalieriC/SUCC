@@ -4,20 +4,20 @@ import * as BUTLER from "./butler.js";
  */
 export class Sidekick {
     /**
-     * Creates the CUB div in the Sidebar
+     * Creates the SUCC div in the Sidebar
      * @param {*} html 
      */
-    static createCUBDiv(html) {
+    static createSUCCDiv(html) {
         if (!game.user.isGM) return;
         
-        const cubDiv = $(
+        const succDiv = $(
             `<div id="succ">
                     <h4>SWADE Ultimate Condition Changer</h4>
                 </div>`
         );
 
         const setupButton = html.find("div#settings-game");
-        setupButton.append(cubDiv);
+        setupButton.append(succDiv);
     }
 
     /**
@@ -30,7 +30,7 @@ export class Sidekick {
     }
 
     /**
-     * Get all CUB settings
+     * Get all SUCC settings
      * @returns {Array} settings
      */
     static getAllSettings() {
