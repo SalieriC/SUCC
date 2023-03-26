@@ -8,6 +8,7 @@ import { registerSettings } from "./settings.js";
 /* ------------------ Gadgets ----------------- */
 
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
+import { DeprecatedAPI } from "./enhanced-conditions/dep-api.js";
 
 /* ------------------- Utils ------------------ */
 
@@ -67,6 +68,14 @@ export class Signal {
             game.succ.addCondition = EnhancedConditions.addCondition;
             game.succ.removeCondition = EnhancedConditions.removeCondition;
             game.succ.removeAllConditions = EnhancedConditions.removeAllConditions;
+            
+            // Expose deprecated API methods
+            //succ = succ ?? {};
+            //succ.apply_status = EnhancedConditions.addCondition;
+            //succ.toggle_status = DeprecatedAPI.toggle_status;
+            //succ.check_status = DeprecatedAPI.check_status;
+            //succ.get_condition = DeprecatedAPI.get_condition;
+            //succ.get_condition_from = DeprecatedAPI.get_condition_from;
         });
 
         Hooks.on("ready", () => {
