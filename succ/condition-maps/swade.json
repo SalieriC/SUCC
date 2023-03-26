@@ -202,6 +202,7 @@
             "name":"ENHANCED_CONDITIONS.Condition.Boost", 
             "icon": "modules/succ/icons/swade/boost.svg",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.FSwGNyzYvYRMhOkV]{Boost Trait}",
+            "id": "boost",
             "options": {
                 "boostTrait": true
             }
@@ -210,6 +211,7 @@
             "name":"ENHANCED_CONDITIONS.Condition.Lower", 
             "icon": "modules/succ/icons/swade/lower.svg",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.FSwGNyzYvYRMhOkV]{Lower Trait}",
+            "id": "lower",
             "options": {
                 "lowerTrait": true
             }

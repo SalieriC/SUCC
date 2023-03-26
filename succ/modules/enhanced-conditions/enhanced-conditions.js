@@ -127,15 +127,6 @@ export class EnhancedConditions {
             if (await EnhancedConditionsAPI.hasCondition('conviction', actor, {warn: false}) === true) { return; }
 
             await EnhancedConditionsAPI.addCondition('conviction', actor);
-            const applied_effects = actor.effects.find(eff => eff.getFlag('core', 'statusId') === 'conviction'); //TODO: Convert this to match the rest of the code
-            await applied_effects.update({
-                flags: {
-                    succ: {
-                        updatedAE: true,
-                        userId: userId,
-                    }
-                }
-            })
         }
 
         //Remove Conviction:
@@ -147,10 +138,10 @@ export class EnhancedConditions {
     /**
      * Hooks on token updates. If the update includes effects, calls the journal entry lookup
      */
-    static _onUpdateToken(token, update, options, userId) {
+    static async _onUpdateToken(token, update, options, userId) {
         const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
 
-        if (!enable || !game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
+        if (!enable || game.userId !== userId) {
             return;
         }
 
@@ -201,19 +192,15 @@ export class EnhancedConditions {
 
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
 
-        // If any of the addConditions Marks Defeated, mark the token's combatants defeated
-        if (addConditions.some(c => c?.options?.markDefeated)) EnhancedConditions.toggleDefeated(token);
+        const actor = await EnhancedConditionsAPI.getActorFromEntity(token);
 
-        // If any of the removeConditions Marks Defeated, remove the defeated from the token's combatants
-        if (removeConditions.some(c => c?.options?.markDefeated)) EnhancedConditions.toggleDefeated(token, {markDefeated: false});
-
-        // If any of the conditions Removes Others, remove the other Conditions
-        addConditions.some(c => {
-            if (c?.options?.removeOthers) {
-                EnhancedConditions.removeOtherConditions(token, c.id);
-                return true;
-            }
-        }); 
+        for (const addedCondition of addConditions) {
+            EnhancedConditions.applyConditionOptions(addedCondition, actor, "create");
+        }
+        
+        for (const removedCondition of removeConditions) {
+            EnhancedConditions.applyConditionOptions(removedCondition, actor, "delete");
+        }
 
         const chatAddConditions = addConditions.filter(c => outputChatSetting && c.options?.outputChat);
         const chatRemoveConditions = removeConditions.filter(c => outputChatSetting && c.options?.outputChat);
@@ -239,7 +226,7 @@ export class EnhancedConditions {
     static _onCreateActiveEffect(effect, options, userId) {
         const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
 
-        if (!enable || !game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
+        if (!enable || game.userId !== userId) {
             return;
         }
 
@@ -261,7 +248,7 @@ export class EnhancedConditions {
     static _onDeleteActiveEffect(effect, options, userId) {
         const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
 
-        if (!enable || !game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
+        if (!enable || game.userId !== userId) {
             return;
         }
 
@@ -406,20 +393,12 @@ export class EnhancedConditions {
         switch (type) {
             case "create":
                 macros = condition.macros?.filter(m => m.type === "apply");
-                if (condition.options?.removeOthers) EnhancedConditions.removeOtherConditions(actor, condition.id);
-                if (condition.options?.markDefeated) EnhancedConditions.toggleDefeated(actor, {markDefeated: true});
-                if (condition.options?.boostTrait) EnhancedConditions.boostLowerTrait(actor, condition, true);
-                if (condition.options?.lowerTrait) EnhancedConditions.boostLowerTrait(actor, condition, false);
-                if (condition.options?.smite) EnhancedConditions.smite(actor, condition);
-                if (condition.options?.protection) EnhancedConditions.protection(actor, condition);
-                if (condition.options?.conviction) EnhancedConditions.toggleConviction(actor, effect, userId, {activateConviction: true});
-                
+                EnhancedConditions.applyConditionOptions(condition, actor, "create");
                 break;
 
             case "delete":
                 macros = condition.macros?.filter(m => m.type === "remove");
-                if (condition.options?.markDefeated) EnhancedConditions.toggleDefeated(actor, {markDefeated: false});
-                if (condition.options?.conviction) EnhancedConditions.toggleConviction(actor, effect, userId, {activateConviction: false});
+                EnhancedConditions.applyConditionOptions(condition, actor, "delete");
                 break;
 
             default:
@@ -430,6 +409,30 @@ export class EnhancedConditions {
 
         if (macroIds?.length) EnhancedConditions._processMacros(macroIds, actor);
     }
+
+    static applyConditionOptions(condition, actor, type="create") {
+        switch (type) {
+            case "create":
+                if (condition.options?.removeOthers) EnhancedConditions.removeOtherConditions(actor, condition.id);
+                if (condition.options?.markDefeated) EnhancedConditions.toggleDefeated(actor, {markDefeated: true});
+                if (condition.options?.boostTrait) EnhancedConditions.boostLowerTrait(actor, condition, true);
+                if (condition.options?.lowerTrait) EnhancedConditions.boostLowerTrait(actor, condition, false);
+                if (condition.options?.smite) EnhancedConditions.smite(actor, condition);
+                if (condition.options?.protection) EnhancedConditions.protection(actor, condition);
+                if (condition.options?.conviction) EnhancedConditions.activateConviction(actor);
+                
+                break;
+
+            case "delete":
+                if (condition.options?.markDefeated) EnhancedConditions.toggleDefeated(actor, {markDefeated: false});
+                if (condition.options?.conviction) EnhancedConditions.deactivateConviction(actor);
+                break;
+
+            default:
+                break;
+        }
+    }
+        
 
     /**
      * Checks statusEffect icons against map and returns matching condition mappings
@@ -515,17 +518,17 @@ export class EnhancedConditions {
         };
 
 
-
         // if the last message Enhanced conditions, append instead of making a new one
         const lastMessage = game.messages.contents[game.messages.contents.length - 1];
         const lastMessageSpeaker = lastMessage?.speaker;
         const sameSpeaker = isActorEntity ? lastMessageSpeaker?.actor === speaker.actor : lastMessageSpeaker?.token === speaker.token;
+        const hasPermissions = game.user.isGM || lastMessage?.user?.id == game.userId;
         
         // hard code the recent timestamp to 30s for now
         const recentTimestamp = Date.now() <= lastMessage?.timestamp + 30000;
         const enhancedConditionsDiv = lastMessage?.content.match("enhanced-conditions");
 
-        if (!type.active && enhancedConditionsDiv && sameSpeaker && recentTimestamp) {
+        if (!type.active && enhancedConditionsDiv && sameSpeaker && recentTimestamp && hasPermissions) {
             let newContent = "";
             for (const condition of entries) {
                 const newRow = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatConditionsPartial, {condition, type, timestamp});
@@ -599,37 +602,29 @@ export class EnhancedConditions {
 
     /**
      */
-    static async toggleConviction(actor, effect, userId, {activateConviction=true}={}) {
-        if (activateConviction) {
-            if (actor.system.details.conviction.active === true) {
-                //Condition was toggled due to click on the actor sheet.
-                return;
-            } else if (actor.system.details.conviction.value >= 1 && actor.system.details.conviction.active === false) {
-                //Condition was toggled instead of the button on the actor sheet and actor has at least one conviction token.
-                actor.toggleConviction()
-                //Add the same flags as if toggled from the sheet:
-                await effect.update({
-                    flags: {
-                        succ: {
-                            updatedAE: true,
-                            userId: userId,
-                        }
-                    }
-                })
-            } else if (actor.system.details.conviction.value < 1 && actor.system.details.conviction.active === false) {
-                //Condition was toggled instead of the button on the actor sheet but actor has no conviction tokens.
-                ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Notification.NoConvictionToken"))
-                await EnhancedConditionsAPI.removeCondition('conviction', actor)
-            }
+    static async activateConviction(actor) {
+        if (actor.system.details.conviction.active === true) {
+            //Condition was toggled due to click on the actor sheet.
+            return;
+        } else if (actor.system.details.conviction.value >= 1 && actor.system.details.conviction.active === false) {
+            //Condition was toggled instead of the button on the actor sheet and actor has at least one conviction token.
+            actor.toggleConviction();
+        } else if (actor.system.details.conviction.value < 1 && actor.system.details.conviction.active === false) {
+            //Condition was toggled instead of the button on the actor sheet but actor has no conviction tokens.
+            ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Notification.NoConvictionToken"));
+            await EnhancedConditionsAPI.removeCondition('conviction', actor);
         }
-        else {
-            if (actor.system.details.conviction.active === false) {
-                //Condition was toggled due to click on the actor sheet.
-                return
-            } else if (actor.system.details.conviction.active === true) {
-                //Condition was toggled instead of the button on the actor sheet.
-                actor.toggleConviction()
-            }
+    }
+
+    /**
+     */
+    static async deactivateConviction(actor) {
+        if (actor.system.details.conviction.active === false) {
+            //Condition was toggled due to click on the actor sheet.
+            return;
+        } else if (actor.system.details.conviction.active === true) {
+            //Condition was toggled instead of the button on the actor sheet.
+            actor.toggleConviction();
         }
     }
 
@@ -685,7 +680,7 @@ export class EnhancedConditions {
                 cancel: {
                     label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
                     callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.name, entity, {warn: true})
+                        await EnhancedConditionsAPI.removeCondition(condition.id, entity, {warn: true})
                     }
                 }
             }
@@ -733,7 +728,7 @@ export class EnhancedConditions {
                 cancel: {
                     label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
                     callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.name, entity, {warn: true})
+                        await EnhancedConditionsAPI.removeCondition(condition.id, entity, {warn: true})
                     }
                 }
             }
@@ -776,7 +771,7 @@ export class EnhancedConditions {
                 cancel: {
                     label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
                     callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.name, entity, {warn: true})
+                        await EnhancedConditionsAPI.removeCondition(condition.id, entity, {warn: true})
                     }
                 }
             }
@@ -799,7 +794,7 @@ export class EnhancedConditions {
 
         if (!removeConditions.length) return;
 
-        for (const c of removeConditions) await EnhancedConditionsAPI.removeCondition(c.name, entity, {warn: true});
+        for (const c of removeConditions) await EnhancedConditionsAPI.removeCondition(c.id, entity, {warn: true});
     }
 
     /**
@@ -835,28 +830,6 @@ export class EnhancedConditions {
             iconSpanWrapper.title = `${type} ${foundry.utils.timeSince(timestamp)}`;
         }
     }
-
-    // !! TODO: reassess this -- will it replace valid status effects because the duplicate id matches the remaining unique id???
-    // static async _migrateActiveEffectConditionId(oldId, newId) {
-    //     const updates = [];
-
-    //     for (const scene of game.scenes) {
-    //         const sceneTokens = scene.data?.tokens?.contents;
-    //         for (const token of sceneTokens) {
-    //             const matchingEffect = token.actor?.effects?.contents?.find(e => e.getFlag('core', 'statusId') === oldId);
-    //             if (matchingEffect) {
-    //                 const newFlags = foundry.utils.duplicate(matchingEffect.data.flags);
-    //                 foundry.utils.mergeObject(newFlags, {
-    //                     "core.statusId": newId,
-    //                     [`${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`]: newId
-    //                 });
-    //                 const update = {_id: matchingEffect.id, flags: newFlags};
-                    
-    //                 await token.actor.updateEmbeddedDocuments("ActiveEffect", update);
-    //             }
-    //         }
-    //     }
-    // }
 
     /* -------------------------------------------- */
     /*                    Helpers                   */
@@ -1031,30 +1004,6 @@ export class EnhancedConditions {
             Object.freeze(CONFIG.defaultSpecialStatusEffects);
         }
         Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultSpecialStatusEffects, CONFIG.defaultSpecialStatusEffects);
-    }
-
-    /**
-     * Creates journal entries for any conditions that don't have one
-     * @param {String} condition - the condition being evaluated
-     */
-    static async _createJournalEntry(condition) {
-        let entry = null;
-
-        try {
-            entry = await JournalEntry.create({
-                name: condition,
-                permission: {
-                    default: CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED
-                }
-            }, {
-                displaySheet: false
-            });
-        } catch (e) {
-            //console.log(e);
-        } finally {
-            return entry;
-        }
-
     }
 
     /**

@@ -611,7 +611,6 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [._loadDefaultMaps()](#EnhancedConditions._loadDefaultMaps)
     * [._prepareMap(conditionMap)](#EnhancedConditions._prepareMap)
     * [._backupCoreEffects()](#EnhancedConditions._backupCoreEffects)
-    * [._createJournalEntry(condition)](#EnhancedConditions._createJournalEntry)
     * [.lookupConditionById(conditionId, map)](#EnhancedConditions.lookupConditionById)
     * [._updateStatusEffects(conditionMap)](#EnhancedConditions._updateStatusEffects)
     * [._prepareStatusEffects(conditionMap)](#EnhancedConditions._prepareStatusEffects) ⇒ <code>Array</code>
@@ -878,12 +877,6 @@ Parse the provided Condition Map and prepare it for storage, validating and corr
 
 ### EnhancedConditions.\_backupCoreEffects()
 Duplicate the core status icons, freeze the duplicate then store a copy in settings
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-<a name="EnhancedConditions._createJournalEntry"></a>
-
-### EnhancedConditions.\_createJournalEntry(condition)
-Creates journal entries for any conditions that don't have one
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
 
