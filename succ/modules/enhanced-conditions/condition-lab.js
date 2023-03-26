@@ -1,6 +1,7 @@
 import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { EnhancedConditions } from "./enhanced-conditions.js";
+import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
 import EnhancedEffectConfig from "./enhanced-effect-config.js";
 import EnhancedConditionMacroConfig from "./enhanced-condition-macro.js";
 import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
