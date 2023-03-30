@@ -13,7 +13,6 @@ export class ConditionLab extends FormApplication {
     constructor(object, options={}) {
         super(object, options);
         this.data = (game.succ.conditionLab ? game.succ.conditionLab.data : object) ?? null;
-        this.system = game.system.id;
         this.initialMapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
         this.mapType = null;
         this.initialMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
@@ -22,6 +21,11 @@ export class ConditionLab extends FormApplication {
         this.maps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
         this.filterValue = "";
         this.sortDirection = "";
+        
+        this.system = game.system.id;
+        if (game.modules.get("swpf-core-rules")?.active) {
+            this.system = "swpf";
+        } 
     }
 
     /**

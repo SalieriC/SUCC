@@ -21,29 +21,29 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#aim]{Aiming}"
         },
         {
-            "name":"SWADE.Berserk", 
+            "name":"ENHANCED_CONDITIONS.Condition.Rage", 
             "icon": "modules/succ/icons/swade/berserking.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore01charac.JournalEntryPage.01edges000000000#barbarian]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore01charac.JournalEntryPage.01edges000000000#barbarian]{Rage}"
         },
         {
             "name":"SWADE.Defending", 
             "icon": "modules/succ/icons/swade/defending.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#defend]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#defend]{Defend}"
         },
         {
             "name":"SWADE.Flying", 
             "icon": "modules/succ/icons/swade/flying.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore08bestia.JournalEntryPage.08specialabili00#flight]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-abilities.lZVhdNhW8bG0GcVz]{Flight}"
         },
         {
             "name":"SWADE.Holding", 
             "icon": "modules/succ/icons/swade/holding.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#hold]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#hold]{Hold}"
         },
         {
             "name":"SWADE.Conv", 
             "icon": "modules/succ/icons/swade/conviction.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03rules000000000#conviction]",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03rules000000000#conviction]{Conviction}",
             "id": "conviction",
             "options": {
                 "conviction": true
@@ -87,17 +87,17 @@
         {
             "name":"ENHANCED_CONDITIONS.Condition.TheDrop", 
             "icon": "modules/succ/icons/swade/the_drop.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#the-drop]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#the-drop]{The Drop}"
         },
         {
             "name":"SWADE.Stunned", 
             "icon": "modules/succ/icons/swade/stunned.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#stunned]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#stunned]{Stunned}"
         },
         {
             "name":"SWADE.Prone", 
             "icon": "modules/succ/icons/swade/prone.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#prone]",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#prone]{Prone}",
             "activeEffect":
             {
                 "changes": [
@@ -122,7 +122,7 @@
         {
             "name":"SWADE.Diseased", 
             "icon": "modules/succ/icons/swade/diseased.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#disease]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#disease]{Disease}"
         },
         {
             "name":"SWADE.HeartAttack", 
@@ -132,55 +132,54 @@
         {
             "name":"SWADE.OnFire", 
             "icon": "modules/succ/icons/swade/on_fire.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#fire]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#fire]{Fire}"
         },
         {
             "name":"SWADE.Poisoned", 
             "icon": "modules/succ/icons/swade/poisoned.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#poison]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#poison]{Poison}"
         },
         {
             "name":"SWADE.Cover.Shield", 
             "icon": "modules/succ/icons/swade/shield.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02armor000000000#armor]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02armor000000000]{Armor}"
         },
         {
             "name":"SWADE.Cover._name", 
             "icon": "modules/succ/icons/swade/cover.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#cover-and-obstacles]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#cover-and-obstacles]{Cover}"
         },
         {
             "name":"SWADE.Reach", 
             "icon": "modules/succ/icons/swade/reach.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02gear0000000000#reach]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02gear0000000000#reach]{Reach}"
         },
         {
             "name":"SWADE.Torch", 
             "icon": "modules/succ/icons/swade/torch.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#illumination]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#illumination]{Illumination}"
         },
         {
             "name":"EFFECT.StatusInvisible",
             "icon":"modules/succ/icons/swade/invisible.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore05powers.JournalEntryPage.05powers00000001#invisibility]{Invisible}",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.FKymxmrz9ugwfFmb]{Invisibility}",
             "options": {
                 "markInvisible": true
             }
         },
         {
             "name":"SWADE.ColdBodied", 
-            "icon": "modules/succ/icons/swade/cold_bodied.svg",
-            "referenceId": ""
+            "icon": "modules/succ/icons/swade/cold_bodied.svg"
         },
         {
             "name":"EFFECT.StatusBlind", 
             "icon": "modules/succ/icons/swade/blind.svg",
-            "referenceId": "{Blind}"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.1ADFXsMDSllGFkm0]{Blind}"
         },
         {
             "name":"SWADE.Smite", 
             "icon": "modules/succ/icons/swade/smite.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore05powers.JournalEntryPage.05powers00000001#smite]{Smite}",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.LiY5yCQkOOKz9T2L]{Smite}",
             "options": {
                 "smite": true
             }
@@ -188,7 +187,7 @@
         {
             "name":"SWADE.Protection", 
             "icon": "modules/succ/icons/swade/protection.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore05powers.JournalEntryPage.05powers00000001#protection]{Protection}",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.4yGOUiND8lW5cKly]{Protection}",
             "options": {
                 "protection": true
             }
@@ -196,12 +195,12 @@
         {
             "name":"ENHANCED_CONDITIONS.Condition.Slumber", 
             "icon": "modules/succ/icons/swade/slumber.svg",
-            "referenceId": "{Slumber}"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.uu29DfNqynLCMkRF]{Slumber}"
         },
         {
             "name":"ENHANCED_CONDITIONS.Condition.Boost", 
             "icon": "modules/succ/icons/swade/boost.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore05powers.JournalEntryPage.05powers00000001#boost/lower-trait]{Boost Trait}",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.hBfpNdcd1WBsszu3]{Boost Trait}",
             "options": {
                 "boostTrait": true
             }
@@ -209,7 +208,7 @@
         {
             "name":"ENHANCED_CONDITIONS.Condition.Lower", 
             "icon": "modules/succ/icons/swade/lower.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore05powers.JournalEntryPage.05powers00000001#boost/lower-trait]{Lower Trait}",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.hBfpNdcd1WBsszu3]{Lower Trait}",
             "options": {
                 "lowerTrait": true
             }
