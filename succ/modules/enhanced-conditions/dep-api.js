@@ -15,7 +15,7 @@ export class DeprecatedAPI {
         Sidekick.consoleMessage("warn", BUTLER.NAME, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.apply_status`)});
         const allowDuplicates = additionalData ? additionalData.force : false;
         if (final_state) {
-            return await EnhancedConditionsAPI.addCondition(status_name, target, {allowDuplicates: allowDuplicates});
+            return await EnhancedConditionsAPI.addCondition(status_name, target, {allowDuplicates: allowDuplicates, forceOverlay: overlay});
         } else {
             return await EnhancedConditionsAPI.removeCondition(status_name, target);
         }
@@ -29,9 +29,9 @@ export class DeprecatedAPI {
      * @see EnhancedConditions#removeCondition
      */
     static async toggle_status(target, status_name, final_state = true, overlay = false, additionalData) {
-        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.toggle_status`)});
+        Sidekick.consoleMessage("warn", BUTLER.NAME, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.toggle_status`)});
         if (final_state) {
-            return await EnhancedConditionsAPI.addCondition(status_name, target);
+            return await EnhancedConditionsAPI.addCondition(status_name, target, {forceOverlay: overlay});
         } else {
             return await EnhancedConditionsAPI.removeCondition(status_name, target);
         }
@@ -55,7 +55,7 @@ export class DeprecatedAPI {
      * @see EnhancedConditions#getCondition
      */
     static async get_condition(condition_name) {
-        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.get_condition`)});
+        Sidekick.consoleMessage("warn", BUTLER.NAME, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.get_condition`)});
         return await EnhancedConditionsAPI.getCondition(condition_name);
     }
     
@@ -66,7 +66,7 @@ export class DeprecatedAPI {
      * @see EnhancedConditions#getConditionFrom
      */
     static async get_condition_from(target, status_name) {
-        Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.get_condition_from`)});
+        Sidekick.consoleMessage("warn", BUTLER.NAME, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.get_condition_from`)});
         return await EnhancedConditionsAPI.getConditionFrom(status_name, target);
     }
 }

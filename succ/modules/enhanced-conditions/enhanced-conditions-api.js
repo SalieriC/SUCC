@@ -28,7 +28,7 @@ export class EnhancedConditionsAPI {
      * // Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
      * game.succ.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
      */
-    static async addCondition(conditionId, entities=null, {warn=true, allowDuplicates=false, replaceExisting=false}={}) {
+    static async addCondition(conditionId, entities=null, {warn=true, allowDuplicates=false, replaceExisting=false, forceOverlay=false}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -70,6 +70,12 @@ export class EnhancedConditionsAPI {
             const actor = await EnhancedConditionsAPI.getActorFromEntity(entity);
             
             if (!actor) continue;
+
+            if (forceOverlay) {
+                for (const effect of effects) {
+                    effect.flags.core.overlay = true;
+                }
+            }
 
             const hasDuplicates = await EnhancedConditionsAPI.hasCondition(conditionIds, actor, {warn: false});
             const newEffects = [];
