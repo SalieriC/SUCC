@@ -18,7 +18,17 @@
         {
             "id": "aiming",
             "name":"SWADE.Aiming", 
-            "icon": "modules/succ/icons/aiming.svg"
+            "icon": "modules/succ/icons/aiming.svg",
+            "activeEffect": {
+                "flags":{
+                    "swade": {
+                        "expiration": 1
+                    }
+                },
+                "duration": {
+                    "rounds": 1
+                }
+            }
         },
         {
             "id": "berserking",
@@ -120,6 +130,16 @@
             "id": "bleeding_out",
             "name":"SWADE.BleedingOut", 
             "icon": "modules/succ/icons/bleeding_out.svg",
+            "activeEffect": {
+                "flags":{
+                    "swade": {
+                        "expiration": 1
+                    }
+                },
+                "duration": {
+                    "rounds": 1
+                }
+            },
             "options": {
                 "overlay": true
             }
@@ -189,6 +209,16 @@
             "name":"SWADE.Smite", 
             "icon": "modules/succ/icons/smite.svg",
             "referenceId": "@UUID[Compendium.swade.powers.AlGYtSZmjUDRfUGM]",
+            "activeEffect": {
+                "flags":{
+                    "swade": {
+                        "expiration": 3
+                    }
+                },
+                "duration": {
+                    "rounds": 5
+                }
+            },
             "options": {
                 "smite": true
             }
@@ -198,8 +228,30 @@
             "name":"SWADE.Protection", 
             "icon": "modules/succ/icons/protection.svg",
             "referenceId": "@UUID[Compendium.swade.powers.9Ia8jJNOCy0z7yXn]",
+            "activeEffect": {
+                "flags":{
+                    "swade": {
+                        "expiration": 3
+                    }
+                }
+            },
             "options": {
                 "protection": true
+            }
+        },
+        {
+            "name":"ENHANCED_CONDITIONS.Condition.Deflection", 
+            "icon": "modules/succ/icons/deflection.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.Tvr0FZJPP3ygOl94]",
+            "activeEffect": {
+                "flags":{
+                    "swade": {
+                        "expiration": 3
+                    }
+                },
+                "duration": {
+                    "rounds": 5
+                }
             }
         },
         {
@@ -213,6 +265,16 @@
             "name":"ENHANCED_CONDITIONS.Condition.Boost", 
             "icon": "modules/succ/icons/boost.svg",
             "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "activeEffect": {
+                "flags":{
+                    "swade": {
+                        "expiration": 3
+                    }
+                },
+                "duration": {
+                    "rounds": 5
+                }
+            },
             "options": {
                 "boostTrait": true
             }
@@ -222,6 +284,16 @@
             "name":"ENHANCED_CONDITIONS.Condition.Lower", 
             "icon": "modules/succ/icons/lower.svg",
             "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "activeEffect": {
+                "flags":{
+                    "swade": {
+                        "expiration": 3
+                    }
+                },
+                "duration": {
+                    "rounds": 1
+                }
+            },
             "options": {
                 "lowerTrait": true
             }

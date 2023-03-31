@@ -1,6 +1,6 @@
 import * as BUTLER from "../butler.js";
-import { ConditionLab } from "./condition-lab.js";
 import { Sidekick } from "../sidekick.js";
+import { ConditionLab } from "./condition-lab.js";
 import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
 
 /**
@@ -895,6 +895,7 @@ export class EnhancedConditions {
         const defaultMaps = {}; //TODO: Remove the need for a map since we only support one system
         defaultMaps[conditionMapJson.system] = conditionMapJson.map;
         
+        //Loop over our overrides and check if any of them are active
         for (let overrides of overridesJsons) {
             if (game.modules.get(overrides.module)?.active) {
                 for (const override of overrides.map) {
@@ -911,10 +912,8 @@ export class EnhancedConditions {
             }
         }
 
-        const proneName = BUTLER.DEFAULT_CONFIG.enhancedConditions.proneName;
-            
         // We have to add the fighting die modifier for prone here rather than in the json because we need to know the fighting skill name
-        let proneCondition = defaultMap.find(c => c.name === proneName);
+        let proneCondition = defaultMap.find(c => c.id === BUTLER.DEFAULT_CONFIG.enhancedConditions.proneId);
         if (proneCondition) {
             const fightingSkill = game.settings.get("swade", "parryBaseSkill");
             proneCondition.activeEffect.changes.push({
@@ -930,14 +929,15 @@ export class EnhancedConditions {
             let condition = defaultMap.find(c => c.name === statusEffect.label);
             if (!condition) {
                 continue;
-            } else if (!condition.activeEffect) {
-                condition.activeEffect = statusEffect;
-                condition.activeEffect.icon = condition.icon;
-            } else if (!condition.activeEffect.changes) {
-                condition.activeEffect.changes = statusEffect.changes;
+            }                
+            
+            if (!condition.activeEffect) {
+                condition.activeEffect = {...statusEffect};
+            } else {
+                foundry.utils.mergeObject(condition.activeEffect, statusEffect);
             }
         }
-        
+
         for (let condition of defaultMap) {
             if (condition.referenceId) {
                 let regex = /(?<=\{).+(?=\})/;
@@ -947,6 +947,11 @@ export class EnhancedConditions {
                 } else {
                     condition.referenceId += `{${game.i18n.localize(condition.name)}}`;
                 }
+            }
+            
+            if (condition.activeEffect) {
+                condition.activeEffect.label = game.i18n.localize(condition.name);
+                condition.activeEffect.icon = condition.icon;
             }
         }
 

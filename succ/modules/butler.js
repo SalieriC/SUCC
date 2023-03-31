@@ -83,7 +83,7 @@ export const DEFAULT_CONFIG = {
                 optionProperty: "conviction"
             }
         },
-        proneName : "SWADE.Prone"
+        proneId : "prone"
     },
     tokenUtility: {
         effectSize: {
