@@ -43,7 +43,7 @@ export class EnhancedConditions {
         // If there's no defaultMaps or defaultMaps doesn't include game system, check storage then set appropriately
         if (!defaultMaps || (defaultMaps instanceof Object && Object.keys(defaultMaps).length === 0) || (defaultMaps instanceof Object && !Object.keys(defaultMaps).includes(system))) {
             if (game.user.isGM) {
-                defaultMaps = await EnhancedConditions._loadDefaultMaps();
+                defaultMaps = await EnhancedConditions._loadDefaultMap();
                 Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
             }
         }
@@ -497,10 +497,6 @@ export class EnhancedConditions {
         // iterate over the entries and mark any with references for use in the template
         entries.forEach((v, i, a) => {
             if (v.referenceId) {
-                if (!v.referenceId.match(/\{.+\}/)) {
-                    v.referenceId += `{${game.i18n.localize(v.name)}}`;
-                }
-
                 a[i].hasReference = true;
             }
         });
@@ -888,41 +884,68 @@ export class EnhancedConditions {
      * 
      * @todo: map to entryId and then rebuild on import
      */
-    static async _loadDefaultMaps() {
+    static async _loadDefaultMap() {
         const source = "data";
-        const path = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapsPath;
-        const jsons = await Sidekick.fetchJsons(source, path);
-
-        const defaultMaps = jsons.filter(j => !j.system.includes("example")).reduce((obj, current) => {
-            obj[current.system] = current.map;
-            return obj;
-        },{});
+        const conditionMapFile = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFile;
+        const overridesPath = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionModuleOverridesPath;
+        const conditionMapJson = await Sidekick.fetchJson(conditionMapFile);
+        const overridesJsons = await Sidekick.fetchJsons(source, overridesPath);
+        
+        const defaultMap = conditionMapJson.map;
+        const defaultMaps = {}; //TODO: Remove the need for a map since we only support one system
+        defaultMaps[conditionMapJson.system] = conditionMapJson.map;
+        
+        for (let overrides of overridesJsons) {
+            if (game.modules.get(overrides.module)?.active) {
+                for (const override of overrides.map) {
+                    const condition = defaultMap.find(c => c.id === override.id);
+                    if (!condition) {
+                        //If the condition doesn't exist, add it to the map
+                        defaultMap.push(override);
+                    } else {
+                        //If the condition exists, just merge the data instead
+                        foundry.utils.mergeObject(condition, override);
+                    }
+                }
+                break;
+            }
+        }
 
         const proneName = BUTLER.DEFAULT_CONFIG.enhancedConditions.proneName;
             
-        for (let defaultMap of Object.values(defaultMaps)) {
-            // We have to add the fighting die modifier for prone here rather than in the json because we need to know the fighting skill name
-            let proneCondition = defaultMap.find(c => c.name === proneName);
-            if (proneCondition) {
-                const fightingSkill = game.settings.get("swade", "parryBaseSkill");
-                proneCondition.activeEffect.changes.push({
-                    "key": `@Skill{${fightingSkill}}[system.die.modifier]`,
-                    "value": "-2",
-                    "mode": 2
-                });
+        // We have to add the fighting die modifier for prone here rather than in the json because we need to know the fighting skill name
+        let proneCondition = defaultMap.find(c => c.name === proneName);
+        if (proneCondition) {
+            const fightingSkill = game.settings.get("swade", "parryBaseSkill");
+            proneCondition.activeEffect.changes.push({
+                "key": `@Skill{${fightingSkill}}[system.die.modifier]`,
+                "value": "-2",
+                "mode": 2
+            });
+        }
+        
+        // If the default config contains changes and we have not overridden them in the system definition, copy those over
+        const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
+        for (let statusEffect of statusEffects) {
+            let condition = defaultMap.find(c => c.name === statusEffect.label);
+            if (!condition) {
+                continue;
+            } else if (!condition.activeEffect) {
+                condition.activeEffect = statusEffect;
+                condition.activeEffect.icon = condition.icon;
+            } else if (!condition.activeEffect.changes) {
+                condition.activeEffect.changes = statusEffect.changes;
             }
-            
-            // If the default config contains changes and we have not overridden them in the system definition, copy those over
-            const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
-            for (let statusEffect of statusEffects) {
-                let condition = defaultMap.find(c => c.name === statusEffect.label);
-                if (!condition) {
-                    continue;
-                } else if (!condition.activeEffect) {
-                    condition.activeEffect = statusEffect;
-                    condition.activeEffect.icon = condition.icon;
-                } else if (!condition.activeEffect.changes) {
-                    condition.activeEffect.changes = statusEffect.changes;
+        }
+        
+        for (let condition of defaultMap) {
+            if (condition.referenceId) {
+                let regex = /(?<=\{).+(?=\})/;
+                let match = condition.referenceId.match(regex);
+                if (match) {
+                    condition.referenceId = condition.referenceId.replace(regex, `${game.i18n.localize(match[0])}`);
+                } else {
+                    condition.referenceId += `{${game.i18n.localize(condition.name)}}`;
                 }
             }
         }

@@ -608,7 +608,7 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [.updateConditionTimestamps()](#EnhancedConditions.updateConditionTimestamps)
     * [._createLabButton(html)](#EnhancedConditions._createLabButton)
     * [._toggleLabButtonVisibility(display)](#EnhancedConditions._toggleLabButtonVisibility)
-    * [._loadDefaultMaps()](#EnhancedConditions._loadDefaultMaps)
+    * [._loadDefaultMap()](#EnhancedConditions._loadDefaultMap)
     * [._prepareMap(conditionMap)](#EnhancedConditions._prepareMap)
     * [._backupCoreEffects()](#EnhancedConditions._backupCoreEffects)
     * [.lookupConditionById(conditionId, map)](#EnhancedConditions.lookupConditionById)
@@ -855,9 +855,9 @@ Determines whether to display the combat utility belt div in the settings sideba
 | --- | --- |
 | display | <code>Boolean</code> | 
 
-<a name="EnhancedConditions._loadDefaultMaps"></a>
+<a name="EnhancedConditions._loadDefaultMap"></a>
 
-### EnhancedConditions.\_loadDefaultMaps()
+### EnhancedConditions.\_loadDefaultMap()
 Returns the default maps supplied with the module
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  

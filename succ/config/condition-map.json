@@ -1,0 +1,230 @@
+{
+    "system":"swade",
+    "map":[
+        {
+            "id": "shaken",
+            "name":"SWADE.Shaken", 
+            "icon": "modules/succ/icons/shaken.svg"
+        },
+        {
+            "id": "incapacitated",
+            "name":"SWADE.Incap",
+            "icon":"modules/succ/icons/incapacitated.svg",
+            "options": {
+                "markDefeated": true,
+                "overlay": true
+            }
+        },
+        {
+            "id": "aiming",
+            "name":"SWADE.Aiming", 
+            "icon": "modules/succ/icons/aiming.svg"
+        },
+        {
+            "id": "berserking",
+            "name":"SWADE.Berserk", 
+            "icon": "modules/succ/icons/berserking.svg"
+        },
+        {
+            "id": "defending",
+            "name":"SWADE.Defending", 
+            "icon": "modules/succ/icons/defending.svg"
+        },
+        {
+            "id": "flying",
+            "name":"SWADE.Flying", 
+            "icon": "modules/succ/icons/flying.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.kTZvicSOKqEr3QOk]"
+        },
+        {
+            "id": "holding",
+            "name":"SWADE.Holding", 
+            "icon": "modules/succ/icons/holding.svg"
+        },
+        {
+            "id": "conviction",
+            "name":"SWADE.Conv", 
+            "icon": "modules/succ/icons/conviction.svg",
+            "options": {
+                "conviction": true
+            }
+        },
+        {
+            "id": "bound",
+            "name":"SWADE.Bound", 
+            "icon": "modules/succ/icons/bound.svg"
+        },
+        {
+            "id": "entangled",
+            "name":"SWADE.Entangled", 
+            "icon": "modules/succ/icons/entangled.svg"
+        },
+        {
+            "id": "frightened",
+            "name":"SWADE.Frightened", 
+            "icon": "modules/succ/icons/frightened.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.J1sBXophcEfZYrR7]",
+            "activeEffect":
+            {
+                "changes": [
+                    {
+                        "key": "system.initiative.hasHesitant",
+                        "value": "true",
+                        "mode": 5
+                    }
+                ]
+            }
+        },
+        {
+            "id": "distracted",
+            "name":"SWADE.Distr", 
+            "icon": "modules/succ/icons/distracted.svg"
+        },
+        {
+            "id": "vulnerable",
+            "name":"SWADE.Vuln", 
+            "icon": "modules/succ/icons/vulnerable.svg"
+        },
+        {
+            "id": "the_drop",
+            "name":"ENHANCED_CONDITIONS.Condition.TheDrop", 
+            "icon": "modules/succ/icons/the_drop.svg"
+        },
+        {
+            "id": "stunned",
+            "name":"SWADE.Stunned", 
+            "icon": "modules/succ/icons/stunned.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.YqwqnsbNoQQQTLt6]"
+        },
+        {
+            "id": "prone",
+            "name":"SWADE.Prone", 
+            "icon": "modules/succ/icons/prone.svg",
+            "activeEffect":
+            {
+                "changes": [
+                    {
+                        "key": "system.stats.parry.value",
+                        "value": "-2",
+                        "mode": 2
+                    }
+                ]
+            }
+        },
+        {
+            "id": "encumbered",
+            "name":"SWADE.Encumbered", 
+            "icon": "modules/succ/icons/encumbered.svg"
+        },
+        {
+            "id": "bleeding_out",
+            "name":"SWADE.BleedingOut", 
+            "icon": "modules/succ/icons/bleeding_out.svg",
+            "options": {
+                "overlay": true
+            }
+        },
+        {
+            "id": "diseased",
+            "name":"SWADE.Diseased", 
+            "icon": "modules/succ/icons/diseased.svg"
+        },
+        {
+            "id": "heart_attack",
+            "name":"SWADE.HeartAttack", 
+            "icon": "modules/succ/icons/heart_attack.svg"
+        },
+        {
+            "id": "on_fire",
+            "name":"SWADE.OnFire", 
+            "icon": "modules/succ/icons/on_fire.svg"
+        },
+        {
+            "id": "poisoned",
+            "name":"SWADE.Poisoned", 
+            "icon": "modules/succ/icons/poisoned.svg"
+        },
+        {
+            "id": "shield",
+            "name":"SWADE.Cover.Shield", 
+            "icon": "modules/succ/icons/shield.svg"
+        },
+        {
+            "id": "cover",
+            "name":"SWADE.Cover._name", 
+            "icon": "modules/succ/icons/cover.svg"
+        },
+        {
+            "id": "reach",
+            "name":"SWADE.Reach", 
+            "icon": "modules/succ/icons/reach.svg"
+        },
+        {
+            "id": "torch",
+            "name":"SWADE.Torch", 
+            "icon": "modules/succ/icons/torch.svg"
+        },
+        {
+            "id": "invisible",
+            "name":"EFFECT.StatusInvisible",
+            "icon":"modules/succ/icons/invisible.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.iS3duGwyTywaMOF7]",
+            "options": {
+                "markInvisible": true
+            }
+        },
+        {
+            "id": "cold_bodied",
+            "name":"SWADE.ColdBodied", 
+            "icon": "modules/succ/icons/cold_bodied.svg"
+        },
+        {
+            "id": "blind",
+            "name":"EFFECT.StatusBlind", 
+            "icon": "modules/succ/icons/blind.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.GxPhaUI4jQtFiXIr]{Blind}"
+        },
+        {
+            "id": "smite",
+            "name":"SWADE.Smite", 
+            "icon": "modules/succ/icons/smite.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.AlGYtSZmjUDRfUGM]",
+            "options": {
+                "smite": true
+            }
+        },
+        {
+            "id": "protection",
+            "name":"SWADE.Protection", 
+            "icon": "modules/succ/icons/protection.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.9Ia8jJNOCy0z7yXn]",
+            "options": {
+                "protection": true
+            }
+        },
+        {
+            "id": "slumber",
+            "name":"ENHANCED_CONDITIONS.Condition.Slumber", 
+            "icon": "modules/succ/icons/slumber.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.QElMPOZK7jJDDGCP]"
+        },
+        {
+            "id": "boost",
+            "name":"ENHANCED_CONDITIONS.Condition.Boost", 
+            "icon": "modules/succ/icons/boost.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "options": {
+                "boostTrait": true
+            }
+        },
+        {
+            "id": "lower",
+            "name":"ENHANCED_CONDITIONS.Condition.Lower", 
+            "icon": "modules/succ/icons/lower.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "options": {
+                "lowerTrait": true
+            }
+        }
+    ]
+}

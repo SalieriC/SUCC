@@ -29,7 +29,8 @@ export const KNOWN_GAME_SYSTEMS = {
 export const DEFAULT_CONFIG = {
     enhancedConditions: {
         iconPath: `${PATH}/icons/`,
-        conditionMapsPath: `${PATH}/condition-maps`,
+        conditionMapFile: `${PATH}/config/condition-map.json`,
+        conditionModuleOverridesPath: `${PATH}/config/condition-map-module-overrides`,
         enable: true,
         outputChat: true,
         removeDefaultEffects: true,
