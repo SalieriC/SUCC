@@ -58,7 +58,10 @@ export const DEFAULT_CONFIG = {
             chatConditionsPartial: `${PATH}/templates/partials/chat-card-condition-list.hbs`,
             importDialog: `${PATH}/templates/import-conditions.html`,
             macroConfig: `${PATH}/templates/enhanced-condition-macro-config.hbs`,
-            optionConfig: `${PATH}/templates/enhanced-condition-option-config.hbs`
+            optionConfig: `${PATH}/templates/enhanced-condition-option-config.hbs`,
+            boostLowerDialog: `${PATH}/templates/boost-lower-dialog.hbs`,
+            smiteDialog: `${PATH}/templates/smite-dialog.hbs`,
+            protectionDialog: `${PATH}/templates/protection-dialog.hbs`
         },
         specialStatusEffects: {
             blinded: {

@@ -2,6 +2,7 @@ import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { ConditionLab } from "./condition-lab.js";
 import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
+import { EnhancedConditionsPowers } from "./enhanced-conditions-powers.js";
 
 /**
  * Builds a mapping between status icons and journal entries that represent conditions
@@ -415,10 +416,10 @@ export class EnhancedConditions {
             case "create":
                 if (condition.options?.removeOthers) EnhancedConditions.removeOtherConditions(actor, condition.id);
                 if (condition.options?.markDefeated) EnhancedConditions.toggleDefeated(actor, {markDefeated: true});
-                if (condition.options?.boostTrait) EnhancedConditions.boostLowerTrait(actor, condition, true);
-                if (condition.options?.lowerTrait) EnhancedConditions.boostLowerTrait(actor, condition, false);
-                if (condition.options?.smite) EnhancedConditions.smite(actor, condition);
-                if (condition.options?.protection) EnhancedConditions.protection(actor, condition);
+                if (condition.options?.boostTrait) EnhancedConditionsPowers.boostLowerTrait(actor, condition, true);
+                if (condition.options?.lowerTrait) EnhancedConditionsPowers.boostLowerTrait(actor, condition, false);
+                if (condition.options?.smite) EnhancedConditionsPowers.smite(actor, condition);
+                if (condition.options?.protection) EnhancedConditionsPowers.protection(actor, condition);
                 if (condition.options?.conviction) EnhancedConditions.activateConviction(actor);
                 
                 break;
@@ -622,156 +623,6 @@ export class EnhancedConditions {
             //Condition was toggled instead of the button on the actor sheet.
             actor.toggleConviction();
         }
-    }
-
-    static getTraitOptions(entity) {
-        // Start with attributes
-        let traitOptions = `
-            <option value="agility">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrAgi")}</option>
-            <option value="smarts">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrSma")}</option>
-            <option value="spirit">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrSpr")}</option>
-            <option value="strength">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrStr")}</option>
-            <option value="vigor">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrVig")}</option>
-        `
-        // Adding Skills
-        let allSkills = entity.items.filter(i => i.type === "skill")
-        if (allSkills.length >= 1) {
-            allSkills = EnhancedConditions.sortSkills(allSkills)
-            for (let each of allSkills) {
-                traitOptions = traitOptions + `<option value="${each.id}">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Skill")} ${each.name}</option>`
-            }
-        }
-
-        return traitOptions;
-    }
-
-    static async boostLowerTrait(entity, condition, boost) {
-        let appliedCondition = entity.effects.find(function (e) {
-            return ((e.label === game.i18n.localize(condition.name)))
-        })
-        //Building options
-        let traitOptions = EnhancedConditions.getTraitOptions(entity);
-
-        const traitData = { condition, traitOptions, boost };
-        const content = await renderTemplate(`${BUTLER.PATH}/templates/boost-lower-dialog.hbs`, traitData);
-
-        new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name"),
-            content: content,
-            buttons: {
-                success: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Success"),
-                    callback: async (html) => {
-                        const trait = html.find(`#selected_trait`)[0].value;
-                        await EnhancedConditions.boostLowerBuilder(appliedCondition, entity, trait, boost ? "boost" : "lower", "success")
-                    }
-                },
-                raise: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Raise"),
-                    callback: async (html) => {
-                        const trait = html.find(`#selected_trait`)[0].value;
-                        await EnhancedConditions.boostLowerBuilder(appliedCondition, entity, trait, boost ? "boost" : "lower", "raise")
-                    }
-                },
-                cancel: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
-                    callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.id, entity, {warn: true})
-                    }
-                }
-            }
-        }).render(true)
-    }
-
-    static async smite(entity, condition) {
-        let appliedCondition = entity.effects.find(function (e) {
-            return ((e.label === game.i18n.localize(condition.name)))
-        })
-
-        const weapons = entity.items.filter(i => i.type === "weapon")
-        if (weapons.length === 0) {
-            return ui.notifications.warn(`${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.NoWeapons")}`)
-        }
-
-        let weapOptions
-        for (let weapon of weapons) {
-            weapOptions = weapOptions + `<option value="${weapon.name}">${weapon.name}</option>`
-        }
-
-        const smiteData = { condition, weapOptions };
-        const content = await renderTemplate(`${BUTLER.PATH}/templates/smite-dialog.hbs`, smiteData);
-
-        new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name"),
-            content: content,
-            buttons: {
-                apply: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Apply"),
-                    callback: async (html) => {
-
-                        let selectedWeaponName = html.find(`#weapon`)[0].value
-                        let damageBonus = Number(html.find("#damageBonus")[0].value)
-                        if (damageBonus >= 0) { damageBonus = '+' + damageBonus }
-
-                        await appliedCondition.setFlag('swade', 'expiration', 3)
-                        let updates = appliedCondition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                        let change = { key: `@Weapon{${selectedWeaponName}}[system.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }
-                        updates.changes = [change]
-                        updates.duration.rounds = 5
-                        await appliedCondition.update(updates)
-                    }
-                },
-                cancel: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
-                    callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.id, entity, {warn: true})
-                    }
-                }
-            }
-        }).render(true)
-    }
-
-    static async protection(entity, condition) {
-        let appliedCondition = entity.effects.find(function (e) {
-            return ((e.label === game.i18n.localize(condition.name)))
-        })
-
-        const protectionData = { condition };
-        const content = await renderTemplate(`${BUTLER.PATH}/templates/protection-dialog.hbs`, protectionData);
-
-        new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Name"),
-            content: content,
-            buttons: {
-                armor: {
-                    label: game.i18n.localize("SWADE.Armor"),
-                    callback: async (html) => {
-  
-                        let protectionAmount = Number(html.find("#protectionAmount")[0].value)
-                        let updates = appliedCondition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                        updates[1].value = protectionAmount
-                        await condition.setFlag('swade', 'expiration', 3)
-                        await appliedCondition.update({ "changes": updates })
-                    }
-                },
-                toughness: {
-                    label: game.i18n.localize("SWADE.Tough"),
-                    callback: async (html) => {
-
-                        let protectionAmount = Number(html.find("#protectionAmount")[0].value)
-                        let updates = appliedCondition.toObject().changes //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-                        updates[0].value = protectionAmount
-                        await appliedCondition.update({ "changes": updates })
-                    }
-                },
-                cancel: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
-                    callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.id, entity, {warn: true})
-                    }
-                }
-            }
-        }).render(true)
     }
 
     /**
@@ -1263,64 +1114,5 @@ export class EnhancedConditions {
         const map = EnhancedConditions._prepareMap(coreEffects);
 
         return map;
-    }
-
-    /**
-     * Sorts a list of skills
-     * @param {*} allSkills List of skills to be sorted
-     */
-    static sortSkills(allSkills) {
-        allSkills.sort(function (a, b) {
-            let textA = a.name.toUpperCase();
-            let textB = b.name.toUpperCase();
-            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-        });
-
-        return allSkills
-    }
-    
-    /**
-     * Creates and applies the active effects for a boost or lower trait condition
-     */
-    static async boostLowerBuilder(appliedCondition, actorOrToken, trait, type, degree, duration = 5, icon = false, additionalChanges, flags = false) {
-        let keyPath
-        let valueMod
-        if (type === "lower") { duration = 1 }
-        let change = []
-        if (
-            trait === "agility" ||
-            trait === "smarts" ||
-            trait === "spirit" ||
-            trait === "strength" ||
-            trait === "vigor"
-        ) {
-            //Setting values:
-            keyPath = `system.attributes.${trait}.die.sides`
-            if (type === "lower") { valueMod = degree === "raise" ? -4 : -2 }
-            else { valueMod = degree === "raise" ? 4 : 2 } //System now handles going over d12 or under d4.
-        } else {
-            //Getting the skill:
-            let skill = actorOrToken.items.find(s => s.id === trait)
-            keyPath = `@Skill{${skill.name}}[system.die.sides]`
-            if (type === "lower") { valueMod = degree === "raise" ? -4 : -2 }
-            else { valueMod = degree === "raise" ? 4 : 2 } //System now handles going over d12 or under d4.
-        }
-    
-        await appliedCondition.setFlag('swade', 'expiration', 3)
-        let updates = appliedCondition.toObject() //foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over; it looses .data in the middle because toObject() is just the cleaned up data
-        updates.icon = icon ? icon : updates.icon
-        change.push({ key: keyPath, mode: 2, priority: undefined, value: valueMod })
-        updates.changes = change
-        if (additionalChanges) {
-            updates.changes = updates.changes.concat(additionalChanges)
-        }
-        updates.duration.rounds = duration
-        if (flags) {
-            updates.flags = {
-                ...updates.flags,
-                ...flags
-            }
-        }
-        await appliedCondition.update(updates)
     }
 }

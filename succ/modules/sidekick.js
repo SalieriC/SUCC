@@ -485,4 +485,42 @@ export class Sidekick {
             }).render(true)
         }
     }
+    
+    /**
+     * Creates an array with the full list of traits for a given actor
+     * @param {Actor} actor 
+     */
+    static getTraitOptions(entity) {
+        // Start with attributes
+        let traitOptions = `
+            <option value="agility">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrAgi")}</option>
+            <option value="smarts">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrSma")}</option>
+            <option value="spirit">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrSpr")}</option>
+            <option value="strength">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrStr")}</option>
+            <option value="vigor">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrVig")}</option>
+        `
+        // Adding Skills
+        let allSkills = entity.items.filter(i => i.type === "skill")
+        if (allSkills.length >= 1) {
+            allSkills = Sidekick.sortSkills(allSkills)
+            for (let each of allSkills) {
+                traitOptions = traitOptions + `<option value="${each.id}">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Skill")} ${each.name}</option>`
+            }
+        }
+
+        return traitOptions;
+    }
+    
+    /**
+     * Sorts a list of skills
+     * @param {*} allSkills List of skills to be sorted
+     */
+    static sortSkills(allSkills) {
+        allSkills.sort(function (a, b) {
+            let textA = a.name.toUpperCase();
+            let textB = b.name.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
+        return allSkills
+    }
 }
