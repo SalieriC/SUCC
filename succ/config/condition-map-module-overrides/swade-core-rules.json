@@ -91,7 +91,6 @@
         },
         {
             "id": "shield",
-            "icon": "modules/succ/icons/shield.svg",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor02gear00.JournalEntryPage.02shields0000000#shields]"
         },
         {
@@ -100,7 +99,6 @@
         },
         {
             "id": "reach",
-            "icon": "modules/succ/icons/reach.svg",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor02gear00.JournalEntryPage.02reach000000000#reach]"
         },
         {
