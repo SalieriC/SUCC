@@ -31,7 +31,7 @@ export class DeprecatedAPI {
     static async toggle_status(target, status_name, final_state = true, overlay = false, additionalData) {
         Sidekick.consoleMessage("warn", BUTLER.NAME, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.toggle_status`)});
         if (final_state) {
-            return await EnhancedConditionsAPI.addCondition(status_name, target, {forceOverlay: overlay});
+            return await EnhancedConditionsAPI.addCondition(status_name, target, {forceOverlay: overlay, effectOptions: additionalData});
         } else {
             return await EnhancedConditionsAPI.removeCondition(status_name, target);
         }
