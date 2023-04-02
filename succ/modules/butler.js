@@ -53,6 +53,7 @@ export const DEFAULT_CONFIG = {
             other: "Other/Imported"
         },
         templates: {
+            systemUpdateDialog: `${PATH}/templates/system-update-dialog.hbs`,
             conditionLab: `${PATH}/templates/condition-lab.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
             chatConditionsPartial: `${PATH}/templates/partials/chat-card-condition-list.hbs`,
@@ -128,6 +129,7 @@ export const SETTING_KEYS = {
         enable: "enableEnhancedConditions",
         coreEffects: "coreStatusEffects",
         system: "activeSystem",
+        systemVersion: "systemVersion",
         map: "activeConditionMap",
         defaultMaps: "defaultConditionMaps",
         mapType: "conditionMapType",

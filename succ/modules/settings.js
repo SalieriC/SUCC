@@ -53,6 +53,17 @@ export function registerSettings() {
         onChange: s => {}
     });
 
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersion, {
+        name: "SETTINGS.EnhancedConditions.SystemVersionN",
+        hint: "SETTINGS.EnhancedConditions.SystemVersionH",
+        scope: "world",
+        type: String,
+        default: "",
+        config: false,
+        apiOnly: true,
+        onChange: s => {}
+    });
+
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, {
         name: "SETTINGS.EnhancedConditions.MapTypeN",
         hint: "SETTINGS.EnhancedConditions.MapTypeH",

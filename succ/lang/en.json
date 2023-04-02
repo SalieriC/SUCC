@@ -194,6 +194,11 @@
     "ENHANCED_CONDITIONS.Dialog.WeaponToAffect": "Weapon to affect: ",
     "ENHANCED_CONDITIONS.Dialog.NoWeapons": "No weapon to apply smite to was found.",
     "ENHANCED_CONDITIONS.Dialog.AmountToIncrease": "Amount to increase: ",
+    "ENHANCED_CONDITIONS.Dialog.ApplySystemUpdate.Title": "Apply System Update?",
+    "ENHANCED_CONDITIONS.Dialog.ApplySystemUpdate.Body": "<p>The new version of the SWADE system contains changes to the default status effects. Would you like to apply these changes to your existing condition settings?</p>",
+    "ENHANCED_CONDITIONS.Dialog.ApplySystemUpdate.Warning": "<strong>This will overwrite over any local Active Effect with the updated version from the SWADE system. Unchanged effects will not be modified. Custom conditions that do not exist in the SWADE system will not be affected.</strong>",
+    "ENHANCED_CONDITIONS.Dialog.ApplySystemUpdate.CheckboxText": "Don't ask again",
+    
     "ENHANCED_CONDITIONS.Notification.NoConvictionToken": "This actor has no conviction tokens left.",
     
     "SETTINGS.EnhancedConditions.EnableN": "Enable Enhanced Conditions",
@@ -202,6 +207,8 @@
     "SETTINGS.EnhancedConditions.CoreIconsH": "A copy of the core status icons",
     "SETTINGS.EnhancedConditions.SystemN": "Game System",
     "SETTINGS.EnhancedConditions.SystemH": "A reference to the game system. Defaults to other if not known to the module",
+    "SETTINGS.EnhancedConditions.SystemVersionN": "SWADE Version",
+    "SETTINGS.EnhancedConditions.SystemVersionH": "The last saved version of the SWADE system",
     "SETTINGS.EnhancedConditions.OutputChatN": "Output to Chat",
     "SETTINGS.EnhancedConditions.OutputChatH": "Output matched conditions to chat",
     "SETTINGS.EnhancedConditions.OutputCombatN": "Output During Combat",

@@ -246,6 +246,7 @@
             }
         },
         {
+            "id": "deflection",
             "name":"ENHANCED_CONDITIONS.Condition.Deflection", 
             "icon": "modules/succ/assets/icons/deflection.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Tvr0FZJPP3ygOl94]",

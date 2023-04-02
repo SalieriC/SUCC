@@ -231,6 +231,7 @@ export class ConditionLab extends FormApplication {
         if (clearCache) {
             defaultMaps = await EnhancedConditions._loadDefaultMap();            
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
+            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
         }
         const tempMap = (this.mapType != otherMapType && defaultMaps && defaultMaps[system]) ? defaultMaps[system] : [];
 

@@ -468,6 +468,26 @@ export class Sidekick {
         }, "") : stringParts;
     }
 
+    /**
+     * Compares all the keys within two objects
+     * Returns true if the objects match
+     * This function is not recursive so if either object contains objects, the check will return false even if the values match
+     */
+    static shallowCompare(obj1, obj2) {
+        if (!obj1 && !obj2) {
+            //If they're both undefined, they are equal
+            return true;
+        }
+        
+        if ((!obj1 && obj2) || (obj1 && !obj2)) {
+            //If only one is undefined, they are not equal
+            return false;
+        }
+
+        return Object.keys(obj1).length === Object.keys(obj2).length &&
+        Object.keys(obj1).every(key => obj2.hasOwnProperty(key) && obj1[key] === obj2[key]);
+    }
+
     static showCUBWarning() {
         if (game.modules.get("combat-utility-belt")?.active) {
             new Dialog({
