@@ -56,6 +56,7 @@ export const DEFAULT_CONFIG = {
         templates: {
             systemUpdateDialog: `${PATH}/templates/system-update-dialog.hbs`,
             conditionLab: `${PATH}/templates/condition-lab.hbs`,
+            conditionLabRestoreDefaultsDialog: `${PATH}/templates/condition-lab-restore-defaults-dialog.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
             chatConditionsPartial: `${PATH}/templates/partials/chat-card-condition-list.hbs`,
             importDialog: `${PATH}/templates/import-conditions.html`,

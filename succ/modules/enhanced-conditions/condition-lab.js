@@ -202,6 +202,7 @@ export class ConditionLab extends FormApplication {
             const activeEffect = existingCondition ? existingCondition.activeEffect : null;
             const macros = existingCondition ? existingCondition.macros : null;
             const options = existingCondition ? existingCondition.options : {};
+            const addedByLab = existingCondition?.addedByLab;
 
             const condition = {
                 id,
@@ -210,7 +211,8 @@ export class ConditionLab extends FormApplication {
                 referenceId: references[i],
                 activeEffect,
                 macros,
-                options
+                options,
+                addedByLab
             };
 
             newMap.push(condition);
@@ -222,7 +224,7 @@ export class ConditionLab extends FormApplication {
     /**
      * Restore defaults for a mapping
      */
-    async _restoreDefaults({clearCache=false}={}) {
+    async _restoreDefaults({clearCache=false, keepConditionsAddedByLab=false}={}) {
         const system = this.system;
         let defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
         
@@ -235,8 +237,17 @@ export class ConditionLab extends FormApplication {
         }
         const tempMap = (this.mapType != otherMapType && defaultMaps && defaultMaps[system]) ? defaultMaps[system] : [];
 
+        const oldMap = duplicate(this.map);
+
         // If the mapType is other then the map should be empty, otherwise it's the default map for the system
-        this.map = tempMap;
+        this.map = duplicate(tempMap);
+        if (keepConditionsAddedByLab) {
+            for (const condition of oldMap) {
+                if (condition.addedByLab) {
+                    this.map.push(condition);
+                }
+            }
+        }
         this.render(true);
     }
 
@@ -429,23 +440,6 @@ export class ConditionLab extends FormApplication {
     static async _onRenderSaveDialog(app, html, data) {
         const contentDiv = html[0].querySelector("div.dialog-content");
         const checkbox = `<div class="form-group"><label class="dont-show-again-checkbox">${game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.CheckboxText`)}<input type="checkbox" name="dont-show-again"></label></div>`;
-        contentDiv.insertAdjacentHTML("beforeend", checkbox);
-        await app.setPosition({height: app.position.height + 25});
-    }
-
-    /**
-     * Render restore defaults hook handler
-     * @param {*} app 
-     * @param {*} html 
-     * @param {*} data 
-     */
-    static async _onRenderRestoreDefaultsDialog(app, html, data) {
-        if (game.succ.conditionLab.mapType !== Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default)) {
-            return;
-        }
-
-        const contentDiv = html[0].querySelector("div.dialog-content");
-        const checkbox = `<div class="form-group"><label class="clear-cache-checkbox">${game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.RestoreDefaultClearCache.CheckboxText`)}<input type="checkbox" name="clear-cache"></label></div>`;
         contentDiv.insertAdjacentHTML("beforeend", checkbox);
         await app.setPosition({height: app.position.height + 25});
     }
@@ -676,7 +670,8 @@ export class ConditionLab extends FormApplication {
             referenceId: "",
             options: {
                 outputChat: outputChatSetting
-            }
+            },
+            addedByLab: true
         });
         
         const newMapType = this.mapType === defaultMapType ? customMapType : this.mapType; 
@@ -804,9 +799,12 @@ export class ConditionLab extends FormApplication {
      * 
      * @param {*} event 
      */
-    _onRestoreDefaults(event) {
+    async _onRestoreDefaults(event) {
         event.preventDefault();
-        const content = game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaultsContent");
+        
+        const isDefaultMapType = game.succ.conditionLab.mapType === Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
+        const dialogData = { isDefaultMapType };
+        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabRestoreDefaultsDialog, dialogData);
 
         const confirmationDialog = new Dialog({
             title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle"),
@@ -816,9 +814,11 @@ export class ConditionLab extends FormApplication {
                     icon: `<i class="fas fa-check"></i>`,
                     label: game.i18n.localize("WORDS.Yes"),
                     callback: ($html) => {
-                        const checkbox = $html[0].querySelector("input[name='clear-cache']");
-                        const clearCache = checkbox?.checked;
-                        this._restoreDefaults({clearCache});
+                        const clearCacheCheckbox = $html[0].querySelector("input[id='clear-cache']");
+                        const clearCache = clearCacheCheckbox?.checked;
+                        const keepAddedCheckbox = $html[0].querySelector("input[id='keep-added']");
+                        const keepAdded = keepAddedCheckbox?.checked;
+                        this._restoreDefaults({clearCache:clearCache, keepConditionsAddedByLab:keepAdded});
                     }
                 },
                 no: {
