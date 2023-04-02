@@ -57,7 +57,7 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#distracted-and-vulnerable]"
         },
         {
-            "id": "the_drop",
+            "id": "the-drop",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#the-drop]"
         },
         {
@@ -73,7 +73,7 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02gear0000000000#encumbrance]"
         },
         {
-            "id": "bleeding_out",
+            "id": "bleeding-out",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03combat00000000#incapacitation]"
         },
         {
@@ -81,11 +81,11 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#disease]"
         },
         {
-            "id": "heart_attack",
+            "id": "heart-attack",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04fear0000000000]"
         },
         {
-            "id": "on_fire",
+            "id": "on-fire",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#fire]"
         },
         {

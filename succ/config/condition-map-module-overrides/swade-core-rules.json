@@ -54,7 +54,7 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03distractedan00#distracted-and-vulnerable]"
         },
         {
-            "id": "the_drop",
+            "id": "the-drop",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03thedrop0000000#the-drop]"
         },
         {
@@ -70,7 +70,7 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor02gear00.JournalEntryPage.02gearnotes00000#encumbrance]"
         },
         {
-            "id": "bleeding_out",
+            "id": "bleeding-out",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03damageeffect00#incapacitation]"
         },
         {
@@ -78,11 +78,11 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor04theadv.JournalEntryPage.04disease0000000#disease]"
         },
         {
-            "id": "heart_attack",
+            "id": "heart-attack",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor04theadv.JournalEntryPage.04fear0000000000#fear-table$1]"
         },
         {
-            "id": "on_fire",
+            "id": "on-fire",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor04theadv.JournalEntryPage.04fire0000000000#fire]"
         },
         {
@@ -110,7 +110,7 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.iS3duGwyTywaMOF7]"
         },
         {
-            "id": "cold_bodied",
+            "id": "cold-bodied",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor06bestia.JournalEntryPage.06specialabili18#infravision]"
         },
         {

@@ -1,6 +1,6 @@
 {
     "system": "swade",
-    "swadeVersion": "2.2.5",
+    "swadeVersion": "2.2.1",
     "map": [
         {
             "id": "shaken",
@@ -96,7 +96,7 @@
             "icon": "modules/succ/assets/icons/2-vulnerable.svg"
         },
         {
-            "id": "the_drop",
+            "id": "the-drop",
             "name": "ENHANCED_CONDITIONS.Condition.TheDrop",
             "icon": "modules/succ/assets/icons/2-the_drop.svg"
         },
@@ -139,12 +139,12 @@
             "icon": "modules/succ/assets/icons/3-diseased.svg"
         },
         {
-            "id": "heart_attack",
+            "id": "heart-attack",
             "name": "SWADE.HeartAttack",
             "icon": "modules/succ/assets/icons/3-heart_attack.svg"
         },
         {
-            "id": "on_fire",
+            "id": "on-fire",
             "name": "SWADE.OnFire",
             "icon": "modules/succ/assets/icons/3-on_fire.svg"
         },
@@ -183,7 +183,7 @@
             }
         },
         {
-            "id": "cold_bodied",
+            "id": "cold-bodied",
             "name": "SWADE.ColdBodied",
             "icon": "modules/succ/assets/icons/m-cold_bodied.svg"
         },
