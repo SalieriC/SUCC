@@ -33,6 +33,11 @@ export class EnhancedConditions {
             console.warn(game.i18n.localize(`ENHANCED_CONDITIONS.SimpleIconsNotSupported`));           
             return;
         }
+        
+        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore, 0);
+        if (game.user.isGM) {
+            await EnhancedConditions.checkForSystemUpdates();
+        }
 
         let defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
         let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
@@ -79,7 +84,6 @@ export class EnhancedConditions {
             if (game.user.isGM) {
                 EnhancedConditions._backupCoreEffects();
                 EnhancedConditions._backupCoreSpecialStatusEffects();
-                await EnhancedConditions.checkForSystemUpdates();
             }
 
             const specialStatusEffectMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping);
@@ -611,7 +615,7 @@ export class EnhancedConditions {
         } else if (actor.system.details.conviction.value < 1 && actor.system.details.conviction.active === false) {
             //Condition was toggled instead of the button on the actor sheet but actor has no conviction tokens.
             ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Notification.NoConvictionToken"));
-            await EnhancedConditionsAPI.removeCondition('conviction', actor);
+            await EnhancedConditionsAPI.removeCondition('conviction', actor, {warn: true});
         }
     }
 
@@ -739,9 +743,9 @@ export class EnhancedConditions {
      */
     static async _loadDefaultMap() {
         const source = "data";
-        const conditionMapFile = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFile;
+        const conditionMapFilePath = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFilePath;
         const overridesPath = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionModuleOverridesPath;
-        const conditionMapJson = await Sidekick.fetchJson(conditionMapFile);
+        const conditionMapJson = await Sidekick.fetchJson(conditionMapFilePath);
         const overridesJsons = await Sidekick.fetchJsons(source, overridesPath);
         
         const defaultMap = conditionMapJson.map;
@@ -787,7 +791,7 @@ export class EnhancedConditions {
             if (!condition.activeEffect) {
                 condition.activeEffect = {...statusEffect};
             } else {
-                foundry.utils.mergeObject(condition.activeEffect, statusEffect);
+                foundry.utils.mergeObject(condition.activeEffect, statusEffect, {overwrite: false});
             }
         }
 
@@ -963,7 +967,6 @@ export class EnhancedConditions {
         
         for (const c of conditionMap) {
             const id = c.id ?? Sidekick.createId(existingIds);
-
             const effect = {
                 id: id,
                 flags: {
@@ -981,7 +984,6 @@ export class EnhancedConditions {
                 changes: c.activeEffect?.changes || [],
                 duration: c.duration || c.activeEffect?.duration || {}
             }
-
             statusEffects.push(effect);
         };
 
@@ -1116,91 +1118,25 @@ export class EnhancedConditions {
 
         return map;
     }
-
-    /**
-     * Checks the condition data from the system and compares it to what is stored in coreEffects to see if there have been any updates
-     */
-    static async checkForSystemUpdates() {        
-        const savedVersion = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersion);
-        if (!savedVersion || !isNewerVersion(savedVersion, game.system.version)) {
-            //Either we didn't have a saved version or we're on the same version as before
-            //Regardless, save the current version and our core effects in case they have not been set yet
-            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersion, game.system.version);
-            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
-            return;
-        }
-
-        const coreEffects = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
-        if (!coreEffects) {
-            //This shouldn't be possible since we have a saved version, but handling it anyway
-            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
-            return;
-        }
-
-        //Loop over the status effects from the system and look for new or changed effects
-        //We do not do any checking for removed effects as this would likely be too disruptive to users
-        //If they really want to get rid of unneeded effects, they can manually remove them or clear their cache
-        let updatedEffects = [];
-        for (let statusEffect of CONFIG.statusEffects) {
-            let coreEffect = coreEffects.find(e => e.id === statusEffect.id);
-            if (!coreEffect) {
-                //This is a new effect
-                updatedEffects.push(statusEffect);
-                continue;
-            }
-
-            if ((!coreEffect.changes && statusEffect.changes) ||
-                (coreEffect.changes && !statusEffect.changes)) {
-                //One has changes undefined and the other does not
-                updatedEffects.push(statusEffect);
-                continue;
-            }
-
-            if (coreEffect.changes) {
-                if (coreEffect.changes.length != statusEffect.changes.length) {
-                    //A change has either been added or removed from the list
-                    updatedEffects.push(statusEffect);
-                    continue;
-                } 
     
-                for (let i = 0; i < coreEffect.changes.length; ++i) {
-                    if (coreEffect.changes[i].key != statusEffect.changes[i].key ||
-                        coreEffect.changes[i].mode != statusEffect.changes[i].mode ||
-                        coreEffect.changes[i].value != statusEffect.changes[i].value) {
-                            //At least one of the changes has been modified
-                            updatedEffects.push(statusEffect);
-                            continue;
-                    }
-                }
-            }
-
-            if (!Sidekick.shallowCompare(coreEffect.duration, statusEffect.duration)) {
-                //The duration has changed
-                updatedEffects.push(statusEffect);
-                continue;
-            }
-
-            if (!coreEffect.flags && statusEffect.flags) {
-                //We now have flags where before we didn't
-                updatedEffects.push(statusEffect);
-                continue;
-            }
-
-            if (coreEffect.flags) {
-                if (!Sidekick.shallowCompare(coreEffect.flags.swade, statusEffect.flags.swade)) {
-                    //The swade flags have changed
-                    updatedEffects.push(statusEffect);
-                    continue;
-                }
-            }
-        }
-
-        if (updatedEffects.length == 0) {
-            //There are no changes in the new version so just update our saved version and return
-            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersion, game.system.version);
+    /**
+     * Checks the status effects from the system and compares it to our condition map to determine if there are any updates
+     */
+    static async checkForSystemUpdates() {
+        const conditionMapFilePath = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFilePath;
+        const conditionMapJson = await Sidekick.fetchJson(conditionMapFilePath);
+        
+        if (!isNewerVersion(game.system.version,  conditionMapJson.swadeVersion)) {
+            //Our condition map is up to date with the latest version of SWADE. Nothing to do
             return;
         }
         
+        const ignoredVersion = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore);
+        if (!isNewerVersion(game.system.version,  ignoredVersion)) {
+            //The user has already ignored updates for this version, so no need to ask again
+            return;
+        }
+
         const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.systemUpdateDialog);
 
         await Dialog.wait({
@@ -1211,19 +1147,18 @@ export class EnhancedConditions {
                     icon: `<i class="fas fa-check"></i>`,
                     label: game.i18n.localize("WORDS.Yes"),
                     callback: ($html) => {
-                        EnhancedConditions.applySystemUpdate(updatedEffects);
+                        EnhancedConditions.applySystemUpdate(conditionMapJson);
                     }
                 },
                 no: {
                     icon: `<i class="fas fa-times"></i>`,
                     label: game.i18n.localize("WORDS.No"),
                     callback: ($html) => {
-                        const checkbox = $html[0].querySelector("input[name='dont-ask']");
+                        const checkbox = $html[0].querySelector("input[id='dont-ask']");
                         const dontAskAgain = checkbox?.checked;
                         if (dontAskAgain) {
-                            //If the user doesn't want us to ask again, update the system version and set the saved coreEffects to the new values
-                            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersion, game.system.version);
-                            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
+                            //If the user doesn't want us to ask again, update the ignored system version
+                            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore, game.system.version);
                             return;
                         }
                     }
@@ -1235,57 +1170,40 @@ export class EnhancedConditions {
     }
 
     /**
-     * Applies the changes from the SWADE system to the local maps
-     * @param {Array} updatedEffects List of the new or changed effects from the SWADE system
+     * Backs up and updates the condition map json file
      */
-    static applySystemUpdate(updatedEffects) {
-        const map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-        const defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
-        const defaultMap = defaultMaps["swade"];
-        const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
-        
-        for (let statusEffect of updatedEffects) {
-            let oldEffect = map.find(e => e.activeEffect?.id === statusEffect.id);
-            if (!oldEffect) {
-                //This is a new effect, so just add it to the list
-                map.push({
-                    id: statusEffect.id,
-                    name: statusEffect.label,
-                    icon: statusEffect.icon,
-                    referenceId: "",
-                    activeEffect: statusEffect,
-                    options: {
-                        outputChat: outputChatSetting
+    static async applySystemUpdate(conditionMapJson) {
+        //Start by backing up the old condition map, just in case
+        const conditionMapFilePath = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFilePath;
+        const conditionMapFileName = conditionMapFilePath.split('/').pop();
+        const backupFilename = conditionMapJson.swadeVersion + "-backup-" + conditionMapFileName;
+        Sidekick.uploadConditionMapJson(backupFilename, JSON.stringify(conditionMapJson));
+      
+        //Now loop over our map and apply any changes from the SWADE system
+        for (let condition of conditionMapJson.map) {
+            if (condition.activeEffect) {
+                Object.keys(condition.activeEffect).every(key => {
+                    if (key == "flags") {
+                        if (condition.activeEffect.flags.swade) {
+                            let statusEffect = CONFIG.statusEffects.find(e => e.id === condition.id);
+                            if (statusEffect?.flags?.swade) {
+                                condition.activeEffect.flags.swade = statusEffect.flags.swade;
+                            }
+                        }
+                    } else if (key != "icon" && key != "name") {
+                        let statusEffect = CONFIG.statusEffects.find(e => e.id === condition.id);
+                        if (statusEffect && statusEffect[key]) {
+                            condition.activeEffect[key] = statusEffect[key];
+                        }
                     }
                 });
-            } else {
-                //The icon and name are driven by SUCC so we want to make sure to preserve those
-                const icon = oldEffect.icon;
-                const label = oldEffect.activeEffect.label;
-
-                //Backup the old flags, remove the swade flags, and merge them with the new ones
-                //We do this to update or remove the swade flags while preserving any non-swade flags
-                const flags = oldEffect.activeEffect.flags;
-                flags.swade = {};
-                foundry.utils.mergeObject(flags, statusEffect.flags);
-
-                oldEffect.activeEffect = statusEffect;
-                oldEffect.activeEffect.icon = icon;
-                oldEffect.activeEffect.label = label;
-                oldEffect.activeEffect.flags = flags;
-            }
-
-            //If this effect is also in the default map, we need to update it too
-            let defaultEffect = defaultMap.find(e => e.activeEffect?.id === statusEffect.id);
-            if (defaultEffect) {
-                defaultEffect.activeEffect = oldEffect.activeEffect;
             }
         }
         
-        //Update our cached values
-        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
-        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, map);
-        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersion, game.system.version);
-        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
+        //Update the version in the JSON so that we know it's up to date
+        conditionMapJson.swadeVersion = game.system.version;
+
+        //Finally, overwrite our existing condition map with the updated values
+        Sidekick.uploadConditionMapJson(conditionMapFileName, JSON.stringify(conditionMapJson));
     }
 }

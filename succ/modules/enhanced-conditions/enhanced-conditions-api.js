@@ -28,7 +28,7 @@ export class EnhancedConditionsAPI {
      * // Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
      * game.succ.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
      */
-    static async addCondition(conditionId, entities=null, {warn=true, allowDuplicates=false, replaceExisting=false, forceOverlay=false}={}) {
+    static async addCondition(conditionId, entities=null, {allowDuplicates=false, replaceExisting=false, forceOverlay=false}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -149,7 +149,7 @@ export class EnhancedConditionsAPI {
      * // Remove Condition named "Charmed" from the currently controlled Token, but don't show any warnings if it fails.
      * game.succ.removeCondition("Charmed", {warn=false});
      */
-    static async removeCondition(conditionId, entities=null, {warn=true}={}) {
+    static async removeCondition(conditionId, entities=null, {warn=false}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;

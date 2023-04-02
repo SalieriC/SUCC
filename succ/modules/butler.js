@@ -3,6 +3,7 @@ export const NAME = "succ";
 export const TITLE = "SWADE Ultimate Condition Changer";
 
 export const PATH = "modules/succ";
+export const CONFIG_PATH = PATH + "/config";
 
 /**
  * Stores information about well known game systems. All other systems will resolve to "other"
@@ -29,8 +30,8 @@ export const KNOWN_GAME_SYSTEMS = {
 export const DEFAULT_CONFIG = {
     enhancedConditions: {
         iconPath: `${PATH}/icons/`,
-        conditionMapFile: `${PATH}/config/condition-map.json`,
-        conditionModuleOverridesPath: `${PATH}/config/condition-map-module-overrides`,
+        conditionMapFilePath: `${CONFIG_PATH}/condition-map.json`,
+        conditionModuleOverridesPath: `${CONFIG_PATH}/condition-map-module-overrides`,
         enable: true,
         outputChat: true,
         removeDefaultEffects: true,
@@ -129,7 +130,7 @@ export const SETTING_KEYS = {
         enable: "enableEnhancedConditions",
         coreEffects: "coreStatusEffects",
         system: "activeSystem",
-        systemVersion: "systemVersion",
+        systemVersionIgnore: "systemVersionIgnore",
         map: "activeConditionMap",
         defaultMaps: "defaultConditionMaps",
         mapType: "conditionMapType",

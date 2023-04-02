@@ -53,9 +53,9 @@ export function registerSettings() {
         onChange: s => {}
     });
 
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersion, {
-        name: "SETTINGS.EnhancedConditions.SystemVersionN",
-        hint: "SETTINGS.EnhancedConditions.SystemVersionH",
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore, {
+        name: "Condition map version ignore",
+        hint: "This is the last version the user ignore when checking for system updates",
         scope: "world",
         type: String,
         default: "",

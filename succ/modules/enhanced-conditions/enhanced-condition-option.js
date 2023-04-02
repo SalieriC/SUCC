@@ -57,7 +57,6 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
     /**
      * Checkbox change event handler
      * @param {*} event 
-     * @returns 
      */
     _onCheckboxChange(event) {
         if (!event.target?.checked) return;

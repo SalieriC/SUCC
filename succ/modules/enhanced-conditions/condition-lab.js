@@ -229,7 +229,7 @@ export class ConditionLab extends FormApplication {
         const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
         if (clearCache) {
-            defaultMaps = await EnhancedConditions._loadDefaultMap();            
+            defaultMaps = await EnhancedConditions._loadDefaultMap();
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
         }
@@ -271,7 +271,6 @@ export class ConditionLab extends FormApplication {
     /**
      * Process Condition Lab formdata and then save changes
      * @param {*} formData 
-     * @returns this._saveMapping()
      */
     async _processFormUpdate(formData) {
         const mapType = formData["map-type"];
@@ -290,7 +289,6 @@ export class ConditionLab extends FormApplication {
      * Saves a given map and option map type to storage
      * @param {*} newMap 
      * @param {*} mapType 
-     * @returns 
      */
     async _saveMapping(newMap, mapType=this.mapType) {
         this.mapType = this.initialMapType = mapType;
@@ -364,7 +362,7 @@ export class ConditionLab extends FormApplication {
         const form = html.find("form")[0];
 
         if ( !form.data.files.length ) {
-            return ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.Import.NoFile"));
+            return ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.Lab.Import.NoFile"));
         }
 
         const jsonFile = await readTextFromFile(form.data.files[0]);
