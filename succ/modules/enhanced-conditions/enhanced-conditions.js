@@ -176,6 +176,8 @@ export class EnhancedConditions {
 
         if (!updateEffects.length) return;
 
+        const actor = await EnhancedConditionsAPI.getActorFromEntity(token);
+
         const addConditions = [];
         const removeConditions = [];
 
@@ -191,23 +193,25 @@ export class EnhancedConditions {
 
             if (!condition) continue;
 
-            if (effect.changeType === "add") addConditions.push(condition);
-            else if (effect.changeType === "remove") removeConditions.push(condition);
+            if (effect.changeType === "add") {
+                addConditions.push(condition);
+
+                const hasEffectOptions = hasProperty(effect, `effect.flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.effectOptions}`);
+                if (hasEffectOptions && Object.keys(effect.effect.flags.succ.effectOptions).length > 0) {
+                    EnhancedConditions.applyEffectOptions(effect.effect, actor);                  
+                } else {
+                    EnhancedConditions.applyConditionOptions(condition, actor, "create");
+                }
+
+            } else if (effect.changeType === "remove") {
+                removeConditions.push(condition);
+                EnhancedConditions.applyConditionOptions(condition, actor, "delete");
+            }
         }
 
         if (!addConditions.length && !removeConditions.length) return;
 
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
-
-        const actor = await EnhancedConditionsAPI.getActorFromEntity(token);
-
-        for (const addedCondition of addConditions) {
-            EnhancedConditions.applyConditionOptions(addedCondition, actor, "create");
-        }
-        
-        for (const removedCondition of removeConditions) {
-            EnhancedConditions.applyConditionOptions(removedCondition, actor, "delete");
-        }
 
         const chatAddConditions = addConditions.filter(c => outputChatSetting && c.options?.outputChat);
         const chatRemoveConditions = removeConditions.filter(c => outputChatSetting && c.options?.outputChat);
@@ -437,6 +441,33 @@ export class EnhancedConditions {
 
             default:
                 break;
+        }
+    }
+
+    /**
+     * Processes effect options and applies them to active effects
+     * @param {*} effect The effect containing the effect options 
+     * @param {*} actor The actor containing the effect 
+     */
+    static applyEffectOptions(effect, actor) {
+        const activeEffect = actor.effects.find(function (e) {
+            return (e.id === effect._id)
+        })
+        if (effect.flags.succ.effectOptions.boost) {
+            let options = effect.flags.succ.effectOptions.boost;
+            EnhancedConditionsPowers.boostLowerBuilder(activeEffect, actor, options.trait, "boost", options.degree);
+        }
+        if (effect.flags.succ.effectOptions.lower) {
+            let options = effect.flags.succ.effectOptions.lower;
+            EnhancedConditionsPowers.boostLowerBuilder(activeEffect, actor, options.trait, "lower", options.degree);
+        }
+        if (effect.flags.succ.effectOptions.smite) {
+            let options = effect.flags.succ.effectOptions.smite;
+            EnhancedConditionsPowers.smiteBuilder(activeEffect, options.weapon, options.bonus);
+        }
+        if (effect.flags.succ.effectOptions.protection) {
+            let options = effect.flags.succ.effectOptions.protection;
+            EnhancedConditionsPowers.protectionBuilder(activeEffect, options.bonus, options.type);
         }
     }
         

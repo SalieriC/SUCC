@@ -28,7 +28,7 @@ export class EnhancedConditionsAPI {
      * // Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
      * game.succ.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
      */
-    static async addCondition(conditionId, entities=null, {allowDuplicates=false, replaceExisting=false, forceOverlay=false}={}) {
+    static async addCondition(conditionId, entities=null, {allowDuplicates=false, replaceExisting=false, forceOverlay=false, effectOptions={}}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -71,9 +71,13 @@ export class EnhancedConditionsAPI {
             
             if (!actor) continue;
 
-            if (forceOverlay) {
-                for (const effect of effects) {
+            for (const effect of effects) {
+                if (forceOverlay) {
                     effect.flags.core.overlay = true;
+                }
+                
+                if (effectOptions) {
+                    setProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.effectOptions}`, effectOptions);
                 }
             }
 

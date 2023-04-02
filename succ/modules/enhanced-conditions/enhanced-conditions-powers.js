@@ -76,6 +76,10 @@ export class EnhancedConditionsPowers {
         } else {
             //Getting the skill:
             let skill = actor.items.find(s => s.id === trait);
+            if (!skill) {
+                //We didn't find it by id so maybe this is the trait name
+                skill = actor.items.find(s => s.name.toLowerCase() === trait.toLowerCase());
+            }
             keyPath = `@Skill{${skill.name}}[system.die.sides]`
             if (type === "lower") { valueMod = degree === "raise" ? -4 : -2 }
             else { valueMod = degree === "raise" ? 4 : 2 } //System now handles going over d12 or under d4.
@@ -127,14 +131,7 @@ export class EnhancedConditionsPowers {
                         let selectedWeaponName = html.find(`#weapon`)[0].value
                         let damageBonus = Number(html.find("#damageBonus")[0].value)
                         if (damageBonus >= 0) { damageBonus = '+' + damageBonus }
-
-                        let change = { key: `@Weapon{${selectedWeaponName}}[system.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus };
-
-                        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
-                        //It loses .data in the middle because toObject() is just the cleaned up datalet updates = effect.toObject();
-                        let updates = effect.toObject();
-                        updates.changes = [change];
-                        await effect.update(updates);
+                        await EnhancedConditionsPowers.smiteBuilder(effect, selectedWeaponName, damageBonus);
                     }
                 },
                 cancel: {
@@ -145,6 +142,22 @@ export class EnhancedConditionsPowers {
                 }
             }
         }).render(true)
+    }
+
+    /**
+     * Creates and applies the active effects for a smite condition
+     * @param {Object} effect  The active effect being updated
+     * @param {String} weaponName  The name of the weapon being affected
+     * @param {String} damageBonus  The damage bonus
+     */
+    static async smiteBuilder(effect, weaponName, damageBonus) {
+        let change = { key: `@Weapon{${weaponName}}[system.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus };
+
+        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
+        //It loses .data in the middle because toObject() is just the cleaned up datalet updates = effect.toObject();
+        let updates = effect.toObject();
+        updates.changes = [change];
+        await effect.update(updates);
     }
 
     /**
@@ -169,24 +182,14 @@ export class EnhancedConditionsPowers {
                     label: game.i18n.localize("SWADE.Armor"),
                     callback: async (html) => {  
                         let protectionAmount = Number(html.find("#protectionAmount")[0].value);
-
-                        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
-                        //It loses .data in the middle because toObject() is just the cleaned up data
-                        let updates = effect.toObject().changes;
-                        updates[1].value = protectionAmount;
-                        await effect.update({ "changes": updates });
+                        await EnhancedConditionsPowers.protectionBuilder(effect, protectionAmount, "armor");
                     }
                 },
                 toughness: {
                     label: game.i18n.localize("SWADE.Tough"),
                     callback: async (html) => {
                         let protectionAmount = Number(html.find("#protectionAmount")[0].value);
-
-                        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
-                        //It loses .data in the middle because toObject() is just the cleaned up data
-                        let updates = effect.toObject().changes;
-                        updates[0].value = protectionAmount;
-                        await effect.update({ "changes": updates });
+                        await EnhancedConditionsPowers.protectionBuilder(effect, protectionAmount, "toughness");
                     }
                 },
                 cancel: {
@@ -197,5 +200,20 @@ export class EnhancedConditionsPowers {
                 }
             }
         }).render(true)
+    }
+
+    /**
+     * Creates and applies the active effects for a protection condition
+     * @param {Object} effect  The active effect being updated
+     * @param {String} protectionBonus  The amount to apply
+     * @param {String} type  Whether this is affected toughness or armor
+     */
+    static async protectionBuilder(effect, protectionBonus, type) {
+        let index = type === "armor" ? 1 : 0; //Toughness is stored in index 0 of the changes array and armor is in 1
+        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
+        //It loses .data in the middle because toObject() is just the cleaned up data
+        let updates = effect.toObject().changes;
+        updates[index].value = protectionBonus;
+        await effect.update({ "changes": updates })
     }
 }

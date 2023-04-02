@@ -15,7 +15,7 @@ export class DeprecatedAPI {
         Sidekick.consoleMessage("warn", BUTLER.NAME, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.apply_status`)});
         const allowDuplicates = additionalData ? additionalData.force : false;
         if (final_state) {
-            return await EnhancedConditionsAPI.addCondition(status_name, target, {allowDuplicates: allowDuplicates, forceOverlay: overlay});
+            return await EnhancedConditionsAPI.addCondition(status_name, target, {allowDuplicates: allowDuplicates, forceOverlay: overlay, effectOptions: additionalData});
         } else {
             return await EnhancedConditionsAPI.removeCondition(status_name, target);
         }

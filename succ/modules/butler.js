@@ -122,7 +122,8 @@ export const DEFAULT_CONFIG = {
 export const FLAGS = {
     enhancedConditions: {
         conditionId: "conditionId",
-        overlay: "overlay"
+        overlay: "overlay",
+        effectOptions: "effectOptions"
     }
 }
 
