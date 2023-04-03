@@ -549,4 +549,31 @@ export class Sidekick {
         let jsonFile = new File([conditionMapJson], jsonFilename, { type: "text/json", lastModified: new Date() });
         await FilePicker.upload(dest, BUTLER.CONFIG_PATH, jsonFile, {}, {notify:false});
     }
+
+    /**
+     * Get the enum for a special status effect in Foundry based on the option name
+     * @param {*} option 
+     * @returns {String} enum for the special status effect 
+     */
+    static getOptionBySpecialStatusEffect(specialEffect) {
+        switch (specialEffect) {
+            case "BLIND":
+                return "blindToken";
+
+            case "COLDBODIED":
+                return "";
+
+            case "DEFEATED":
+                return "";
+
+            case "INCAPACITATED":
+                return "markDefeated";  
+
+            case "INVISIBLE":
+                return "markInvisible";
+
+            default:
+                break;
+        }
+    }
 }

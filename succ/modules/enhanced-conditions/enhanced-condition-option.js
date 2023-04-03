@@ -123,11 +123,10 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
             const specialStatusEffect = this.getSpecialStatusEffectByField(field);
             
             if (specialStatusEffect) {
-
                 const existingMapping = foundry.utils.getProperty(specialStatusEffectMapping, specialStatusEffect);
-                if (existingMapping === `${NAME}.${this.object.id}` && value === false) {
+                if (existingMapping === this.object.id && value === false) {
                     this.setSpecialStatusEffectMapping(specialStatusEffect);
-                } else if (existingMapping !== `${NAME}.${this.object.id}` && value === true) {
+                } else if (existingMapping !== this.object.id && value === true) {
                     this.setSpecialStatusEffectMapping(specialStatusEffect, this.object.id);
                     if (existingMapping) {
                         const existingId = existingMapping.replace(`${NAME}.`, "");
@@ -175,7 +174,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
     setSpecialStatusEffectMapping(effect, conditionId=null) {
         if (!CONFIG.specialStatusEffects.hasOwnProperty(effect)) return;
         
-        CONFIG.specialStatusEffects[effect] = conditionId ? `${NAME}.${conditionId}` : "";
+        CONFIG.specialStatusEffects[effect] = conditionId ? conditionId : "";
         Sidekick.setSetting(SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.specialStatusEffects);
     }
 }

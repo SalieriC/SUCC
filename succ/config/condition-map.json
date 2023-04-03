@@ -190,13 +190,23 @@
         {
             "id": "blind",
             "name": "EFFECT.StatusBlind",
-            "icon": "modules/succ/assets/icons/blind.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.GxPhaUI4jQtFiXIr]{Blind}"
+            "icon": "modules/succ/assets/icons/m-blind.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.GxPhaUI4jQtFiXIr]{Blind}",
+            "activeEffect": {
+                "flags": {
+                    "swade": {
+                        "expiration": 3
+                    }
+                },
+                "duration": {
+                    "rounds": 1
+                }
+            }
         },
         {
             "id": "slumber",
             "name": "ENHANCED_CONDITIONS.Condition.Slumber",
-            "icon": "modules/succ/assets/icons/slumber.svg",
+            "icon": "modules/succ/assets/icons/m-slumber.svg",
             "referenceId": "@UUID[Compendium.swade.powers.QElMPOZK7jJDDGCP]"
         },
         {
@@ -230,7 +240,7 @@
         {
             "id": "deflection",
             "name": "ENHANCED_CONDITIONS.Condition.Deflection",
-            "icon": "modules/succ/assets/icons/deflection.svg",
+            "icon": "modules/succ/assets/icons/m-deflection.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Tvr0FZJPP3ygOl94]",
             "activeEffect": {
                 "flags": {

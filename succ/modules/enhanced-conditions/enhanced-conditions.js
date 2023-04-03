@@ -404,7 +404,13 @@ export class EnhancedConditions {
         switch (type) {
             case "create":
                 macros = condition.macros?.filter(m => m.type === "apply");
-                EnhancedConditions.applyConditionOptions(condition, actor, "create");
+
+                const hasEffectOptions = hasProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.effectOptions}`);
+                if (hasEffectOptions && Object.keys(effect.flags.succ.effectOptions).length > 0) {
+                    EnhancedConditions.applyEffectOptions(effect, actor);                  
+                } else {
+                    EnhancedConditions.applyConditionOptions(condition, actor, "create");
+                }
                 break;
 
             case "delete":
@@ -449,24 +455,40 @@ export class EnhancedConditions {
      * @param {*} effect The effect containing the effect options 
      * @param {*} actor The actor containing the effect 
      */
-    static applyEffectOptions(effect, actor) {
+    static async applyEffectOptions(effect, actor) {
         const activeEffect = actor.effects.find(function (e) {
             return (e.id === effect._id)
         })
+
+        //Local function to apply the options that are shared between all effects
+        async function applySharedOptions(options) {
+            let updates = activeEffect.toObject();
+            foundry.utils.mergeObject(updates.flags, options.flags, {overwrite: false});
+            if (options.icon) { updates.icon = options.icon; }
+            await activeEffect.update(updates);
+        }
+
         if (effect.flags.succ.effectOptions.boost) {
             let options = effect.flags.succ.effectOptions.boost;
+            await applySharedOptions(options);
             EnhancedConditionsPowers.boostLowerBuilder(activeEffect, actor, options.trait, "boost", options.degree);
         }
+
         if (effect.flags.succ.effectOptions.lower) {
             let options = effect.flags.succ.effectOptions.lower;
+            await applySharedOptions(options);
             EnhancedConditionsPowers.boostLowerBuilder(activeEffect, actor, options.trait, "lower", options.degree);
         }
+
         if (effect.flags.succ.effectOptions.smite) {
             let options = effect.flags.succ.effectOptions.smite;
+            await applySharedOptions(options);
             EnhancedConditionsPowers.smiteBuilder(activeEffect, options.weapon, options.bonus);
         }
+
         if (effect.flags.succ.effectOptions.protection) {
             let options = effect.flags.succ.effectOptions.protection;
+            await applySharedOptions(options);
             EnhancedConditionsPowers.protectionBuilder(activeEffect, options.bonus, options.type);
         }
     }
@@ -970,16 +992,52 @@ export class EnhancedConditions {
         const activeConditionEffects = EnhancedConditions._prepareStatusEffects(activeConditionMap);
 
         if (removeDefaultEffects) {
-            return CONFIG.statusEffects = activeConditionEffects ?? [];
-        } 
-        
-        if (activeConditionMap instanceof Array) {
+            CONFIG.statusEffects = activeConditionEffects ?? [];
+        } else if (activeConditionMap instanceof Array) {
             //add the icons from the condition map to the status effects array
             const coreEffects = CONFIG.defaultStatusEffects || Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
 
             // Create a Set based on the core status effects and the Enhanced Condition effects. Using a Set ensures unique icons only
-            return CONFIG.statusEffects = coreEffects.concat(activeConditionEffects);
+            CONFIG.statusEffects = coreEffects.concat(activeConditionEffects);
         }
+
+        //Loop over our list of special effect and update them to match our settings
+        Object.keys(CONFIG.specialStatusEffects).forEach((key) => {
+            const optionName = Sidekick.getOptionBySpecialStatusEffect(key);
+            if (!optionName) {
+                //We don't support this effect
+                CONFIG.specialStatusEffects[key] = "";
+                return;
+            }
+
+            const defaultCondition = activeConditionMap.find(c => c.id === CONFIG.specialStatusEffects[key]);
+            if (defaultCondition) {
+                //The name of this effect matches one of our effect. Check its options
+                if (hasProperty(defaultCondition.options, optionName)) {
+                    if (getProperty(defaultCondition.options, optionName)) {
+                        //This effect has the option enabled, so just leave it as is
+                        return;
+                    }
+
+                    //This effect does not have the option enabled, so disable it in the special effects
+                    CONFIG.specialStatusEffects[key] = "";
+                }
+            }
+
+            //Check our map to see if any of our conditions have this option enabled
+            const configCondition = activeConditionMap.find(c => {
+                if (hasProperty(c.options, optionName)) {
+                    const optionValue = getProperty(c.options, optionName);
+                    return optionValue;
+                }
+                return false;
+            });
+
+            if (configCondition) {
+                //We found a condition with this option enabled, so set it as the condition to use for the special effect
+                CONFIG.specialStatusEffects[key] = configCondition.id;
+            }
+        });
     }
 
     /**
