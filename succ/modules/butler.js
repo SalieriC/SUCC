@@ -5,34 +5,12 @@ export const TITLE = "SWADE Ultimate Condition Changer";
 export const PATH = "modules/succ";
 export const CONFIG_PATH = PATH + "/config";
 
-/**
- * Stores information about well known game systems. All other systems will resolve to "other"
- * Keys must match id
- */
-export const KNOWN_GAME_SYSTEMS = {
-    "swade": {
-        id: "swade",
-        name: "SWADE"
-    },
-    "swpf": {
-        id: "swpf",
-        name: "Pathfinder for Savage Worlds"
-    },
-    other: {
-        id: "other",
-        name: "Custom/Other",
-        concentrationAttribute: "--Unknown--",
-        healthAttribute: "--Unknown--",
-        initiative: "--Unknown--"
-    }
-} 
 
 export const DEFAULT_CONFIG = {
     enhancedConditions: {
         iconPath: `${PATH}/icons/`,
         conditionMapFilePath: `${CONFIG_PATH}/condition-map.json`,
         conditionModuleOverridesPath: `${CONFIG_PATH}/condition-map-module-overrides`,
-        enable: true,
         outputChat: true,
         removeDefaultEffects: true,
         conditionLab: {
@@ -129,12 +107,10 @@ export const FLAGS = {
 
 export const SETTING_KEYS = {
     enhancedConditions: {
-        enable: "enableEnhancedConditions",
         coreEffects: "coreStatusEffects",
-        system: "activeSystem",
         systemVersionIgnore: "systemVersionIgnore",
         map: "activeConditionMap",
-        defaultMaps: "defaultConditionMaps",
+        defaultMap: "defaultConditionMap",
         mapType: "conditionMapType",
         removeDefaultEffects: "removeDefaultEffects",
         outputChat: "conditionsOutputToChat",

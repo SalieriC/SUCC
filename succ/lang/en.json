@@ -112,8 +112,6 @@
         }
     },
 
-    "ENHANCED_CONDITIONS.GameSystemNotSupported": "SUCC Enhanced Conditions does not work with this game system.",
-    "ENHANCED_CONDITIONS.SimpleIconsNotSupported": "SUCC Enhanced Conditions does not support game systems that use simple status effect icons.",
     "ENHANCED_CONDITIONS.MapMismatch": "This map does not match your game system and may not work as expected.",
     "ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken": "Apply Condition failed. No token provided",
     "ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition": "Apply Condition failed. Could not find condition:",
@@ -201,8 +199,6 @@
     
     "ENHANCED_CONDITIONS.Notification.NoConvictionToken": "This actor has no conviction tokens left.",
     
-    "SETTINGS.EnhancedConditions.EnableN": "Enable Enhanced Conditions",
-    "SETTINGS.EnhancedConditions.EnableH": "Links conditions to status icons",
     "SETTINGS.EnhancedConditions.CoreIconsN": "Core Status Icons",
     "SETTINGS.EnhancedConditions.CoreIconsH": "A copy of the core status icons",
     "SETTINGS.EnhancedConditions.SystemN": "Game System",
@@ -211,8 +207,8 @@
     "SETTINGS.EnhancedConditions.OutputChatH": "Output matched conditions to chat",
     "SETTINGS.EnhancedConditions.OutputCombatN": "Output During Combat",
     "SETTINGS.EnhancedConditions.OutputCombatH": "On each round of Combat, output any conditions for the current combatant to chat",
-    "SETTINGS.EnhancedConditions.DefaultMapsN": "Default Condition Maps",
-    "SETTINGS.EnhancedConditions.DefaultMapsH": "Module-provided maps of conditions to icons",
+    "SETTINGS.EnhancedConditions.DefaultMapN": "Default Condition Maps",
+    "SETTINGS.EnhancedConditions.DefaultMapH": "Module-provided maps of conditions to icons",
     "SETTINGS.EnhancedConditions.RemoveDefaultEffectsN": "Remove Default Status Effects",
     "SETTINGS.EnhancedConditions.RemoveDefaultEffectsH": "Remove existing status effect icons from token HUD",
     "SETTINGS.EnhancedConditions.MapTypeN": "Active Condition Map Type",

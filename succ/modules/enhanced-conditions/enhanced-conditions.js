@@ -23,46 +23,33 @@ export class EnhancedConditions {
      * 4. Override status effects
      */
     static async _onReady() {
-        game.succ.enhancedConditions.supported = false;
-        const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-        
-        // Return early if gadget not enabled
-        if (!enable) return;
-
-        if (CONFIG.statusEffects.length && typeof CONFIG.statusEffects[0] == "string") {
-            console.warn(game.i18n.localize(`ENHANCED_CONDITIONS.SimpleIconsNotSupported`));           
-            return;
-        }
-        
-        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore, 0);
         if (game.user.isGM) {
             await EnhancedConditions.checkForSystemUpdates();
         }
 
-        let defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
+        let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
         let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
 
-        const system = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.system);
         const mapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
         const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
 
-        // If there's no defaultMaps or defaultMaps doesn't include game system, check storage then set appropriately
-        if (!defaultMaps || (defaultMaps instanceof Object && Object.keys(defaultMaps).length === 0) || (defaultMaps instanceof Object && !Object.keys(defaultMaps).includes(system))) {
+        // If there's no defaultMap, check storage then set appropriately
+        if (!defaultMap) {
             if (game.user.isGM) {
-                defaultMaps = await EnhancedConditions._loadDefaultMap();
-                Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
+                defaultMap = await EnhancedConditions._loadDefaultMap();
+                Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap);
             }
         }
 
-        // If map type is not set and a default map exists for the system, set maptype to default
-        if (!mapType && (defaultMaps instanceof Object && Object.keys(defaultMaps).includes(system))) {            
+        // If map type is not set, set maptype to default
+        if (!mapType) {            
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, defaultMapType);
         }
 
         // If there's no condition map, get the default one
         if (!conditionMap.length) {
-            // Pass over defaultMaps since the storage version is still empty
-            conditionMap = EnhancedConditions.getDefaultMap(system, defaultMaps);
+            // Pass over defaultMap since the storage version is still empty
+            conditionMap = EnhancedConditions.getDefaultMap(defaultMap);
 
             if (game.user.isGM) {
                 const preparedMap = EnhancedConditions._prepareMap(conditionMap);
@@ -79,25 +66,20 @@ export class EnhancedConditions {
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, defaultMapType);
         }
 
-        // If the gadget is enabled, update status icons accordingly
-        if (enable) {
-            if (game.user.isGM) {
-                EnhancedConditions._backupCoreEffects();
-                EnhancedConditions._backupCoreSpecialStatusEffects();
-            }
-
-            const specialStatusEffectMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping);
-            if (conditionMap.length) EnhancedConditions._updateStatusEffects(conditionMap);
-            if (specialStatusEffectMap) foundry.utils.mergeObject(CONFIG.specialStatusEffects, specialStatusEffectMap);
-            setInterval(EnhancedConditions.updateConditionTimestamps, 15000);
+        if (game.user.isGM) {
+            EnhancedConditions._backupCoreEffects();
+            EnhancedConditions._backupCoreSpecialStatusEffects();
         }
+
+        const specialStatusEffectMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping);
+        if (conditionMap.length) EnhancedConditions._updateStatusEffects(conditionMap);
+        if (specialStatusEffectMap) foundry.utils.mergeObject(CONFIG.specialStatusEffects, specialStatusEffectMap);
+        setInterval(EnhancedConditions.updateConditionTimestamps, 15000);
 
         // Save the active condition map to a convenience property
         if (game.succ) {
             game.succ.conditions = conditionMap;
         }
-
-        game.succ.enhancedConditions.supported = true;
     }
 
     /**
@@ -146,9 +128,7 @@ export class EnhancedConditions {
      * Hooks on token updates. If the update includes effects, calls the journal entry lookup
      */
     static async _onUpdateToken(token, update, options, userId) {
-        const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-        if (!enable || game.userId !== userId) {
+        if (game.userId !== userId) {
             return;
         }
 
@@ -235,9 +215,7 @@ export class EnhancedConditions {
      * @param {*} userId 
      */
     static _onCreateActiveEffect(effect, options, userId) {
-        const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-        if (!enable || game.userId !== userId) {
+        if (game.userId !== userId) {
             return;
         }
 
@@ -257,9 +235,7 @@ export class EnhancedConditions {
      * @param {*} userId 
      */
     static _onDeleteActiveEffect(effect, options, userId) {
-        const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-        if (!enable || game.userId !== userId) {
+        if (game.userId !== userId) {
             return;
         }
 
@@ -355,10 +331,6 @@ export class EnhancedConditions {
      * @param {*} data 
      */
     static async _onRenderCombatTracker(app, html, data) {
-        const enabled = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-        if (!enabled) return;
-
         const effectIcons = html.find("img[class='token-effect']");
 
         effectIcons.each((index, element) => {
@@ -759,12 +731,7 @@ export class EnhancedConditions {
         succDiv.append(labButton);
 
         labButton.on("click", event => {
-            if (game.succ.enhancedConditions.supported) {
-                return game.succ.conditionLab = new ConditionLab().render(true)
-            } else {
-                ui.notifications.warn(game.i18n.localize(`ENHANCED_CONDITIONS.GameSystemNotSupported`));
-            }
-            
+            return game.succ.conditionLab = new ConditionLab().render(true);
         });
     }
 
@@ -802,8 +769,6 @@ export class EnhancedConditions {
         const overridesJsons = await Sidekick.fetchJsons(source, overridesPath);
         
         const defaultMap = conditionMapJson.map;
-        const defaultMaps = {}; //TODO: Remove the need for a map since we only support one system
-        defaultMaps[conditionMapJson.system] = conditionMapJson.map;
         
         //Loop over our overrides and check if any of them are active
         for (let overrides of overridesJsons) {
@@ -814,7 +779,7 @@ export class EnhancedConditions {
                         //If the condition doesn't exist, add it to the map
                         defaultMap.push(override);
                     } else {
-                        //If the condition exists, just merge the data instead
+                        //If the condition exists, merge the data instead
                         foundry.utils.mergeObject(condition, override);
                     }
                 }
@@ -853,8 +818,10 @@ export class EnhancedConditions {
                 let regex = /(?<=\{).+(?=\})/;
                 let match = condition.referenceId.match(regex);
                 if (match) {
+                    //Our referenceId already contains a name, so let's attempt to localize it in case it is a loc id
                     condition.referenceId = condition.referenceId.replace(regex, `${game.i18n.localize(match[0])}`);
                 } else {
+                    //Our referenceId does not have a name, so use the condition's name
                     condition.referenceId += `{${game.i18n.localize(condition.name)}}`;
                 }
             }
@@ -865,7 +832,7 @@ export class EnhancedConditions {
             }
         }
 
-        return defaultMaps;
+        return defaultMap;
     }
 
     /**
@@ -879,7 +846,6 @@ export class EnhancedConditions {
             return preparedMap;
         }
 
-        
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
 
         // Map existing ids for ease of access
@@ -893,15 +859,11 @@ export class EnhancedConditions {
             // Delete falsy values
             if (!condition) preparedMap.splice(i, 1);
 
-            // Convert string values (eg. icon path) to condition/effect object
-            // @todo #580 Consider re-adding support for systems that use simple icons for status effects
-            //condition = typeof condition == "string" ? {icon: condition} : condition;
-            if (typeof condition == "string") continue;
-
             if (!condition.name) {
                 condition.name = condition.label ?? (condition.icon ? Sidekick.getNameFromFilePath(condition.icon) : "");
             }
 
+            //If this condition matches something in our default status effects, copy its id
             let statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
             const statusEffect = statusEffects.find(e => e.label === condition.name);
             if (statusEffect) {
@@ -967,13 +929,6 @@ export class EnhancedConditions {
      * @param {*} conditionMap 
      */
     static _updateStatusEffects(conditionMap) {
-        const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-        if (!enable) {
-            // maybe restore the core icons?
-            return;
-        }
-
         let entries;
         const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
 
@@ -1182,14 +1137,12 @@ export class EnhancedConditions {
 
     /**
      * Returns the default condition map for a given system
-     * @param {*} system 
      */
-    static getDefaultMap(system, defaultMaps=null) {
-        defaultMaps = defaultMaps instanceof Object ? defaultMaps : Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
-        let defaultMap = defaultMaps[system] || [];
+    static getDefaultMap(defaultMap=null) {
+        defaultMap = defaultMap ? defaultMap : Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
 
-        if (!defaultMap.length) {
-            defaultMap = EnhancedConditions.buildDefaultMap(system);
+        if (!defaultMap) {
+            defaultMap = EnhancedConditions.buildDefaultMap();
         }
 
         return defaultMap;
@@ -1197,10 +1150,9 @@ export class EnhancedConditions {
 
     /**
      * Builds a default map for a given system
-     * @param {*} system 
      * @todo #281 update for active effects
      */
-    static buildDefaultMap(system) {
+    static buildDefaultMap() {
         const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects) 
         const coreEffects = (coreEffectsSetting && coreEffectsSetting.length) ? coreEffectsSetting : CONFIG.statusEffects;
         const map = EnhancedConditions._prepareMap(coreEffects);

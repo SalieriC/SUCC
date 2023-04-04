@@ -87,19 +87,6 @@ export class Sidekick {
     }
 
     /**
-     * Gets the default game system names stored in the constants butler class
-     */
-    static getSystemChoices() {
-        const systemIds = Object.getOwnPropertyNames(BUTLER.KNOWN_GAME_SYSTEMS);
-        const result = {};
-
-        for (let i of systemIds) {
-            result[i] = BUTLER.KNOWN_GAME_SYSTEMS[i].name;
-        }
-        return result;
-    }
-
-    /**
      * Use FilePicker to browse then Fetch one or more JSONs and return them
      * @param {*} source
      * @param {*} path 

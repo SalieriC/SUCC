@@ -1338,7 +1338,6 @@ Provides helper methods for use elsewhere in the module (and has your back in a 
     * [.registerSetting(key, metadata)](#Sidekick.registerSetting) ⇒ <code>ClientSettings.register</code>
     * [.registerMenu(key, metadata)](#Sidekick.registerMenu) ⇒ <code>ClientSettings.registerMenu</code>
     * [.registerAllSettings(settingsData)](#Sidekick.registerAllSettings) ⇒ <code>Array</code>
-    * [.getSystemChoices()](#Sidekick.getSystemChoices)
     * [.fetchJsons(source, path)](#Sidekick.fetchJsons)
     * [.fetchJson(file)](#Sidekick.fetchJson) ⇒
     * [.validateObject(object)](#Sidekick.validateObject) ⇒ <code>Boolean</code>

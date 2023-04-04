@@ -19,7 +19,6 @@ export class ConditionLab extends FormApplication {
         this.initialMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
         this.map = null;
         this.displayedMap = null;
-        this.maps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
         this.filterValue = "";
         this.sortDirection = "";
     }
@@ -64,7 +63,6 @@ export class ConditionLab extends FormApplication {
         const mapTypeChoices = BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes;
 
         const mapType = this.mapType = (this.mapType || this.initialMapType || "other");
-        const system = this.system || game.system.id;
         let conditionMap = this.map ? this.map : (this.map = duplicate(this.initialMap));
 
         const isDefault = this.mapType === Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
@@ -225,21 +223,20 @@ export class ConditionLab extends FormApplication {
      * Restore defaults for a mapping
      */
     async _restoreDefaults({clearCache=false, keepConditionsAddedByLab=false}={}) {
-        const system = this.system;
-        let defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
+        let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
         
-        const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
         if (clearCache) {
-            defaultMaps = await EnhancedConditions._loadDefaultMap();
-            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
+            defaultMap = await EnhancedConditions._loadDefaultMap();
+            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
         }
-        const tempMap = (this.mapType != otherMapType && defaultMaps && defaultMaps[system]) ? defaultMaps[system] : [];
-
-        const oldMap = duplicate(this.map);
 
         // If the mapType is other then the map should be empty, otherwise it's the default map for the system
+        const tempMap = (this.mapType != otherMapType && defaultMap) ? defaultMap : [];
+
+        // Loop over the old map and readd any conditions that were added by the user through the Condition Lab
+        const oldMap = duplicate(this.map);
         this.map = duplicate(tempMap);
         if (keepConditionsAddedByLab) {
             for (const condition of oldMap) {
@@ -248,6 +245,7 @@ export class ConditionLab extends FormApplication {
                 }
             }
         }
+
         this.render(true);
     }
 
@@ -289,7 +287,7 @@ export class ConditionLab extends FormApplication {
         const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
         
         if (mapType === defaultMapType) {
-            const defaultMap = EnhancedConditions.getDefaultMap(this.system);
+            const defaultMap = EnhancedConditions.getDefaultMap();
             newMap = mergeObject(newMap, defaultMap);
         }
 
@@ -555,7 +553,7 @@ export class ConditionLab extends FormApplication {
         switch (newType) {
             case "default":
             case "custom":
-                const defaultMap = EnhancedConditions.getDefaultMap(this.system);
+                const defaultMap = EnhancedConditions.getDefaultMap();
                 this.map = defaultMap?.length ? EnhancedConditions._prepareMap(defaultMap) : []; 
                 break;
             
@@ -653,7 +651,7 @@ export class ConditionLab extends FormApplication {
         const customMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.custom);
 
         if (this.mapType === defaultMapType) {
-            const defaultMap = EnhancedConditions.getDefaultMap(this.system);
+            const defaultMap = EnhancedConditions.getDefaultMap();
             this.map = mergeObject(fdMap, defaultMap);
         } else {
             this.map = fdMap;

@@ -9,27 +9,6 @@ export function registerSettings() {
     /*              EnhancedConditions              */
     /* -------------------------------------------- */
 
-    // Enable enhanced conditions
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable, {
-        name: "SETTINGS.EnhancedConditions.EnableN",
-        hint: "SETTINGS.EnhancedConditions.EnableH",
-        scope: "world",
-        type: Boolean,
-        default: BUTLER.DEFAULT_CONFIG.enhancedConditions.enable,
-        config: true,
-        onChange: async (s) => {
-            if (s) {
-                await EnhancedConditions._onReady();
-                if (!game.succ.enhancedConditions.supported) {
-                    ui.notifications.warn(game.i18n.localize(`ENHANCED_CONDITIONS.GameSystemNotSupported`));
-                    await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable, false);
-                }
-            }
-
-            EnhancedConditions._toggleLabButtonVisibility(s && game.succ.enhancedConditions.supported);
-        }
-    });
-
     // Storage for the backup of the core effects map
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, {
         name: "SETTINGS.EnhancedConditions.CoreEffectsN",
@@ -38,18 +17,6 @@ export function registerSettings() {
         type: Object,
         default: [],
         config: false,
-        onChange: s => {}
-    });
-
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.system, {
-        name: "SETTINGS.EnhancedConditions.SystemN",
-        hint: "SETTINGS.EnhancedConditions.SystemH",
-        scope: "world",
-        type: String,
-        default: !!BUTLER.KNOWN_GAME_SYSTEMS[game.system.id] ? BUTLER.KNOWN_GAME_SYSTEMS[game.system.id].id : BUTLER.KNOWN_GAME_SYSTEMS.other.id,
-        choices: Sidekick.getSystemChoices(),
-        config: false,
-        apiOnly: true,
         onChange: s => {}
     });
 
@@ -69,7 +36,6 @@ export function registerSettings() {
         hint: "SETTINGS.EnhancedConditions.MapTypeH",
         scope: "world",
         type: String,
-        //default: BUTLER.KNOWN_GAME_SYSTEMS[game.system.id] !== null ? "default" : "other",
         default: "",
         choices: BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
         config: false,
@@ -77,9 +43,9 @@ export function registerSettings() {
         onChange: s => {}
     });
 
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, {
-        name: "SETTINGS.EnhancedConditions.DefaultMapsN",
-        hint: "SETTINGS.EnhancedConditions.DefaultMapsH",
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, {
+        name: "SETTINGS.EnhancedConditions.DefaultMapN",
+        hint: "SETTINGS.EnhancedConditions.DefaultMapH",
         scope: "world",
         type: Object,
         default: {},

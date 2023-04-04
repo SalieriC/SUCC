@@ -120,7 +120,7 @@ export class Signal {
         Hooks.on("renderSettings", (app, html) => {
             Sidekick.createSUCCDiv(html);
             EnhancedConditions._createLabButton(html);
-            EnhancedConditions._toggleLabButtonVisibility(Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable));
+            EnhancedConditions._toggleLabButtonVisibility(true);
         });
 
         /* ------------------- Chat ------------------- */
