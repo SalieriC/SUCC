@@ -126,10 +126,6 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.9Ia8jJNOCy0z7yXn]"
         },
         {
-            "id": "slumber",
-            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.QElMPOZK7jJDDGCP]"
-        },
-        {
             "id": "boost",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.FSwGNyzYvYRMhOkV]"
         },

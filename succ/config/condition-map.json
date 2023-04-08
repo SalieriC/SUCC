@@ -204,12 +204,6 @@
             }
         },
         {
-            "id": "slumber",
-            "name": "ENHANCED_CONDITIONS.Condition.Slumber",
-            "icon": "modules/succ/assets/icons/m-slumber.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.QElMPOZK7jJDDGCP]"
-        },
-        {
             "id": "smite",
             "name": "SWADE.Smite",
             "icon": "modules/succ/assets/icons/m-smite.svg",
@@ -235,22 +229,6 @@
             "referenceId": "@UUID[Compendium.swade.powers.9Ia8jJNOCy0z7yXn]",
             "options": {
                 "protection": true
-            }
-        },
-        {
-            "id": "deflection",
-            "name": "ENHANCED_CONDITIONS.Condition.Deflection",
-            "icon": "modules/succ/assets/icons/m-deflection.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.Tvr0FZJPP3ygOl94]",
-            "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
-                },
-                "duration": {
-                    "rounds": 5
-                }
             }
         },
         {
