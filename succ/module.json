@@ -4,10 +4,10 @@
   "description": "<p>A module to change status icons in the SWADE system on Foundry VTT.</p><p><a href=\"https://ko-fi.com/salieric\">Please consider donating.</a></p>",
   "compatibility": {
     "minimum": "10",
-    "verified": "10.288",
+    "verified": "10.291",
     "maximum": "10"
   },
-  "version": "0.2.6",
+  "version": "0.3.0",
   "relationships": {
     "systems": [
       {
@@ -16,7 +16,7 @@
         "manifest": "https://gitlab.com/api/v4/projects/16269883/packages/generic/swade/latest/system.json",
         "compatibility": {
           "minimum": "2.1.0",
-          "verified": "2.1.0"
+          "verified": "2.3.2"
         }
       }
     ]
