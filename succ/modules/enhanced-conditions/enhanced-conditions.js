@@ -1178,6 +1178,15 @@ export class EnhancedConditions {
             return;
         }
 
+        const oldMapJson = duplicate(conditionMapJson);
+        const newMapJson = EnhancedConditions.getSystemUpdateMapJson(conditionMapJson);
+        if (JSON.stringify(oldMapJson) != JSON.stringify(newMapJson)) {
+            //There were no changes between versions so there's no need to build a new config file
+            //Mark this version as ignored so we won't process this again
+            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore, game.system.version);
+            return;
+        }
+
         const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.systemUpdateDialog);
 
         await Dialog.wait({
@@ -1188,7 +1197,7 @@ export class EnhancedConditions {
                     icon: `<i class="fas fa-check"></i>`,
                     label: game.i18n.localize("WORDS.Yes"),
                     callback: ($html) => {
-                        EnhancedConditions.applySystemUpdate(conditionMapJson);
+                        EnhancedConditions.applySystemUpdate(oldMapJson, newMapJson);
                     }
                 },
                 no: {
@@ -1211,17 +1220,13 @@ export class EnhancedConditions {
     }
 
     /**
-     * Backs up and updates the condition map json file
+     * Takes the current json map and updates it for the new version of SWADE
+     * This does not make any modifications to the succ settings
      */
-    static async applySystemUpdate(conditionMapJson) {
-        //Start by backing up the old condition map, just in case
-        const conditionMapFilePath = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFilePath;
-        const conditionMapFileName = conditionMapFilePath.split('/').pop();
-        const backupFilename = conditionMapJson.swadeVersion + "-backup-" + conditionMapFileName;
-        Sidekick.uploadConditionMapJson(backupFilename, JSON.stringify(conditionMapJson));
-      
-        //Now loop over our map and apply any changes from the SWADE system
-        for (let condition of conditionMapJson.map) {
+    static async getSystemUpdateMapJson(conditionMapJson) {      
+        //Loop over our map and apply any changes from the SWADE system
+        const newMapJson = duplicate(conditionMapJson);
+        for (let condition of newMapJson.map) {
             if (condition.activeEffect) {
                 Object.keys(condition.activeEffect).every(key => {
                     if (key == "flags") {
@@ -1240,11 +1245,22 @@ export class EnhancedConditions {
                 });
             }
         }
+    }
+
+    /**
+     * Backs up and updates the condition map json file
+     */
+    static async applySystemUpdate(oldMapJson, newMapJson) {
+        //Start by backing up the old condition map, just in case
+        const conditionMapFilePath = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFilePath;
+        const conditionMapFileName = conditionMapFilePath.split('/').pop();
+        const backupFilename = oldMapJson.swadeVersion + "-backup-" + conditionMapFileName;
+        Sidekick.uploadConditionMapJson(backupFilename, JSON.stringify(oldMapJson));
         
         //Update the version in the JSON so that we know it's up to date
-        conditionMapJson.swadeVersion = game.system.version;
-
+        newMapJson.swadeVersion = game.system.version;
+        
         //Finally, overwrite our existing condition map with the updated values
-        Sidekick.uploadConditionMapJson(conditionMapFileName, JSON.stringify(conditionMapJson));
+        Sidekick.uploadConditionMapJson(conditionMapFileName, JSON.stringify(newMapJson));
     }
 }
