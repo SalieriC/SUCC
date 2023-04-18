@@ -1,0 +1,137 @@
+{
+    "module":"swpf-core-rules",
+    "map":[
+        {
+            "id": "shaken",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03combat00000000#damage-effects]"
+        },
+        {
+            "id": "incapacitated",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03combat00000000#incapacitation]"
+        },
+        {
+            "id": "aiming",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#aim]"
+        },
+        {
+            "id": "berserking",
+            "name":"ENHANCED_CONDITIONS.Condition.Rage",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore01charac.JournalEntryPage.01edges000000000#barbarian]"
+        },
+        {
+            "id": "defending",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#defend]"
+        },
+        {
+            "id": "flying",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-abilities.lZVhdNhW8bG0GcVz]"
+        },
+        {
+            "id": "holding",
+            "icon": "modules/succ/icons/holding.svg",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#hold]{Hold}"
+        },
+        {
+            "id": "conviction",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03rules000000000#conviction]"
+        },
+        {
+            "id": "bound",
+            "icon": "modules/succ/icons/bound.svg",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#bound-and-entangled]{Bound}"
+        },
+        {
+            "id": "entangled",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#bound-and-entangled]"
+        },
+        {
+            "id": "frightened",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04fear0000000000]"
+        },
+        {
+            "id": "distracted",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#distracted-and-vulnerable]"
+        },
+        {
+            "id": "vulnerable",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#distracted-and-vulnerable]"
+        },
+        {
+            "id": "the-drop",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#the-drop]"
+        },
+        {
+            "id": "stunned",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#stunned]"
+        },
+        {
+            "id": "prone",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#prone]"
+        },
+        {
+            "id": "encumbered",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02gear0000000000#encumbrance]"
+        },
+        {
+            "id": "bleeding-out",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03combat00000000#incapacitation]"
+        },
+        {
+            "id": "diseased",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#disease]"
+        },
+        {
+            "id": "heart-attack",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04fear0000000000]"
+        },
+        {
+            "id": "on-fire",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#fire]"
+        },
+        {
+            "id": "poisoned",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#poison]"
+        },
+        {
+            "id": "shield",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02armor000000000]"
+        },
+        {
+            "id": "cover",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#cover-and-obstacles]"
+        },
+        {
+            "id": "reach",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02gear0000000000#reach]"
+        },
+        {
+            "id": "torch",
+            "icon": "modules/succ/icons/torch.svg",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#illumination]"
+        },
+        {
+            "id": "invisible",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.FKymxmrz9ugwfFmb]"
+        },
+        {
+            "id": "blind",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.1ADFXsMDSllGFkm0]"
+        },
+        {
+            "id": "smite",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.LiY5yCQkOOKz9T2L]"
+        },
+        {
+            "id": "protection",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.4yGOUiND8lW5cKly]"
+        },
+        {
+            "id": "boost",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.hBfpNdcd1WBsszu3]"
+        },
+        {
+            "id": "lower",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.hBfpNdcd1WBsszu3]"
+        }
+    ]
+}

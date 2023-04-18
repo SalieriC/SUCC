@@ -1,0 +1,374 @@
+/* CONDITIONS CHAT MESSAGE */
+ul.chat-message.condition-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.chat-message.condition-list li {
+    align-items: center;
+}
+
+.chat-message.condition-list .remove-row,
+.chat-message.condition-list .undo-remove {
+   flex: 0 0 20px;
+}
+
+
+label.xp-checkbox {
+    flex: 2;
+    font-weight: bold;
+    margin: 0;
+    line-height: 20px;
+    font-size: 11px;
+    text-align: right;
+}
+
+img.condition-icon {
+    width: 50px;
+    height: 50px;
+    background:rgba(0,0,0,0.5);
+}
+
+.enhanced-conditions div.condition-icon {
+    display: flex;
+    flex: 0 0 24px; 
+    margin: 0px 6px 0px 0px;
+}
+
+.enhanced-conditions div.add-remove {
+    display: flex;
+    flex: 0 0 15px;
+}
+
+.enhanced-conditions div.condition-name,
+.enhanced-conditions div.condition-reference {
+    flex: 2;
+    margin: 3px 0px 0px 0px;
+    height: 20px;
+}
+
+img.condition-icon.chat-message {
+    height: 20px;
+    width: 20px;
+    padding: unset;
+}
+
+.token-resource input[name="resource"] {
+    color: white;
+    background: none;
+    border: 1px solid transparent;
+}
+
+.token-resource input[name="resource"]:hover {
+    border: 1px solid white;
+}
+
+a.add-temporary {
+    margin: 10px;
+}
+
+/* -------------------------------------------- */
+/*                 CONDITION LAB                */
+/* -------------------------------------------- */
+
+#succ-condition-lab .hidden {
+  display: none;
+}
+
+#succ-condition-lab ol.condition-lab {
+    list-style: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 530px;
+    margin: 10px 0px;
+    padding: 0px;
+    border: 2px inset;
+    /* background: url('/ui/denim025.png'); */
+    background: rgba(0,0,0,0.5);
+}
+
+#succ-condition-lab div.sort {
+    flex: 0 1 20px;
+    margin-right: 3px;
+}
+
+#succ-condition-lab div.filter {
+    margin-left: 25px;
+    max-width: 50%;
+    display: flex;
+}
+
+#succ-condition-lab div.filter div.input-wrapper {
+  position: relative;
+}
+
+#succ-condition-lab div.filter div.input-wrapper i {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+#succ-condition-lab div.filter div.input-wrapper input {
+  padding-left: 20px;
+}
+
+#succ-condition-lab div.condition-list-controls {
+    flex: 2;
+}
+
+#succ-condition-lab div.condition-list-controls .sort i {
+    font-size: x-large;
+}
+
+#succ-condition-lab .condition-list-controls button {
+    flex: 0 1 28px;
+    height: 28px;
+    width: 28px;
+    padding: 0px;
+}
+
+.condition-lab li.row {
+    /* border-bottom: 2px groove beige; */
+    background: url('/ui/parchment.jpg');
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.condition-lab .flexcol {
+    margin: 3px;
+}
+
+.condition-lab .flexcol.grabber {
+    flex: 0;
+}
+
+.condition-lab .flexcol.content1 {
+    flex: 4;
+}
+
+.condition-lab .flexcol.content2 {
+    flex: 3;
+    padding-left: 26px;
+}
+
+.condition-lab .flexcol.text-entry {
+    flex: 8;
+}
+
+.condition-lab .active-effect {
+    flex: 0 0 20px;
+    display: flex;
+    align-items: center;
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .flexcol.text-entry .path,
+.condition-lab .flexcol.text-entry .condition {
+    display: flex;
+    flex: 1;
+    /* margin: 0px 3px 3px 0px; */
+}
+
+.condition-lab .flexcol.text-entry.journal {
+    flex: 2;
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .reference div.enriched-link {
+  flex: 0 1 0%;
+  margin: 3px;
+}
+
+.condition-lab .reference-type {
+    flex: 0 0 115px;
+    margin: 0px 3px 0px 0px;
+}
+
+.condition-lab .compendium {
+    flex: 1;
+    margin: 0px 3px 0px 0px;
+}
+
+.condition-lab .reference-item {
+    flex: 2;
+    margin: 0px 3px 0px 0px;
+}
+
+.condition-lab .text-entry.reference.flexcol {
+    flex: 1;
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .reference-item select {
+    width: 100%;
+}
+
+.condition-lab .text-entry.trigger.flexcol {
+    flex: 2;
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .flexcol.condition-lab.text-entry.icon.flexcol {
+    margin: 0px 0px 3px 0px;
+}
+
+.condition-lab .flexrow {
+    justify-content: space-around;
+}
+
+.condition-lab a.macro {
+    border: none;
+}
+
+.condition-lab img {
+    width: 60px;
+    height: 60px;
+    background-color:rgba(0,0,0,0.5);
+}
+
+.condition-lab a.trash {
+    /* flex: none;
+    margin: 6px 3px 3px 3px; */
+}
+
+.condition-lab div.journal-icon {
+    flex: 0 0 25px;
+    text-align: center;
+    line-height: 26px;
+}
+
+.condition-lab div.trigger-icon {
+    flex: 0 0 25px;
+    text-align: center;
+    line-height: 26px;
+    margin: 0 2px 0 0;
+    padding: 0 0 0 3px;
+}
+
+.condition-lab .trash {
+    /* flex: 0 0 20px;
+    line-height: 60px;
+    text-align: center; */
+}
+
+.condition-lab .add-row {
+    color: white;
+    border-style: dotted;
+    line-height: 25px;
+    margin: 5px;
+    padding: 2px;
+}
+
+.condition-lab .icon {
+    flex: 0 0 60px;
+    width: 60px;
+    height: 60px;
+}
+
+.condition-lab .trash button {
+    /* flex: 0 0 30px;
+    width: 30px;
+    line-height: 60px; */
+}
+
+.condition-lab .grabber {
+    flex: 0;
+    cursor: grab;
+    line-height: 60px;
+    opacity: 0.5;
+}
+
+.condition-lab div.row-controls {
+    position: relative;
+    max-width: 25px;
+}
+
+.condition-lab .row-controls div {
+  display: flex;
+}
+
+.condition-lab .row-controls div.remove-row {
+  flex: 4;
+  align-items: center;
+}
+
+.condition-lab .row-controls div.move-down {
+  align-items: flex-end;
+}
+
+.condition-lab .row-controls a {
+    /* position: absolute; */
+}
+
+.condition-lab .row-controls a.move-up {
+    /* top: 20%; */
+}
+
+.condition-lab .row-controls a.move-down {
+    /* bottom: 20%; */
+}
+
+.condition-lab .options {
+    /* padding: 0 0 0 26px; */
+}
+
+.condition-lab .tooltip {
+    font-size: x-small;
+    vertical-align: text-top;
+}
+
+#succ-condition-lab button.highlight {
+    background-color: rgba(0, 0, 255, 0.5);
+    color: white;
+    text-shadow: 1px 1px black;
+    font-weight: bold;
+}
+
+#succ-condition-lab li.highlight {
+    border-left: 2px solid rgb(0, 255, 0);
+}
+
+#succ-condition-lab .wrapper-rel {
+    position: relative;
+    flex: 1;
+    height: fit-content;
+}
+
+#succ-condition-lab .inset-label {
+    position: absolute;
+    /* background: rgba(0,0,0,0.5); */
+    /* color: white; */
+    background: rgba(0, 0, 0, 0.05);
+    height: 100%;
+    padding: 4px 2px;
+    font-size: small;
+}
+
+#succ-condition-lab .condition-text-input {
+    padding-left: 45px;
+}
+
+#succ-condition-lab .reference input {
+    padding-left: 70px;
+}
+
+#succ-condition-lab .icon-path {
+    padding-left: 35px;
+}
+
+#succ-condition-lab .related-buttons {
+    justify-content: start;
+}
+
+#succ-condition-lab .related-buttons button {
+    /* flex: 0; */
+}
+
+#succ-condition-lab .flex-break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+#settings div#succ {
+  margin: 0;
+}

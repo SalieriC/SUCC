@@ -1,0 +1,17 @@
+{{{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.Body"}}}
+<br>
+<br>
+<div class="formgroup">
+    <input type="checkbox" id="clear-cache" style="vertical-align: middle;">
+    <label for="clear-cache" style="vertical-align: middle;">
+        {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ClearCache.CheckboxText"}}
+    </label>
+</div>
+{{#unless isDefaultMapType}}
+<div class="formgroup">
+    <input type="checkbox" id="keep-added" style="vertical-align: middle;" checked>
+    <label for="keep-added" style="vertical-align: middle;">
+        {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.KeepAdded.CheckboxText"}}
+    </label>
+</div>
+{{/unless}}

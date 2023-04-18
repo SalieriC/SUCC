@@ -1,0 +1,7 @@
+<div class="enhanced-conditions content" data-token-id="{{tokenId}}">
+    <ul class="chat-message condition-list">
+        {{#each conditions}}
+            {{> "modules/succ/templates/partials/chat-card-condition-list.hbs" type=../type condition=this timestamp=../timestamp}}
+        {{/each}}
+    </ul>
+</div>
