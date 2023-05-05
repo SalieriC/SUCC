@@ -42,8 +42,8 @@
     "styles/succ.css"
   ],
   "url": "https://github.com/ddbrown30/SUCC",
-  "manifest": "https://github.com/ddbrown30/SUCC/releases/download/1.0.0/module.json",
-  "download": "https://github.com/ddbrown30/SUCC/releases/download/1.0.0/module.zip",
+  "manifest": "https://github.com/ddbrown30/SUCC/releases/download/0.3.0/module.json",
+  "download": "https://github.com/ddbrown30/SUCC/releases/download/0.3.0/module.zip",
   "authors": [
     {
       "name": "SalieriC",
