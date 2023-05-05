@@ -16,7 +16,7 @@
         "manifest": "https://gitlab.com/api/v4/projects/16269883/packages/generic/swade/latest/system.json",
         "compatibility": {
           "minimum": "2.1.0",
-          "verified": "2.3.2"
+          "verified": "2.3.6"
         }
       }
     ]
@@ -41,9 +41,9 @@
   "styles": [
     "styles/succ.css"
   ],
-  "url": "https://github.com/SalieriC/SUCC",
-  "manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/main/succ/module.json",
-  "download": "https://github.com/SalieriC/SUCC/blob/main/succ.zip?raw=true",
+  "url": "https://github.com/ddbrown30/SUCC",
+  "manifest": "https://github.com/ddbrown30/SUCC/releases/download/1.0.0/module.json",
+  "download": "https://github.com/ddbrown30/SUCC/releases/download/1.0.0/module.zip",
   "authors": [
     {
       "name": "SalieriC",
