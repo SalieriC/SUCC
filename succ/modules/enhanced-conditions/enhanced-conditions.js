@@ -110,6 +110,10 @@ export class EnhancedConditions {
      * Hooks on token updates. If the update includes effects, calls the journal entry lookup
      */
     static async _onUpdateActor(actor, update, options, userId) {
+        if (game.userId !== userId) {
+            return;
+        }
+        
         //Add Conviction:
         if (update?.system?.details?.conviction?.active === true) {
             //Check if condition was toggled on token, otherwise toggle it here:
