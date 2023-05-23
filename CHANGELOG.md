@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [1.0.0] - YYYY-MM-DD aka "One PR to rule them all"
+### Added
+- Added CUB as a baseline to build SUCC around it for what now is a full release.
+- New icons for added conditions.
+- Loads of new features, some from CUB, others specifically made for SUCC and tailored for SWADE games.
+- As a result, the users are now able to set up exactly the conditions they want and configure them to suit their needs.
+- New API. Devs are advised to migrate to the new API, the old one is still there and nothing should break but this can't be guaranteed for future updates.
+### Deprecated
+- Old json input for customising conditions as the condition lab is much more user-friendly.
+
 ## [0.2.7] - 2023-03-25 aka "Convicted to do a hotfix"
 ### Added
 - Blind condition icon and default mapping.
