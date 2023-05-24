@@ -34,7 +34,7 @@ export class EnhancedConditions {
         const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
 
         // If there's no defaultMap, check storage then set appropriately
-        if (!defaultMap) {
+        if (!defaultMap || (Object.keys(defaultMap).length === 0 && defaultMap.constructor === Object)) {
             if (game.user.isGM) {
                 defaultMap = await EnhancedConditions._loadDefaultMap();
                 Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap);
