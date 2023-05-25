@@ -23,7 +23,7 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
             title: DEFAULT_CONFIG.enhancedConditions.macroConfig.title,
             template: DEFAULT_CONFIG.enhancedConditions.templates.macroConfig,
             classes: ["sheet"],
-            closeOnSubmit: false
+            closeOnSubmit: true
         });
     }
 
