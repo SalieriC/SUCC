@@ -105,7 +105,8 @@
             "Cancel": "Cancel",
             "Reset": "Reset",
             "Actor": "Actor",
-            "Token": "Token"
+            "Token": "Token",
+            "Proceed": "Proceed"
         },
         "PHRASES": {
             "SaveAndClose": "Save and Close"
@@ -196,6 +197,8 @@
     "ENHANCED_CONDITIONS.Dialog.ApplySystemUpdate.Description": "<p>No changes will be applied to your active conditions. To apply the changes, you will need to go to the Condition Lab and trigger a Restore Defaults with Clear Cache selected.</p>",
     "ENHANCED_CONDITIONS.Dialog.ApplySystemUpdate.Warning": "<strong>This will overwrite over any settings within condition-map.json with those from the SWADE system. Unchanged effects will not be modified. Conditions that do not exist in the SWADE system will not be affected.</strong>",
     "ENHANCED_CONDITIONS.Dialog.ApplySystemUpdate.CheckboxText": "Don't ask again",
+    "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Name": "Remove temporary effects",
+    "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Body": "<p>You are about to delete <b>all</b> active effects from <b>all</b> tokens not currently in combat that are present on the scene with the name {sceneName}.</p><p><b>This can not be undone.</b> Do you really want to proceed?</p>",
     
     "ENHANCED_CONDITIONS.Notification.NoConvictionToken": "This actor has no conviction tokens left.",
     

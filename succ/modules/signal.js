@@ -69,6 +69,7 @@ export class Signal {
             game.succ.addCondition = EnhancedConditionsAPI.addCondition;
             game.succ.removeCondition = EnhancedConditionsAPI.removeCondition;
             game.succ.removeAllConditions = EnhancedConditionsAPI.removeAllConditions;
+            game.succ.removeTemporaryEffects = EnhancedConditionsAPI.removeTemporaryEffects;
             
             // Expose deprecated API methods
             window.succ = window.succ ?? {};

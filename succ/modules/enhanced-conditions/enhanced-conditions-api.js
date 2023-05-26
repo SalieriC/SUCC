@@ -511,4 +511,54 @@ export class EnhancedConditionsAPI {
 
         return actor;
     }
+
+    /**
+     * @param sceneId The scene ID on which the function looks for token actors to remove the conditions from; defaults to current scene.
+     * @param confirmed Boolean to skip the confirmation dialogue.
+     */
+    static async removeTemporaryEffects(sceneId = false, confirmed = false) {
+        const scene = sceneId ? game.scenes.get(sceneId) : game.scenes.current
+        if (confirmed) {
+            proceedRemoval()
+        } else {
+            new Dialog({
+                title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Name"),
+                content: game.i18n.format("ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Body", {sceneName: `${scene.navName} (${scene.name})`}),
+                buttons: {
+                    one: {
+                        label: `<i class="fa-solid fa-check"></i> ${game.i18n.localize("succ.WORDS.Proceed")}`,
+                        callback: async (_) => {
+                            proceedRemoval()
+                        }
+                    },
+                    two: {
+                        label: `<i class="fa-solid fa-ban"></i> ${game.i18n.localize("succ.WORDS.Cancel")}`,
+                        callback: async (_) => {
+                            return
+                        }
+                    }
+                },
+            }).render(true);
+        }
+
+        async function proceedRemoval() {
+            const sceneTokens = scene.tokens
+            const nonCombatTokens = sceneTokens.filter(t => t.inCombat === false)
+            if (!nonCombatTokens) {
+                return
+            }
+            for (let token of nonCombatTokens) {
+                const actor = token.actor
+                const tokenEffects = actor.effects
+                const durationEffects = tokenEffects.filter(e => typeof e.duration.rounds === "number" && !isNaN(e.duration.rounds) && isFinite(e.duration.rounds))
+                let effectsToDeleteIds = []
+                for (let effect of durationEffects) {
+                    effectsToDeleteIds.push(effect.id)
+                }
+                if (durationEffects) {
+                    await actor.deleteEmbeddedDocuments('ActiveEffect', effectsToDeleteIds)
+                }
+            }
+        }
+    }
 }
