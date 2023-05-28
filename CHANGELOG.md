@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
-## [1.0.0] - YYYY-MM-DD aka "One PR to rule them all"
+## [1.0.0] - 2023-05-28 aka "One PR to rule them all"
 ### Added
 - Added CUB as a baseline to build SUCC around it for what now is a full release.
 - New icons for added conditions.
