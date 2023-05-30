@@ -102,16 +102,6 @@ export class Signal {
             EnhancedConditions._onUpdateActor(tokenDocument, updateData, options, userId);
         });
 
-        /* ------------------- Token ------------------ */
-
-        Hooks.on("preUpdateToken", (tokenDocument, updateData, options, userId) => {
-            EnhancedConditions._onPreUpdateToken(tokenDocument, updateData, options, userId);
-        });
-
-        Hooks.on("updateToken", (tokenDocument, updateData, options, userId) => {
-            EnhancedConditions._onUpdateToken(tokenDocument, updateData, options, userId);
-        });
-
         /* -------------------------------------------- */
         /*                    Render                    */
         /* -------------------------------------------- */

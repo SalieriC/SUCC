@@ -83,30 +83,6 @@ export class EnhancedConditions {
     }
 
     /**
-     * Handle PreUpdate Token Hook.
-     * If the update includes effect data, add an `option` for the update hook handler to look for
-     * @param {*} scene 
-     * @param {*} update 
-     * @param {*} options 
-     * @param {*} userId 
-     */
-    static _onPreUpdateToken(token, update, options, userId) {
-        const succOption = options[BUTLER.NAME] = options[BUTLER.NAME] ?? {};
-
-        if (hasProperty(update, "actorData.effects")) {
-            succOption.existingEffects = token.actorData.effects ?? [];
-            succOption.updateEffects = update.actorData.effects ?? [];
-        }
-
-        if (hasProperty(update, "overlayEffect")) {
-            succOption.existingOverlay = token.overlayEffect ?? null;
-            succOption.updateOverlay = update.overlayEffect ?? null;
-        }
-
-        return true;
-    }
-
-    /**
      * Hooks on token updates. If the update includes effects, calls the journal entry lookup
      */
     static async _onUpdateActor(actor, update, options, userId) {
@@ -129,89 +105,6 @@ export class EnhancedConditions {
     }
 
     /**
-     * Hooks on token updates. If the update includes effects, calls the journal entry lookup
-     */
-    static async _onUpdateToken(token, update, options, userId) {
-        if (game.userId !== userId) {
-            return;
-        }
-
-        if (!hasProperty(options, `${BUTLER.NAME}`)) return;
-
-        const succOption = options[BUTLER.NAME];
-        const addUpdate = succOption ? succOption?.updateEffects?.length > succOption?.existingEffects?.length : false;
-        const removeUpdate = succOption ? succOption?.existingEffects?.length > succOption?.updateEffects?.length : false;
-        const updateEffects = [];
-        
-        if (addUpdate) {
-            for (const e of succOption.updateEffects) {
-                if (!succOption.existingEffects.find(x => x._id === e._id)) updateEffects.push({effect: e, type: "effect", changeType: "add"});
-            }
-        }
-        
-        if (removeUpdate) {
-            for (const e of succOption.existingEffects) {
-                if (!succOption.updateEffects.find(u => u._id === e._id)) updateEffects.push({effect: e, type: "effect", changeType: "remove"});
-            }
-        }
-
-        if (!succOption.existingOverlay && succOption.updateOverlay) updateEffects.push({effect: succOption.updateOverlay, type: "overlay", changeType: "add"});
-        else if (succOption.existingOverlay && !succOption.updateOverlay) updateEffects.push({effect: succOption.existingOverlay, type: "overlay", changeType: "remove"});
-
-        if (!updateEffects.length) return;
-
-        const actor = await EnhancedConditionsAPI.getActorFromEntity(token);
-
-        const addConditions = [];
-        const removeConditions = [];
-
-        for (const effect of updateEffects) {
-            let condition = null;
-            // based on the type, get the condition
-            if (effect.type === "overlay") condition = EnhancedConditions.getConditionsByIcon(effect.effect) 
-            else if (effect.type === "effect") {
-                if (!hasProperty(effect, `effect.flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`)) continue;
-                const effectId = effect.effect.flags[BUTLER.NAME][BUTLER.FLAGS.enhancedConditions.conditionId];
-                condition = EnhancedConditions.lookupEntryMapping(effectId);
-            }
-
-            if (!condition) continue;
-
-            if (effect.changeType === "add") {
-                addConditions.push(condition);
-
-                const hasEffectOptions = hasProperty(effect, `effect.flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.effectOptions}`);
-                if (hasEffectOptions && Object.keys(effect.effect.flags.succ.effectOptions).length > 0) {
-                    EnhancedConditions.applyEffectOptions(effect.effect, actor);                  
-                } else {
-                    EnhancedConditions.applyConditionOptions(condition, actor, "create");
-                }
-
-            } else if (effect.changeType === "remove") {
-                removeConditions.push(condition);
-                EnhancedConditions.applyConditionOptions(condition, actor, "delete");
-            }
-        }
-
-        if (!addConditions.length && !removeConditions.length) return;
-
-        const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
-
-        const chatAddConditions = addConditions.filter(c => outputChatSetting && c.options?.outputChat);
-        const chatRemoveConditions = removeConditions.filter(c => outputChatSetting && c.options?.outputChat);
-        
-        // If there's any conditions to output to chat, do so
-        if (chatAddConditions.length) EnhancedConditions.outputChatMessage(token, chatAddConditions, {type: "added"});
-        if (chatRemoveConditions.length) EnhancedConditions.outputChatMessage(token, chatRemoveConditions, {type: "removed"});
-
-        // process macros
-        const addMacroIds = addConditions.flatMap(c => c.macros?.filter(m => m.id && m.type === "apply").map(m => m.id));
-        const removeMacroIds = removeConditions.flatMap(c => c.macros?.filter(m => m.id && m.type === "remove").map(m => m.id));
-        const macroIds = [...addMacroIds, ...removeMacroIds];
-        if (macroIds.length) EnhancedConditions._processMacros(macroIds, token);
-    }
-
-    /**
      * Create Active Effect handler
      * @param {*} actor 
      * @param {*} update 
@@ -222,11 +115,6 @@ export class EnhancedConditions {
         if (game.userId !== userId) {
             return;
         }
-
-        const actor = effect.parent;
-
-        // Handled in Token Update handler
-        if (actor?.isToken) return;
 
         EnhancedConditions._processActiveEffectChange(effect, "create", userId);
     }
@@ -242,11 +130,6 @@ export class EnhancedConditions {
         if (game.userId !== userId) {
             return;
         }
-
-        const actor = effect.parent;
-
-        // Handled in Token Update handler
-        if (actor?.isToken) return;
 
         EnhancedConditions._processActiveEffectChange(effect, "delete", userId);
     }
@@ -266,9 +149,6 @@ export class EnhancedConditions {
         const speaker = data.message.speaker;
 
         if (!speaker) return;
-
-        const actor = ChatMessage.getSpeakerActor(speaker);
-        const token = (speaker.scene && speaker.token) ? await fromUuid(`Scene.${speaker.scene}.Token.${speaker.token}`) : null;
 
         const removeConditionAnchor = html.find("a[name='remove-row']");
         const undoRemoveAnchor = html.find("a[name='undo-remove']");
@@ -1030,7 +910,8 @@ export class EnhancedConditions {
                 label: c.name,
                 icon: c.icon,
                 changes: c.activeEffect?.changes || [],
-                duration: c.duration || c.activeEffect?.duration || {}
+                duration: c.duration || c.activeEffect?.duration || {},
+                statuses: [id]
             }
             statusEffects.push(effect);
         };
