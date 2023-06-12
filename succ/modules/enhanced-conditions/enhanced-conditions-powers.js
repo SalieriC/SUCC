@@ -16,7 +16,7 @@ export class EnhancedConditionsPowers {
      */
     static async boostLowerTrait(actor, condition, boost) {
         let effect = actor.effects.find(function (e) {
-            return ((e.label === game.i18n.localize(condition.name)))
+            return ((e.name === game.i18n.localize(condition.name)))
         })
         //Building options
         let traitOptions = Sidekick.getTraitOptions(actor);
@@ -103,7 +103,7 @@ export class EnhancedConditionsPowers {
     static async smite(actor, condition) {
         //Get the active effect from the actor
         let effect = actor.effects.find(function (e) {
-            return ((e.label === game.i18n.localize(condition.name)));
+            return ((e.name === game.i18n.localize(condition.name)));
         })
 
         //Get the list of weapons this actor owns
@@ -168,7 +168,7 @@ export class EnhancedConditionsPowers {
     static async protection(actor, condition) {
         //Get the active effect from the actor
         let effect = actor.effects.find(function (e) {
-            return ((e.label === game.i18n.localize(condition.name)))
+            return ((e.name === game.i18n.localize(condition.name)))
         })
 
         const protectionData = { condition };
