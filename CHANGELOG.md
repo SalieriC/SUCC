@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
+## [2.0.1] - Unreleased
+### Added
+- Wild Attack icon.
 
 ## [2.0.0] - 2023-05-28 aka "V11 came too soon"
 ### Added
