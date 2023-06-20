@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
+## [2.0.1] - Unreleased
+### Added
+- Wild Attack icon.
+### Changed
+- `addCondition` now returns an array of added and changed effects instead of just the updates.
+
+## [2.0.0] - 2023-05-28 aka "V11 came too soon"
+### Added
+- FVTT v11 compatibility.
+### Fixed
+- A bug when applying Incapacitation on FVTT v11 and compatible SWADE version.
 
 ## [1.0.0] - 2023-05-28 aka "One PR to rule them all"
 ### Added

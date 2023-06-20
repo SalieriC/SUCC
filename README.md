@@ -48,6 +48,7 @@ The icons are modified icons used from [game-icons.net](https://game-icons.net/)
 - Blind: [Sight disabled by Skoll](https://game-icons.net/1x1/skoll/sight-disabled.html)  
 - Deflection: [Divert by Lorc](https://game-icons.net/1x1/lorc/divert.html)  
 - Slumber: [Night sleep by Delapoutite](https://game-icons.net/1x1/delapouite/night-sleep.html)  
+- Wild Attack: [Axe swing by Lorc](https://game-icons.net/1x1/lorc/axe-swing.html)  
 All of these icons were modified by SalieriC, their original files are published under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 ### Mentions
 Thank you very much to Javier Rivera Castro for his tireless efforts to teach SalieriC JavaScript, CSS, HTML and HBS.  

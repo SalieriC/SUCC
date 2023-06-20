@@ -66,6 +66,8 @@ export class EnhancedConditionsAPI {
             entities = [entities];
         }
 
+        let resultEffects = []
+
         for (let entity of entities) {
             const actor = await EnhancedConditionsAPI.getActorFromEntity(entity);
             
@@ -133,11 +135,18 @@ export class EnhancedConditionsAPI {
             const createData = hasDuplicates ? newEffects : effects;
             const updateData = updateEffects;
 
-            if (createData.length) await actor.createEmbeddedDocuments("ActiveEffect", createData);
-            if (updateData.length) await actor.updateEmbeddedDocuments("ActiveEffect", updateData);
+            if (createData.length) {
+                const createdDocuments = await actor.createEmbeddedDocuments("ActiveEffect", createData);
+                resultEffects = resultEffects.concat(createdDocuments);
+            }
+              
+            if (updateData.length) {
+                const updatedDocuments = await actor.updateEmbeddedDocuments("ActiveEffect", updateData);
+                resultEffects = resultEffects.concat(updatedDocuments);
+            }
         }
 
-        return effects;
+        return resultEffects;
     }
 
     /**
