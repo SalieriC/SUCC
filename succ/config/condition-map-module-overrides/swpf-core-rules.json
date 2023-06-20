@@ -19,6 +19,10 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore01charac.JournalEntryPage.01edges000000000#barbarian]"
         },
         {
+            "id": "wild-attack",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.JournalEntry.swpfcore03rules0.JournalEntryPage.03situationalr00#wild-attack]{SWADE.WildAttack}"
+        },
+        {
             "id": "defending",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#defend]"
         },
@@ -28,8 +32,7 @@
         },
         {
             "id": "holding",
-            "icon": "modules/succ/icons/holding.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#hold]{Hold}"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#hold]{SWADE.Hold}"
         },
         {
             "id": "conviction",
@@ -37,8 +40,7 @@
         },
         {
             "id": "bound",
-            "icon": "modules/succ/icons/bound.svg",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#bound-and-entangled]{Bound}"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#bound-and-entangled]{SWADE.Bound}"
         },
         {
             "id": "entangled",
@@ -106,7 +108,6 @@
         },
         {
             "id": "torch",
-            "icon": "modules/succ/icons/torch.svg",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#illumination]"
         },
         {

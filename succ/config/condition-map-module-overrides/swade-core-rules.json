@@ -18,6 +18,10 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-edges.Xv6TAc0VcnkEqt20]"
         },
         {
+            "id": "wild-attack",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.JournalEntry.swadecor03rules0.JournalEntryPage.03wildattack0000]"
+        },
+        {
             "id": "defending",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03defend00000000#defend]"
         },

@@ -1,6 +1,6 @@
 {
     "system": "swade",
-    "swadeVersion": "2.4.2",
+    "swadeVersion": "3.0.3",
     "map": [
         {
             "id": "shaken",
@@ -35,6 +35,11 @@
             "id": "berserking",
             "name": "SWADE.Berserk",
             "icon": "modules/succ/assets/icons/1-berserking.svg"
+        },
+        {
+            "id": "wild-attack",
+            "name": "SWADE.WildAttack",
+            "icon": "modules/succ/assets/icons/1-wild_attack.svg"
         },
         {
             "id": "defending",
@@ -191,7 +196,7 @@
             "id": "blind",
             "name": "EFFECT.StatusBlind",
             "icon": "modules/succ/assets/icons/m-blind.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.GxPhaUI4jQtFiXIr]{Blind}",
+            "referenceId": "@UUID[Compendium.swade.powers.GxPhaUI4jQtFiXIr]{EFFECT.StatusBlind}",
             "activeEffect": {
                 "flags": {
                     "swade": {
