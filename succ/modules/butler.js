@@ -66,8 +66,7 @@ export const DEFAULT_CONFIG = {
             conviction: {
                 optionProperty: "conviction"
             }
-        },
-        proneId : "prone"
+        }
     },
     tokenUtility: {
         effectSize: {

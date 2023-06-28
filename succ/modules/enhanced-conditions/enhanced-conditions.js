@@ -670,17 +670,6 @@ export class EnhancedConditions {
                 break;
             }
         }
-
-        // We have to add the fighting die modifier for prone here rather than in the json because we need to know the fighting skill name
-        let proneCondition = defaultMap.find(c => c.id === BUTLER.DEFAULT_CONFIG.enhancedConditions.proneId);
-        if (proneCondition) {
-            const fightingSkill = game.settings.get("swade", "parryBaseSkill");
-            proneCondition.activeEffect.changes.push({
-                "key": `@Skill{${fightingSkill}}[system.die.modifier]`,
-                "value": "-2",
-                "mode": 2
-            });
-        }
         
         // If the default config contains changes and we have not overridden them in the system definition, copy those over
         const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
