@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ☮️ Peace in the world, or the world in pieces. 🕊️
 ## [2.0.1] - Unreleased
 ### Added
-- Wild Attack icon.
+- Wild Attack icon and effect to the condition lab.
 ### Changed
 - `addCondition` now returns an array of added and changed effects instead of just the updates.
 
