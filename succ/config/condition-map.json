@@ -1,6 +1,6 @@
 {
     "system": "swade",
-    "swadeVersion": "3.0.3",
+    "swadeVersion": "3.0.4",
     "map": [
         {
             "id": "shaken",
@@ -114,16 +114,7 @@
         {
             "id": "prone",
             "name": "SWADE.Prone",
-            "icon": "modules/succ/assets/icons/2-prone.svg",
-            "activeEffect": {
-                "changes": [
-                    {
-                        "key": "system.stats.parry.value",
-                        "value": "-2",
-                        "mode": 2
-                    }
-                ]
-            }
+            "icon": "modules/succ/assets/icons/2-prone.svg"
         },
         {
             "id": "encumbered",
