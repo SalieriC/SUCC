@@ -900,6 +900,7 @@ export class EnhancedConditions {
                 icon: c.icon,
                 changes: c.activeEffect?.changes || [],
                 duration: c.duration || c.activeEffect?.duration || {},
+                description: c.activeEffect?.description || '',
                 statuses: [id]
             }
             statusEffects.push(effect);
@@ -1054,7 +1055,7 @@ export class EnhancedConditions {
 
         const oldMapJson = duplicate(conditionMapJson);
         const newMapJson = EnhancedConditions.getSystemUpdateMapJson(conditionMapJson);
-        if (JSON.stringify(oldMapJson) != JSON.stringify(newMapJson)) {
+        if (JSON.stringify(oldMapJson) == JSON.stringify(newMapJson)) {
             //There were no changes between versions so there's no need to build a new config file
             //Mark this version as ignored so we won't process this again
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore, game.system.version);
@@ -1097,18 +1098,19 @@ export class EnhancedConditions {
      * Takes the current json map and updates it for the new version of SWADE
      * This does not make any modifications to the succ settings
      */
-    static async getSystemUpdateMapJson(conditionMapJson) {      
+    static getSystemUpdateMapJson(conditionMapJson) {      
         //Loop over our map and apply any changes from the SWADE system
         const newMapJson = duplicate(conditionMapJson);
         for (let condition of newMapJson.map) {
             if (condition.activeEffect) {
-                Object.keys(condition.activeEffect).every(key => {
+                Object.keys(condition.activeEffect).forEach(key => {
                     if (key == "flags") {
-                        if (condition.activeEffect.flags.swade) {
-                            let statusEffect = CONFIG.statusEffects.find(e => e.id === condition.id);
-                            if (statusEffect?.flags?.swade) {
-                                condition.activeEffect.flags.swade = statusEffect.flags.swade;
-                            }
+                        //If the SWADE effect has flags, use them otherwise do nothing
+                        //The end result of this is that if the official system adds flags, we take them but we won't end up clearing our own
+                        //It's unlikely the official system will ever remove flags from an effect, so this will give us the desired result most of the time
+                        let statusEffect = CONFIG.statusEffects.find(e => e.id === condition.id);
+                        if (statusEffect?.flags?.swade) {
+                            condition.activeEffect.flags.swade = statusEffect.flags.swade;
                         }
                     } else if (key != "icon" && key != "name") {
                         let statusEffect = CONFIG.statusEffects.find(e => e.id === condition.id);
@@ -1119,6 +1121,7 @@ export class EnhancedConditions {
                 });
             }
         }
+        return newMapJson;
     }
 
     /**
