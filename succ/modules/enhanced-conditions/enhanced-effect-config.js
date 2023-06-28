@@ -8,10 +8,10 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
      * @inheritdoc
      */
     getData(options) {
+        const effect = this.object.toObject();
         return {
-            effect: this.object.toObject(), // Backwards compatibility
+            effect: effect, // Backwards compatibility
             data: this.object.toObject(),
-            editable: true,
             // Manually set effect type
             isActorEffect: true,
             isItemEffect: false,
@@ -20,7 +20,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
                 obj[e[1]] = game.i18n.localize("EFFECT.MODE_"+e[0]);
                 return obj;
             }, {})
-          };
+        };
     }
 
     /**
