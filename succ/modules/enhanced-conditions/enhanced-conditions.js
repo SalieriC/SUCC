@@ -80,6 +80,8 @@ export class EnhancedConditions {
         if (game.succ) {
             game.succ.conditions = conditionMap;
         }
+
+        Hooks.callAll('succReady', game.succ);  
     }
 
     /**
@@ -888,9 +890,6 @@ export class EnhancedConditions {
                 id: id,
                 flags: {
                     ...c.activeEffect?.flags,
-                    core: {
-                        statusId: id
-                    },
                     [BUTLER.NAME]: {
                         [BUTLER.FLAGS.enhancedConditions.conditionId]: id,
                         [BUTLER.FLAGS.enhancedConditions.overlay]: c?.options?.overlay ?? false
