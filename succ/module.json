@@ -6,7 +6,7 @@
     "minimum": "11",
     "verified": "11.299"
   },
-  "version": "2.0.0",
+  "version": "2.1.0",
   "relationships": {
     "systems": [
       {
@@ -15,7 +15,7 @@
         "manifest": "https://gitlab.com/api/v4/projects/16269883/packages/generic/swade/latest/system.json",
         "compatibility": {
           "minimum": "3.0.0",
-          "verified": "3.0.1"
+          "verified": "3.0.5"
         }
       }
     ]
@@ -57,7 +57,7 @@
     },
     {
       "name": "Dan Brown",
-      "discord": "TheChemist#6059",
+      "discord": "thechemist30",
       "flags": {}
     }
   ]

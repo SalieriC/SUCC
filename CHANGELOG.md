@@ -6,11 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
-## [2.0.1] - Unreleased
+## [2.1.0] - Unreleased
 ### Added
 - Wild Attack icon and effect to the condition lab.
+- Allow editing the description on active effects.
+- Hook once the SUCC API is ready (`succReady`).
 ### Changed
 - `addCondition` now returns an array of added and changed effects instead of just the updates.
+- Updated default condition map for SWADE 3.0.4.
+### Removed
+- Removed the special case handling of prone now that it's handled by core.
+### Fixed
+- Fixed bugs with v11.
+- Fixed bugs with the system update.
 
 ## [2.0.0] - 2023-05-28 aka "V11 came too soon"
 ### Added
