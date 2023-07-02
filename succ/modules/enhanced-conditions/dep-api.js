@@ -28,8 +28,12 @@ export class DeprecatedAPI {
      * @see EnhancedConditions#addCondition
      * @see EnhancedConditions#removeCondition
      */
-    static async toggle_status(target, status_name, final_state = true, overlay = false, additionalData) {
+    static async toggle_status(target, status_name, final_state, overlay = false, additionalData) {
         Sidekick.consoleMessage("warn", BUTLER.NAME, {message: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.Deprecation.toggle_status`)});
+        if (typeof final_state === 'undefined') {
+            let current_state = await EnhancedConditionsAPI.hasCondition(status_name, target)
+            final_state = !current_state
+        }
         if (final_state) {
             return await EnhancedConditionsAPI.addCondition(status_name, target, {forceOverlay: overlay, effectOptions: additionalData});
         } else {
