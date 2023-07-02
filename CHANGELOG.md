@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
-## [2.1.0] - Unreleased
+
+## [2.1.0] - 2023-07-02 aka "A condition no one ever wanted"
 ### Added
 - Wild Attack icon and effect to the condition lab.
 - Allow editing the description on active effects.
