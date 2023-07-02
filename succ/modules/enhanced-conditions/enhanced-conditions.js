@@ -919,6 +919,7 @@ export class EnhancedConditions {
             const overlay = getProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.overlay}`);
             // If the parent Condition for the ActiveEffect defines it as an overlay, mark the ActiveEffect as an overlay
             if (overlay) {
+                effect.flags.core = effect.flags.core ? effect.flags.core : {};
                 effect.flags.core.overlay = overlay;
             }
         }
