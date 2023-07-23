@@ -497,17 +497,17 @@ export class Sidekick {
      * Creates an array with the full list of traits for a given actor
      * @param {Actor} actor 
      */
-    static getTraitOptions(entity) {
+    static getTraitOptions(actor) {
         // Start with attributes
         let traitOptions = `
-            <option value="agility">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrAgi")}</option>
-            <option value="smarts">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrSma")}</option>
-            <option value="spirit">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrSpr")}</option>
-            <option value="strength">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrStr")}</option>
-            <option value="vigor">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${game.i18n.localize("SWADE.AttrVig")}</option>
+            <option value="agility">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("agility")}</option>
+            <option value="smarts">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("smarts")}</option>
+            <option value="spirit">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("spirit")}</option>
+            <option value="strength">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("strength")}</option>
+            <option value="vigor">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("vigor")}</option>
         `
         // Adding Skills
-        let allSkills = entity.items.filter(i => i.type === "skill")
+        let allSkills = actor.items.filter(i => i.type === "skill")
         if (allSkills.length >= 1) {
             allSkills = Sidekick.sortSkills(allSkills)
             for (let each of allSkills) {
@@ -516,6 +516,26 @@ export class Sidekick {
         }
 
         return traitOptions;
+    }
+    
+    /**
+     * Returns the localized string for a given attribute
+     * @param {Actor} actor 
+     */
+    static getLocalizedAttributeName(attribute) {
+        if (attribute === "agility") {
+            return game.i18n.localize("SWADE.AttrAgi");
+        } else if (attribute === "smarts") {
+            return game.i18n.localize("SWADE.AttrSma");
+        } else if (attribute === "spirit") {
+            return game.i18n.localize("SWADE.AttrSpr");
+        } else if (attribute === "strength") {
+            return game.i18n.localize("SWADE.AttrStr");
+        } else if (attribute === "vigor") {
+            return game.i18n.localize("SWADE.AttrVig");
+        }
+
+        return "Invalid Attribute";
     }
     
     /**
