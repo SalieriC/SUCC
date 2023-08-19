@@ -548,7 +548,7 @@ export class Sidekick {
                 return "blindToken";
 
             case "COLDBODIED":
-                return "";
+                return "coldBodied";
 
             case "DEFEATED":
                 return "";

@@ -51,6 +51,9 @@ export const DEFAULT_CONFIG = {
             invisible: {
                 optionProperty: "markInvisible"
             },
+            coldBodied: {
+                optionProperty: "coldBodied"
+            },
             boostTrait: {
                 optionProperty: "boostTrait"
             },

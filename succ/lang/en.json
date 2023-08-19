@@ -54,7 +54,11 @@
                 },
                 "MarkInvisible": {
                     "Label": "Mark Invisible",
-                    "Notes": "When applied, this Condition will cause the affected Token to marked as Invisible"
+                    "Notes": "When applied, this Condition will cause the affected Token to be marked as Invisible"
+                },
+                "ColdBodied": {
+                    "Label": "Cold Bodied",
+                    "Notes": "When applied, this Condition will cause the affected Token to not longer be visible to \"Sense Heat\" detection"
                 },
                 "BoostTrait": {
                     "Label": "Boost Trait",

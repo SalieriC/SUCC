@@ -230,6 +230,7 @@ export class ConditionLab extends FormApplication {
             defaultMap = await EnhancedConditions._loadDefaultMap();
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
+            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.defaultSpecialStatusEffects);
         }
 
         // If the mapType is other then the map should be empty, otherwise it's the default map for the system
