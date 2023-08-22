@@ -181,7 +181,10 @@
         {
             "id": "cold-bodied",
             "name": "SWADE.ColdBodied",
-            "icon": "modules/succ/assets/icons/m-cold_bodied.svg"
+            "icon": "modules/succ/assets/icons/m-cold_bodied.svg",
+            "options": {
+                "coldBodied": true
+            }
         },
         {
             "id": "blind",

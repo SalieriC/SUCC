@@ -52,6 +52,14 @@
             </label>
             <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Notes"}}</p>
         </div>
+        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Label"}}">
+            <input type="checkbox" name="cold-bodied" {{checked condition.options.coldBodied}} {{#if ../isDefault}}disabled{{/if}}>
+            <label for="cold-bodied">
+                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Label"}}
+                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
+            </label>
+            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Notes"}}</p>
+        </div>
         <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Label"}}">
             <input type="checkbox" name="boost-trait" {{checked condition.options.boostTrait}} {{#if ../isDefault}}disabled{{/if}}>
             <label for="boost-trait">

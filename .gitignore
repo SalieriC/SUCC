@@ -1,4 +1,5 @@
 .idea/*
 succ/.vscode/launch.json
+succ/succ.lock
 succ/package-lock.json
 succ/package.json
