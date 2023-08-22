@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
+### Added
+- Added trait / weapon name to Boost/Lower and Smite functions to make it clear what they are affecting. This does not allow for multiple instances of said conditions on the same actor.
+- Started Documentation.
+- Added support for "cold bodied" status to the condition lab and specifically the cold bodied condition. If that still doesn't work for you please check that it is enabled in the condition lab by opening the settings for the condition. Default mappings should be updated automatically.
+### Changed
+- Cleaned up the localisation files.
 
 ## [2.1.0] - 2023-07-02 aka "A condition no one ever wanted"
 ### Added
