@@ -1,34 +1,17 @@
-## Modules
-
-<dl>
-<dt><a href="#module_about">about</a></dt>
-<dd><p>AboutApp module</p>
-</dd>
-</dl>
-
 ## Classes
 
 <dl>
-<dt><a href="#Concentrator">Concentrator</a></dt>
-<dd><p>Request a roll or display concentration checks when damage is taken.</p>
-</dd>
 <dt><a href="#ConditionLab">ConditionLab</a></dt>
 <dd><p>Form application for managing mapping of Conditions to Icons and JournalEntries</p>
 </dd>
-<dt><a href="#EnhancedConditionMacroConfig">EnhancedConditionMacroConfig</a></dt>
-<dd><p>Enhanced Condition Macro Config Application</p>
+<dt><a href="#EnhancedConditionsAPI">EnhancedConditionsAPI</a></dt>
+<dd><p>API functions for interacting with EnhancedConditions</p>
 </dd>
-<dt><a href="#EnhancedConditionTriggerConfig">EnhancedConditionTriggerConfig</a></dt>
-<dd><p>Enhanced Condition Trigger Config Application</p>
+<dt><a href="#EnhancedConditionsPowers">EnhancedConditionsPowers</a></dt>
+<dd><p>Builds a mapping between status icons and journal entries that represent conditions</p>
 </dd>
 <dt><a href="#EnhancedConditions">EnhancedConditions</a></dt>
 <dd><p>Builds a mapping between status icons and journal entries that represent conditions</p>
-</dd>
-<dt><a href="#PanSelect">PanSelect</a></dt>
-<dd><p>Pan/Select Gadget</p>
-</dd>
-<dt><a href="#RerollInitiative">RerollInitiative</a></dt>
-<dd><p>Rerolls initiative for all combatants</p>
 </dd>
 <dt><a href="#Sidekick">Sidekick</a></dt>
 <dd><p>Provides helper methods for use elsewhere in the module (and has your back in a melee)</p>
@@ -36,31 +19,49 @@
 <dt><a href="#Signal">Signal</a></dt>
 <dd><p>Initiates module classes (and shines a light on the dark night sky)</p>
 </dd>
-<dt><a href="#TemporaryCombatantForm">TemporaryCombatantForm</a></dt>
-<dd></dd>
-<dt><a href="#Triggler">Triggler</a></dt>
-<dd><p>Handles triggers for other gadgets in the module... or does it?!</p>
-</dd>
-<dt><a href="#DraggableList">DraggableList</a></dt>
-<dd><p>From Valentin &quot;Moerill&quot; Henkys
-the code is licensed under LGPL v3.
-Original is implemented in his module &quot;Mess&quot;:
-<a href="https://github.com/Moerill/Mess">https://github.com/Moerill/Mess</a>
-LICENSE: <a href="https://github.com/Moerill/Mess/blob/master/LICENSE">https://github.com/Moerill/Mess/blob/master/LICENSE</a></p>
-</dd>
 </dl>
 
-## Constants
+## Members
 
 <dl>
-<dt><a href="#KNOWN_GAME_SYSTEMS">KNOWN_GAME_SYSTEMS</a></dt>
-<dd><p>Stores information about well known game systems. All other systems will resolve to &quot;other&quot;</p>
+<dt><a href="#defaultOptions">defaultOptions</a></dt>
+<dd><p>defaultOptions</p>
+</dd>
+<dt><a href="#defaultOptions">defaultOptions</a></dt>
+<dd><p>defaultOptions</p>
 </dd>
 </dl>
 
 ## Functions
 
 <dl>
+<dt><a href="#getData">getData()</a> ⇒ <code>Object</code></dt>
+<dd><p>Gets data for template rendering</p>
+</dd>
+<dt><a href="#_updateObject">_updateObject(event, formData)</a></dt>
+<dd><p>Update Object on Form Submission</p>
+</dd>
+<dt><a href="#getData">getData()</a> ⇒ <code>Object</code></dt>
+<dd><p>Gets data for template rendering</p>
+</dd>
+<dt><a href="#activateListeners">activateListeners(html)</a></dt>
+<dd><p>Application listeners</p>
+</dd>
+<dt><a href="#_onCheckboxChange">_onCheckboxChange(event)</a></dt>
+<dd><p>Checkbox change event handler</p>
+</dd>
+<dt><a href="#_onSpecialStatusEffectToggle">_onSpecialStatusEffectToggle(event)</a></dt>
+<dd><p>Special Status Effect toggle handler</p>
+</dd>
+<dt><a href="#_updateObject">_updateObject(event, formData)</a></dt>
+<dd><p>Update Object on Form Submission</p>
+</dd>
+<dt><a href="#getSpecialStatusEffectByField">getSpecialStatusEffectByField(field)</a> ⇒ <code>String</code></dt>
+<dd><p>Get the enum for a special status effect in Foundry based on the field name</p>
+</dd>
+<dt><a href="#setSpecialStatusEffectMapping">setSpecialStatusEffectMapping(effect, conditionId)</a></dt>
+<dd><p>Sets the special status effect to the provided condition Id</p>
+</dd>
 <dt><a href="#getData">getData(options)</a></dt>
 <dd><p>Get data for template rendering</p>
 </dd>
@@ -69,518 +70,305 @@ LICENSE: <a href="https://github.com/Moerill/Mess/blob/master/LICENSE">https://g
 </dd>
 </dl>
 
-<a name="module_about"></a>
+<a name="EnhancedConditionsAPI"></a>
 
-## about
-AboutApp module
-
-
-* [about](#module_about)
-    * [~AboutApp](#module_about..AboutApp) ⇐ <code>FormApplication</code>
-        * _instance_
-            * [.getData()](#module_about..AboutApp+getData)
-            * [.fetchPatrons()](#module_about..AboutApp+fetchPatrons)
-        * _static_
-            * [.defaultOptions](#module_about..AboutApp.defaultOptions)
-
-<a name="module_about..AboutApp"></a>
-
-### about~AboutApp ⇐ <code>FormApplication</code>
-About this module FormApp
-
-**Kind**: inner class of [<code>about</code>](#module_about)  
-**Extends**: <code>FormApplication</code>  
-
-* [~AboutApp](#module_about..AboutApp) ⇐ <code>FormApplication</code>
-    * _instance_
-        * [.getData()](#module_about..AboutApp+getData)
-        * [.fetchPatrons()](#module_about..AboutApp+fetchPatrons)
-    * _static_
-        * [.defaultOptions](#module_about..AboutApp.defaultOptions)
-
-<a name="module_about..AboutApp+getData"></a>
-
-#### aboutApp.getData()
-Supplies data to the template
-
-**Kind**: instance method of [<code>AboutApp</code>](#module_about..AboutApp)  
-<a name="module_about..AboutApp+fetchPatrons"></a>
-
-#### aboutApp.fetchPatrons()
-Fetches a list of Patrons to display on the About page
-
-**Kind**: instance method of [<code>AboutApp</code>](#module_about..AboutApp)  
-<a name="module_about..AboutApp.defaultOptions"></a>
-
-#### AboutApp.defaultOptions
-Call app default options
-
-**Kind**: static property of [<code>AboutApp</code>](#module_about..AboutApp)  
-<a name="Concentrator"></a>
-
-<a name="ConditionLab"></a>
-
-## ConditionLab
-Form application for managing mapping of Conditions to Icons and JournalEntries
+## EnhancedConditionsAPI
+API functions for interacting with EnhancedConditions
 
 **Kind**: global class  
 
-* [ConditionLab](#ConditionLab)
-    * _instance_
-        * [.updatedMap](#ConditionLab+updatedMap)
-        * [.prepareData()](#ConditionLab+prepareData)
-        * [.getData()](#ConditionLab+getData)
-        * [._buildSubmitData()](#ConditionLab+_buildSubmitData)
-        * [._processFormData(formData)](#ConditionLab+_processFormData)
-        * [._restoreDefaults()](#ConditionLab+_restoreDefaults)
-        * [._updateObject(event, formData)](#ConditionLab+_updateObject)
-        * [._exportToJSON()](#ConditionLab+_exportToJSON)
-        * [._importFromJSONDialog()](#ConditionLab+_importFromJSONDialog)
-        * [._processImport(html)](#ConditionLab+_processImport)
-        * [._getHeaderButtons()](#ConditionLab+_getHeaderButtons)
-        * [.activateListeners(html)](#ConditionLab+activateListeners)
-        * [._onChangeInputs(event)](#ConditionLab+_onChangeInputs) ⇒ <code>Application.render</code>
-        * [._onChangeFilter()](#ConditionLab+_onChangeFilter)
-        * [._filterMapByName(map, filter)](#ConditionLab+_filterMapByName) ⇒
-        * [._onChangeMapType(event)](#ConditionLab+_onChangeMapType)
-        * [._onChangeIconPath(event)](#ConditionLab+_onChangeIconPath)
-        * [._onClickActiveEffectConfig(event)](#ConditionLab+_onClickActiveEffectConfig)
-        * [._onChangeReferenceId(event)](#ConditionLab+_onChangeReferenceId)
-        * [._onOpenTrigglerForm(event)](#ConditionLab+_onOpenTrigglerForm)
-        * [._onAddRow(event)](#ConditionLab+_onAddRow)
-        * [._onRemoveRow(event)](#ConditionLab+_onRemoveRow)
-        * [._onChangeSortOrder(event)](#ConditionLab+_onChangeSortOrder)
-        * [._onClickSortButton(event)](#ConditionLab+_onClickSortButton)
-        * [._sortMapByName(map, direction)](#ConditionLab+_sortMapByName) ⇒ <code>Array</code>
-        * [._onRestoreDefaults(event)](#ConditionLab+_onRestoreDefaults)
-        * [._onResetForm(event)](#ConditionLab+_onResetForm)
-        * [._onSaveClose(event)](#ConditionLab+_onSaveClose)
-        * [._onClickMacroConfig(event)](#ConditionLab+_onClickMacroConfig)
-        * [._onClickTriggerConfig(event)](#ConditionLab+_onClickTriggerConfig)
-        * [._hasMapChanged()](#ConditionLab+_hasMapChanged)
-        * [._hasPropertyChanged(propertyName, original, comparison)](#ConditionLab+_hasPropertyChanged) ⇒ <code>Boolean</code>
-    * _static_
-        * [.defaultOptions](#ConditionLab.defaultOptions)
-        * [._onRender(app, html, data)](#ConditionLab._onRender)
-        * [._onRenderDialog(app, html, data)](#ConditionLab._onRenderDialog)
+* [EnhancedConditionsAPI](#EnhancedConditionsAPI)
+    * [.addCondition(conditionId, [entities])](#EnhancedConditionsAPI.addCondition)
+    * [.removeCondition(conditionId, entities)](#EnhancedConditionsAPI.removeCondition)
+    * [.removeAllConditions(entities)](#EnhancedConditionsAPI.removeAllConditions)
+    * [.getCondition(conditionId, map)](#EnhancedConditionsAPI.getCondition)
+    * [.getConditionFrom(conditionId, entity)](#EnhancedConditionsAPI.getConditionFrom)
+    * [.getConditions(entities)](#EnhancedConditionsAPI.getConditions) ⇒ <code>Array</code>
+    * [.getActiveEffect(condition)](#EnhancedConditionsAPI.getActiveEffect)
+    * [.getConditionEffects(entities, map, warn)](#EnhancedConditionsAPI.getConditionEffects) ⇒ <code>Map</code> \| <code>Object</code>
+    * [.hasCondition(conditionId, entities, [options])](#EnhancedConditionsAPI.hasCondition) ⇒ <code>Boolean</code>
+    * [.getActorFromEntity(entity)](#EnhancedConditionsAPI.getActorFromEntity) ⇒ <code>Actor</code>
+    * [.removeTemporaryEffects(sceneId, confirmed)](#EnhancedConditionsAPI.removeTemporaryEffects)
+
+<a name="EnhancedConditionsAPI.addCondition"></a>
+
+### EnhancedConditionsAPI.addCondition(conditionId, [entities])
+Applies the named condition to the provided entities (Actors or Tokens)
+
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| conditionId | <code>Array.&lt;String&gt;</code> \| <code>String</code> |  | the id of the condition to add |
+| [entities] | <code>Array.&lt;Actor&gt;</code> \| <code>Array.&lt;Token&gt;</code> \| <code>Actor</code> \| <code>Token</code> | <code></code> | one or more Actors or Tokens to apply the Condition to |
+| [options.allowDuplicates] | <code>Boolean</code> | <code>false</code> | if one or more of the Conditions specified is already active on the Entity, this will still add the Condition. Use in conjunction with `replaceExisting` to determine how duplicates are handled |
+| [options.replaceExisting] | <code>Boolean</code> | <code>false</code> | whether or not to replace existing Conditions with any duplicates in the `conditionName` parameter. If `allowDuplicates` is true and `replaceExisting` is false then a duplicate condition is created. Has no effect if `allowDuplicates` is `false` |
+| [options.forceOverlay] | <code>Boolean</code> | <code>false</code> | if true, this condition will appear as an overlay regardless of its normal behaviour |
+| [options.effectOptions] | <code>Boolean</code> |  | additional options that are added to a property to be used by elsewhere in the code |
+
+**Example**  
+```js
+// Add the Condition "Blinded" to an Actor named "Bob". Duplicates will not be created.game.succ.addCondition("Blinded", game.actors.getName("Bob"));
+```
+**Example**  
+```js
+// Add the Condition "Charmed" to the currently controlled Token/s. Duplicates will not be created.game.succ.addCondition("Charmed");
+```
+**Example**  
+```js
+// Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.game.succ.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
+```
+<a name="EnhancedConditionsAPI.removeCondition"></a>
+
+### EnhancedConditionsAPI.removeCondition(conditionId, entities)
+Removes one or more named conditions from an Entity (Actor/Token)
+
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| conditionId | <code>String</code> |  | the id of the Condition to remove |
+| entities | <code>Actor</code> \| <code>Token</code> | <code></code> | One or more Actors or Tokens |
+| options.warn | <code>Boolean</code> |  | whether or not to raise warnings on errors |
+
+**Example**  
+```js
+// Remove Condition named "Blinded" from an Actor named Bobgame.succ.removeCondition("Blinded", game.actors.getName("Bob"));
+```
+**Example**  
+```js
+// Remove Condition named "Charmed" from the currently controlled Token, but don't show any warnings if it fails.game.succ.removeCondition("Charmed", {warn=false});
+```
+<a name="EnhancedConditionsAPI.removeAllConditions"></a>
+
+### EnhancedConditionsAPI.removeAllConditions(entities)
+Removes all conditions from the provided entities
+
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| entities | <code>Actors</code> \| <code>Tokens</code> | <code></code> | One or more Actors or Tokens to remove Conditions from |
+| options.warn | <code>Boolean</code> |  | output notifications |
+
+**Example**  
+```js
+// Remove all Conditions on an Actor named Bobgame.succ.removeAllConditions(game.actors.getName("Bob"));
+```
+**Example**  
+```js
+// Remove all Conditions on the currently controlled Tokengame.succ.removeAllConditions();
+```
+<a name="EnhancedConditionsAPI.getCondition"></a>
+
+### EnhancedConditionsAPI.getCondition(conditionId, map)
+Gets a condition by id from the Condition Map
+
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| conditionId | <code>\*</code> |  | the id of the Condition to find |
+| map | <code>\*</code> | <code></code> | the map to search through. If null, we'll use the current map |
+| options.warn | <code>\*</code> |  | whether or not to raise warnings on errors |
+
+<a name="EnhancedConditionsAPI.getConditionFrom"></a>
+
+### EnhancedConditionsAPI.getConditionFrom(conditionId, entity)
+Gets a condition by id from given Actor or String
+
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
 
-<a name="ConditionLab+updatedMap"></a>
+| Param | Type | Description |
+| --- | --- | --- |
+| conditionId | <code>\*</code> | the id of the Condition to find |
+| entity | <code>Actor</code> \| <code>String</code> \| <code>Object</code> | the Actor or Token to get the condition from |
+| options.warn | <code>\*</code> | whether or not to raise warnings on errors |
 
-### conditionLab.updatedMap
-Get updated map by combining existing in-memory map with current formdata
+<a name="EnhancedConditionsAPI.getConditions"></a>
 
-**Kind**: instance property of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+prepareData"></a>
+### EnhancedConditionsAPI.getConditions(entities) ⇒ <code>Array</code>
+Retrieves all active conditions for one or more given entities (Actors or Tokens)
 
-### conditionLab.prepareData()
-Prepare data for form rendering
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
+**Returns**: <code>Array</code> - entityConditionMap  a mapping of conditions for each provided entity  
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+getData"></a>
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| entities | <code>Actor</code> \| <code>Token</code> | <code></code> | one or more Actors or Tokens to get Conditions from |
+| options.warn | <code>Boolean</code> |  | whether or not to raise warnings on errors |
 
-### conditionLab.getData()
-Gets data for the template render
+**Example**  
+```js
+// Get conditions for an Actor named "Bob"game.succ.getConditions(game.actors.getName("Bob"));
+```
+**Example**  
+```js
+// Get conditions for the currently controlled Tokengame.succ.getConditions();
+```
+<a name="EnhancedConditionsAPI.getActiveEffect"></a>
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+_buildSubmitData"></a>
+### EnhancedConditionsAPI.getActiveEffect(condition)
+Gets the Active Effect data (if any) for the given condition
 
-### conditionLab.\_buildSubmitData()
-Enriches submit data with existing map to ensure continuity
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+_processFormData"></a>
+| Param | Type | Description |
+| --- | --- | --- |
+| condition | <code>\*</code> | the id of the Condition to get |
 
-### conditionLab.\_processFormData(formData)
-Processes the Form Data and builds a usable Condition Map
+<a name="EnhancedConditionsAPI.getConditionEffects"></a>
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+### EnhancedConditionsAPI.getConditionEffects(entities, map, warn) ⇒ <code>Map</code> \| <code>Object</code>
+Gets any Active Effect instances present on the entities (Actor/s or Token/s) that are mapped Conditions
 
-| Param | Type |
-| --- | --- |
-| formData | <code>\*</code> | 
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
+**Returns**: <code>Map</code> \| <code>Object</code> - A Map containing the Actor Id and the Condition Active Effect instances if any  
 
-<a name="ConditionLab+_restoreDefaults"></a>
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| entities | <code>String</code> |  | the entities to check |
+| map | <code>Array</code> | <code></code> | the Condition map to check (optional) |
+| warn | <code>Boolean</code> |  | whether or not to raise warnings on errors |
 
-### conditionLab.\_restoreDefaults()
-Restore defaults for a mapping
+<a name="EnhancedConditionsAPI.hasCondition"></a>
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+_updateObject"></a>
+### EnhancedConditionsAPI.hasCondition(conditionId, entities, [options]) ⇒ <code>Boolean</code>
+Checks if the provided Entity (Actor or Token) has the given condition
 
-### conditionLab.\_updateObject(event, formData)
-Take the new map and write it back to settings, overwriting existing
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
+**Returns**: <code>Boolean</code> - hasCondition  Returns true if one or more of the provided entities has one or more of the provided conditions  
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| conditionId | <code>String</code> \| <code>Array</code> |  | the id/s of the condition or conditions to check for |
+| entities | <code>Actor</code> \| <code>Token</code> \| <code>Array</code> | <code></code> | the entity or entities to check (Actor/s or Token/s) |
+| [options] | <code>Object</code> |  | options object |
+| [options.warn] | <code>Boolean</code> |  | whether or not to output notifications |
 
-| Param | Type |
-| --- | --- |
-| event | <code>Object</code> | 
-| formData | <code>Object</code> | 
+**Example**  
+```js
+// Check for the "Blinded" condition on Actor "Bob"game.succ.hasCondition("Blinded", game.actors.getName("Bob"));
+```
+**Example**  
+```js
+// Check for the "Charmed" and "Deafened" conditions on the controlled tokensgame.succ.hasCondition(["Charmed", "Deafened"]);
+```
+<a name="EnhancedConditionsAPI.getActorFromEntity"></a>
 
-<a name="ConditionLab+_exportToJSON"></a>
+### EnhancedConditionsAPI.getActorFromEntity(entity) ⇒ <code>Actor</code>
+Converts the provided entity into an Actor
 
-### conditionLab.\_exportToJSON()
-Exports the current map to JSON
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
+**Returns**: <code>Actor</code> - Returns the converted Actor or null if none was found  
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+_importFromJSONDialog"></a>
+| Param | Type | Description |
+| --- | --- | --- |
+| entity | <code>Actor</code> \| <code>Token</code> \| <code>TokenDocument</code> \| <code>String</code> | The entity to convert |
 
-### conditionLab.\_importFromJSONDialog()
-Initiates an import via a dialog
-Borrowed from foundry.js Entity class
+<a name="EnhancedConditionsAPI.removeTemporaryEffects"></a>
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+_processImport"></a>
+### EnhancedConditionsAPI.removeTemporaryEffects(sceneId, confirmed)
+**Kind**: static method of [<code>EnhancedConditionsAPI</code>](#EnhancedConditionsAPI)  
 
-### conditionLab.\_processImport(html)
-Process a Condition Map Import
+| Param | Default | Description |
+| --- | --- | --- |
+| sceneId | <code>false</code> | The scene ID on which the function looks for token actors to remove the conditions from; defaults to current scene. |
+| confirmed | <code>false</code> | Boolean to skip the confirmation dialogue. |
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+<a name="EnhancedConditionsPowers"></a>
 
-| Param | Type |
-| --- | --- |
-| html | <code>\*</code> | 
-
-<a name="ConditionLab+_getHeaderButtons"></a>
-
-### conditionLab.\_getHeaderButtons()
-Override the header buttons method
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+activateListeners"></a>
-
-### conditionLab.activateListeners(html)
-Activate app listeners
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| html | <code>\*</code> | 
-
-<a name="ConditionLab+_onChangeInputs"></a>
-
-### conditionLab.\_onChangeInputs(event) ⇒ <code>Application.render</code>
-Input change handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onChangeFilter"></a>
-
-### conditionLab.\_onChangeFilter()
-Filter input change handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+_filterMapByName"></a>
-
-### conditionLab.\_filterMapByName(map, filter) ⇒
-Filter the given map by the name property using the supplied filter value, marking filtered entries as "hidden"
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-**Returns**: filteredMap  
-
-| Param | Type |
-| --- | --- |
-| map | <code>Array</code> | 
-| filter | <code>String</code> | 
-
-<a name="ConditionLab+_onChangeMapType"></a>
-
-### conditionLab.\_onChangeMapType(event)
-Change Map Type event handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onChangeIconPath"></a>
-
-### conditionLab.\_onChangeIconPath(event)
-Handle icon path change
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onClickActiveEffectConfig"></a>
-
-### conditionLab.\_onClickActiveEffectConfig(event)
-Handle click Active Effect Config button
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onChangeReferenceId"></a>
-
-### conditionLab.\_onChangeReferenceId(event)
-Reference Link change handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onOpenTrigglerForm"></a>
-
-### conditionLab.\_onOpenTrigglerForm(event)
-Open Triggler form event handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onAddRow"></a>
-
-### conditionLab.\_onAddRow(event)
-Add Row event handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onRemoveRow"></a>
-
-### conditionLab.\_onRemoveRow(event)
-Handler for remove row event
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onChangeSortOrder"></a>
-
-### conditionLab.\_onChangeSortOrder(event)
-Handle a change sort order click
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onClickSortButton"></a>
-
-### conditionLab.\_onClickSortButton(event)
-Sort button handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_sortMapByName"></a>
-
-### conditionLab.\_sortMapByName(map, direction) ⇒ <code>Array</code>
-Sorts the given map by the name property
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| map | <code>Array</code> | 
-| direction | <code>\*</code> | 
-
-<a name="ConditionLab+_onRestoreDefaults"></a>
-
-### conditionLab.\_onRestoreDefaults(event)
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onResetForm"></a>
-
-### conditionLab.\_onResetForm(event)
-Reset form handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onSaveClose"></a>
-
-### conditionLab.\_onSaveClose(event)
-Save and Close handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onClickMacroConfig"></a>
-
-### conditionLab.\_onClickMacroConfig(event)
-Macro Config button click handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_onClickTriggerConfig"></a>
-
-### conditionLab.\_onClickTriggerConfig(event)
-Trigger Config button click handler
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-
-<a name="ConditionLab+_hasMapChanged"></a>
-
-### conditionLab.\_hasMapChanged()
-Checks the updatedMap property against the initial map
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab+_hasPropertyChanged"></a>
-
-### conditionLab.\_hasPropertyChanged(propertyName, original, comparison) ⇒ <code>Boolean</code>
-Checks a given propertyName on an original and comparison object to see if it has changed
-
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| propertyName | <code>\*</code> | 
-| original | <code>\*</code> | 
-| comparison | <code>\*</code> | 
-
-<a name="ConditionLab.defaultOptions"></a>
-
-### ConditionLab.defaultOptions
-Get options for the form
-
-**Kind**: static property of [<code>ConditionLab</code>](#ConditionLab)  
-<a name="ConditionLab._onRender"></a>
-
-### ConditionLab.\_onRender(app, html, data)
-Condition Lab Render handler
-
-**Kind**: static method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| app | <code>\*</code> | 
-| html | <code>\*</code> | 
-| data | <code>\*</code> | 
-
-<a name="ConditionLab._onRenderDialog"></a>
-
-### ConditionLab.\_onRenderDialog(app, html, data)
-Render dialog hook handler
-
-**Kind**: static method of [<code>ConditionLab</code>](#ConditionLab)  
-
-| Param | Type |
-| --- | --- |
-| app | <code>\*</code> | 
-| html | <code>jQuery</code> | 
-| data | <code>\*</code> | 
-
-<a name="EnhancedConditionMacroConfig"></a>
-
-## EnhancedConditionMacroConfig
-Enhanced Condition Macro Config Application
+## EnhancedConditionsPowers
+Builds a mapping between status icons and journal entries that represent conditions
 
 **Kind**: global class  
 
-* [EnhancedConditionMacroConfig](#EnhancedConditionMacroConfig)
-    * _instance_
-        * [.getData()](#EnhancedConditionMacroConfig+getData) ⇒ <code>Object</code>
-        * [._updateObject(event, formData)](#EnhancedConditionMacroConfig+_updateObject)
-    * _static_
-        * [.defaultOptions](#EnhancedConditionMacroConfig.defaultOptions)
+* [EnhancedConditionsPowers](#EnhancedConditionsPowers)
+    * [.boostLowerTrait(actor, condition, boost)](#EnhancedConditionsPowers.boostLowerTrait)
+    * [.boostLowerBuilder(effect, actor, trait, type, degree)](#EnhancedConditionsPowers.boostLowerBuilder)
+    * [.smite(actor, condition)](#EnhancedConditionsPowers.smite)
+    * [.smiteBuilder(effect, weaponName, damageBonus)](#EnhancedConditionsPowers.smiteBuilder)
+    * [.protection(actor, condition)](#EnhancedConditionsPowers.protection)
+    * [.protectionBuilder(effect, protectionBonus, type)](#EnhancedConditionsPowers.protectionBuilder)
 
-<a name="EnhancedConditionMacroConfig+getData"></a>
+<a name="EnhancedConditionsPowers.boostLowerTrait"></a>
 
-### enhancedConditionMacroConfig.getData() ⇒ <code>Object</code>
-Gets data for template rendering
+### EnhancedConditionsPowers.boostLowerTrait(actor, condition, boost)
+Adds a boost or lower trait effect to an actor
 
-**Kind**: instance method of [<code>EnhancedConditionMacroConfig</code>](#EnhancedConditionMacroConfig)  
-**Returns**: <code>Object</code> - data  
-<a name="EnhancedConditionMacroConfig+_updateObject"></a>
+**Kind**: static method of [<code>EnhancedConditionsPowers</code>](#EnhancedConditionsPowers)  
 
-### enhancedConditionMacroConfig.\_updateObject(event, formData)
-Update Object on Form Submission
+| Param | Type | Description |
+| --- | --- | --- |
+| actor | <code>Actor</code> | Actor to apply the effect to |
+| condition | <code>Object</code> | The condition being applied (should be either boost or lower trait) |
+| boost | <code>boolean</code> | True if this is a boost, false if it's a lower |
 
-**Kind**: instance method of [<code>EnhancedConditionMacroConfig</code>](#EnhancedConditionMacroConfig)  
+<a name="EnhancedConditionsPowers.boostLowerBuilder"></a>
 
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-| formData | <code>\*</code> | 
+### EnhancedConditionsPowers.boostLowerBuilder(effect, actor, trait, type, degree)
+Creates and applies the active effects for a boost or lower trait condition
 
-<a name="EnhancedConditionMacroConfig.defaultOptions"></a>
+**Kind**: static method of [<code>EnhancedConditionsPowers</code>](#EnhancedConditionsPowers)  
 
-### EnhancedConditionMacroConfig.defaultOptions
-defaultOptions
+| Param | Type | Description |
+| --- | --- | --- |
+| effect | <code>Object</code> | The active effect being updated |
+| actor | <code>Actor</code> | Actor to update |
+| trait | <code>String</code> | The trait being affected |
+| type | <code>String</code> | Specifies if this a boost or lower |
+| degree | <code>String</code> | Specifies if this a success or a raise |
 
-**Kind**: static property of [<code>EnhancedConditionMacroConfig</code>](#EnhancedConditionMacroConfig)  
-<a name="EnhancedConditionTriggerConfig"></a>
+<a name="EnhancedConditionsPowers.smite"></a>
 
-## EnhancedConditionTriggerConfig
-Enhanced Condition Trigger Config Application
+### EnhancedConditionsPowers.smite(actor, condition)
+Adds a smite effect to an actor
 
-**Kind**: global class  
+**Kind**: static method of [<code>EnhancedConditionsPowers</code>](#EnhancedConditionsPowers)  
 
-* [EnhancedConditionTriggerConfig](#EnhancedConditionTriggerConfig)
-    * _instance_
-        * [.getData()](#EnhancedConditionTriggerConfig+getData) ⇒ <code>Object</code>
-        * [._updateObject(event, formData)](#EnhancedConditionTriggerConfig+_updateObject)
-    * _static_
-        * [.defaultOptions](#EnhancedConditionTriggerConfig.defaultOptions)
+| Param | Type | Description |
+| --- | --- | --- |
+| actor | <code>Actor</code> | Actor to apply the effect to |
+| condition | <code>Object</code> | The condition being applied (should be smite) |
 
-<a name="EnhancedConditionTriggerConfig+getData"></a>
+<a name="EnhancedConditionsPowers.smiteBuilder"></a>
 
-### enhancedConditionTriggerConfig.getData() ⇒ <code>Object</code>
-Gets data for template rendering
+### EnhancedConditionsPowers.smiteBuilder(effect, weaponName, damageBonus)
+Creates and applies the active effects for a smite condition
 
-**Kind**: instance method of [<code>EnhancedConditionTriggerConfig</code>](#EnhancedConditionTriggerConfig)  
-**Returns**: <code>Object</code> - data  
-<a name="EnhancedConditionTriggerConfig+_updateObject"></a>
+**Kind**: static method of [<code>EnhancedConditionsPowers</code>](#EnhancedConditionsPowers)  
 
-### enhancedConditionTriggerConfig.\_updateObject(event, formData)
-Update Object on Form Submission
+| Param | Type | Description |
+| --- | --- | --- |
+| effect | <code>Object</code> | The active effect being updated |
+| weaponName | <code>String</code> | The name of the weapon being affected |
+| damageBonus | <code>String</code> | The damage bonus |
 
-**Kind**: instance method of [<code>EnhancedConditionTriggerConfig</code>](#EnhancedConditionTriggerConfig)  
+<a name="EnhancedConditionsPowers.protection"></a>
 
-| Param | Type |
-| --- | --- |
-| event | <code>\*</code> | 
-| formData | <code>\*</code> | 
+### EnhancedConditionsPowers.protection(actor, condition)
+Adds a protection effect to an actor
 
-<a name="EnhancedConditionTriggerConfig.defaultOptions"></a>
+**Kind**: static method of [<code>EnhancedConditionsPowers</code>](#EnhancedConditionsPowers)  
 
-### EnhancedConditionTriggerConfig.defaultOptions
-defaultOptions
+| Param | Type | Description |
+| --- | --- | --- |
+| actor | <code>Actor</code> | Actor to apply the effect to |
+| condition | <code>Object</code> | The condition being applied (should be protection) |
 
-**Kind**: static property of [<code>EnhancedConditionTriggerConfig</code>](#EnhancedConditionTriggerConfig)  
+<a name="EnhancedConditionsPowers.protectionBuilder"></a>
+
+### EnhancedConditionsPowers.protectionBuilder(effect, protectionBonus, type)
+Creates and applies the active effects for a protection condition
+
+**Kind**: static method of [<code>EnhancedConditionsPowers</code>](#EnhancedConditionsPowers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| effect | <code>Object</code> | The active effect being updated |
+| protectionBonus | <code>String</code> | The amount to apply |
+| type | <code>String</code> | Whether this is affected toughness or armor |
+
 <a name="EnhancedConditions"></a>
 
 ## EnhancedConditions
@@ -590,20 +378,20 @@ Builds a mapping between status icons and journal entries that represent conditi
 
 * [EnhancedConditions](#EnhancedConditions)
     * [._onReady()](#EnhancedConditions._onReady)
-    * [._onPreUpdateToken(scene, update, options, userId)](#EnhancedConditions._onPreUpdateToken)
-    * [._onUpdateToken()](#EnhancedConditions._onUpdateToken)
+    * [._onUpdateActor()](#EnhancedConditions._onUpdateActor)
     * [._onCreateActiveEffect(actor, update, options, userId)](#EnhancedConditions._onCreateActiveEffect)
     * [._onDeleteActiveEffect(actor, update, options, userId)](#EnhancedConditions._onDeleteActiveEffect)
-    * [._onUpdateCombat(combat, update, options, userId)](#EnhancedConditions._onUpdateCombat)
     * [._onRenderChatMessage(app, html, data)](#EnhancedConditions._onRenderChatMessage)
     * [._onRenderChatLog(app, html, data)](#EnhancedConditions._onRenderChatLog)
     * [._onRenderCombatTracker(app, html, data)](#EnhancedConditions._onRenderCombatTracker)
     * [._processActiveEffectChange(effect, type)](#EnhancedConditions._processActiveEffectChange)
+    * [.applyEffectOptions(effect, actor)](#EnhancedConditions.applyEffectOptions)
     * [.lookupEntryMapping(effectIds, [map])](#EnhancedConditions.lookupEntryMapping)
     * [.outputChatMessage()](#EnhancedConditions.outputChatMessage)
     * [.toggleDefeated(entities)](#EnhancedConditions.toggleDefeated)
+    * [.activateConviction()](#EnhancedConditions.activateConviction)
+    * [.deactivateConviction()](#EnhancedConditions.deactivateConviction)
     * [.removeOtherConditions(entity, conditionId)](#EnhancedConditions.removeOtherConditions)
-    * [._migrateConditionIds(conditionMap)](#EnhancedConditions._migrateConditionIds)
     * [._processMacros(macroIds, entity)](#EnhancedConditions._processMacros)
     * [.updateConditionTimestamps()](#EnhancedConditions.updateConditionTimestamps)
     * [._createLabButton(html)](#EnhancedConditions._createLabButton)
@@ -611,6 +399,7 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [._loadDefaultMap()](#EnhancedConditions._loadDefaultMap)
     * [._prepareMap(conditionMap)](#EnhancedConditions._prepareMap)
     * [._backupCoreEffects()](#EnhancedConditions._backupCoreEffects)
+    * [._backupCoreSpecialStatusEffects()](#EnhancedConditions._backupCoreSpecialStatusEffects)
     * [.lookupConditionById(conditionId, map)](#EnhancedConditions.lookupConditionById)
     * [._updateStatusEffects(conditionMap)](#EnhancedConditions._updateStatusEffects)
     * [._prepareStatusEffects(conditionMap)](#EnhancedConditions._prepareStatusEffects) ⇒ <code>Array</code>
@@ -619,46 +408,21 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [.getIconsByCondition(condition)](#EnhancedConditions.getIconsByCondition)
     * [.getConditionsByIcon(icon)](#EnhancedConditions.getConditionsByIcon)
     * [.mapFromJson(json)](#EnhancedConditions.mapFromJson)
-    * [.getDefaultMap(system)](#EnhancedConditions.getDefaultMap)
-    * [.buildDefaultMap(system)](#EnhancedConditions.buildDefaultMap)
-    * [.addCondition(conditionName, [entities])](#EnhancedConditions.addCondition)
-    * [.getCondition(conditionName, map)](#EnhancedConditions.getCondition)
-    * [.getConditions(entities)](#EnhancedConditions.getConditions) ⇒ <code>Array</code>
-    * [.getActiveEffect(condition)](#EnhancedConditions.getActiveEffect)
-    * [.getConditionEffects(entities, map, warn)](#EnhancedConditions.getConditionEffects) ⇒ <code>Map</code> \| <code>Object</code>
-    * [.hasCondition(conditionName, entities, [options])](#EnhancedConditions.hasCondition) ⇒ <code>Boolean</code>
-    * [.removeCondition(entities, conditionName, options)](#EnhancedConditions.removeCondition)
-    * [.removeAllConditions(entities)](#EnhancedConditions.removeAllConditions)
+    * [.getDefaultMap()](#EnhancedConditions.getDefaultMap)
+    * [.buildDefaultMap()](#EnhancedConditions.buildDefaultMap)
+    * [.checkForSystemUpdates()](#EnhancedConditions.checkForSystemUpdates)
+    * [.getSystemUpdateMapJson()](#EnhancedConditions.getSystemUpdateMapJson)
+    * [.applySystemUpdate()](#EnhancedConditions.applySystemUpdate)
 
 <a name="EnhancedConditions._onReady"></a>
 
 ### EnhancedConditions.\_onReady()
-Ready Hook handler
-Steps:
-1. Get default maps
-2. Get mapType
-3. Get Condition Map
-4. Override status effects
+Ready Hook handlerSteps:1. Get default maps2. Get mapType3. Get Condition Map4. Override status effects
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-<a name="EnhancedConditions._onPreUpdateToken"></a>
+<a name="EnhancedConditions._onUpdateActor"></a>
 
-### EnhancedConditions.\_onPreUpdateToken(scene, update, options, userId)
-Handle PreUpdate Token Hook.
-If the update includes effect data, add an `option` for the update hook handler to look for
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-
-| Param | Type |
-| --- | --- |
-| scene | <code>\*</code> | 
-| update | <code>\*</code> | 
-| options | <code>\*</code> | 
-| userId | <code>\*</code> | 
-
-<a name="EnhancedConditions._onUpdateToken"></a>
-
-### EnhancedConditions.\_onUpdateToken()
+### EnhancedConditions.\_onUpdateActor()
 Hooks on token updates. If the update includes effects, calls the journal entry lookup
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
@@ -686,20 +450,6 @@ Create Active Effect handler
 | Param | Type |
 | --- | --- |
 | actor | <code>\*</code> | 
-| update | <code>\*</code> | 
-| options | <code>\*</code> | 
-| userId | <code>\*</code> | 
-
-<a name="EnhancedConditions._onUpdateCombat"></a>
-
-### EnhancedConditions.\_onUpdateCombat(combat, update, options, userId)
-Update Combat Handler
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-
-| Param | Type |
-| --- | --- |
-| combat | <code>\*</code> | 
 | update | <code>\*</code> | 
 | options | <code>\*</code> | 
 | userId | <code>\*</code> | 
@@ -757,6 +507,18 @@ Process the addition/removal of an Active Effect
 | effect | <code>ActiveEffect</code> |  | the effect |
 | type | <code>String</code> | <code>create</code> | the type of change to process |
 
+<a name="EnhancedConditions.applyEffectOptions"></a>
+
+### EnhancedConditions.applyEffectOptions(effect, actor)
+Processes effect options and applies them to active effects
+
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| effect | <code>\*</code> | The effect containing the effect options |
+| actor | <code>\*</code> | The actor containing the effect |
+
 <a name="EnhancedConditions.lookupEntryMapping"></a>
 
 ### EnhancedConditions.lookupEntryMapping(effectIds, [map])
@@ -781,7 +543,7 @@ Output one or more condition entries to chat
 
 <a name="EnhancedConditions.toggleDefeated"></a>
 
-### EnhancedConditions.\toggleDefeated(entities)
+### EnhancedConditions.toggleDefeated(entities)
 Marks a Combatants for a particular entity as defeated
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
@@ -791,9 +553,17 @@ Marks a Combatants for a particular entity as defeated
 | entities | <code>Actor</code> \| <code>Token</code> | the entity to mark defeated |
 | options.markDefeated | <code>Boolean</code> | an optional state flag (default=true) |
 
+<a name="EnhancedConditions.activateConviction"></a>
+
+### EnhancedConditions.activateConviction()
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+<a name="EnhancedConditions.deactivateConviction"></a>
+
+### EnhancedConditions.deactivateConviction()
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
 <a name="EnhancedConditions.removeOtherConditions"></a>
 
-### EnhancedConditions.\removeOtherConditions(entity, conditionId)
+### EnhancedConditions.removeOtherConditions(entity, conditionId)
 For a given entity, removes conditions other than the one supplied
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
@@ -802,17 +572,6 @@ For a given entity, removes conditions other than the one supplied
 | --- | --- |
 | entity | <code>\*</code> | 
 | conditionId | <code>\*</code> | 
-
-<a name="EnhancedConditions._migrateConditionIds"></a>
-
-### EnhancedConditions.\_migrateConditionIds(conditionMap)
-Migrates Condition Ids to be truly unique-ish
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-
-| Param | Type |
-| --- | --- |
-| conditionMap | <code>\*</code> | 
 
 <a name="EnhancedConditions._processMacros"></a>
 
@@ -879,21 +638,22 @@ Parse the provided Condition Map and prepare it for storage, validating and corr
 Duplicate the core status icons, freeze the duplicate then store a copy in settings
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+<a name="EnhancedConditions._backupCoreSpecialStatusEffects"></a>
 
-| Param | Type | Description |
-| --- | --- | --- |
-| condition | <code>String</code> | the condition being evaluated |
+### EnhancedConditions.\_backupCoreSpecialStatusEffects()
+Duplicate the core special status effect mappings, freeze the duplicate then store a copy in settings
 
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
 <a name="EnhancedConditions.lookupConditionById"></a>
 
-### EnhancedConditions.\lookupConditionById(conditionId, map)
-Gets one or more conditions from the map by their id
+### EnhancedConditions.lookupConditionById(conditionId, map)
+Gets one or more conditions from the map by their name
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| conditionName | <code>String</code> |  | the condition to get |
+| conditionId | <code>String</code> |  | the condition to get |
 | map | <code>Array</code> | <code></code> | the condition map to search |
 
 <a name="EnhancedConditions._updateStatusEffects"></a>
@@ -971,18 +731,13 @@ Parses a condition map JSON and returns a map
 
 <a name="EnhancedConditions.getDefaultMap"></a>
 
-### EnhancedConditions.getDefaultMap(system)
+### EnhancedConditions.getDefaultMap()
 Returns the default condition map for a given system
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-
-| Param | Type |
-| --- | --- |
-| system | <code>\*</code> | 
-
 <a name="EnhancedConditions.buildDefaultMap"></a>
 
-### EnhancedConditions.buildDefaultMap(system)
+### EnhancedConditions.buildDefaultMap()
 Builds a default map for a given system
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
@@ -990,339 +745,24 @@ Builds a default map for a given system
 
 - [ ] #281 update for active effects
 
+<a name="EnhancedConditions.checkForSystemUpdates"></a>
 
-| Param | Type |
-| --- | --- |
-| system | <code>\*</code> | 
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-**See**: EnhancedConditions#addCondition  
-
-| Param | Type |
-| --- | --- |
-| ...params | <code>any</code> | 
-
-<a name="EnhancedConditions.addCondition"></a>
-
-### EnhancedConditions.addCondition(conditionName, [entities])
-Applies the named condition to the provided entities (Actors or Tokens)
+### EnhancedConditions.checkForSystemUpdates()
+Checks the status effects from the system and compares it to our condition map to determine if there are any updates
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+<a name="EnhancedConditions.getSystemUpdateMapJson"></a>
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| conditionName | <code>Array.&lt;String&gt;</code> \| <code>String</code> |  | the name of the condition to add |
-| [entities] | <code>Array.&lt;Actor&gt;</code> \| <code>Array.&lt;Token&gt;</code> \| <code>Actor</code> \| <code>Token</code> | <code></code> | one or more Actors or Tokens to apply the Condition to |
-| [options.warn] | <code>Boolean</code> | <code>true</code> | raise warnings on errors |
-| [options.allowDuplicates] | <code>Boolean</code> | <code>false</code> | if one or more of the Conditions specified is already active on the Entity, this will still add the Condition. Use in conjunction with `replaceExisting` to determine how duplicates are handled |
-| [options.replaceExisting] | <code>Boolean</code> | <code>false</code> | whether or not to replace existing Conditions with any duplicates in the `conditionName` parameter. If `allowDuplicates` is true and `replaceExisting` is false then a duplicate condition is created. Has no effect is `keepDuplicates` is `false` |
-
-**Example**  
-```js
-// Add the Condition "Blinded" to an Actor named "Bob". Duplicates will not be created.
-game.succ.addCondition("Blinded", game.actors.getName("Bob"));
-```
-**Example**  
-```js
-// Add the Condition "Charmed" to the currently controlled Token/s. Duplicates will not be created.
-game.succ.addCondition("Charmed");
-```
-**Example**  
-```js
-// Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
-game.succ.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
-```
-<a name="EnhancedConditions.getCondition"></a>
-
-### EnhancedConditions.getCondition(conditionName, map)
-Gets a condition by name from the Condition Map
+### EnhancedConditions.getSystemUpdateMapJson()
+Takes the current json map and updates it for the new version of SWADEThis does not make any modifications to the succ settings
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+<a name="EnhancedConditions.applySystemUpdate"></a>
 
-| Param | Type | Default |
-| --- | --- | --- |
-| conditionName | <code>\*</code> |  | 
-| map | <code>\*</code> | <code></code> | 
-| options.warn | <code>\*</code> |  | 
-
-<a name="EnhancedConditions.getConditions"></a>
-
-### EnhancedConditions.getConditions(entities) ⇒ <code>Array</code>
-Retrieves all active conditions for one or more given entities (Actors or Tokens)
+### EnhancedConditions.applySystemUpdate()
+Backs up and updates the condition map json file
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-**Returns**: <code>Array</code> - entityConditionMap  a mapping of conditions for each provided entity  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| entities | <code>Actor</code> \| <code>Token</code> | <code></code> | one or more Actors or Tokens to get Conditions from |
-| options.warn | <code>Boolean</code> |  | output notifications |
-
-**Example**  
-```js
-// Get conditions for an Actor named "Bob"
-game.succ.getConditions(game.actors.getName("Bob"));
-```
-**Example**  
-```js
-// Get conditions for the currently controlled Token
-game.succ.getConditions();
-```
-<a name="EnhancedConditions.getActiveEffect"></a>
-
-### EnhancedConditions.getActiveEffect(condition)
-Gets the Active Effect data (if any) for the given condition
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-
-| Param | Type |
-| --- | --- |
-| condition | <code>\*</code> | 
-
-<a name="EnhancedConditions.getConditionEffects"></a>
-
-### EnhancedConditions.getConditionEffects(entities, map, warn) ⇒ <code>Map</code> \| <code>Object</code>
-Gets any Active Effect instances present on the entities (Actor/s or Token/s) that are mapped Conditions
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-**Returns**: <code>Map</code> \| <code>Object</code> - A Map containing the Actor Id and the Condition Active Effect instances if any  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| entities | <code>String</code> |  | the entities to check |
-| map | <code>Array</code> | <code></code> | the Condition map to check (optional) |
-| warn | <code>Boolean</code> |  | output notifications |
-
-<a name="EnhancedConditions.hasCondition"></a>
-
-### EnhancedConditions.hasCondition(conditionName, entities, [options]) ⇒ <code>Boolean</code>
-Checks if the provided Entity (Actor or Token) has the given condition
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-**Returns**: <code>Boolean</code> - hasCondition  Returns true if one or more of the provided entities has one or more of the provided conditions  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| conditionName | <code>String</code> \| <code>Array</code> |  | the name/s of the condition or conditions to check for |
-| entities | <code>Actor</code> \| <code>Token</code> \| <code>Array</code> | <code></code> | the entity or entities to check (Actor/s or Token/s) |
-| [options] | <code>Object</code> |  | options object |
-| [options.warn] | <code>Boolean</code> |  | whether or not to output notifications |
-
-**Example**  
-```js
-// Check for the "Blinded" condition on Actor "Bob"
-game.succ.hasCondition("Blinded", game.actors.getName("Bob"));
-```
-**Example**  
-```js
-// Check for the "Charmed" and "Deafened" conditions on the controlled tokens
-game.succ.hasCondition(["Charmed", "Deafened"]);
-```
-<a name="EnhancedConditions.removeCondition"></a>
-
-### EnhancedConditions.removeCondition(entities, conditionName, options)
-Removes one or more named conditions from an Entity (Actor/Token)
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| entities | <code>Actor</code> \| <code>Token</code> | <code></code> | One or more Actors or Tokens |
-| conditionName | <code>String</code> |  | the name of the Condition to remove |
-| options | <code>Object</code> |  | options for removal |
-| options.warn | <code>Boolean</code> |  | whether or not to raise warnings on errors |
-
-**Example**  
-```js
-// Remove Condition named "Blinded" from an Actor named Bob
-game.succ.removeCondition("Blinded", game.actors.getName("Bob"));
-```
-**Example**  
-```js
-// Remove Condition named "Charmed" from the currently controlled Token, but don't show any warnings if it fails.
-game.succ.removeCondition("Charmed", {warn=false});
-```
-<a name="EnhancedConditions.removeAllConditions"></a>
-
-### EnhancedConditions.removeAllConditions(entities)
-Removes all conditions from the provided entities
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| entities | <code>Actors</code> \| <code>Tokens</code> | <code></code> | One or more Actors or Tokens to remove Conditions from |
-| options.warn | <code>Boolean</code> |  | output notifications |
-
-**Example**  
-```js
-// Remove all Conditions on an Actor named Bob
-game.succ.removeAllConditions(game.actors.getName("Bob"));
-```
-**Example**  
-```js
-// Remove all Conditions on the currently controlled Token
-game.succ.removeAllConditions();
-```
-<a name="PanSelect"></a>
-
-## PanSelect
-Pan/Select Gadget
-
-**Kind**: global class  
-
-* [PanSelect](#PanSelect)
-    * [._onPreUpdateCombat(combat, update, options, userId)](#PanSelect._onPreUpdateCombat)
-    * [._onUpdateCombat(combat, update, options, userId)](#PanSelect._onUpdateCombat)
-    * [._updateHandler(combatant)](#PanSelect._updateHandler)
-    * [._checkPlayerPan(token)](#PanSelect._checkPlayerPan)
-    * [._checkGMPan(token)](#PanSelect._checkGMPan)
-    * [._panToToken(token)](#PanSelect._panToToken)
-    * [._checkGMSelect(token)](#PanSelect._checkGMSelect)
-    * [._checkPlayerSelect(token)](#PanSelect._checkPlayerSelect)
-    * [._checkObserverDeselect(token)](#PanSelect._checkObserverDeselect)
-
-<a name="PanSelect._onPreUpdateCombat"></a>
-
-### PanSelect.\_onPreUpdateCombat(combat, update, options, userId)
-Pre-update Combat handler
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)  
-
-| Param | Type |
-| --- | --- |
-| combat | <code>\*</code> | 
-| update | <code>\*</code> | 
-| options | <code>\*</code> | 
-| userId | <code>\*</code> | 
-
-<a name="PanSelect._onUpdateCombat"></a>
-
-### PanSelect.\_onUpdateCombat(combat, update, options, userId)
-Update Combat handler
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)  
-
-| Param | Type |
-| --- | --- |
-| combat | <code>\*</code> | 
-| update | <code>\*</code> | 
-| options | <code>\*</code> | 
-| userId | <code>\*</code> | 
-
-<a name="PanSelect._updateHandler"></a>
-
-### PanSelect.\_updateHandler(combatant)
-Determines if a pan/select workflow should begin
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)  
-
-| Param | Type |
-| --- | --- |
-| combatant | <code>Combatant</code> | 
-
-<a name="PanSelect._checkPlayerPan"></a>
-
-### PanSelect.\_checkPlayerPan(token)
-Determine if the player should be panned
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)  
-
-| Param | Type |
-| --- | --- |
-| token | <code>\*</code> | 
-
-<a name="PanSelect._checkGMPan"></a>
-
-### PanSelect.\_checkGMPan(token)
-Determine if the GM should be panned
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)  
-
-| Param | Type |
-| --- | --- |
-| token | <code>\*</code> | 
-
-<a name="PanSelect._panToToken"></a>
-
-### PanSelect.\_panToToken(token)
-Pans user to the token
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)  
-
-| Param | Type |
-| --- | --- |
-| token | <code>\*</code> | 
-
-<a name="PanSelect._checkGMSelect"></a>
-
-### PanSelect.\_checkGMSelect(token)
-Determine if the current combatant token should be selected for the GM
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)  
-
-| Param | Type |
-| --- | --- |
-| token | <code>\*</code> | 
-
-<a name="PanSelect._checkPlayerSelect"></a>
-
-### PanSelect.\_checkPlayerSelect(token)
-Determines if Player can select the current combatant token
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)  
-
-| Param | Type |
-| --- | --- |
-| token | <code>\*</code> | 
-
-<a name="PanSelect._checkObserverDeselect"></a>
-
-### PanSelect.\_checkObserverDeselect(token)
-Determines if tokens should be deselected when a non-owned Combatant has a turn
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)  
-
-| Param | Type |
-| --- | --- |
-| token | <code>\*</code> | 
-
-<a name="RerollInitiative"></a>
-
-## RerollInitiative
-Rerolls initiative for all combatants
-
-**Kind**: global class  
-
-* [RerollInitiative](#RerollInitiative)
-    * [._onPreUpdateCombat(combat, update, options)](#RerollInitiative._onPreUpdateCombat)
-    * [._onUpdateCombat(combat, update, options, userId)](#RerollInitiative._onUpdateCombat)
-
-<a name="RerollInitiative._onPreUpdateCombat"></a>
-
-### RerollInitiative.\_onPreUpdateCombat(combat, update, options)
-**Kind**: static method of [<code>RerollInitiative</code>](#RerollInitiative)  
-
-| Param | Type |
-| --- | --- |
-| combat | <code>\*</code> | 
-| update | <code>\*</code> | 
-| options | <code>\*</code> | 
-
-<a name="RerollInitiative._onUpdateCombat"></a>
-
-### RerollInitiative.\_onUpdateCombat(combat, update, options, userId)
-Update Combat handler
-
-**Kind**: static method of [<code>RerollInitiative</code>](#RerollInitiative)  
-
-| Param | Type |
-| --- | --- |
-| combat | <code>\*</code> | 
-| update | <code>\*</code> | 
-| options | <code>\*</code> | 
-| userId | <code>\*</code> | 
-
 <a name="Sidekick"></a>
 
 ## Sidekick
@@ -1363,6 +803,11 @@ Provides helper methods for use elsewhere in the module (and has your back in a 
     * [.identifyArrayDuplicatesByProperty(arrayToCheck, filterProperty)](#Sidekick.identifyArrayDuplicatesByProperty) ⇒ <code>Boolean</code>
     * [.loadTemplates()](#Sidekick.loadTemplates)
     * [.getDocumentOwners(document)](#Sidekick.getDocumentOwners) ⇒ <code>Array</code>
+    * [.toCamelCase(string, delimiter)](#Sidekick.toCamelCase) ⇒
+    * [.shallowCompare()](#Sidekick.shallowCompare)
+    * [.getTraitOptions(actor)](#Sidekick.getTraitOptions)
+    * [.sortSkills(allSkills)](#Sidekick.sortSkills)
+    * [.getOptionBySpecialStatusEffect(option)](#Sidekick.getOptionBySpecialStatusEffect) ⇒ <code>String</code>
 
 <a name="Sidekick.createSUCCDiv"></a>
 
@@ -1442,12 +887,6 @@ Register all provided setting data
 | --- | --- |
 | settingsData | <code>\*</code> | 
 
-<a name="Sidekick.getSystemChoices"></a>
-
-### Sidekick.getSystemChoices()
-Gets the default game system names stored in the constants butler class
-
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
 <a name="Sidekick.fetchJsons"></a>
 
 ### Sidekick.fetchJsons(source, path)
@@ -1564,8 +1003,7 @@ Attempts to coerce a target value into the exemplar's type
 <a name="Sidekick.buildFormData"></a>
 
 ### Sidekick.buildFormData(FD)
-Builds a FD returned from FormDataExtended into a formData array
-Borrowed from foundry.js
+Builds a FD returned from FormDataExtended into a formData arrayBorrowed from foundry.js
 
 **Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
 
@@ -1707,150 +1145,181 @@ Retrieves all the owners of a given document
 | --- | --- |
 | document | <code>\*</code> | 
 
+<a name="Sidekick.toCamelCase"></a>
+
+### Sidekick.toCamelCase(string, delimiter) ⇒
+Converts the given string to camelCase using the provided delimiter to break up words
+
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Returns**: the converted string  
+
+| Param | Type |
+| --- | --- |
+| string | <code>String</code> | 
+| delimiter | <code>String</code> | 
+
+**Example**  
+```js
+Sidekick.toCamelCase("my-cool-string", "-") // returns "myCoolString"
+```
+<a name="Sidekick.shallowCompare"></a>
+
+### Sidekick.shallowCompare()
+Compares all the keys within two objectsReturns true if the objects matchThis function is not recursive so if either object contains objects, the check will return false even if the values match
+
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+<a name="Sidekick.getTraitOptions"></a>
+
+### Sidekick.getTraitOptions(actor)
+Creates an array with the full list of traits for a given actor
+
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+
+| Param | Type |
+| --- | --- |
+| actor | <code>Actor</code> | 
+
+<a name="Sidekick.sortSkills"></a>
+
+### Sidekick.sortSkills(allSkills)
+Sorts a list of skills
+
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| allSkills | <code>\*</code> | List of skills to be sorted |
+
+<a name="Sidekick.getOptionBySpecialStatusEffect"></a>
+
+### Sidekick.getOptionBySpecialStatusEffect(option) ⇒ <code>String</code>
+Get the enum for a special status effect in Foundry based on the option name
+
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Returns**: <code>String</code> - enum for the special status effect  
+
+| Param | Type |
+| --- | --- |
+| option | <code>\*</code> | 
+
 <a name="Signal"></a>
 
 ## Signal
 Initiates module classes (and shines a light on the dark night sky)
 
 **Kind**: global class  
-
-* [Signal](#Signal)
-    * [.lightUp()](#Signal.lightUp)
-    * [._onSocket(message)](#Signal._onSocket)
-
 <a name="Signal.lightUp"></a>
 
 ### Signal.lightUp()
 Registers hooks
 
 **Kind**: static method of [<code>Signal</code>](#Signal)  
-<a name="Signal._onSocket"></a>
+<a name="defaultOptions"></a>
 
-### Signal.\_onSocket(message)
-Socket dispatcher
+## defaultOptions
+defaultOptions
 
-**Kind**: static method of [<code>Signal</code>](#Signal)  
+**Kind**: global variable  
+<a name="defaultOptions"></a>
+
+## defaultOptions
+defaultOptions
+
+**Kind**: global variable  
+<a name="getData"></a>
+
+## getData() ⇒ <code>Object</code>
+Gets data for template rendering
+
+**Kind**: global function  
+**Returns**: <code>Object</code> - data  
+<a name="_updateObject"></a>
+
+## \_updateObject(event, formData)
+Update Object on Form Submission
+
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
-| message | <code>\*</code> | 
+| event | <code>\*</code> | 
+| formData | <code>\*</code> | 
 
-<a name="TemporaryCombatantForm"></a>
+<a name="getData"></a>
 
-## TemporaryCombatantForm
-**Kind**: global class  
-<a name="TemporaryCombatantForm+activateListeners"></a>
+## getData() ⇒ <code>Object</code>
+Gets data for template rendering
 
-### temporaryCombatantForm.activateListeners(html)
-Activate listeners for the form
+**Kind**: global function  
+**Returns**: <code>Object</code> - data  
+<a name="activateListeners"></a>
 
-**Kind**: instance method of [<code>TemporaryCombatantForm</code>](#TemporaryCombatantForm)  
+## activateListeners(html)
+Application listeners
+
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
-| html | <code>\*</code> | 
+| html | <code>jQuery</code> | 
 
-<a name="Triggler"></a>
+<a name="_onCheckboxChange"></a>
 
-## Triggler
-Handles triggers for other gadgets in the module... or does it?!
+## \_onCheckboxChange(event)
+Checkbox change event handler
 
-**Kind**: global class  
+**Kind**: global function  
 
-* [Triggler](#Triggler)
-    * [._createTrigglerButton(html)](#Triggler._createTrigglerButton)
-    * [._executeTrigger(trigger, target)](#Triggler._executeTrigger)
-    * [._processUpdate(entity, update, entryPoint1, entryPoint2)](#Triggler._processUpdate)
-    * [._onUpdateActor(actor, update, options, userId)](#Triggler._onUpdateActor)
-    * [._onUpdateToken(token, update, options, userId)](#Triggler._onUpdateToken)
-    * [._onRenderMacroConfig(app, html, data)](#Triggler._onRenderMacroConfig)
+| Param | Type |
+| --- | --- |
+| event | <code>\*</code> | 
 
-<a name="Triggler._createTrigglerButton"></a>
+<a name="_onSpecialStatusEffectToggle"></a>
 
-### Triggler.\_createTrigglerButton(html)
-Creates a button for the Condition Lab
+## \_onSpecialStatusEffectToggle(event)
+Special Status Effect toggle handler
 
-**Kind**: static method of [<code>Triggler</code>](#Triggler)  
+**Kind**: global function  
 
-| Param | Type | Description |
+| Param | Type |
+| --- | --- |
+| event | <code>\*</code> | 
+
+<a name="_updateObject"></a>
+
+## \_updateObject(event, formData)
+Update Object on Form Submission
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| event | <code>\*</code> | 
+| formData | <code>\*</code> | 
+
+<a name="getSpecialStatusEffectByField"></a>
+
+## getSpecialStatusEffectByField(field) ⇒ <code>String</code>
+Get the enum for a special status effect in Foundry based on the field name
+
+**Kind**: global function  
+**Returns**: <code>String</code> - enum for the special status effect  
+
+| Param | Type |
+| --- | --- |
+| field | <code>\*</code> | 
+
+<a name="setSpecialStatusEffectMapping"></a>
+
+## setSpecialStatusEffectMapping(effect, conditionId)
+Sets the special status effect to the provided condition Id
+
+**Kind**: global function  
+
+| Param | Type | Default |
 | --- | --- | --- |
-| html | <code>Object</code> | the html element where the button will be created |
-
-<a name="Triggler._executeTrigger"></a>
-
-### Triggler.\_executeTrigger(trigger, target)
-Executes a trigger calling predefined actions
-
-**Kind**: static method of [<code>Triggler</code>](#Triggler)  
-
-| Param | Type |
-| --- | --- |
-| trigger | <code>\*</code> | 
-| target | <code>\*</code> | 
-
-<a name="Triggler._processUpdate"></a>
-
-### Triggler.\_processUpdate(entity, update, entryPoint1, entryPoint2)
-Processes an entity update and evaluates triggers
-
-**Kind**: static method of [<code>Triggler</code>](#Triggler)  
-
-| Param | Type |
-| --- | --- |
-| entity | <code>\*</code> | 
-| update | <code>\*</code> | 
-| entryPoint1 | <code>\*</code> | 
-| entryPoint2 | <code>\*</code> | 
-
-<a name="Triggler._onUpdateActor"></a>
-
-### Triggler.\_onUpdateActor(actor, update, options, userId)
-Update Actor handler
-
-**Kind**: static method of [<code>Triggler</code>](#Triggler)  
-
-| Param | Type |
-| --- | --- |
-| actor | <code>\*</code> | 
-| update | <code>\*</code> | 
-| options | <code>\*</code> | 
-| userId | <code>\*</code> | 
-
-<a name="Triggler._onUpdateToken"></a>
-
-### Triggler.\_onUpdateToken(token, update, options, userId)
-Update token handler
-
-**Kind**: static method of [<code>Triggler</code>](#Triggler)  
-
-| Param | Type |
-| --- | --- |
-| token | <code>Token</code> | 
-| update | <code>\*</code> | 
-| options | <code>\*</code> | 
-| userId | <code>\*</code> | 
-
-<a name="Triggler._onRenderMacroConfig"></a>
-
-### Triggler.\_onRenderMacroConfig(app, html, data)
-**Kind**: static method of [<code>Triggler</code>](#Triggler)  
-
-| Param | Type |
-| --- | --- |
-| app | <code>\*</code> | 
-| html | <code>\*</code> | 
-| data | <code>\*</code> | 
-
-<a name="KNOWN_GAME_SYSTEMS"></a>
-
-## KNOWN\_GAME\_SYSTEMS
-Stores information about well known game systems. All other systems will resolve to "other"
-
-**Kind**: global constant
-
-| Param | Type |
-| --- | --- |
-| html | <code>\*</code> | 
+| effect | <code>\*</code> |  | 
+| conditionId | <code>\*</code> | <code></code> | 
 
 <a name="getData"></a>
 

@@ -63,6 +63,7 @@ export class EnhancedConditionsPowers {
     static async boostLowerBuilder(effect, actor, trait, type, degree) {
         let keyPath;
         let valueMod;
+        let traitName;
 
         if (trait === "agility" ||
             trait === "smarts" ||
@@ -73,6 +74,7 @@ export class EnhancedConditionsPowers {
             keyPath = `system.attributes.${trait}.die.sides`;
             if (type === "lower") { valueMod = degree === "raise" ? -4 : -2 }
             else { valueMod = degree === "raise" ? 4 : 2 } //System now handles going over d12 or under d4.
+            traitName = Sidekick.getLocalizedAttributeName(trait);
         } else {
             //Getting the skill:
             let skill = actor.items.find(s => s.id === trait);
@@ -83,6 +85,7 @@ export class EnhancedConditionsPowers {
             keyPath = `@Skill{${skill.name}}[system.die.sides]`
             if (type === "lower") { valueMod = degree === "raise" ? -4 : -2 }
             else { valueMod = degree === "raise" ? 4 : 2 } //System now handles going over d12 or under d4.
+            traitName = skill.name;
         }    
         
         let change = [];
@@ -92,6 +95,7 @@ export class EnhancedConditionsPowers {
         //It loses .data in the middle because toObject() is just the cleaned up datalet updates = effect.toObject();
         let updates = effect.toObject();
         updates.changes = change;
+        updates.name += " (" + traitName + ")";
         await effect.update(updates);
     }
 
@@ -157,6 +161,7 @@ export class EnhancedConditionsPowers {
         //It loses .data in the middle because toObject() is just the cleaned up datalet updates = effect.toObject();
         let updates = effect.toObject();
         updates.changes = [change];
+        updates.name += " (" + weaponName + ")";
         await effect.update(updates);
     }
 
