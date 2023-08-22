@@ -15,9 +15,10 @@ export class EnhancedConditionsAPI {
      * Applies the named condition to the provided entities (Actors or Tokens)
      * @param {String[] | String} conditionId  the id of the condition to add
      * @param {(Actor[] | Token[] | Actor | Token)} [entities=null] one or more Actors or Tokens to apply the Condition to
-     * @param {Boolean} [options.warn=true]  raise warnings on errors
      * @param {Boolean} [options.allowDuplicates=false]  if one or more of the Conditions specified is already active on the Entity, this will still add the Condition. Use in conjunction with `replaceExisting` to determine how duplicates are handled
-     * @param {Boolean} [options.replaceExisting=false]  whether or not to replace existing Conditions with any duplicates in the `conditionName` parameter. If `allowDuplicates` is true and `replaceExisting` is false then a duplicate condition is created. Has no effect is `keepDuplicates` is `false`
+     * @param {Boolean} [options.replaceExisting=false]  whether or not to replace existing Conditions with any duplicates in the `conditionName` parameter. If `allowDuplicates` is true and `replaceExisting` is false then a duplicate condition is created. Has no effect if `allowDuplicates` is `false`
+     * @param {Boolean} [options.forceOverlay=false]  if true, this condition will appear as an overlay regardless of its normal behaviour
+     * @param {Boolean} [options.effectOptions]  additional options that are added to a property to be used by elsewhere in the code
      * @example
      * // Add the Condition "Blinded" to an Actor named "Bob". Duplicates will not be created.
      * game.succ.addCondition("Blinded", game.actors.getName("Bob"));
@@ -151,9 +152,8 @@ export class EnhancedConditionsAPI {
 
     /**
      * Removes one or more named conditions from an Entity (Actor/Token)
-     * @param {Actor | Token} entities  One or more Actors or Tokens
      * @param {String} conditionId  the id of the Condition to remove
-     * @param {Object} options  options for removal
+     * @param {Actor | Token} entities  One or more Actors or Tokens
      * @param {Boolean} options.warn  whether or not to raise warnings on errors
      * @example 
      * // Remove Condition named "Blinded" from an Actor named Bob
@@ -257,9 +257,9 @@ export class EnhancedConditionsAPI {
 
     /**
      * Gets a condition by id from the Condition Map
-     * @param {*} conditionId 
-     * @param {*} map 
-     * @param {*} options.warn 
+     * @param {*} conditionId the id of the Condition to find
+     * @param {*} map the map to search through. If null, we'll use the current map
+     * @param {*} options.warn whether or not to raise warnings on errors
      */
     static getCondition(conditionId, map=null, {warn=false}={}) {
         if (!conditionId) {
@@ -273,9 +273,9 @@ export class EnhancedConditionsAPI {
 
     /**
      * Gets a condition by id from given Actor or String
-     * @param {*} conditionId 
-     * @param {Actor | String | Object} entity 
-     * @param {*} options.warn 
+     * @param {*} conditionId the id of the Condition to find
+     * @param {Actor | String | Object} entity the Actor or Token to get the condition from
+     * @param {*} options.warn whether or not to raise warnings on errors
      */
     static async getConditionFrom(conditionId, entity, {warn=false}={}) {
         if (!conditionId) {
@@ -314,7 +314,7 @@ export class EnhancedConditionsAPI {
     /**
      * Retrieves all active conditions for one or more given entities (Actors or Tokens)
      * @param {Actor | Token} entities  one or more Actors or Tokens to get Conditions from
-     * @param {Boolean} options.warn  output notifications
+     * @param {Boolean} options.warn  whether or not to raise warnings on errors
      * @returns {Array} entityConditionMap  a mapping of conditions for each provided entity
      * @example
      * // Get conditions for an Actor named "Bob"
@@ -383,7 +383,7 @@ export class EnhancedConditionsAPI {
 
     /**
      * Gets the Active Effect data (if any) for the given condition
-     * @param {*} condition 
+     * @param {*} condition the id of the Condition to get
      */
     static getActiveEffect(condition) {
         return EnhancedConditions._prepareStatusEffects(condition);
@@ -393,7 +393,7 @@ export class EnhancedConditionsAPI {
      * Gets any Active Effect instances present on the entities (Actor/s or Token/s) that are mapped Conditions
      * @param {String} entities  the entities to check
      * @param {Array} map  the Condition map to check (optional)
-     * @param {Boolean} warn  output notifications
+     * @param {Boolean} warn  whether or not to raise warnings on errors
      * @returns {Map | Object} A Map containing the Actor Id and the Condition Active Effect instances if any
      */
     static async getConditionEffects(entities, map=null, {warn=true}={}) {

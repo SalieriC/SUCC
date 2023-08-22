@@ -160,6 +160,9 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
             case 'mark-invisible':
                 return "INVISIBLE";
+
+            case 'cold-bodied':
+                return "COLDBODIED";
         
             default:
                 break;
