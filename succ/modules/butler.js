@@ -32,7 +32,6 @@ export const DEFAULT_CONFIG = {
             other: "Other/Imported"
         },
         templates: {
-            systemUpdateDialog: `${PATH}/templates/system-update-dialog.hbs`,
             conditionLab: `${PATH}/templates/condition-lab.hbs`,
             conditionLabRestoreDefaultsDialog: `${PATH}/templates/condition-lab-restore-defaults-dialog.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
@@ -110,7 +109,6 @@ export const FLAGS = {
 export const SETTING_KEYS = {
     enhancedConditions: {
         coreEffects: "coreStatusEffects",
-        systemVersionIgnore: "systemVersionIgnore",
         map: "activeConditionMap",
         defaultMap: "defaultConditionMap",
         mapType: "conditionMapType",

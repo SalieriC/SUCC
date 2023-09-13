@@ -410,9 +410,7 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [.mapFromJson(json)](#EnhancedConditions.mapFromJson)
     * [.getDefaultMap()](#EnhancedConditions.getDefaultMap)
     * [.buildDefaultMap()](#EnhancedConditions.buildDefaultMap)
-    * [.checkForSystemUpdates()](#EnhancedConditions.checkForSystemUpdates)
-    * [.getSystemUpdateMapJson()](#EnhancedConditions.getSystemUpdateMapJson)
-    * [.applySystemUpdate()](#EnhancedConditions.applySystemUpdate)
+    * [.updateConditionMapFromDefaults()](#EnhancedConditions.updateConditionMapFromDefaults)
 
 <a name="EnhancedConditions._onReady"></a>
 
@@ -745,22 +743,10 @@ Builds a default map for a given system
 
 - [ ] #281 update for active effects
 
-<a name="EnhancedConditions.checkForSystemUpdates"></a>
+<a name="EnhancedConditions.updateConditionMapFromDefaults"></a>
 
-### EnhancedConditions.checkForSystemUpdates()
-Checks the status effects from the system and compares it to our condition map to determine if there are any updates
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-<a name="EnhancedConditions.getSystemUpdateMapJson"></a>
-
-### EnhancedConditions.getSystemUpdateMapJson()
-Takes the current json map and updates it for the new version of SWADEThis does not make any modifications to the succ settings
-
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-<a name="EnhancedConditions.applySystemUpdate"></a>
-
-### EnhancedConditions.applySystemUpdate()
-Backs up and updates the condition map json file
+### EnhancedConditions.updateConditionMapFromDefaults()
+Updates the condition map to include any changes from the default map and system settingsIf the user has made their own changes to a condition, the condition in the default map will be ignored
 
 **Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
 <a name="Sidekick"></a>
@@ -806,6 +792,7 @@ Provides helper methods for use elsewhere in the module (and has your back in a 
     * [.toCamelCase(string, delimiter)](#Sidekick.toCamelCase) ⇒
     * [.shallowCompare()](#Sidekick.shallowCompare)
     * [.getTraitOptions(actor)](#Sidekick.getTraitOptions)
+    * [.getLocalizedAttributeName(actor)](#Sidekick.getLocalizedAttributeName)
     * [.sortSkills(allSkills)](#Sidekick.sortSkills)
     * [.getOptionBySpecialStatusEffect(option)](#Sidekick.getOptionBySpecialStatusEffect) ⇒ <code>String</code>
 
@@ -1172,6 +1159,17 @@ Compares all the keys within two objectsReturns true if the objects matchThis 
 
 ### Sidekick.getTraitOptions(actor)
 Creates an array with the full list of traits for a given actor
+
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+
+| Param | Type |
+| --- | --- |
+| actor | <code>Actor</code> | 
+
+<a name="Sidekick.getLocalizedAttributeName"></a>
+
+### Sidekick.getLocalizedAttributeName(actor)
+Returns the localized string for a given attribute
 
 **Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
 

@@ -24,7 +24,7 @@ export class EnhancedConditions {
      */
     static async _onReady() {
         if (game.user.isGM) {
-            await EnhancedConditions.checkForSystemUpdates();
+            await EnhancedConditions.updateConditionMapFromDefaults();
         }
 
         let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
@@ -42,7 +42,7 @@ export class EnhancedConditions {
         }
 
         // If map type is not set, set maptype to default
-        if (!mapType) {            
+        if (!mapType) {
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, defaultMapType);
         }
 
@@ -228,8 +228,9 @@ export class EnhancedConditions {
             if (conditions?.length) {
                 element.title = conditions[0];
             } else if (statusEffect?.label) {
-                element.title = game.i18n.localize(statusEffect.label);
+                element.title = statusEffect.label;
             }
+            element.title = game.i18n.localize(element.title);
         });
     }
 
@@ -676,15 +677,48 @@ export class EnhancedConditions {
         // If the default config contains changes and we have not overridden them in the system definition, copy those over
         const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
         for (let statusEffect of statusEffects) {
-            let condition = defaultMap.find(c => c.name === statusEffect.label);
-            if (!condition) {
+            if (!statusEffect.changes && !statusEffect.duration && !statusEffect.flags) {
                 continue;
-            }                
-            
-            if (!condition.activeEffect) {
-                condition.activeEffect = {...statusEffect};
+            }
+
+            let defaultCondition = defaultMap.find(c => c.name === statusEffect.label);
+            if (defaultCondition) {
+                if (defaultCondition.ignoreSystemSettings) {
+                    // We've decided that we want to prioritize what we have in our condition-map.json file
+                    continue;
+                }
+
+                defaultCondition.activeEffect = defaultCondition.activeEffect ? defaultCondition.activeEffect : {};
+
+                // Delete any existing data before using what's in the system
+                // This is to avoid cases where, for example, our config had a duration but the system's does not
+                // We want to ensure that, if the system has changes, we are matching it exactly 
+                delete defaultCondition.activeEffect.changes;
+                delete defaultCondition.activeEffect.duration;
+                delete defaultCondition.activeEffect.flags;
+
+                defaultCondition.activeEffect = {
+                    ...defaultCondition.activeEffect,
+                    ...statusEffect.changes != undefined ? {changes: statusEffect.changes} : null,
+                    ...statusEffect.duration != undefined ? {duration: statusEffect.duration} : null,
+                    ...statusEffect.flags != undefined ? {flags: statusEffect.flags} : null
+                }
             } else {
-                foundry.utils.mergeObject(condition.activeEffect, statusEffect, {overwrite: false});
+                let newCondition = {
+                    id: statusEffect.id,
+                    name: statusEffect.label,
+                    icon: statusEffect.icon
+                };
+
+                if (statusEffect.changes) {
+                    newCondition.activeEffect = {
+                        changes: statusEffect.changes,
+                        duration: statusEffect.duration,
+                        flags: statusEffect.flags
+                    };
+                }
+
+                defaultMap.push(newCondition);
             }
         }
 
@@ -703,7 +737,6 @@ export class EnhancedConditions {
             
             if (condition.activeEffect) {
                 condition.activeEffect.label = game.i18n.localize(condition.name);
-                condition.activeEffect.icon = condition.icon;
             }
         }
 
@@ -1036,108 +1069,66 @@ export class EnhancedConditions {
     }
     
     /**
-     * Checks the status effects from the system and compares it to our condition map to determine if there are any updates
+     * Updates the condition map to include any changes from the default map and system settings
+     * If the user has made their own changes to a condition, the condition in the default map will be ignored
      */
-    static async checkForSystemUpdates() {
-        const conditionMapFilePath = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFilePath;
-        const conditionMapJson = await Sidekick.fetchJson(conditionMapFilePath);
-        
-        if (!isNewerVersion(game.system.version,  conditionMapJson.swadeVersion)) {
-            //Our condition map is up to date with the latest version of SWADE. Nothing to do
+    static async updateConditionMapFromDefaults() {
+        let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+        let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
+        if (!conditionMap.length || !defaultMap) {
             return;
         }
         
-        const ignoredVersion = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore);
-        if (!isNewerVersion(game.system.version,  ignoredVersion)) {
-            //The user has already ignored updates for this version, so no need to ask again
-            return;
-        }
-
-        const oldMapJson = duplicate(conditionMapJson);
-        const newMapJson = EnhancedConditions.getSystemUpdateMapJson(conditionMapJson);
-        if (JSON.stringify(oldMapJson) == JSON.stringify(newMapJson)) {
-            //There were no changes between versions so there's no need to build a new config file
-            //Mark this version as ignored so we won't process this again
-            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore, game.system.version);
-            return;
-        }
-
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.systemUpdateDialog);
-
-        await Dialog.wait({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.ApplySystemUpdate.Title"),
-            content,
-            buttons: {
-                yes: {
-                    icon: `<i class="fas fa-check"></i>`,
-                    label: game.i18n.localize("WORDS.Yes"),
-                    callback: ($html) => {
-                        EnhancedConditions.applySystemUpdate(oldMapJson, newMapJson);
-                    }
-                },
-                no: {
-                    icon: `<i class="fas fa-times"></i>`,
-                    label: game.i18n.localize("WORDS.No"),
-                    callback: ($html) => {
-                        const checkbox = $html[0].querySelector("input[id='dont-ask']");
-                        const dontAskAgain = checkbox?.checked;
-                        if (dontAskAgain) {
-                            //If the user doesn't want us to ask again, update the ignored system version
-                            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore, game.system.version);
-                            return;
-                        }
-                    }
+        let currentDiffs = [];
+        for (let defaultCondition of defaultMap) {
+            const condition = conditionMap.find(c => c.name === defaultCondition.name);
+            if (condition) {
+                if (!!condition.activeEffect != !!defaultCondition.activeEffect) {
+                    //One has an active effect and the other doesn't which means they must be different
+                    currentDiffs.push(defaultCondition);
+                    continue;
                 }
-            },
-            default: "no",
-            close: () => {}
-        });
-    }
 
-    /**
-     * Takes the current json map and updates it for the new version of SWADE
-     * This does not make any modifications to the succ settings
-     */
-    static getSystemUpdateMapJson(conditionMapJson) {      
-        //Loop over our map and apply any changes from the SWADE system
-        const newMapJson = duplicate(conditionMapJson);
-        for (let condition of newMapJson.map) {
-            if (condition.activeEffect) {
-                Object.keys(condition.activeEffect).forEach(key => {
-                    if (key == "flags") {
-                        //If the SWADE effect has flags, use them otherwise do nothing
-                        //The end result of this is that if the official system adds flags, we take them but we won't end up clearing our own
-                        //It's unlikely the official system will ever remove flags from an effect, so this will give us the desired result most of the time
-                        let statusEffect = CONFIG.statusEffects.find(e => e.id === condition.id);
-                        if (statusEffect?.flags?.swade) {
-                            condition.activeEffect.flags.swade = statusEffect.flags.swade;
-                        }
-                    } else if (key != "icon" && key != "name") {
-                        let statusEffect = CONFIG.statusEffects.find(e => e.id === condition.id);
-                        if (statusEffect && statusEffect[key]) {
-                            condition.activeEffect[key] = statusEffect[key];
-                        }
-                    }
-                });
+                if (!defaultCondition.activeEffect) {
+                    //Both must be null so that means they are the same
+                    continue;
+                }
+
+                if (JSON.stringify(condition.activeEffect.changes) !== JSON.stringify(defaultCondition.activeEffect.changes) ||
+                    JSON.stringify(condition.activeEffect.flags) !== JSON.stringify(defaultCondition.activeEffect.flags) ||
+                    JSON.stringify(condition.activeEffect.duration) !== JSON.stringify(defaultCondition.activeEffect.duration)) {
+                    currentDiffs.push(defaultCondition);
+                }
             }
         }
-        return newMapJson;
-    }
 
-    /**
-     * Backs up and updates the condition map json file
-     */
-    static async applySystemUpdate(oldMapJson, newMapJson) {
-        //Start by backing up the old condition map, just in case
-        const conditionMapFilePath = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFilePath;
-        const conditionMapFileName = conditionMapFilePath.split('/').pop();
-        const backupFilename = oldMapJson.swadeVersion + "-backup-" + conditionMapFileName;
-        Sidekick.uploadConditionMapJson(backupFilename, JSON.stringify(oldMapJson));
-        
-        //Update the version in the JSON so that we know it's up to date
-        newMapJson.swadeVersion = game.system.version;
-        
-        //Finally, overwrite our existing condition map with the updated values
-        Sidekick.uploadConditionMapJson(conditionMapFileName, JSON.stringify(newMapJson));
+        defaultMap = await EnhancedConditions._loadDefaultMap();
+
+        for (let defaultCondition of defaultMap) {
+            const condition = conditionMap.find(c => c.name === defaultCondition.name);
+            if (!condition) {
+                conditionMap.push(duplicate(defaultCondition));
+            } else {
+                if (!defaultCondition.activeEffect) {
+                    //The default condition doesn't have an active effect, so we'll just leave whatever is in the condition alone
+                    //We're making the assumption here that none of the core system effects will ever have an active effect in one version and then remove it later
+                    //It's very unlikely to ever happen and in the rare case it does, the user can manually reset their map to fix it
+                    continue;
+                }
+
+                let existingDiff = currentDiffs.find(d => d.name === defaultCondition.name);
+                if (existingDiff) {
+                    //If we had an existing diff for this condition, we'll assume the user wants it that way and leave it as is 
+                    continue;
+                }
+
+                //If we didn't have an existing diff, we'll assume the user wants the most up to date functionality
+                //For simplicity, we set the value here regardless of if it's changed or not
+                condition.activeEffect = {...defaultCondition.activeEffect};
+            }
+        }
+
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap, true);
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, conditionMap, true);
     }
 }

@@ -79,16 +79,7 @@
             "id": "frightened",
             "name": "SWADE.Frightened",
             "icon": "modules/succ/assets/icons/2c-frightened.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.J1sBXophcEfZYrR7]",
-            "activeEffect": {
-                "changes": [
-                    {
-                        "key": "system.initiative.hasHesitant",
-                        "value": "true",
-                        "mode": 5
-                    }
-                ]
-            }
+            "referenceId": "@UUID[Compendium.swade.powers.J1sBXophcEfZYrR7]"
         },
         {
             "id": "distracted",
