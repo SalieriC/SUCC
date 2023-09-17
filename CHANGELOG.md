@@ -10,8 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added trait / weapon name to Boost/Lower and Smite functions to make it clear what they are affecting. This does not allow for multiple instances of said conditions on the same actor.
 - Started Documentation.
 - Added support for "cold bodied" status to the condition lab and specifically the cold bodied condition. If that still doesn't work for you please check that it is enabled in the condition lab by opening the settings for the condition. Default mappings should be updated automatically.
+- Automatic update functionality that automatically gets newly added or changed conditions from the SWADE system unless overwritten by the user. In case of new conditions you'll see the system icons until SUCC is updated.
 ### Changed
 - Cleaned up the localisation files.
+### Removed
+- System update flow as it is automatic now.
 
 ## [2.1.0] - 2023-07-02 aka "A condition no one ever wanted"
 ### Added
