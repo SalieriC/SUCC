@@ -20,17 +20,6 @@ export function registerSettings() {
         onChange: s => {}
     });
 
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.systemVersionIgnore, {
-        name: "Condition map version ignore",
-        hint: "This is the last version the user ignore when checking for system updates",
-        scope: "world",
-        type: String,
-        default: "",
-        config: false,
-        apiOnly: true,
-        onChange: s => {}
-    });
-
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, {
         name: "SETTINGS.EnhancedConditions.MapTypeN",
         hint: "SETTINGS.EnhancedConditions.MapTypeH",
@@ -48,8 +37,7 @@ export function registerSettings() {
         hint: "SETTINGS.EnhancedConditions.DefaultMapH",
         scope: "world",
         type: Object,
-        default: {},
-        onChange: s => {}
+        default: {}
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, {

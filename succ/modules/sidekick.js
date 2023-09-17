@@ -551,12 +551,6 @@ export class Sidekick {
         return allSkills
     }
 
-    static async uploadConditionMapJson(jsonFilename, conditionMapJson) {
-        let dest = typeof ForgeVTT === 'undefined' ? 'data' : 'forgevtt';
-        let jsonFile = new File([conditionMapJson], jsonFilename, { type: "text/json", lastModified: new Date() });
-        await FilePicker.upload(dest, BUTLER.CONFIG_PATH, jsonFile, {}, {notify:false});
-    }
-
     /**
      * Get the enum for a special status effect in Foundry based on the option name
      * @param {*} option 
