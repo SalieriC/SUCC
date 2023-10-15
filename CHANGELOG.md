@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.2.0] - 2023-10-15 aka "Long time no see"
 ☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
 - Added trait / weapon name to Boost/Lower and Smite functions to make it clear what they are affecting. This does not allow for multiple instances of said conditions on the same actor.
