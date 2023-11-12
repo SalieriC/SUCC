@@ -18,6 +18,7 @@ export class EnhancedConditionsAPI {
      * @param {Boolean} [options.allowDuplicates=false]  if one or more of the Conditions specified is already active on the Entity, this will still add the Condition. Use in conjunction with `replaceExisting` to determine how duplicates are handled
      * @param {Boolean} [options.replaceExisting=false]  whether or not to replace existing Conditions with any duplicates in the `conditionName` parameter. If `allowDuplicates` is true and `replaceExisting` is false then a duplicate condition is created. Has no effect if `allowDuplicates` is `false`
      * @param {Boolean} [options.forceOverlay=false]  if true, this condition will appear as an overlay regardless of its normal behaviour
+     * @param {Boolean} [options.duration=undefined]  if set, this will override the duration on the effect
      * @param {Boolean} [options.effectOptions]  additional options that are added to a property to be used by elsewhere in the code
      * @example
      * // Add the Condition "Blinded" to an Actor named "Bob". Duplicates will not be created.
@@ -29,7 +30,7 @@ export class EnhancedConditionsAPI {
      * // Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
      * game.succ.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
      */
-    static async addCondition(conditionId, entities=null, {allowDuplicates=false, replaceExisting=false, forceOverlay=false, effectOptions={}}={}) {
+    static async addCondition(conditionId, entities=null, {allowDuplicates=false, replaceExisting=false, forceOverlay=false, duration=undefined, effectOptions={}}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -77,6 +78,10 @@ export class EnhancedConditionsAPI {
             for (const effect of effects) {
                 if (forceOverlay) {
                     effect.flags.core.overlay = true;
+                }
+
+                if (duration != undefined) {
+                    effect.duration.rounds = duration;
                 }
                 
                 if (effectOptions) {
