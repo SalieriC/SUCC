@@ -61,6 +61,13 @@
             "id": "conviction",
             "name": "SWADE.Conv",
             "icon": "modules/succ/assets/icons/1-conviction.svg",
+            "activeEffect": {
+                "flags": {
+                    "swade": {
+                        "expiration": 1
+                    }
+                }
+            },
             "options": {
                 "conviction": true
             }
