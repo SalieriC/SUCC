@@ -14,9 +14,37 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#aim]"
         },
         {
-            "id": "berserking",
+            "id": "berserk",
             "name":"ENHANCED_CONDITIONS.Condition.Rage",
-            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore01charac.JournalEntryPage.01edges000000000#barbarian]"
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore01charac.JournalEntryPage.01edges000000000#barbarian]",
+            "ignoreSystemSettings": true,
+            "activeEffect": {
+                "flags": {
+                    "swade": {
+                        "expiration": 3
+                    }
+                },
+                "duration": {
+                    "rounds": 5
+                },
+                "changes": [
+                    {
+                        "key": "system.attributes.strength.die.sides",
+                        "value": "2",
+                        "mode": 2
+                    },
+                    {
+                        "key": "system.wounds.ignored",
+                        "value": "2",
+                        "mode": 2
+                    },
+                    {
+                        "key": "system.fatigue.ignored",
+                        "value": "3",
+                        "mode": 2
+                    }
+]
+            }
         },
         {
             "id": "wild-attack",

@@ -681,7 +681,7 @@ export class EnhancedConditions {
                 continue;
             }
 
-            let defaultCondition = defaultMap.find(c => c.name === statusEffect.label);
+            let defaultCondition = defaultMap.find(c => c.id === statusEffect.id);
             if (defaultCondition) {
                 if (defaultCondition.ignoreSystemSettings) {
                     // We've decided that we want to prioritize what we have in our condition-map.json file
