@@ -111,6 +111,7 @@ export const SETTING_KEYS = {
         coreEffects: "coreStatusEffects",
         map: "activeConditionMap",
         defaultMap: "defaultConditionMap",
+        deletedConditionsMap: "deletedConditionsMap",
         mapType: "conditionMapType",
         removeDefaultEffects: "removeDefaultEffects",
         outputChat: "conditionsOutputToChat",

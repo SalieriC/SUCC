@@ -18,6 +18,7 @@ export class ConditionLab extends FormApplication {
         this.mapType = null;
         this.initialMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
         this.map = null;
+        this.deletedConditionsMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap);
         this.displayedMap = null;
         this.filterValue = "";
         this.sortDirection = "";
@@ -232,6 +233,8 @@ export class ConditionLab extends FormApplication {
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.defaultSpecialStatusEffects);
         }
+        
+        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, []);
 
         // If the mapType is other then the map should be empty, otherwise it's the default map for the system
         const tempMap = (this.mapType != otherMapType && defaultMap) ? defaultMap : [];
@@ -306,6 +309,7 @@ export class ConditionLab extends FormApplication {
 
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, mapType, true);
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, preparedMap, true);
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, this.deletedConditionsMap, true);
 
         return this._finaliseSave(preparedMap);
     }
@@ -702,6 +706,7 @@ export class ConditionLab extends FormApplication {
                     label: game.i18n.localize("WORDS._Yes"),
                     callback: async event => {
                         const newMap = duplicate(this.map);
+                        this.deletedConditionsMap.push(newMap[row]);
                         newMap.splice(row, 1);
                         this.map = newMap;
                         this.render();

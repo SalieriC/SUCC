@@ -1075,6 +1075,7 @@ export class EnhancedConditions {
     static async updateConditionMapFromDefaults() {
         let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
         let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
+        let deletedConditionsMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap);
         if (!conditionMap.length || !defaultMap) {
             return;
         }
@@ -1107,7 +1108,10 @@ export class EnhancedConditions {
         for (let defaultCondition of defaultMap) {
             const condition = conditionMap.find(c => c.name === defaultCondition.name);
             if (!condition) {
-                conditionMap.push(duplicate(defaultCondition));
+                const deletedCondition = deletedConditionsMap.find(c => c.name === defaultCondition.name);
+                if (!deletedCondition) {
+                    conditionMap.push(duplicate(defaultCondition));
+                }
             } else {
                 if (!defaultCondition.activeEffect) {
                     //The default condition doesn't have an active effect, so we'll just leave whatever is in the condition alone

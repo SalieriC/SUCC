@@ -40,6 +40,12 @@ export function registerSettings() {
         default: {}
     });
 
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, {
+        scope: "world",
+        type: Object,
+        default: []
+    });
+
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, {
         name: "SETTINGS.EnhancedConditions.ActiveConditionMapN",
         hint: "SETTINGS.EnhancedConditions.ActiveConditionMapH",
