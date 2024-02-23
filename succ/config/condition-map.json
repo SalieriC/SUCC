@@ -32,7 +32,7 @@
             }
         },
         {
-            "id": "berserking",
+            "id": "berserk",
             "name": "SWADE.Berserk",
             "icon": "modules/succ/assets/icons/1-berserking.svg"
         },
