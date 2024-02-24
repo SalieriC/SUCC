@@ -155,6 +155,10 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.4yGOUiND8lW5cKly]"
         },
         {
+            "id": "deflection",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.p0sK0KYfyvGFNLNt]"
+        },
+        {
             "id": "boost",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.hBfpNdcd1WBsszu3]"
         },
