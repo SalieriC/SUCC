@@ -10,6 +10,10 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03damageeffect00#incapacitation]"
         },
         {
+            "id": "defeated",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03damageeffect00#incapacitation]"
+        },
+        {
             "id": "aiming",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03aim00000000000#aim]"
         },
