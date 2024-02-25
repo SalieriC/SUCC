@@ -6,7 +6,7 @@
     "minimum": "11",
     "verified": "11.315"
   },
-  "version": "2.3.0",
+  "version": "2.4.0",
   "relationships": {
     "systems": [
       {
@@ -14,8 +14,8 @@
         "type": "system",
         "manifest": "https://gitlab.com/api/v4/projects/16269883/packages/generic/swade/latest/system.json",
         "compatibility": {
-          "minimum": "3.0.0",
-          "verified": "3.2.5"
+          "minimum": "3.3.0",
+          "verified": "3.3.3"
         }
       }
     ]

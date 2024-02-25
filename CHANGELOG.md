@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2024-02-25 aka "Enduring Effects"
+### Added
+- Added support for the new defeated condition.
+### Fixed
+- Fixed a bug that prevented deletion of default conditions.
+
 ## [2.3.0] - 2024-01-20 aka "Enduring Effects"
 ☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
