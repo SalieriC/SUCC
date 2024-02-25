@@ -10,6 +10,10 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03combat00000000#incapacitation]"
         },
         {
+            "id": "defeated",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03combat00000000#incapacitation]"
+        },
+        {
             "id": "aiming",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03situationalr00#aim]"
         },
