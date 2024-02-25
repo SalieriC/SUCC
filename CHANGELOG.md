@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.4.0] - 2024-02-25 aka "Enduring Effects"
+## [2.4.0] - 2024-02-25 aka "A condition not based on the rules"
 ### Added
 - Added support for the new defeated condition.
 ### Fixed
