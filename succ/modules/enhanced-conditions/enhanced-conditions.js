@@ -106,6 +106,26 @@ export class EnhancedConditions {
         }
     }
 
+    static async _onRefreshToken(token) {
+        const actor = token.actor
+        
+        //Add/Remove Encumbrance if game setting for that is true
+        if (game.settings.get('swade', 'applyEncumbrance')) {
+            //Check if overencumbered and if the condition is already applied:
+            const hasEncumberedCondition = await EnhancedConditionsAPI.hasCondition('encumbered', actor)
+            let isEncumbered = actor.system.details.encumbrance.value > actor.system.details.encumbrance.max ? true : false
+            //If BRSW is enabled also check if NPCs should get encumbrance:
+            if (game.modules.get('betterrolls-swade2')?.active) {
+                const npcAvoidEncumbrance = game.settings
+                    .get('betterrolls-swade2', 'optional_rules_enabled')
+                    .indexOf('NPCDontUseEncumbrance') > -1;
+                if (npcAvoidEncumbrance && actor.type === 'npc') { isEncumbered = false }
+            }
+            if (isEncumbered && !hasEncumberedCondition) { EnhancedConditionsAPI.addCondition('encumbered', actor) }
+            else if (!isEncumbered && hasEncumberedCondition) { EnhancedConditionsAPI.removeCondition('encumbered', actor) }
+        }
+    }
+
     /**
      * Create Active Effect handler
      * @param {*} actor 

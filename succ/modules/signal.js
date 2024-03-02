@@ -103,6 +103,10 @@ export class Signal {
             EnhancedConditions._onUpdateActor(tokenDocument, updateData, options, userId);
         });
 
+        Hooks.on("refreshToken", (token, _, __) => {
+            EnhancedConditions._onRefreshToken(token)
+        });
+
         /* -------------------------------------------- */
         /*                    Render                    */
         /* -------------------------------------------- */
