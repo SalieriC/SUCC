@@ -77,6 +77,7 @@ export class EnhancedConditionsAPI {
 
             for (const effect of effects) {
                 if (forceOverlay) {
+                    effect.flags.core = effect.flags.core ? effect.flags.core : {};
                     effect.flags.core.overlay = true;
                 }
 
@@ -257,6 +258,27 @@ export class EnhancedConditionsAPI {
             const effectIds = actorConditionEffects.map(ace => ace.id);
 
             await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
+        }
+    }
+    
+    /**
+     * Apply the named condition to the provided entities (Actors or Tokens)
+     * @param {*} conditionId the id of the Condition to find
+     * @param {(Actor[] | Token[] | Actor | Token)} [entities=null] one or more Actors or Tokens to apply the Condition to
+     * @param {Boolean} finalState true if we want to end up with the condition added, false if removed. If undefined, we toggle between added and removed
+     * @param {Object} [options]  options object
+     * @see EnhancedConditions#addCondition
+     * @see EnhancedConditions#removeCondition
+     */
+    static async toggleCondition(conditionId, entities=null, finalState, options={}) {
+        if (typeof finalState === 'undefined') {
+            let currentState = await EnhancedConditionsAPI.hasCondition(conditionId, entities)
+            finalState = !currentState
+        }
+        if (finalState) {
+            return await EnhancedConditionsAPI.addCondition(conditionId, entities, options);
+        } else {
+            return await EnhancedConditionsAPI.removeCondition(conditionId, entities);
         }
     }
 
