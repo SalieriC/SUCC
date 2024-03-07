@@ -234,6 +234,25 @@
             }
         },
         {
+            "id": "deflection",
+            "name": "ENHANCED_CONDITIONS.Condition.Deflection",
+            "icon": "modules/succ/assets/icons/m-deflection.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.Tvr0FZJPP3ygOl94]",
+            "activeEffect": {
+                "flags": {
+                    "swade": {
+                        "expiration": 3
+                    }
+                },
+                "duration": {
+                    "rounds": 5
+                }
+            },
+            "options": {
+                "deflection": true
+            }
+        },
+        {
             "id": "boost",
             "name": "ENHANCED_CONDITIONS.Condition.Boost",
             "icon": "modules/succ/assets/icons/m-boost.svg",

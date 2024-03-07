@@ -134,6 +134,10 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.9Ia8jJNOCy0z7yXn]"
         },
         {
+            "id": "deflection",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.Tvr0FZJPP3ygOl94]"
+        },
+        {
             "id": "boost",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.FSwGNyzYvYRMhOkV]"
         },

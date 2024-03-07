@@ -315,6 +315,7 @@ export class EnhancedConditions {
                 if (condition.options?.lowerTrait) EnhancedConditionsPowers.boostLowerTrait(actor, condition, false);
                 if (condition.options?.smite) EnhancedConditionsPowers.smite(actor, condition);
                 if (condition.options?.protection) EnhancedConditionsPowers.protection(actor, condition);
+                if (condition.options?.deflection) EnhancedConditionsPowers.deflection(actor, condition);
                 if (condition.options?.conviction) EnhancedConditions.activateConviction(actor);
                 
                 break;
@@ -369,6 +370,12 @@ export class EnhancedConditions {
             let options = effect.flags.succ.effectOptions.protection;
             await applySharedOptions(options);
             EnhancedConditionsPowers.protectionBuilder(activeEffect, options.bonus, options.type);
+        }
+
+        if (effect.flags.succ.effectOptions.deflection) {
+            let options = effect.flags.succ.effectOptions.deflection;
+            await applySharedOptions(options);
+            EnhancedConditionsPowers.deflectionBuilder(activeEffect, options.type);
         }
     }
         
