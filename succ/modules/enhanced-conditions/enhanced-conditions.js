@@ -23,7 +23,7 @@ export class EnhancedConditions {
      * 4. Override status effects
      */
     static async _onReady() {
-        await EnhancedConditions.loadconditionConfigMap();
+        await EnhancedConditions.loadConditionConfigMap();
 
         if (game.user.isGM) {
             await EnhancedConditions.updateConditionMapFromDefaults();
@@ -673,15 +673,30 @@ export class EnhancedConditions {
     /**
      * Loads teh condition map json and applies any system overrides
      */
-    static async loadconditionConfigMap() {
+    static async loadConditionConfigMap() {
         const source = "data";
         const overridesJsons = await Sidekick.fetchJsons(source, BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionModuleOverridesPath);
         const conditionConfigJson = await Sidekick.fetchJson(BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionConfigFilePath);
+        const groupsJsons = await Sidekick.fetchJsons(source, BUTLER.DEFAULT_CONFIG.enhancedConditions.defaultConditionGroupsPath);
         game.succ.conditionConfigMap = conditionConfigJson.map;
 
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         if (!defaultConditions || defaultConditions.length === 0) {
             defaultConditions = undefined;
+        }
+
+        for (let condition of game.succ.conditionConfigMap) {
+            for (let group of groupsJsons) {
+                if (group.canBeDisabled) {
+                    continue;
+                }
+
+                let conditionId = group.conditions.find(c => c === condition.id);
+                if (conditionId) {
+                    condition.destroyDisabled = true;
+                    break;
+                }
+            }
         }
 
         //Loop over the default conditions and look for ones that are missing from our full map

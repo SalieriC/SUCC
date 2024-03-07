@@ -202,6 +202,7 @@ export class ConditionLab extends FormApplication {
             const macros = existingCondition ? existingCondition.macros : null;
             const options = existingCondition ? existingCondition.options : {};
             const addedByLab = existingCondition?.addedByLab;
+            const destroyDisabled = existingCondition?.destroyDisabled;
 
             const condition = {
                 id,
@@ -211,7 +212,8 @@ export class ConditionLab extends FormApplication {
                 activeEffect,
                 macros,
                 options,
-                addedByLab
+                addedByLab,
+                destroyDisabled
             };
 
             newMap.push(condition);
