@@ -373,22 +373,26 @@ a.add-temporary {
     margin: 0;
 }
 
-.succ-default-conditions .condition-section{
+.succ-default-conditions .condition-section {
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
-.succ-default-conditions .condition-list{
+.succ-default-conditions .condition-list {
     padding: 1rem;
 }
 
-.succ-default-conditions footer{
+.succ-default-conditions footer {
     margin-top: auto;
     padding: 1rem;
 }
 
-.succ-default-conditions .save-button{
+.succ-default-conditions .condition-list input {
+    vertical-align: middle;
+}
+
+.succ-default-conditions .save-button {
     background: rgba(0, 0, 0, 0.1);
     border: 2px groove var(--color-border-light-highlight);
 }

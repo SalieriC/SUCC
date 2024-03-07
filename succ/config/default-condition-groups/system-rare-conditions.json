@@ -1,7 +1,7 @@
 {
     "id": "rare-conditions",
-    "name": "Rare System Conditions",
-    "description": "Rarely used conditions from the list of default SWADE system conditions.",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareConditionsN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareConditionsD",
     "sortOrder": 30,
     "enabledByDefault": true,
     "canBeDisabled": true,

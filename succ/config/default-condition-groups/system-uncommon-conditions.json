@@ -1,7 +1,7 @@
 {
     "id": "uncommon-conditions",
-    "name": "Uncommon System Conditions",
-    "description": "Less often used conditions from the list of default SWADE system conditions.",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.UncommonConditionsN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.UncommonConditionsD",
     "sortOrder": 20,
     "enabledByDefault": true,
     "canBeDisabled": true,

@@ -34,6 +34,21 @@
                     "Active": "Active"
                 }
             },
+            "DefaultConditionsMenu": {
+                "Title": "Default Conditions",
+                "Groups": {
+                    "RequiredConditionsN": "Required Conditions",
+                    "RequiredConditionsD": "Conditions that are required by the system in order to function. These cannot be disabled.",
+                    "CommonConditionsN": "Common System Conditions",
+                    "CommonConditionsD": "Commonly used conditions from the list of default SWADE system conditions.",
+                    "UncommonConditionsN": "Uncommon System Conditions",
+                    "UncommonConditionsD": "Less often used conditions from the list of default SWADE system conditions.",
+                    "RareConditionsN": "Rare System Conditions",
+                    "RareConditionsD": "Rarely used conditions from the list of default SWADE system conditions.",
+                    "ExpandedPowersConditionsN": "Expanded Powers",
+                    "ExpandedPowersConditionsD": "Conditions associated with powers in the core rules."
+                }
+            },
             "MacroConfig": {
                 "Heading": "Macros to Execute",
                 "ApplyHeading": "Apply Macro",

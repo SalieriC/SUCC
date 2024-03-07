@@ -20,7 +20,7 @@ export const DEFAULT_CONFIG = {
         },
         defaultConditionsMenu: {
             id: "succ-default-conditions-menu",
-            title: "Default Conditions",
+            title: "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Title",
         },
         macroConfig: {
             id: "succ-enhanced-condition-macro-config",

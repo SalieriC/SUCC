@@ -687,8 +687,8 @@ export class EnhancedConditions {
         //Loop over the default conditions and look for ones that are missing from our full map
         const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
         for (let statusEffect of statusEffects) {
-            const condition = game.succ.conditionConfigMap.find(c => c.id === statusEffect.id);
-            if (!condition) {
+            const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === statusEffect.id);
+            if (!conditionConfig) {
                 //If the condition doesn't exist in the full map, it must be something new that was added to the system, so we need to add it
                 let newCondition = {
                     id: statusEffect.id,

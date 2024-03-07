@@ -1,7 +1,7 @@
 {
     "id": "required-conditions",
-    "name": "Required Conditions",
-    "description": "Conditions that are required by the system in order to function. These cannot be disabled.",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredConditionsN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredConditionsD",
     "sortOrder": 0,
     "enabledByDefault": true,
     "canBeDisabled": false,

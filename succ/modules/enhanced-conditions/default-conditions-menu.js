@@ -45,10 +45,11 @@ export class DefaultConditionsMenu extends FormApplication {
 
         let groups = {};
         for (let group of groupsJsons) {
-            groups[group.id] = { id: group.id, name: group.name, conditions: [] };
+            groups[group.id] = { id: group.id, name: group.name, canBeDisabled: group.canBeDisabled, conditions: [] };
             for (let condition of group.conditions) {
                 let defaultCondition = this.defaultConditions.find(c => c === condition);
-                groups[group.id].conditions.push({ id: condition, enabled: !!defaultCondition });
+                const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition);
+                groups[group.id].conditions.push({ id: condition, name: conditionConfig.name, enabled: !!defaultCondition });
             }
         }
 
@@ -77,36 +78,6 @@ export class DefaultConditionsMenu extends FormApplication {
         }
         return super.activateListeners(html);
     }
-
-    // async _onChangeInput(event) {
-    //     if (event.target.type != "checkbox" || event.target.id != "") {
-    //         return;
-    //     }
-
-    //     const checks = $(event.target)
-    //     .parent()
-    //     .siblings()
-    //     .find("input[type=checkbox]");
-
-    //     let tab = $(event.target)
-    //     .parents(".tab");
-
-    //     let groupId = tab[0].id.replace("tab-", "");
-    //     let checkboxId = "#checkbox-" + groupId;
-    //     let groupCheckbox = $(checkboxId);
-
-    //     //Check against all the other checkboxes in this group. If any of them are different then mark us as indeterminate
-    //     for (let checkbox of checks) {
-    //         if (event.target.checked != checkbox.checked) {
-    //             groupCheckbox.prop("indeterminate", true);
-    //             return;
-    //         }
-    //     }
-
-    //     //All of the checkboxes are the same, so clear indeterminate and set the group check to this value
-    //     groupCheckbox.prop("indeterminate", false);
-    //     groupCheckbox.prop("checked", event.target.checked);
-    // }
 
     async _onChangeInput(event) {
         if (event.target.type == "checkbox" && event.target.id == "") {

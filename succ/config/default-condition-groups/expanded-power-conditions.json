@@ -1,7 +1,7 @@
 {
     "id": "expanded-powers",
-    "name": "Expanded Powers",
-    "description": "Conditions associated with powers in the core rules.",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.ExpandedPowersConditionsN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.ExpandedPowersConditionsD",
     "sortOrder": 40,
     "enabledByDefault": false,
     "canBeDisabled": true,
