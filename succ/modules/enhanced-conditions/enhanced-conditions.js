@@ -106,9 +106,7 @@ export class EnhancedConditions {
         }
     }
 
-    static async _onRefreshToken(token) {
-        const actor = token.actor
-        
+    static async _onSwadeActorPrepareDerivedData(actor) {
         //Add/Remove Encumbrance if game setting for that is true
         if (game.settings.get('swade', 'applyEncumbrance')) {
             //Check if overencumbered and if the condition is already applied:
