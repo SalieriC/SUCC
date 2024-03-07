@@ -92,6 +92,13 @@
             </label>
             <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Notes"}}</p>
         </div>
+        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Label"}}">
+            <input type="checkbox" name="deflection" {{checked condition.options.deflection}} {{#if ../isDefault}}disabled{{/if}}>
+            <label for="deflection">
+                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Label"}}
+            </label>
+            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Notes"}}</p>
+        </div>
         <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Label"}}">
             <input type="checkbox" name="conviction" {{checked condition.options.conviction}} {{#if ../isDefault}}disabled{{/if}}>
             <label for="conviction">

@@ -41,7 +41,8 @@ export const DEFAULT_CONFIG = {
             optionConfig: `${PATH}/templates/enhanced-condition-option-config.hbs`,
             boostLowerDialog: `${PATH}/templates/boost-lower-dialog.hbs`,
             smiteDialog: `${PATH}/templates/smite-dialog.hbs`,
-            protectionDialog: `${PATH}/templates/protection-dialog.hbs`
+            protectionDialog: `${PATH}/templates/protection-dialog.hbs`,
+            deflectionDialog: `${PATH}/templates/deflection-dialog.hbs`
         },
         specialStatusEffects: {
             blinded: {
@@ -64,6 +65,9 @@ export const DEFAULT_CONFIG = {
             },
             protection: {
                 optionProperty: "protection"
+            },
+            deflection: {
+                optionProperty: "deflection"
             },
             conviction: {
                 optionProperty: "conviction"

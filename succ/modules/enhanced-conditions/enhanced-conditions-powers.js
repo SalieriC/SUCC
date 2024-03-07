@@ -221,4 +221,63 @@ export class EnhancedConditionsPowers {
         updates[index].value = protectionBonus;
         await effect.update({ "changes": updates })
     }
+
+    /**
+     * Adds a deflection effect to an actor
+     * @param {Actor} actor  Actor to apply the effect to
+     * @param {Object} condition  The condition being applied (should be deflection)
+     */
+    static async deflection(actor, condition) {
+        //Get the active effect from the actor
+        let effect = actor.effects.find(function (e) {
+            return ((e.name === game.i18n.localize(condition.name)))
+        })
+
+        const deflectionData = { condition };
+        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.deflectionDialog, deflectionData);
+
+        new Dialog({
+            title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Name"),
+            content: content,
+            buttons: {
+                melee: {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Melee"),
+                    callback: async (html) => {  
+                        await EnhancedConditionsPowers.deflectionBuilder(effect, "Melee");
+                    }
+                },
+                ranged: {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Ranged"),
+                    callback: async (html) => {
+                        await EnhancedConditionsPowers.deflectionBuilder(effect, "Ranged");
+                    }
+                },
+                both: {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Both"),
+                    callback: async (html) => {
+                        await EnhancedConditionsPowers.deflectionBuilder(effect, "Both");
+                    }
+                },
+                cancel: {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
+                    callback: async (html) => {
+                        await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true})
+                    }
+                }
+            }
+        }).render(true)
+    }
+
+    /**
+     * Creates and applies the active effects for a protection condition
+     * @param {Object} effect  The active effect being updated
+     * @param {String} type  Whether this applies to melee, ranged, or both
+     */
+    static async deflectionBuilder(effect, type) {
+        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
+        //It loses .data in the middle because toObject() is just the cleaned up data
+        let updates = effect.toObject();
+        updates.name += " (" + type + ")";
+        await effect.update(updates);
+    }
 }
