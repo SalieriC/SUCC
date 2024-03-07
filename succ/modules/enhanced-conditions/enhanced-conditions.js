@@ -23,30 +23,23 @@ export class EnhancedConditions {
      * 4. Override status effects
      */
     static async _onReady() {
-        await EnhancedConditions.loadFullConditionMap();
+        await EnhancedConditions.loadconditionConfigMap();
 
         if (game.user.isGM) {
             await EnhancedConditions.updateConditionMapFromDefaults();
         }
 
-        let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
+        let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
 
         const mapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
         const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
 
-        // If there's no defaultMap, check storage then set appropriately
-        if (!defaultMap || (Object.keys(defaultMap).length === 0 && defaultMap.constructor === Object)) {
+        // If there's no defaultConditions, check storage then set appropriately
+        if (!defaultConditions || defaultConditions.length === 0) {
             if (game.user.isGM) {
-                defaultMap = await EnhancedConditions._loadDefaultMap();
-                Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap);
-            }
-        }
-
-        if (!defaultMap || (Object.keys(defaultMap).length === 0 && defaultMap.constructor === Object)) {
-            if (game.user.isGM) {
-                defaultMap = await EnhancedConditions._loadDefaultMap();
-                Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap);
+                defaultConditions = await EnhancedConditions._loadDefaultConditions();
+                Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, defaultConditions);
             }
         }
 
@@ -57,8 +50,8 @@ export class EnhancedConditions {
 
         // If there's no condition map, get the default one
         if (!conditionMap.length) {
-            // Pass over defaultMap since the storage version is still empty
-            conditionMap = EnhancedConditions.getDefaultMap(defaultMap);
+            // Pass over defaultConditions since the storage version is still empty
+            conditionMap = EnhancedConditions.getMapForDefaultConditions(defaultConditions);
 
             if (game.user.isGM) {
                 const preparedMap = EnhancedConditions._prepareMap(conditionMap);
@@ -680,21 +673,21 @@ export class EnhancedConditions {
     /**
      * Loads teh condition map json and applies any system overrides
      */
-    static async loadFullConditionMap() {
+    static async loadconditionConfigMap() {
         const source = "data";
         const overridesJsons = await Sidekick.fetchJsons(source, BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionModuleOverridesPath);
-        const conditionMapJson = await Sidekick.fetchJson(BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapFilePath);
-        game.succ.fullConditionMap = conditionMapJson.map;
+        const conditionConfigJson = await Sidekick.fetchJson(BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionConfigFilePath);
+        game.succ.conditionConfigMap = conditionConfigJson.map;
 
-        let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
-        if (!defaultMap || (Object.keys(defaultMap).length === 0 && defaultMap.constructor === Object)) {
-            defaultMap = undefined;
+        let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
+        if (!defaultConditions || defaultConditions.length === 0) {
+            defaultConditions = undefined;
         }
 
         //Loop over the default conditions and look for ones that are missing from our full map
         const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
         for (let statusEffect of statusEffects) {
-            const condition = game.succ.fullConditionMap.find(c => c.id === statusEffect.id);
+            const condition = game.succ.conditionConfigMap.find(c => c.id === statusEffect.id);
             if (!condition) {
                 //If the condition doesn't exist in the full map, it must be something new that was added to the system, so we need to add it
                 let newCondition = {
@@ -710,12 +703,7 @@ export class EnhancedConditions {
                         flags: statusEffect.flags
                     };
                 }
-                game.succ.fullConditionMap.push(newCondition);
-
-                //For newly added conditions, we'll also add them to the default map otherwise the user will have no way to add them
-                if (defaultMap && !defaultMap.find(c => c.id === statusEffect.id)) {
-                    defaultMap.push(newCondition);
-                }
+                game.succ.conditionConfigMap.push(newCondition);
             }
         }
 
@@ -723,93 +711,43 @@ export class EnhancedConditions {
         for (let overrides of overridesJsons) {
             if (game.modules.get(overrides.module)?.active) {
                 for (const override of overrides.map) {
-                    const condition = game.succ.fullConditionMap.find(c => c.id === override.id);
+                    const condition = game.succ.conditionConfigMap.find(c => c.id === override.id);
                     if (!condition) {
                         //If the condition doesn't exist, add it to the map
-                        game.succ.fullConditionMap.push(override);
+                        game.succ.conditionConfigMap.push(override);
                     } else {
                         //If the condition exists, merge the data instead
                         foundry.utils.mergeObject(condition, override);
-                    }
-
-                    if (defaultMap) {
-                        const defaultCondition = defaultMap.find(c => c.id === override.id);
-                        if (!defaultCondition) {
-                            //If the condition doesn't exist, add it to the map
-                            defaultMap.push(override);
-                        } else {
-                            //If the condition exists, merge the data instead
-                            foundry.utils.mergeObject(defaultCondition, override);
-                        }
                     }
                 }
                 break;
             }
         }
 
-        if (defaultMap) {
-            await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap, true);
-        }
-    }
-
-    /**
-     * Returns the default maps supplied with the module
-     * 
-     * @todo: map to entryId and then rebuild on import
-     */
-    static async _loadDefaultMap() {
-        const source = "data";
-        const groupsJsons = await Sidekick.fetchJsons(source, BUTLER.DEFAULT_CONFIG.enhancedConditions.defaultConditionGroupsPath);
-
-        const defaultMap = [];
-
-        for (let condition of game.succ.fullConditionMap) {
-            let foundCondition = false;
-            for (let group of groupsJsons) {
-                if (group.enabledByDefault == false) {
-                    continue;
-                }
-
-                let conditionId = group.conditions.find(c => c === condition.id);
-                if (conditionId) {
-                    defaultMap.push(condition);
-                    foundCondition = true;
-                    break;
-                }
-            }
-
-            // if (!foundCondition) {
-            //     //This condition doesn't exist in any of our groups so we'll assume it came from the system
-            //     //Add it to the default map so that the user can see it
-            //     defaultMap.push(condition);
-            // }
-        }
-
         // If the default config contains changes and we have not overridden them in the system definition, copy those over
-        const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
         for (let statusEffect of statusEffects) {
             if (!statusEffect.changes && !statusEffect.duration && !statusEffect.flags) {
                 continue;
             }
 
-            let defaultCondition = defaultMap.find(c => c.id === statusEffect.id);
-            if (defaultCondition) {
-                if (defaultCondition.ignoreSystemSettings) {
-                    // We've decided that we want to prioritize what we have in our condition-map.json file
+            let conditionConfig = game.succ.conditionConfigMap.find(c => c.id === statusEffect.id);
+            if (conditionConfig) {
+                if (conditionConfig.ignoreSystemSettings) {
+                    // We've decided that we want to prioritize what we have in our condition-config.json file
                     continue;
                 }
 
-                defaultCondition.activeEffect = defaultCondition.activeEffect ? defaultCondition.activeEffect : {};
+                conditionConfig.activeEffect = conditionConfig.activeEffect ? conditionConfig.activeEffect : {};
 
                 // Delete any existing data before using what's in the system
                 // This is to avoid cases where, for example, our config had a duration but the system's does not
                 // We want to ensure that, if the system has changes, we are matching it exactly 
-                delete defaultCondition.activeEffect.changes;
-                delete defaultCondition.activeEffect.duration;
-                delete defaultCondition.activeEffect.flags;
+                delete conditionConfig.activeEffect.changes;
+                delete conditionConfig.activeEffect.duration;
+                delete conditionConfig.activeEffect.flags;
 
-                defaultCondition.activeEffect = {
-                    ...defaultCondition.activeEffect,
+                conditionConfig.activeEffect = {
+                    ...conditionConfig.activeEffect,
                     ...statusEffect.changes != undefined ? { changes: statusEffect.changes } : null,
                     ...statusEffect.duration != undefined ? { duration: statusEffect.duration } : null,
                     ...statusEffect.flags != undefined ? { flags: statusEffect.flags } : null
@@ -817,7 +755,7 @@ export class EnhancedConditions {
             }
         }
 
-        for (let condition of defaultMap) {
+        for (let condition of game.succ.conditionConfigMap) {
             if (condition.referenceId) {
                 let regex = /(?<=\{).+(?=\})/;
                 let match = condition.referenceId.match(regex);
@@ -834,8 +772,38 @@ export class EnhancedConditions {
                 condition.activeEffect.label = game.i18n.localize(condition.name);
             }
         }
+    }
 
-        return defaultMap;
+    /**
+     * Returns the default maps supplied with the module
+     */
+    static async _loadDefaultConditions() {
+        const source = "data";
+        const groupsJsons = await Sidekick.fetchJsons(source, BUTLER.DEFAULT_CONFIG.enhancedConditions.defaultConditionGroupsPath);
+
+        const defaultConditions = [];
+
+        for (let condition of game.succ.conditionConfigMap) {
+            let foundCondition = false;
+            for (let group of groupsJsons) {
+                let conditionId = group.conditions.find(c => c === condition.id);
+                if (conditionId) {
+                    foundCondition = true;
+                    if (group.enabledByDefault) {
+                        defaultConditions.push(condition.id);
+                    }
+                    break;
+                }
+            }
+
+            if (!foundCondition) {
+                //This condition doesn't exist in any of our groups so we'll assume it came from the system
+                //Add it to the default map so that the user can see it
+                defaultConditions.push(condition.id);
+            }
+        }
+
+        return defaultConditions;
     }
 
     /**
@@ -968,11 +936,11 @@ export class EnhancedConditions {
                 return;
             }
 
-            const defaultCondition = activeConditionMap.find(c => c.id === CONFIG.specialStatusEffects[key]);
-            if (defaultCondition) {
+            const activeCondition = activeConditionMap.find(c => c.id === CONFIG.specialStatusEffects[key]);
+            if (activeCondition) {
                 //The name of this effect matches one of our effect. Check its options
-                if (hasProperty(defaultCondition.options, optionName)) {
-                    if (getProperty(defaultCondition.options, optionName)) {
+                if (hasProperty(activeCondition.options, optionName)) {
+                    if (getProperty(activeCondition.options, optionName)) {
                         //This effect has the option enabled, so just leave it as is
                         return;
                     }
@@ -1139,28 +1107,23 @@ export class EnhancedConditions {
     }
 
     /**
-     * Returns the default condition map for a given system
+     * Builds a map of default conditions from a list of conditions
      */
-    static getDefaultMap(defaultMap = null) {
-        defaultMap = defaultMap ? defaultMap : Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
-
-        if (!defaultMap) {
-            defaultMap = EnhancedConditions.buildDefaultMap();
+    static getMapForDefaultConditions(defaultConditions) {
+        let map = [];
+        for (let conditionId of defaultConditions) {
+            map.push(game.succ.conditionConfigMap.find(c => c.id === conditionId));
         }
-
-        return defaultMap;
+        return map;
     }
 
     /**
-     * Builds a default map for a given system
-     * @todo #281 update for active effects
+     * Returns the default condition map for a given system
      */
-    static buildDefaultMap() {
-        const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects)
-        const coreEffects = (coreEffectsSetting && coreEffectsSetting.length) ? coreEffectsSetting : CONFIG.statusEffects;
-        const map = EnhancedConditions._prepareMap(coreEffects);
+    static getDefaultMap(defaultConditions = null) {
+        defaultConditions = defaultConditions ? defaultConditions : Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
 
-        return map;
+        return EnhancedConditions.getMapForDefaultConditions(defaultConditions);
     }
 
     /**
@@ -1169,51 +1132,49 @@ export class EnhancedConditions {
      */
     static async updateConditionMapFromDefaults() {
         let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-        let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
+        let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         let deletedConditionsMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap);
-        if (!conditionMap.length || !defaultMap || !defaultMap.length) {
-            return;
-        }
 
         let currentDiffs = [];
-        for (let defaultCondition of game.succ.fullConditionMap) {
-            const condition = conditionMap.find(c => c.name === defaultCondition.name);
+        for (let conditionConfig of game.succ.conditionConfigMap) {
+            const condition = conditionMap.find(c => c.name === conditionConfig.name);
             if (condition) {
-                if (!!condition.activeEffect != !!defaultCondition.activeEffect) {
+                if (!!condition.activeEffect != !!conditionConfig.activeEffect) {
                     //One has an active effect and the other doesn't which means they must be different
-                    currentDiffs.push(defaultCondition);
+                    currentDiffs.push(conditionConfig);
                     continue;
                 }
 
-                if (!defaultCondition.activeEffect) {
+                if (!conditionConfig.activeEffect) {
                     //Both must be null so that means they are the same
                     continue;
                 }
 
-                if (JSON.stringify(condition.activeEffect.changes) !== JSON.stringify(defaultCondition.activeEffect.changes) ||
-                    JSON.stringify(condition.activeEffect.flags) !== JSON.stringify(defaultCondition.activeEffect.flags) ||
-                    JSON.stringify(condition.activeEffect.duration) !== JSON.stringify(defaultCondition.activeEffect.duration)) {
-                    currentDiffs.push(defaultCondition);
+                if (JSON.stringify(condition.activeEffect.changes) !== JSON.stringify(conditionConfig.activeEffect.changes) ||
+                    JSON.stringify(condition.activeEffect.flags) !== JSON.stringify(conditionConfig.activeEffect.flags) ||
+                    JSON.stringify(condition.activeEffect.duration) !== JSON.stringify(conditionConfig.activeEffect.duration)) {
+                    currentDiffs.push(conditionConfig);
                 }
             }
         }
 
-        for (let defaultCondition of game.succ.fullConditionMap) {
-            const condition = conditionMap.find(c => c.name === defaultCondition.name);
+        for (let conditionConfig of game.succ.conditionConfigMap) {
+            const condition = conditionMap.find(c => c.name === conditionConfig.name);
             if (!condition) {
-                const deletedCondition = deletedConditionsMap.find(c => c.name === defaultCondition.name);
-                if (!deletedCondition) {
-                    conditionMap.push(duplicate(defaultCondition));
+                const defaultCondition = defaultConditions.find(c => c === conditionConfig.id);
+                const deletedCondition = deletedConditionsMap.find(c => c.name === conditionConfig.name);
+                if (defaultCondition && !deletedCondition) {
+                    conditionMap.push(duplicate(conditionConfig));
                 }
             } else {
-                if (!defaultCondition.activeEffect) {
+                if (!conditionConfig.activeEffect) {
                     //The default condition doesn't have an active effect, so we'll just leave whatever is in the condition alone
                     //We're making the assumption here that none of the core system effects will ever have an active effect in one version and then remove it later
                     //It's very unlikely to ever happen and in the rare case it does, the user can manually reset their map to fix it
                     continue;
                 }
 
-                let existingDiff = currentDiffs.find(d => d.name === defaultCondition.name);
+                let existingDiff = currentDiffs.find(d => d.name === conditionConfig.name);
                 if (existingDiff) {
                     //If we had an existing diff for this condition, we'll assume the user wants it that way and leave it as is 
                     continue;
@@ -1221,7 +1182,7 @@ export class EnhancedConditions {
 
                 //If we didn't have an existing diff, we'll assume the user wants the most up to date functionality
                 //For simplicity, we set the value here regardless of if it's changed or not
-                condition.activeEffect = { ...defaultCondition.activeEffect };
+                condition.activeEffect = { ...conditionConfig.activeEffect };
             }
         }
 

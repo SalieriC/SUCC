@@ -12,7 +12,7 @@ import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
 export class DefaultConditionsMenu extends FormApplication {
     constructor(object, options = {}) {
         super(object, options);
-        this.defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
+        this.defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         this.data = {};
     }
 
@@ -47,7 +47,7 @@ export class DefaultConditionsMenu extends FormApplication {
         for (let group of groupsJsons) {
             groups[group.id] = { id: group.id, name: group.name, conditions: [] };
             for (let condition of group.conditions) {
-                let defaultCondition = this.defaultMap.find(c => c.id === condition);
+                let defaultCondition = this.defaultConditions.find(c => c === condition);
                 groups[group.id].conditions.push({ id: condition, enabled: !!defaultCondition });
             }
         }
@@ -144,13 +144,13 @@ export class DefaultConditionsMenu extends FormApplication {
     }
 
     async _updateObject(_, formData) {
-        let newDefaultMap = [];
-        for (let condition of game.succ.fullConditionMap) {
+        let newDefaultConditions = [];
+        for (let condition of game.succ.conditionConfigMap) {
             if (formData[condition.id]) {
-                newDefaultMap.push(condition);
+                newDefaultConditions.push(condition.id);
             }
         }
-
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, newDefaultMap, true);
+        
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, newDefaultConditions, true);
     }
 }

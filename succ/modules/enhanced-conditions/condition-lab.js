@@ -224,12 +224,12 @@ export class ConditionLab extends FormApplication {
      * Restore defaults for a mapping
      */
     async _restoreDefaults({clearCache=false, keepConditionsAddedByLab=false}={}) {
-        let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
+        let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
         if (clearCache) {
-            defaultMap = await EnhancedConditions._loadDefaultMap();
-            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap);
+            defaultConditions = await EnhancedConditions._loadDefaultConditions();
+            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, defaultConditions);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.defaultSpecialStatusEffects);
         }
@@ -237,7 +237,7 @@ export class ConditionLab extends FormApplication {
         Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, []);
 
         // If the mapType is other then the map should be empty, otherwise it's the default map for the system
-        const tempMap = (this.mapType != otherMapType && defaultMap) ? defaultMap : [];
+        const tempMap = (this.mapType != otherMapType && EnhancedConditions.getMapForDefaultConditions(defaultConditions)) ? EnhancedConditions.getMapForDefaultConditions(defaultConditions) : [];
 
         // Loop over the old map and readd any conditions that were added by the user through the Condition Lab
         const oldMap = duplicate(this.map);
@@ -338,7 +338,7 @@ export class ConditionLab extends FormApplication {
         }
 
         // Trigger file save procedure
-        const filename = `succ-${game.system.id}-condition-map.json`;
+        const filename = `succ-${game.system.id}-condition-config.json`;
         saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
     }
     

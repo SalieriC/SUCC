@@ -3,7 +3,7 @@
     "name": "Uncommon System Conditions",
     "description": "Less often used conditions from the list of default SWADE system conditions.",
     "sortOrder": 20,
-    "enabledByDefault": false,
+    "enabledByDefault": true,
     "canBeDisabled": true,
     "conditions": [
         "berserk",

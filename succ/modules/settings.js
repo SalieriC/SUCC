@@ -33,20 +33,12 @@ export function registerSettings() {
         onChange: s => {}
     });
 
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, {
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, {
         name: "SETTINGS.EnhancedConditions.DefaultMapN",
         hint: "SETTINGS.EnhancedConditions.DefaultMapH",
         scope: "world",
-        type: Object,
-        default: {}
-    });
-
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.fullConditionMap, {
-        name: "SETTINGS.EnhancedConditions.DefaultMapN",
-        hint: "SETTINGS.EnhancedConditions.DefaultMapH",
-        scope: "world",
-        type: Object,
-        default: {}
+        type: Array,
+        default: []
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, {

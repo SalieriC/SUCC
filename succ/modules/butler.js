@@ -9,8 +9,8 @@ export const CONFIG_PATH = PATH + "/config";
 export const DEFAULT_CONFIG = {
     enhancedConditions: {
         iconPath: `${PATH}/icons/`,
-        conditionMapFilePath: `${CONFIG_PATH}/condition-map.json`,
-        conditionModuleOverridesPath: `${CONFIG_PATH}/condition-map-module-overrides`,
+        conditionConfigFilePath: `${CONFIG_PATH}/condition-config.json`,
+        conditionModuleOverridesPath: `${CONFIG_PATH}/condition-config-module-overrides`,
         defaultConditionGroupsPath: `${CONFIG_PATH}/default-condition-groups`,
         outputChat: true,
         removeDefaultEffects: true,
@@ -120,7 +120,7 @@ export const SETTING_KEYS = {
     enhancedConditions: {
         coreEffects: "coreStatusEffects",
         map: "activeConditionMap",
-        defaultMap: "defaultConditionsMap4",
+        defaultConditions: "defaultConditions",
         deletedConditionsMap: "deletedConditionsMap",
         mapType: "conditionMapType",
         removeDefaultEffects: "removeDefaultEffects",
@@ -128,8 +128,7 @@ export const SETTING_KEYS = {
         showSortDirectionDialog: "showSortDirectionDialog",
         defaultSpecialStatusEffects: "defaultSpecialStatusEffects",
         specialStatusEffectMapping: "specialStatusEffectMapping",
-        defaultConditionsMenu: "defaultConditionsMenu",
-        fullConditionMap: "fullConditionMap"
+        defaultConditionsMenu: "defaultConditionsMenu"
     },
     tokenUtility: {
         effectSize: "effectSize"
