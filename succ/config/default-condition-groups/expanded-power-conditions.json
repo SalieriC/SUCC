@@ -1,0 +1,12 @@
+{
+    "id": "expanded-powers",
+    "name": "Expanded Powers",
+    "description": "Conditions associated with powers in the core rules.",
+    "sortOrder": 40,
+    "enabledByDefault": false,
+    "canBeDisabled": true,
+    "conditions": [
+        "deflection",
+        "slumber"
+    ]
+}

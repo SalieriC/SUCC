@@ -1,0 +1,20 @@
+{
+    "id": "rare-conditions",
+    "name": "Rare System Conditions",
+    "description": "Rarely used conditions from the list of default SWADE system conditions.",
+    "sortOrder": 30,
+    "enabledByDefault": true,
+    "canBeDisabled": true,
+    "conditions": [
+        "cold-bodied",
+        "cover",
+        "cover-shield",
+        "diseased",
+        "encumbered",
+        "heart-attack",
+        "on-fire",
+        "reach",
+        "the-drop",
+        "torch"
+    ]
+}

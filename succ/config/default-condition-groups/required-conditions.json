@@ -1,0 +1,19 @@
+{
+    "id": "required-conditions",
+    "name": "Required Conditions",
+    "description": "Conditions that are required by the system in order to function. These cannot be disabled.",
+    "sortOrder": 0,
+    "enabledByDefault": true,
+    "canBeDisabled": false,
+    "conditions": [
+        "bleeding-out",
+        "defeated",
+        "distracted",
+        "holding",
+        "incapacitated",
+        "prone",
+        "shaken",
+        "stunned",
+        "vulnerable"
+    ]
+}

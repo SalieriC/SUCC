@@ -11,11 +11,16 @@ export const DEFAULT_CONFIG = {
         iconPath: `${PATH}/icons/`,
         conditionMapFilePath: `${CONFIG_PATH}/condition-map.json`,
         conditionModuleOverridesPath: `${CONFIG_PATH}/condition-map-module-overrides`,
+        defaultConditionGroupsPath: `${CONFIG_PATH}/default-condition-groups`,
         outputChat: true,
         removeDefaultEffects: true,
         conditionLab: {
             id: "succ-condition-lab",
             title: "Condition Lab",
+        },
+        defaultConditionsMenu: {
+            id: "succ-default-conditions-menu",
+            title: "Default Conditions",
         },
         macroConfig: {
             id: "succ-enhanced-condition-macro-config",
@@ -34,6 +39,7 @@ export const DEFAULT_CONFIG = {
         templates: {
             conditionLab: `${PATH}/templates/condition-lab.hbs`,
             conditionLabRestoreDefaultsDialog: `${PATH}/templates/condition-lab-restore-defaults-dialog.hbs`,
+            defaultConditionsMenu: `${PATH}/templates/default-conditions-menu.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
             chatConditionsPartial: `${PATH}/templates/partials/chat-card-condition-list.hbs`,
             importDialog: `${PATH}/templates/import-conditions.html`,
@@ -114,14 +120,16 @@ export const SETTING_KEYS = {
     enhancedConditions: {
         coreEffects: "coreStatusEffects",
         map: "activeConditionMap",
-        defaultMap: "defaultConditionMap",
+        defaultMap: "defaultConditionsMap4",
         deletedConditionsMap: "deletedConditionsMap",
         mapType: "conditionMapType",
         removeDefaultEffects: "removeDefaultEffects",
         outputChat: "conditionsOutputToChat",
         showSortDirectionDialog: "showSortDirectionDialog",
         defaultSpecialStatusEffects: "defaultSpecialStatusEffects",
-        specialStatusEffectMapping: "specialStatusEffectMapping"
+        specialStatusEffectMapping: "specialStatusEffectMapping",
+        defaultConditionsMenu: "defaultConditionsMenu",
+        fullConditionMap: "fullConditionMap"
     },
     tokenUtility: {
         effectSize: "effectSize"

@@ -1,6 +1,5 @@
 {
     "system": "swade",
-    "swadeVersion": "3.0.4",
     "map": [
         {
             "id": "shaken",
@@ -153,7 +152,7 @@
             "icon": "modules/succ/assets/icons/3-poisoned.svg"
         },
         {
-            "id": "shield",
+            "id": "cover-shield",
             "name": "SWADE.Cover.Shield",
             "icon": "modules/succ/assets/icons/4-shield.svg"
         },
@@ -289,6 +288,12 @@
             "options": {
                 "lowerTrait": true
             }
+        },
+        {
+            "id": "slumber",
+            "name": "ENHANCED_CONDITIONS.Condition.Slumber",
+            "icon": "modules/succ/assets/icons/m-slumber.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]"
         }
     ]
 }

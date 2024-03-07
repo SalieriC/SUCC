@@ -1,0 +1,19 @@
+{
+    "id": "uncommon-conditions",
+    "name": "Uncommon System Conditions",
+    "description": "Less often used conditions from the list of default SWADE system conditions.",
+    "sortOrder": 20,
+    "enabledByDefault": false,
+    "canBeDisabled": true,
+    "conditions": [
+        "berserk",
+        "blind",
+        "boost",
+        "frightened",
+        "invisible",
+        "lower",
+        "poisoned",
+        "protection",
+        "smite"
+    ]
+}

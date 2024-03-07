@@ -98,7 +98,7 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor04theadv.JournalEntryPage.04poison00000000#poison]"
         },
         {
-            "id": "shield",
+            "id": "cover-shield",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor02gear00.JournalEntryPage.02shields0000000#shields]"
         },
         {

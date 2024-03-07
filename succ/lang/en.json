@@ -212,6 +212,8 @@
     
     "SETTINGS.EnhancedConditions.CoreIconsN": "Core Status Icons",
     "SETTINGS.EnhancedConditions.CoreIconsH": "A copy of the core status icons",
+    "SETTINGS.EnhancedConditions.DefaultConditionsMenuN": "Default Conditions",
+    "SETTINGS.EnhancedConditions.DefaultConditionsMenuH": "Select which conditions will be included in the default list",
     "SETTINGS.EnhancedConditions.SystemN": "Game System",
     "SETTINGS.EnhancedConditions.SystemH": "A reference to the game system. Defaults to other if not known to the module",
     "SETTINGS.EnhancedConditions.OutputChatN": "Output to Chat",

@@ -127,7 +127,7 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore04theadv.JournalEntryPage.04hazards0000000#poison]"
         },
         {
-            "id": "shield",
+            "id": "cover-shield",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore02gear00.JournalEntryPage.02armor000000000]"
         },
         {

@@ -1,0 +1,17 @@
+{
+    "id": "common-conditions",
+    "name": "Common System Conditions",
+    "description": "Commonly used conditions from the list of default SWADE system conditions.",
+    "sortOrder": 10,
+    "enabledByDefault": true,
+    "canBeDisabled": true,
+    "conditions": [
+        "aiming",
+        "bound",
+        "conviction",
+        "defending",
+        "entangled",
+        "flying",
+        "wild-attack"
+    ]
+}
