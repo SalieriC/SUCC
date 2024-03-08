@@ -467,6 +467,7 @@ export class ConditionLab extends FormApplication {
         const restoreDefaultsButton = html.find("button[class='restore-defaults']");
         const resetFormButton = html.find("button[name='reset']");
         const saveCloseButton = html.find("button[name='save-close']");
+        const refreshRefsButton = html.find("button[name='refresh-refs']");
         const filterInput = html.find("input[name='filter-list']");
         const sortButton = html.find("a.sort-list");
         const macroConfigButton = html.find("button.macro-config");
@@ -481,6 +482,7 @@ export class ConditionLab extends FormApplication {
         restoreDefaultsButton.on("click", async event => this._onRestoreDefaults(event));
         resetFormButton.on("click", event => this._onResetForm(event));
         saveCloseButton.on("click", event => this._onSaveClose(event));
+        refreshRefsButton.on("click", event => this._onRefreshRefs(event));
         filterInput.on("input", (event) => this._onChangeFilter(event));
         sortButton.on("click", (event) => this._onClickSortButton(event));
         macroConfigButton.on("click", (event) => this._onClickMacroConfig(event));
@@ -879,6 +881,33 @@ export class ConditionLab extends FormApplication {
             ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Lab.SaveFailed"));
         });
         
+    }
+
+    async _onDrop(event) {
+        event.preventDefault();
+        const eventData = TextEditor.getDragEventData(event);
+        const link = await TextEditor.getContentLink(eventData);
+        const targetInput = event.currentTarget;
+        if (link) {
+            targetInput.value = link;
+            return targetInput.dispatchEvent(new Event("change"));
+        } else {
+            return ui.notifications.error(game.i18n.localize(`${NAME}.ENHANCED_CONDITIONS.ConditionLab.BadReference`));
+        }
+    }
+
+    /**
+     * Save and Close handler
+     * @param {*} event 
+     */
+    _onRefreshRefs(event) {
+        for (let condition of this.map) {
+            let conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
+            if (conditionConfig) {
+                condition.referenceId = conditionConfig.referenceId;
+            }
+        }
+        this.render(true);
     }
 
     async _onDrop(event) {
