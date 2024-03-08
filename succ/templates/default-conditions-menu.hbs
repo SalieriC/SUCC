@@ -17,6 +17,8 @@
                     <input type="checkbox" id="checkbox-{{{ this.id }}}" name="{{{ this.id }}}" {{#if this.enabled}}checked="checked" {{/if}}>
                     {{/if}}
                 </div>
+                <i>{{ localize this.description }}</i>
+                <p></p>
                 {{#each this.conditions }}
                 <div>
                     <input type="checkbox" name="{{{ this.id }}}" {{#if this.enabled}}checked="checked" {{/if}} {{#unless ../canBeDisabled}}disabled="disabled" {{/unless}}>{{ localize this.name }}

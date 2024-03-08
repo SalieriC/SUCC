@@ -45,7 +45,7 @@ export class DefaultConditionsMenu extends FormApplication {
 
         let groups = {};
         for (let group of groupsJsons) {
-            groups[group.id] = { id: group.id, name: group.name, canBeDisabled: group.canBeDisabled, conditions: [] };
+            groups[group.id] = { id: group.id, name: group.name, description: group.description, canBeDisabled: group.canBeDisabled, conditions: [] };
             for (let condition of group.conditions) {
                 let defaultCondition = this.defaultConditions.find(c => c === condition);
                 const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition);
