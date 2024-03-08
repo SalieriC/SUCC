@@ -1,7 +1,7 @@
 {
     "id": "required-conditions",
-    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredConditionsN",
-    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredConditionsD",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredD",
     "sortOrder": 0,
     "enabledByDefault": true,
     "canBeDisabled": false,

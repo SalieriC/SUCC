@@ -1,0 +1,14 @@
+{
+    "id": "power-modifiers",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.PowerModifiersN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.PowerModifiersD",
+    "sortOrder": 50,
+    "enabledByDefault": false,
+    "canBeDisabled": true,
+    "conditions": [
+        "glow",
+        "hinder",
+        "hurry",
+        "shroud"
+    ]
+}

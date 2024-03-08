@@ -33,7 +33,7 @@ export class DefaultConditionsMenu extends FormApplication {
             ],
             classes: ["succ-default-conditions"],
             width: 600,
-            height: 550,
+            height: 650,
             resizable: true,
         });
     }
@@ -117,7 +117,7 @@ export class DefaultConditionsMenu extends FormApplication {
     async _updateObject(_, formData) {
         let newDefaultConditions = [];
         for (let condition of game.succ.conditionConfigMap) {
-            if (formData[condition.id]) {
+            if (formData[condition.id] || condition.destroyDisabled) {
                 newDefaultConditions.push(condition.id);
             }
         }

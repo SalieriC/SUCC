@@ -1,0 +1,12 @@
+{
+    "id": "pathfinder-powers",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.PathfinderPowersN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.PathfinderPowersD",
+    "sortOrder": 60,
+    "enabledByDefault": false,
+    "canBeDisabled": true,
+    "conditions": [
+        "feather-fall",
+        "sanctuary"
+    ]
+}

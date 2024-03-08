@@ -1,7 +1,7 @@
 {
     "id": "rare-conditions",
-    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareConditionsN",
-    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareConditionsD",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareD",
     "sortOrder": 30,
     "enabledByDefault": true,
     "canBeDisabled": true,
