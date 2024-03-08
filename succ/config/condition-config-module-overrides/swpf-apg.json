@@ -1,0 +1,10 @@
+{
+    "module":"swpf-apg",
+    "priority": 25,
+    "map":[        
+        {
+            "id": "feather-fall",
+            "referenceId": "@UUID[Compendium.swpf-apg.swpf-apg-powers.Item.QGD6L5FI43HEiVc4]"
+        }
+    ]
+}

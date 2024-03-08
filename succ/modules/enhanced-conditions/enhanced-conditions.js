@@ -723,6 +723,7 @@ export class EnhancedConditions {
         }
 
         //Loop over our overrides and check if any of them are active
+        overridesJsons.sort((a, b) => a.priority - b.priority);
         for (let overrides of overridesJsons) {
             if (game.modules.get(overrides.module)?.active) {
                 for (const override of overrides.map) {
@@ -735,7 +736,6 @@ export class EnhancedConditions {
                         foundry.utils.mergeObject(condition, override);
                     }
                 }
-                break;
             }
         }
 

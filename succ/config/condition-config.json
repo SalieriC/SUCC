@@ -1,5 +1,6 @@
 {
     "system": "swade",
+    "priority": 0,
     "map": [
         {
             "id": "shaken",
@@ -293,7 +294,7 @@
             "id": "arcane-protection",
             "name": "ENHANCED_CONDITIONS.Condition.ArcaneProtection",
             "icon": "modules/succ/assets/icons/m-arcane-protection.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.YCK7uLmPENKq0Zdb]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -309,7 +310,7 @@
             "id": "burrow",
             "name": "ENHANCED_CONDITIONS.Condition.Burrow",
             "icon": "modules/succ/assets/icons/m-burrow.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.cLRfMRfjBZZBQmFW]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -325,7 +326,7 @@
             "id": "confusion",
             "name": "ENHANCED_CONDITIONS.Condition.Confusion",
             "icon": "modules/succ/assets/icons/m-confusion.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.Ewds3tTHCxbtl6i9]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -341,7 +342,7 @@
             "id": "damage-field",
             "name": "ENHANCED_CONDITIONS.Condition.DamageField",
             "icon": "modules/succ/assets/icons/m-damage-field.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.NJViHErRJmmNKMxC]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -357,7 +358,7 @@
             "id": "elemental-manipulation",
             "name": "ENHANCED_CONDITIONS.Condition.ElementalManipulation",
             "icon": "modules/succ/assets/icons/m-elemental-manipulation.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.tvkJEXvT34m8Xx9c]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -373,7 +374,7 @@
             "id": "growth",
             "name": "ENHANCED_CONDITIONS.Condition.Growth",
             "icon": "modules/succ/assets/icons/m-growth.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.Uc35itYBnj3SmOde]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -389,7 +390,7 @@
             "id": "shrink",
             "name": "ENHANCED_CONDITIONS.Condition.Shrink",
             "icon": "modules/succ/assets/icons/m-shrink.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.Uc35itYBnj3SmOde]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -405,7 +406,7 @@
             "id": "intangibility",
             "name": "ENHANCED_CONDITIONS.Condition.Intangibility",
             "icon": "modules/succ/assets/icons/m-intangibility.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.2WMVbzAqJG5EO3hd]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -421,7 +422,7 @@
             "id": "puppet",
             "name": "ENHANCED_CONDITIONS.Condition.Puppet",
             "icon": "modules/succ/assets/icons/m-puppet.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.oRef4wp8YizkFo8u]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -437,7 +438,7 @@
             "id": "numb",
             "name": "ENHANCED_CONDITIONS.Condition.Numb",
             "icon": "modules/succ/assets/icons/m-numb.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.Gv4Koefqaap6qKbM]",
             "activeEffect":
             {
                 "changes": [
@@ -453,7 +454,7 @@
             "id": "sloth",
             "name": "ENHANCED_CONDITIONS.Condition.Sloth",
             "icon": "modules/succ/assets/icons/m-sloth.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.zCMcQuzYNvkEiw1r]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -469,7 +470,7 @@
             "id": "speed",
             "name": "ENHANCED_CONDITIONS.Condition.Speed",
             "icon": "modules/succ/assets/icons/m-speed.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.zCMcQuzYNvkEiw1r]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -485,19 +486,19 @@
             "id": "slumber",
             "name": "ENHANCED_CONDITIONS.Condition.Slumber",
             "icon": "modules/succ/assets/icons/m-slumber.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]"
+            "referenceId": "@UUID[Compendium.swade.powers.Item.QElMPOZK7jJDDGCP]"
         },
         {
             "id": "silence",
             "name": "ENHANCED_CONDITIONS.Condition.Silence",
             "icon": "modules/succ/assets/icons/m-silence.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]"
+            "referenceId": "@UUID[Compendium.swade.powers.Item.v1LPqc5as5XoP9cg]"
         },
         {
             "id": "wall-walker",
             "name": "ENHANCED_CONDITIONS.Condition.WallWalker",
             "icon": "modules/succ/assets/icons/m-wall-walker.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.VExCzgzDejsraifN]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -513,7 +514,7 @@
             "id": "warriors-gift",
             "name": "ENHANCED_CONDITIONS.Condition.WarriorsGift",
             "icon": "modules/succ/assets/icons/m-warriors-gift.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.R3CtmF3sFkFIh3UQ]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -528,32 +529,27 @@
         {
             "id": "glow",
             "name": "ENHANCED_CONDITIONS.Condition.Glow",
-            "icon": "modules/succ/assets/icons/m-glow.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]"
+            "icon": "modules/succ/assets/icons/m-glow.svg"
         },
         {
             "id": "shroud",
             "name": "ENHANCED_CONDITIONS.Condition.Shroud",
-            "icon": "modules/succ/assets/icons/m-shroud.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]"
+            "icon": "modules/succ/assets/icons/m-shroud.svg"
         },
         {
             "id": "hinder",
             "name": "ENHANCED_CONDITIONS.Condition.Hinder",
-            "icon": "modules/succ/assets/icons/m-hinder.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]"
+            "icon": "modules/succ/assets/icons/m-hinder.svg"
         },
         {
             "id": "hurry",
             "name": "ENHANCED_CONDITIONS.Condition.Hurry",
-            "icon": "modules/succ/assets/icons/m-hurry.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]"
+            "icon": "modules/succ/assets/icons/m-hurry.svg"
         },
         {
             "id": "sanctuary",
             "name": "ENHANCED_CONDITIONS.Condition.Sanctuary",
             "icon": "modules/succ/assets/icons/m-sanctuary.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -569,7 +565,6 @@
             "id": "feather-fall",
             "name": "ENHANCED_CONDITIONS.Condition.FeatherFall",
             "icon": "modules/succ/assets/icons/m-feather-fall.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -585,7 +580,6 @@
             "id": "ammo-whammy",
             "name": "ENHANCED_CONDITIONS.Condition.AmmoWhammy",
             "icon": "modules/succ/assets/icons/m-ammo-whammy.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -601,7 +595,6 @@
             "id": "holy-symbol",
             "name": "ENHANCED_CONDITIONS.Condition.HolySymbol",
             "icon": "modules/succ/assets/icons/m-holy-symbol.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
             "activeEffect": {
                 "flags": {
                     "swade": {
@@ -617,7 +610,6 @@
             "id": "let-the-devil-out",
             "name": "ENHANCED_CONDITIONS.Condition.LetTheDevilOut",
             "icon": "modules/succ/assets/icons/let-the-devil-out.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
             "activeEffect": {
                 "flags": {
                     "swade": {

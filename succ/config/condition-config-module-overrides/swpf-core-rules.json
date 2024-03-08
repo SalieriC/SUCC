@@ -1,5 +1,6 @@
 {
     "module":"swpf-core-rules",
+    "priority": 20,
     "map":[
         {
             "id": "shaken",
@@ -169,6 +170,90 @@
         {
             "id": "lower",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.hBfpNdcd1WBsszu3]"
+        },
+        {
+            "id": "arcane-protection",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.0idlYkwVS0ox5btN]"
+        },
+        {
+            "id": "burrow",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.jGCxdBPUHrSSrucJ]"
+        },
+        {
+            "id": "confusion",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.NcavHBzJumgMHxM7]"
+        },
+        {
+            "id": "damage-field",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.7uPe9UrDU7avRRmL]"
+        },
+        {
+            "id": "elemental-manipulation",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.7cxfDDvXQDGYAkkl]"
+        },
+        {
+            "id": "growth",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.4vBy88UUWVWcznLK]"
+        },
+        {
+            "id": "shrink",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.4vBy88UUWVWcznLK]"
+        },
+        {
+            "id": "intangibility",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.AgUCaU5zt9HObJ1b]"
+        },
+        {
+            "id": "puppet",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.PnGRHCnAZMrXtPp6]"
+        },
+        {
+            "id": "numb",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.ofPZhobIeHJ6CU8W]"
+        },
+        {
+            "id": "sloth",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.GeDnFT7We5cDDrJd]"
+        },
+        {
+            "id": "speed",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.GeDnFT7We5cDDrJd]"
+        },
+        {
+            "id": "slumber",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.uu29DfNqynLCMkRF]"
+        },
+        {
+            "id": "silence",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.KiXr9uwOkAM54cPO]"
+        },
+        {
+            "id": "wall-walker",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.YTQsKKTbppDSFgBx]"
+        },
+        {
+            "id": "warriors-gift",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.ZRf0VSWGqP4uRVZl]"
+        },
+        {
+            "id": "glow",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.JournalEntry.swpfcore05powers.JournalEntryPage.05powermodifie00]"
+        },
+        {
+            "id": "shroud",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.JournalEntry.swpfcore05powers.JournalEntryPage.05powermodifie00]"
+        },
+        {
+            "id": "hinder",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.JournalEntry.swpfcore05powers.JournalEntryPage.05powermodifie00]"
+        },
+        {
+            "id": "hurry",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.JournalEntry.swpfcore05powers.JournalEntryPage.05powermodifie00]"
+        },
+        {
+            "id": "sanctuary",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.sZehAgoPVPZE2mEC]"
         }
     ]
 }
