@@ -38,16 +38,16 @@ export class EnhancedConditionsAPI {
         }
         
         if (!entities) {
-            ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken"));
-            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken")}`);
+            ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoToken"));
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoToken")}`);
             return;
         }
 
         let conditions = EnhancedConditions.lookupConditionById(conditionId);
         
         if (!conditions) {
-            ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")} ${conditionId}`);
-            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")}`, conditionId);
+            ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition")} ${conditionId}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition")}`, conditionId);
             return;
         }
 
@@ -57,8 +57,8 @@ export class EnhancedConditionsAPI {
         let effects = EnhancedConditionsAPI.getActiveEffect(conditions);
         
         if (!effects) {
-            ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDTIONS.ApplyCondition.Failed.NoEffect")} ${conditions}`);
-            console.log(`SWADE Ultimate Condition Changer - Enhanced Condition | ${game.i18n.localize("ENHANCED_CONDTIONS.ApplyCondition.Failed.NoEffect")}`, conditions);
+            ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoEffect")} ${conditions}`);
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Condition | ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoEffect")}`, conditions);
             return;
         }
 
@@ -100,8 +100,8 @@ export class EnhancedConditionsAPI {
                 // @todo #348 determine the best way to raise warnings in this scenario
                 /*
                 if (warn) {
-                    ui.notifications.warn(`${entity.name}: ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
-                    console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${entity.name}: ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
+                    ui.notifications.warn(`${entity.name}: ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.AlreadyActive")}`);
+                    console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${entity.name}: ${conditionId} ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.AlreadyActive")}`);
                 }
                 */
 
@@ -309,8 +309,8 @@ export class EnhancedConditionsAPI {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetCondition.Failed.NoCondition"));
         }        
         if (!entity) {
-            ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken"));
-            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken")}`);
+            ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoToken"));
+            console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoToken")}`);
             return;
         }
 

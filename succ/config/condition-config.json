@@ -620,6 +620,46 @@
                     "rounds": 5
                 }
             }
+        },
+        {
+            "id": "generic-plus",
+            "name": "ENHANCED_CONDITIONS.Condition.Generic.Plus",
+            "icon": "modules/succ/assets/icons/g-plus.svg"
+        },
+        {
+            "id": "generic-minus",
+            "name": "ENHANCED_CONDITIONS.Condition.Generic.Minus",
+            "icon": "modules/succ/assets/icons/g-minus.svg"
+        },
+        {
+            "id": "generic-red",
+            "name": "ENHANCED_CONDITIONS.Condition.Generic.Red",
+            "icon": "modules/succ/assets/icons/g-red.svg"
+        },
+        {
+            "id": "generic-green",
+            "name": "ENHANCED_CONDITIONS.Condition.Generic.Green",
+            "icon": "modules/succ/assets/icons/g-green.svg"
+        },
+        {
+            "id": "generic-blue",
+            "name": "ENHANCED_CONDITIONS.Condition.Generic.Blue",
+            "icon": "modules/succ/assets/icons/g-blue.svg"
+        },
+        {
+            "id": "generic-yellow",
+            "name": "ENHANCED_CONDITIONS.Condition.Generic.Yellow",
+            "icon": "modules/succ/assets/icons/g-yellow.svg"
+        },
+        {
+            "id": "generic-black",
+            "name": "ENHANCED_CONDITIONS.Condition.Generic.Black",
+            "icon": "modules/succ/assets/icons/g-black.svg"
+        },
+        {
+            "id": "generic-white",
+            "name": "ENHANCED_CONDITIONS.Condition.Generic.White",
+            "icon": "modules/succ/assets/icons/g-white.svg"
         }
     ]
 }

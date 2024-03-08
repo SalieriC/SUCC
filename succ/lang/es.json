@@ -1,9 +1,9 @@
 {    
     "ENHANCED_CONDITIONS.MapMismatch": "Este mapeo no se corresponde con el sistema de juego y puede que no funcione correctamente.",
-    "ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken": "Error al aplicar la condición. No se ha proporcionado ningún token",
-    "ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition": "Error al aplicar la condición. No se ha podido encontrar la condición:",
-    "ENHANCED_CONDITIONS.ApplyCondition.Failed.NoIcon": "Error al aplicar la condición. No se ha podido encontrar el icono.",
-    "ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive": "ya está activo. Error al aplicar la condición",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.NoToken": "Error al aplicar la condición. No se ha proporcionado ningún token",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition": "Error al aplicar la condición. No se ha podido encontrar la condición:",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.NoIcon": "Error al aplicar la condición. No se ha podido encontrar el icono.",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.AlreadyActive": "ya está activo. Error al aplicar la condición",
     
     "ENHANCED_CONDITIONS.GetConditions.Failed.NoToken": "Error en la aplicación de las condiciones. No se ha proporcionado ninguna entidad y no se ha podido encontrar ninguna automáticamente",
     "ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition": "Error en la aplicación de las condiciones. No se ha encontrado un Mapeo",

@@ -1,9 +1,9 @@
 {
 	"ENHANCED_CONDITIONS.MapMismatch": "Este mapa não corresponde ao seu sistema de jogo e pode não funcionar como esperado.",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken": "Falha ao aplicar condição. Nenhum token fornecido",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition": "Falha ao aplicar condição. Não foi possível encontrar a condição:",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoIcon": "Falha ao aplicar condição. Não foi possível encontrar o ícone.",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive": "já está ativo. Falha ao aplicar condição",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.NoToken": "Falha ao aplicar condição. Nenhum token fornecido",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition": "Falha ao aplicar condição. Não foi possível encontrar a condição:",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.NoIcon": "Falha ao aplicar condição. Não foi possível encontrar o ícone.",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.AlreadyActive": "já está ativo. Falha ao aplicar condição",
 	"ENHANCED_CONDITIONS.GetConditions.Failed.NoToken": "Obter condições falhou. Nenhuma entidade fornecida e nenhuma foi encontrada automaticamente",
 	"ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition": "Obter condições falhou. Nenhum mapa de condição encontrado",
 	"ENHANCED_CONDITIONS.GetConditions.Failed.NoResults": "Obter condições falhou. Nenhuma condição encontrada no ator/token",
