@@ -94,17 +94,20 @@ export class EnhancedConditions {
             return;
         }
 
-        //Add Conviction:
-        if (update?.system?.details?.conviction?.active === true) {
-            //Check if condition was toggled on token, otherwise toggle it here:
-            if (await EnhancedConditionsAPI.hasCondition('conviction', actor, { warn: false }) === true) { return; }
-
-            await EnhancedConditionsAPI.addCondition('conviction', actor);
-        }
-
-        //Remove Conviction:
-        if (update?.system?.details?.conviction?.active === false) {
-            await EnhancedConditionsAPI.removeCondition('conviction', actor, { warn: false });
+        const convictionCondition = EnhancedConditions.lookupConditionByOption("conviction");
+        if (convictionCondition) {
+            //Add Conviction:
+            if (update?.system?.details?.conviction?.active === true) {
+                //Check if condition was toggled on token, otherwise toggle it here:
+                if (await EnhancedConditionsAPI.hasCondition(convictionCondition.id, actor, { warn: false }) === true) { return; }
+    
+                await EnhancedConditionsAPI.addCondition(convictionCondition.id, actor);
+            }
+    
+            //Remove Conviction:
+            if (update?.system?.details?.conviction?.active === false) {
+                await EnhancedConditionsAPI.removeCondition(convictionCondition.id, actor, { warn: false });
+            }
         }
     }
 
@@ -908,6 +911,18 @@ export class EnhancedConditions {
         if (!conditions.length) return null;
 
         return conditions.length > 1 ? conditions : conditions.shift();
+    }
+
+    /**
+     * Gets one or more conditions from the map by their name
+     * @param {String} conditionId  the condition to get
+     * @param {Array} map  the condition map to search
+     */
+    static lookupConditionByOption(option) {
+        if (!option) return;
+
+        const map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+        return map.find(c => c.options && c.options[option]);
     }
 
     /**
