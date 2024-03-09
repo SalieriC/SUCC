@@ -710,7 +710,9 @@ export class ConditionLab extends FormApplication {
                     label: game.i18n.localize("WORDS._Yes"),
                     callback: async event => {
                         const newMap = duplicate(this.map);
-                        this.deletedConditionsMap.push(newMap[row]);
+                        if (!newMap[row].addedByLab) {
+                            this.deletedConditionsMap.push(newMap[row]);
+                        }
                         newMap.splice(row, 1);
                         this.map = newMap;
                         this.render();

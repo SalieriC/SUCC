@@ -55,6 +55,10 @@
                     "DeadlandsD": "Conditions associated with Deadlands.",
                     "GenericN": "Generic",
                     "GenericD": "Generic conditions for general purpose usage."
+                },
+                "Dialog": {
+                    "RefreshMapDefaultsT": "RefreshMapDefaults",
+                    "RefreshMapDefaultsB": "Would you like to refresh your current map to match the new defaults?<p>This will ensure that the list of conditions matches the defaults but will not reset any existing conditions. We will attempt to maintain current sort order as much as possible.<p><p>"
                 }
             },
             "MacroConfig": {

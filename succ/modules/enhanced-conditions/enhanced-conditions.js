@@ -1152,7 +1152,7 @@ export class EnhancedConditions {
 
         let currentDiffs = [];
         for (let conditionConfig of game.succ.conditionConfigMap) {
-            const condition = conditionMap.find(c => c.name === conditionConfig.name);
+            const condition = conditionMap.find(c => c.id === conditionConfig.id);
             if (condition) {
                 if (!!condition.activeEffect != !!conditionConfig.activeEffect) {
                     //One has an active effect and the other doesn't which means they must be different
@@ -1174,10 +1174,10 @@ export class EnhancedConditions {
         }
 
         for (let conditionConfig of game.succ.conditionConfigMap) {
-            const condition = conditionMap.find(c => c.name === conditionConfig.name);
+            const condition = conditionMap.find(c => c.id === conditionConfig.id);
             if (!condition) {
                 const defaultCondition = defaultConditions.find(c => c === conditionConfig.id);
-                const deletedCondition = deletedConditionsMap.find(c => c.name === conditionConfig.name);
+                const deletedCondition = deletedConditionsMap.find(c => c.id === conditionConfig.id);
                 if (defaultCondition && !deletedCondition) {
                     conditionMap.push(duplicate(conditionConfig));
                 }
@@ -1189,7 +1189,7 @@ export class EnhancedConditions {
                     continue;
                 }
 
-                let existingDiff = currentDiffs.find(d => d.name === conditionConfig.name);
+                let existingDiff = currentDiffs.find(d => d.id === conditionConfig.id);
                 if (existingDiff) {
                     //If we had an existing diff for this condition, we'll assume the user wants it that way and leave it as is 
                     continue;

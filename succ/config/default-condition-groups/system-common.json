@@ -7,10 +7,8 @@
     "canBeDisabled": true,
     "conditions": [
         "aiming",
-        "bound",
         "conviction",
         "defending",
-        "entangled",
         "flying",
         "wild-attack"
     ]

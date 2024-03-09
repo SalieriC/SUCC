@@ -7,8 +7,10 @@
     "canBeDisabled": false,
     "conditions": [
         "bleeding-out",
+        "bound",
         "defeated",
         "distracted",
+        "entangled",
         "holding",
         "incapacitated",
         "prone",
