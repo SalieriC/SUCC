@@ -1,9 +1,9 @@
 {
 	"ENHANCED_CONDITIONS.MapMismatch": "该映射与你的游戏系统并不匹配，可能不会按预期工作。",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken": "应用状态失败。没有提供指示物",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition": "应用状态失败。没有找到状态：",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoIcon": "应用状态失败。没有找到图标。",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive": "已经激活。应用状态失败，",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.NoToken": "应用状态失败。没有提供指示物",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition": "应用状态失败。没有找到状态：",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.NoIcon": "应用状态失败。没有找到图标。",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.AlreadyActive": "已经激活。应用状态失败，",
 	"ENHANCED_CONDITIONS.GetConditions.Failed.NoToken": "获取状态失败。没有提供条目并且无法自动检索",
 	"ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition": "获取状态失败。没有找到状态映射",
 	"ENHANCED_CONDITIONS.GetConditions.Failed.NoResults": "获取状态失败。没有在角色/指示物上找到状态",

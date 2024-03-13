@@ -202,6 +202,7 @@ export class ConditionLab extends FormApplication {
             const macros = existingCondition ? existingCondition.macros : null;
             const options = existingCondition ? existingCondition.options : {};
             const addedByLab = existingCondition?.addedByLab;
+            const destroyDisabled = existingCondition?.destroyDisabled;
 
             const condition = {
                 id,
@@ -211,7 +212,8 @@ export class ConditionLab extends FormApplication {
                 activeEffect,
                 macros,
                 options,
-                addedByLab
+                addedByLab,
+                destroyDisabled
             };
 
             newMap.push(condition);
@@ -224,12 +226,12 @@ export class ConditionLab extends FormApplication {
      * Restore defaults for a mapping
      */
     async _restoreDefaults({clearCache=false, keepConditionsAddedByLab=false}={}) {
-        let defaultMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap);
+        let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
         if (clearCache) {
-            defaultMap = await EnhancedConditions._loadDefaultMap();
-            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, defaultMap);
+            defaultConditions = await EnhancedConditions._loadDefaultConditions();
+            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, defaultConditions);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.defaultSpecialStatusEffects);
         }
@@ -237,7 +239,7 @@ export class ConditionLab extends FormApplication {
         Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, []);
 
         // If the mapType is other then the map should be empty, otherwise it's the default map for the system
-        const tempMap = (this.mapType != otherMapType && defaultMap) ? defaultMap : [];
+        const tempMap = (this.mapType != otherMapType && EnhancedConditions.getMapForDefaultConditions(defaultConditions)) ? EnhancedConditions.getMapForDefaultConditions(defaultConditions) : [];
 
         // Loop over the old map and readd any conditions that were added by the user through the Condition Lab
         const oldMap = duplicate(this.map);
@@ -338,7 +340,7 @@ export class ConditionLab extends FormApplication {
         }
 
         // Trigger file save procedure
-        const filename = `succ-${game.system.id}-condition-map.json`;
+        const filename = `succ-${game.system.id}-condition-config.json`;
         saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
     }
     
@@ -465,6 +467,7 @@ export class ConditionLab extends FormApplication {
         const restoreDefaultsButton = html.find("button[class='restore-defaults']");
         const resetFormButton = html.find("button[name='reset']");
         const saveCloseButton = html.find("button[name='save-close']");
+        const refreshRefsButton = html.find("button[name='refresh-refs']");
         const filterInput = html.find("input[name='filter-list']");
         const sortButton = html.find("a.sort-list");
         const macroConfigButton = html.find("button.macro-config");
@@ -479,6 +482,7 @@ export class ConditionLab extends FormApplication {
         restoreDefaultsButton.on("click", async event => this._onRestoreDefaults(event));
         resetFormButton.on("click", event => this._onResetForm(event));
         saveCloseButton.on("click", event => this._onSaveClose(event));
+        refreshRefsButton.on("click", event => this._onRefreshRefs(event));
         filterInput.on("input", (event) => this._onChangeFilter(event));
         sortButton.on("click", (event) => this._onClickSortButton(event));
         macroConfigButton.on("click", (event) => this._onClickMacroConfig(event));
@@ -706,7 +710,9 @@ export class ConditionLab extends FormApplication {
                     label: game.i18n.localize("WORDS._Yes"),
                     callback: async event => {
                         const newMap = duplicate(this.map);
-                        this.deletedConditionsMap.push(newMap[row]);
+                        if (!newMap[row].addedByLab) {
+                            this.deletedConditionsMap.push(newMap[row]);
+                        }
                         newMap.splice(row, 1);
                         this.map = newMap;
                         this.render();
@@ -877,6 +883,33 @@ export class ConditionLab extends FormApplication {
             ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Lab.SaveFailed"));
         });
         
+    }
+
+    async _onDrop(event) {
+        event.preventDefault();
+        const eventData = TextEditor.getDragEventData(event);
+        const link = await TextEditor.getContentLink(eventData);
+        const targetInput = event.currentTarget;
+        if (link) {
+            targetInput.value = link;
+            return targetInput.dispatchEvent(new Event("change"));
+        } else {
+            return ui.notifications.error(game.i18n.localize(`${NAME}.ENHANCED_CONDITIONS.ConditionLab.BadReference`));
+        }
+    }
+
+    /**
+     * Save and Close handler
+     * @param {*} event 
+     */
+    _onRefreshRefs(event) {
+        for (let condition of this.map) {
+            let conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
+            if (conditionConfig) {
+                condition.referenceId = conditionConfig.referenceId;
+            }
+        }
+        this.render(true);
     }
 
     async _onDrop(event) {

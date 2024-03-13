@@ -1,0 +1,15 @@
+{
+    "id": "common-conditions",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.CommonN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.CommonD",
+    "sortOrder": 10,
+    "enabledByDefault": true,
+    "canBeDisabled": true,
+    "conditions": [
+        "aiming",
+        "conviction",
+        "defending",
+        "flying",
+        "wild-attack"
+    ]
+}

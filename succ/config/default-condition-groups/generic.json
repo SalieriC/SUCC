@@ -1,0 +1,18 @@
+{
+    "id": "generic",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.GenericN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.GenericD",
+    "sortOrder": 100,
+    "enabledByDefault": false,
+    "canBeDisabled": true,
+    "conditions": [
+        "generic-plus",
+        "generic-minus",
+        "generic-red",
+        "generic-green",
+        "generic-blue",
+        "generic-yellow",
+        "generic-black",
+        "generic-white"
+    ]
+}

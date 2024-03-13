@@ -1,5 +1,6 @@
 {
     "module":"swade-core-rules",
+    "priority": 10,
     "map":[
         {
             "id": "shaken",
@@ -98,7 +99,7 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor04theadv.JournalEntryPage.04poison00000000#poison]"
         },
         {
-            "id": "shield",
+            "id": "cover-shield",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor02gear00.JournalEntryPage.02shields0000000#shields]"
         },
         {
@@ -144,6 +145,86 @@
         {
             "id": "lower",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.FSwGNyzYvYRMhOkV]"
+        },
+        {
+            "id": "arcane-protection",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.YCK7uLmPENKq0Zdb]"
+        },
+        {
+            "id": "burrow",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.cLRfMRfjBZZBQmFW]"
+        },
+        {
+            "id": "confusion",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.Ewds3tTHCxbtl6i9]"
+        },
+        {
+            "id": "damage-field",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.NJViHErRJmmNKMxC]"
+        },
+        {
+            "id": "elemental-manipulation",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.tvkJEXvT34m8Xx9c]"
+        },
+        {
+            "id": "growth",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.Uc35itYBnj3SmOde]"
+        },
+        {
+            "id": "shrink",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.Uc35itYBnj3SmOde]"
+        },
+        {
+            "id": "intangibility",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.2WMVbzAqJG5EO3hd]"
+        },
+        {
+            "id": "puppet",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.oRef4wp8YizkFo8u]"
+        },
+        {
+            "id": "numb",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.Gv4Koefqaap6qKbM]"
+        },
+        {
+            "id": "sloth",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.zCMcQuzYNvkEiw1r]"
+        },
+        {
+            "id": "speed",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.zCMcQuzYNvkEiw1r]"
+        },
+        {
+            "id": "slumber",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.QElMPOZK7jJDDGCP]"
+        },
+        {
+            "id": "silence",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.v1LPqc5as5XoP9cg]"
+        },
+        {
+            "id": "wall-walker",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.VExCzgzDejsraifN]"
+        },
+        {
+            "id": "warriors-gift",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.R3CtmF3sFkFIh3UQ]"
+        },
+        {
+            "id": "glow",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.JournalEntry.swadecor05powers.JournalEntryPage.05gloworshroud00]"
+        },
+        {
+            "id": "shroud",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.JournalEntry.swadecor05powers.JournalEntryPage.05gloworshroud00]"
+        },
+        {
+            "id": "hinder",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.JournalEntry.swadecor05powers.JournalEntryPage.05hinderorhurr00]"
+        },
+        {
+            "id": "hurry",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.JournalEntry.swadecor05powers.JournalEntryPage.05hinderorhurr00]"
         }
     ]
 }

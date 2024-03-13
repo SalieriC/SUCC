@@ -1,0 +1,13 @@
+{
+    "id": "deadlands",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.DeadlandsN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.DeadlandsD",
+    "sortOrder": 70,
+    "enabledByDefault": false,
+    "canBeDisabled": true,
+    "conditions": [
+        "ammo-whammy",
+        "holy-symbol",
+        "let-the-devil-out"
+    ]
+}
