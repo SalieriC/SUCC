@@ -164,13 +164,6 @@
 				"Buttons": {
 					"Options": "Opções"
 				}
-			},
-			"Deprecation": {
-				"apply_status": "apply_status está obsoleto. Em vez disso, use addCondition ou removeCondition.",
-				"toggle_status": "apply_status está obsoleto. Em vez disso, use addCondition ou removeCondition.",
-				"check_status": "check_status está obsoleto. Em vez disso, use hasCondition.",
-				"get_condition": "get_condition está obsoleto. Em vez disso, use getCondition.",
-				"get_condition_from": "get_condition_from está obsoleto. Em vez disso, use getConditionFrom."
 			}
 		},
 		"SETTINGS": {
