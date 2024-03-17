@@ -112,10 +112,10 @@ export class EnhancedConditions {
     }
 
     static async _onSwadeActorPrepareDerivedData(actor) {
+        //Get the user defined ID for the condition to be added if overencumbered:
+        const encumberedId = game.succ.conditions.find(c => c.options.encumbered)?.id
         //Add/Remove Encumbrance if game setting for that is true and a condition is set for it:
-        if (game.settings.get('swade', 'applyEncumbrance') && game.succ.conditions.find(c => c.options.encumbered)) {
-            //Get the user defined ID for the condition to be added if overencumbered:
-            const encumberedId = game.succ.conditions.find(c => c.options.encumbered)?.id
+        if (game.settings.get('swade', 'applyEncumbrance') && encumberedId) {
             //Check if overencumbered and if the condition is already applied:
             const hasEncumberedCondition = await EnhancedConditionsAPI.hasCondition(encumberedId, actor)
             let isEncumbered = actor.system.details.encumbrance.value > actor.system.details.encumbrance.max ? true : false
