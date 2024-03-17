@@ -122,7 +122,10 @@
         {
             "id": "encumbered",
             "name": "SWADE.Encumbered",
-            "icon": "modules/succ/assets/icons/2-encumbered.svg"
+            "icon": "modules/succ/assets/icons/2-encumbered.svg",
+            "options": {
+                "encumbered": true
+            }
         },
         {
             "id": "bleeding-out",

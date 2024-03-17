@@ -107,6 +107,13 @@
             </label>
             <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Notes"}}</p>
         </div>
+        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Label"}}">
+            <input type="checkbox" name="encumbered" {{checked condition.options.encumbered}} {{#if ../isDefault}}disabled{{/if}}>
+            <label for="encumbered">
+                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Label"}}
+            </label>
+            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Notes"}}</p>
+        </div>
     {{!-- </div> --}}
     <br/>    
     <div class="footer">
