@@ -26,6 +26,7 @@ export class EnhancedConditions {
         await EnhancedConditions.loadConditionConfigMap();
 
         if (game.user.isGM) {
+            await EnhancedConditions.loadConditionConfigMap();
             await EnhancedConditions.updateConditionMapFromDefaults();
         }
 
