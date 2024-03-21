@@ -11,7 +11,7 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03damageeffect00#incapacitation]"
         },
         {
-            "id": "defeated",
+            "id": "dead",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.swadecor03rules0.JournalEntryPage.03damageeffect00#incapacitation]"
         },
         {
