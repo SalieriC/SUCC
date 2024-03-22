@@ -12,7 +12,8 @@
             "name": "SWADE.Incap",
             "icon": "modules/succ/assets/icons/3-incapacitated.svg",
             "options": {
-                "markIncapacitated": true
+                "markIncapacitated": true,
+                "overlay": true
             }
         },
         {
