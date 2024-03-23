@@ -1,4 +1,5 @@
 import * as BUTLER from "./butler.js";
+import { DefaultConditionsMenu } from "./enhanced-conditions/default-conditions-menu.js";
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
 import { Sidekick } from "./sidekick.js";
 import { TokenUtility } from "./utils/token.js";
@@ -32,12 +33,12 @@ export function registerSettings() {
         onChange: s => {}
     });
 
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMap, {
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, {
         name: "SETTINGS.EnhancedConditions.DefaultMapN",
         hint: "SETTINGS.EnhancedConditions.DefaultMapH",
         scope: "world",
-        type: Object,
-        default: {}
+        type: Array,
+        default: []
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, {
@@ -60,6 +61,14 @@ export function registerSettings() {
                 game.succ.conditions = conditionMap;
             }
         }
+    });
+
+    Sidekick.registerMenu(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditionsMenu, {
+        name: "SETTINGS.EnhancedConditions.DefaultConditionsMenuN",
+        hint: "SETTINGS.EnhancedConditions.DefaultConditionsMenuH",
+        label: "SETTINGS.EnhancedConditions.DefaultConditionsMenuN",
+        scope: "world",
+        type: DefaultConditionsMenu
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat, {

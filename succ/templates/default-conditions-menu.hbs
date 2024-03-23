@@ -1,0 +1,34 @@
+{{!-- <h2>{{ localize "BRSW.SystemGlobalMenu" }}</h2> --}}
+<div class="flexrow">
+    <aside class="sidebar flexcol">
+        <nav class="tabs">
+            {{#each groups }}
+            <a class="item group-tab {{#if (eq @index 0)}}active{{/if}}" data-tab="{{ this.id }}">{{ localize this.name }}</a>
+            {{/each}}
+        </nav>
+    </aside>
+    <div class="condition-section">
+        <form id="condition-form" class='sheet-body condition-list'>
+            {{#each groups }}
+            <section class="tab {{#if (eq @index 0)}}active{{/if}}" id="tab-{{{ this.id }}}" data-tab="{{ this.id }}">
+                <div class="flexrow">
+                    <h2>{{ localize this.name }}</h2>
+                    {{#if this.canBeDisabled}}
+                    <input type="checkbox" id="checkbox-{{{ this.id }}}" name="{{{ this.id }}}" {{#if this.enabled}}checked="checked" {{/if}}>
+                    {{/if}}
+                </div>
+                <i>{{ localize this.description }}</i>
+                <p></p>
+                {{#each this.conditions }}
+                <div>
+                    <input type="checkbox" name="{{{ this.id }}}" {{#if this.enabled}}checked="checked" {{/if}} {{#unless ../canBeDisabled}}disabled="disabled" {{/unless}}>{{ localize this.name }}
+                </div>
+                {{/each}}
+            </section>
+            {{/each}}
+        </form>
+        <footer>
+            <button type="submit" form="condition-form" class="save-button"><i class="fas fa-save"></i>{{localize "succ.WORDS.Save"}}</button>
+        </footer>
+    </div>
+</div>

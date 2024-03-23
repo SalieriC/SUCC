@@ -34,6 +34,33 @@
                     "Active": "Active"
                 }
             },
+            "DefaultConditionsMenu": {
+                "Title": "Default Conditions",
+                "Groups": {
+                    "RequiredN": "Required Conditions",
+                    "RequiredD": "Conditions that are required by the system in order to function. These cannot be disabled.",
+                    "CommonN": "Common System Conditions",
+                    "CommonD": "Commonly used conditions from the list of default SWADE system conditions.",
+                    "UncommonN": "Uncommon System Conditions",
+                    "UncommonD": "Less often used conditions from the list of default SWADE system conditions.",
+                    "RareN": "Rare System Conditions",
+                    "RareD": "Rarely used conditions from the list of default SWADE system conditions.",
+                    "ExpandedPowersN": "Expanded Powers",
+                    "ExpandedPowersD": "Conditions associated with powers in the core rules.",
+                    "PowerModifiersN": "Power Modifiers",
+                    "PowerModifiersD": "Conditions associated with the common Power Modifiers.",
+                    "PathfinderPowersN": "Pathfinder Powers",
+                    "PathfinderPowersD": "Conditions associated with powers in Pathfinder.",
+                    "DeadlandsN": "Deadlands",
+                    "DeadlandsD": "Conditions associated with Deadlands.",
+                    "GenericN": "Generic",
+                    "GenericD": "Generic conditions for general purpose usage."
+                },
+                "Dialog": {
+                    "RefreshMapDefaultsT": "RefreshMapDefaults",
+                    "RefreshMapDefaultsB": "Would you like to refresh your current map to match the new defaults?<p>This will ensure that the list of conditions matches the defaults but will not reset any existing conditions. We will attempt to maintain current sort order as much as possible.<p><p>"
+                }
+            },
             "MacroConfig": {
                 "Heading": "Macros to Execute",
                 "ApplyHeading": "Apply Macro",
@@ -76,22 +103,23 @@
                     "Label": "Protection",
                     "Notes": "When applied, this Condition will open the Protection dialog"
                 },
+                "Deflection": {
+                    "Label": "Deflection",
+                    "Notes": "When applied, this Condition will open the Deflection dialog"
+                },
                 "Conviction": {
                     "Label": "Conviction",
                     "Notes": "When applied, this Condition will activate Conviction on the affected Token"
+                },
+                "Encumbered": {
+                    "Label": "Encumbered",
+                    "Notes": "If enabled, this condition will be added to actors that are exceeding the carry limit, if the 'Apply Encumbrance Penalties' setting in SWADE is active (and will also respect the relevant setting in BRSW)"
                 },
                 "SpecialStatusEffectOverride": {
                     "Title": "Override Existing Condition for this Status Effect?",
                     "Content": "Another Condition ({existingCondition}) is already setup to apply this special Status Effect: {statusEffect}. <p>If you click 'Yes' and Save this Condition's Options you will override that existing mapping.</p>"
                 },
                 "SaveNote": "Note: Clicking Save will Save Condition Lab Mapping"
-            },
-            "Deprecation": {
-                "apply_status": "apply_status is deprecated. Use addCondition or removeCondition instead.",
-                "toggle_status": "toggle_status is deprecated. Use addCondition or removeCondition instead.",
-                "check_status": "check_status is deprecated. Use hasCondition instead.",
-                "get_condition": "get_condition is deprecated. Use getCondition instead.",
-                "get_condition_from": "get_condition_from is deprecated. Use getConditionFrom instead."
             }
         },
         "SETTINGS": {
@@ -118,10 +146,10 @@
     },
 
     "ENHANCED_CONDITIONS.MapMismatch": "This map does not match your game system and may not work as expected.",
-    "ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken": "Apply Condition failed. No token provided",
-    "ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition": "Apply Condition failed. Could not find condition:",
-    "ENHANCED_CONDITIONS.ApplyCondition.Failed.NoIcon": "Apply Condition failed. Could not find icon.",
-    "ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive": "is already active. Apply Condition failed",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.NoToken": "Add Condition failed. No token provided",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition": "Add Condition failed. Could not find condition:",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.NoIcon": "Add Condition failed. Could not find icon.",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.AlreadyActive": "is already active. Add Condition failed",
     
     "ENHANCED_CONDITIONS.GetConditions.Failed.NoToken": "Get Conditions failed. No entity provided and none could be found automatically",
     "ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition": "Get Conditions failed. No Condition Map found",
@@ -158,10 +186,8 @@
     "ENHANCED_CONDITIONS.Lab.Options.Overlay.Label": "Overlay",
     "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label": "Remove Others",
     "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Label": "Output to Chat",
-    "ENHANCED_CONDITIONS.Lab.Options.MarkDefeated.Label": "Mark Defeated",
     "ENHANCED_CONDITIONS.Lab.Options.Overlay.Title": "Condition is an overlay",
     "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title": "Remove other conditions when this one is applied",
-    "ENHANCED_CONDITIONS.Lab.Options.MarkDefeated.Title": "Mark matching combatants defeated when this condition is applied",
     "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Title": "Output this condition to chat when added/removed",
 
     "ENHANCED_CONDITIONS.ChatCard.Title.Active": "Active Conditions",
@@ -177,12 +203,50 @@
     "ENHANCED_CONDITIONS.Condition.Slumber": "Slumber",
     "ENHANCED_CONDITIONS.Condition.Rage": "Rage",
     "ENHANCED_CONDITIONS.Condition.Deflection": "Deflection",
+    "ENHANCED_CONDITIONS.Condition.ArcaneProtection": "Arcane Protection",
+    "ENHANCED_CONDITIONS.Condition.Burrow": "Burrow",
+    "ENHANCED_CONDITIONS.Condition.Confusion": "Confusion",
+    "ENHANCED_CONDITIONS.Condition.DamageField": "Damage Field",
+    "ENHANCED_CONDITIONS.Condition.ElementalManipulation": "Elemental Manipulation",
+    "ENHANCED_CONDITIONS.Condition.Growth": "Growth",
+    "ENHANCED_CONDITIONS.Condition.Shrink": "Shrink",
+    "ENHANCED_CONDITIONS.Condition.Intangibility": "Intangibility",
+    "ENHANCED_CONDITIONS.Condition.Puppet": "Puppet",
+    "ENHANCED_CONDITIONS.Condition.Numb": "Numb",
+    "ENHANCED_CONDITIONS.Condition.Sloth": "Sloth",
+    "ENHANCED_CONDITIONS.Condition.Speed": "Speed",
+    "ENHANCED_CONDITIONS.Condition.Silence": "Silence",
+    "ENHANCED_CONDITIONS.Condition.WallWalker": "Wall Walker",
+    "ENHANCED_CONDITIONS.Condition.WarriorsGift": "Warrior's Gift",
+    "ENHANCED_CONDITIONS.Condition.Glow": "Glow",
+    "ENHANCED_CONDITIONS.Condition.Shroud": "Shroud",
+    "ENHANCED_CONDITIONS.Condition.Hinder": "Hinder",
+    "ENHANCED_CONDITIONS.Condition.Hurry": "Hurry",
+    "ENHANCED_CONDITIONS.Condition.Sanctuary": "Sanctuary",
+    "ENHANCED_CONDITIONS.Condition.FeatherFall": "Feather Fall",
+    "ENHANCED_CONDITIONS.Condition.AmmoWhammy": "Ammo Whammy",
+    "ENHANCED_CONDITIONS.Condition.HolySymbol": "Holy Symbol",
+    "ENHANCED_CONDITIONS.Condition.LetTheDevilOut": "Let the Devil Out",
+    
+    "ENHANCED_CONDITIONS.Condition.Generic.Plus": "Plus",
+    "ENHANCED_CONDITIONS.Condition.Generic.Minus": "Minus",
+    "ENHANCED_CONDITIONS.Condition.Generic.Red": "Red",
+    "ENHANCED_CONDITIONS.Condition.Generic.Green": "Green",
+    "ENHANCED_CONDITIONS.Condition.Generic.Blue": "Blue",
+    "ENHANCED_CONDITIONS.Condition.Generic.Yellow": "Yellow",
+    "ENHANCED_CONDITIONS.Condition.Generic.Black": "Black",
+    "ENHANCED_CONDITIONS.Condition.Generic.White": "White",
 
     "ENHANCED_CONDITIONS.Dialog.Attribute": "|ATTRIBUTE|",
     "ENHANCED_CONDITIONS.Dialog.Skill": "|SKILL|",
     "ENHANCED_CONDITIONS.Dialog.Trait": "Trait: ",
     "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name": "Boost Trait Builder",
     "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Body": "<p><i>Boost Trait</i> raises a single Trait of the recipient. Please choose the affected Trait and the degree of success the caster had.</p>",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Name": "Deflection Builder",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Body": "<p><i>Deflection</i> causes foes to subtract 2 from either melee or ranged attacks or both with a raise. Please choose the type of Deflection to apply.</p>",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Melee": "Melee",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Raise": "Raise",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Ranged": "Ranged",
     "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Name": "Lower Trait Builder",
     "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Body": "<p><i>Lower Trait</i> lowers a single Trait of the recipient. Please choose the affected Trait and the degree of success the caster had.</p>",
     "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name": "Smite Builder",
@@ -203,6 +267,8 @@
     
     "SETTINGS.EnhancedConditions.CoreIconsN": "Core Status Icons",
     "SETTINGS.EnhancedConditions.CoreIconsH": "A copy of the core status icons",
+    "SETTINGS.EnhancedConditions.DefaultConditionsMenuN": "Default Conditions",
+    "SETTINGS.EnhancedConditions.DefaultConditionsMenuH": "Select which conditions will be included in the default list",
     "SETTINGS.EnhancedConditions.SystemN": "Game System",
     "SETTINGS.EnhancedConditions.SystemH": "A reference to the game system. Defaults to other if not known to the module",
     "SETTINGS.EnhancedConditions.OutputChatN": "Output to Chat",
@@ -252,8 +318,6 @@
     "SUCC.smite.no_weapons": "No weapon to apply smite to was found.",
     "SUCC.setting.modify_status_definitions": "Modify system status",
     "SUCC.setting.modify_status_definitions_hint": "JSON to modify the default system status values",
-    "SUCC.setting.mark_inc_defeated": "Mark incapacitated NPCs Dead:",
-    "SUCC.setting.mark_inc_defeated_hint": "If set to true, NPC tokens with the Incapacitated condition will be set to defeated.",
     "SUCC.setting.boost_lower": "Add Boost and Lower Conditions",
     "SUCC.setting.boost_lower_hint": "If set to true, two new conditions will be added to apply the effects of the boost/lower power.",
     "SUCC.condition.boost": "Boost Trait",

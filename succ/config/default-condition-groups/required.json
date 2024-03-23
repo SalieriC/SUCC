@@ -1,0 +1,21 @@
+{
+    "id": "required-conditions",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredD",
+    "sortOrder": 0,
+    "enabledByDefault": true,
+    "canBeDisabled": false,
+    "conditions": [
+        "bleeding-out",
+        "bound",
+        "dead",
+        "distracted",
+        "entangled",
+        "holding",
+        "incapacitated",
+        "prone",
+        "shaken",
+        "stunned",
+        "vulnerable"
+    ]
+}

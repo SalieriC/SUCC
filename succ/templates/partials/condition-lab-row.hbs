@@ -81,9 +81,11 @@
                 </div>
                 <div class="remove-row">
                     {{#unless isDefault}}
+                    {{#unless destroyDisabled}}
                     <a name="remove-row-{{@index}}" class="remove-row" title="Delete Row">
                         <i class="fas fa-trash"></i>
                     </a>
+                    {{/unless}}
                     {{/unless}}
                 </div> 
                 <div class="move-down">

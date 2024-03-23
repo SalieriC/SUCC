@@ -1,9 +1,9 @@
 {
 	"ENHANCED_CONDITIONS.MapMismatch": "Este mapa não corresponde ao seu sistema de jogo e pode não funcionar como esperado.",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken": "Falha ao aplicar condição. Nenhum token fornecido",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition": "Falha ao aplicar condição. Não foi possível encontrar a condição:",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoIcon": "Falha ao aplicar condição. Não foi possível encontrar o ícone.",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive": "já está ativo. Falha ao aplicar condição",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.NoToken": "Falha ao aplicar condição. Nenhum token fornecido",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition": "Falha ao aplicar condição. Não foi possível encontrar a condição:",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.NoIcon": "Falha ao aplicar condição. Não foi possível encontrar o ícone.",
+	"ENHANCED_CONDITIONS.AddCondition.Failed.AlreadyActive": "já está ativo. Falha ao aplicar condição",
 	"ENHANCED_CONDITIONS.GetConditions.Failed.NoToken": "Obter condições falhou. Nenhuma entidade fornecida e nenhuma foi encontrada automaticamente",
 	"ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition": "Obter condições falhou. Nenhum mapa de condição encontrado",
 	"ENHANCED_CONDITIONS.GetConditions.Failed.NoResults": "Obter condições falhou. Nenhuma condição encontrada no ator/token",
@@ -164,13 +164,6 @@
 				"Buttons": {
 					"Options": "Opções"
 				}
-			},
-			"Deprecation": {
-				"apply_status": "apply_status está obsoleto. Em vez disso, use addCondition ou removeCondition.",
-				"toggle_status": "apply_status está obsoleto. Em vez disso, use addCondition ou removeCondition.",
-				"check_status": "check_status está obsoleto. Em vez disso, use hasCondition.",
-				"get_condition": "get_condition está obsoleto. Em vez disso, use getCondition.",
-				"get_condition_from": "get_condition_from está obsoleto. Em vez disso, use getConditionFrom."
 			}
 		},
 		"SETTINGS": {
@@ -227,8 +220,6 @@
 	"SUCC.smite.no_weapons": "Não foi encontrada nenhuma arma para aplicar Ferir.",
 	"SUCC.setting.modify_status_definitions": "Modificar estados do sistema",
 	"SUCC.setting.modify_status_definitions_hint": "JSON para modificar os valores padrão de estados do sistema",
-	"SUCC.setting.mark_inc_defeated": "Marcar NPCs incapacitados como mortos:",
-	"SUCC.setting.mark_inc_defeated_hint": "Os tokens de NPC com a condição Incapacitado serão definidos como derrotados.",
 	"SUCC.setting.boost_lower": "Adicionar condições de Aumento e Redução",
 	"SUCC.setting.boost_lower_hint": "Duas novas condições serão adicionadas para aplicar os efeitos do poder de Aumentar/Reduzir Característica.",
 	"SUCC.condition.boost": "Aumentar Característica",

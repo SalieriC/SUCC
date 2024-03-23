@@ -1,0 +1,22 @@
+{
+    "module":"deadlands-core-rules",
+    "priority": 16,
+    "map":[
+        {
+            "id": "numb",
+            "referenceId": "@UUID[Compendium.deadlands-core-rules.deadlands-powers.Item.BK9IXtjBgIifjELq]"
+        },
+        {
+            "id": "ammo-whammy",
+            "referenceId": "@UUID[Compendium.deadlands-core-rules.deadlands-powers.Item.NQ5n9yLFg8PjGrYm]"
+        },
+        {
+            "id": "holy-symbol",
+            "referenceId": "@UUID[Compendium.deadlands-core-rules.deadlands-powers.Item.LGWB6r9LEns43TWv]"
+        },
+        {
+            "id": "let-the-devil-out",
+            "referenceId": "@UUID[Compendium.deadlands-core-rules.deadlands-rules.JournalEntry.dlwwcore06nomans.JournalEntryPage.06harrowed000000#dominion]"
+        }
+    ]
+}

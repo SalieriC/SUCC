@@ -9,13 +9,18 @@ export const CONFIG_PATH = PATH + "/config";
 export const DEFAULT_CONFIG = {
     enhancedConditions: {
         iconPath: `${PATH}/icons/`,
-        conditionMapFilePath: `${CONFIG_PATH}/condition-map.json`,
-        conditionModuleOverridesPath: `${CONFIG_PATH}/condition-map-module-overrides`,
+        conditionConfigFilePath: `${CONFIG_PATH}/condition-config.json`,
+        conditionModuleOverridesPath: `${CONFIG_PATH}/condition-config-module-overrides`,
+        defaultConditionGroupsPath: `${CONFIG_PATH}/default-condition-groups`,
         outputChat: true,
         removeDefaultEffects: true,
         conditionLab: {
             id: "succ-condition-lab",
             title: "Condition Lab",
+        },
+        defaultConditionsMenu: {
+            id: "succ-default-conditions-menu",
+            title: "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Title",
         },
         macroConfig: {
             id: "succ-enhanced-condition-macro-config",
@@ -34,6 +39,7 @@ export const DEFAULT_CONFIG = {
         templates: {
             conditionLab: `${PATH}/templates/condition-lab.hbs`,
             conditionLabRestoreDefaultsDialog: `${PATH}/templates/condition-lab-restore-defaults-dialog.hbs`,
+            defaultConditionsMenu: `${PATH}/templates/default-conditions-menu.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
             chatConditionsPartial: `${PATH}/templates/partials/chat-card-condition-list.hbs`,
             importDialog: `${PATH}/templates/import-conditions.html`,
@@ -41,7 +47,8 @@ export const DEFAULT_CONFIG = {
             optionConfig: `${PATH}/templates/enhanced-condition-option-config.hbs`,
             boostLowerDialog: `${PATH}/templates/boost-lower-dialog.hbs`,
             smiteDialog: `${PATH}/templates/smite-dialog.hbs`,
-            protectionDialog: `${PATH}/templates/protection-dialog.hbs`
+            protectionDialog: `${PATH}/templates/protection-dialog.hbs`,
+            deflectionDialog: `${PATH}/templates/deflection-dialog.hbs`
         },
         specialStatusEffects: {
             blinded: {
@@ -64,6 +71,9 @@ export const DEFAULT_CONFIG = {
             },
             protection: {
                 optionProperty: "protection"
+            },
+            deflection: {
+                optionProperty: "deflection"
             },
             conviction: {
                 optionProperty: "conviction"
@@ -110,14 +120,15 @@ export const SETTING_KEYS = {
     enhancedConditions: {
         coreEffects: "coreStatusEffects",
         map: "activeConditionMap",
-        defaultMap: "defaultConditionMap",
+        defaultConditions: "defaultConditions",
         deletedConditionsMap: "deletedConditionsMap",
         mapType: "conditionMapType",
         removeDefaultEffects: "removeDefaultEffects",
         outputChat: "conditionsOutputToChat",
         showSortDirectionDialog: "showSortDirectionDialog",
         defaultSpecialStatusEffects: "defaultSpecialStatusEffects",
-        specialStatusEffectMapping: "specialStatusEffectMapping"
+        specialStatusEffectMapping: "specialStatusEffectMapping",
+        defaultConditionsMenu: "defaultConditionsMenu"
     },
     tokenUtility: {
         effectSize: "effectSize"

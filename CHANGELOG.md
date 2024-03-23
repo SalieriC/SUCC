@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - `game.succ.toggleCondition()` to toggle a condition on or off.
+- Added several new optional conditions for various powers, modifiers, etc. from core and some official settings.
+- - These can be easily added/removed to the Condition Lab from the game settings of SUCC.
+- Added a new setting to add/remove the new conditions to the Condition Lab.
+- Added several icons for the new conditions.
+- Added an option for conditions that allows the condition to be added for actors that exceed their carry limit.
+- - This will only work if 1) a single condition has this option (set in the Condition Lab) and 2) the 'Apply Encumbrance Penalties' in the SWADE system settings is enabled.
+- - This will also respect a setting in BRSW regarding encumbrance penalties for NPCs. If NPCs ignore Encumbrance penalties as per this setting, NPCs will not get the above defined condition.
+- - This condition is added and removed automatically when carry weight changes which *could* cause slight lag. In our testing we didn't notice any decrease in performance however. 
 ### Fixed
 - Fixed a bug that caused the api to not create a requested overlay.
 

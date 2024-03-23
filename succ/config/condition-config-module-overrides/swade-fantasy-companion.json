@@ -1,0 +1,118 @@
+{
+    "module":"swade-fantasy-companion",
+    "priority": 15,
+    "map":[
+        {
+            "id": "invisible",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.6pIk2UHMWPBiAmCk]"
+        },
+        {
+            "id": "blind",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.gFuuLSXl02lUajWK]"
+        },
+        {
+            "id": "smite",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.8r70sKYB6GfzzapQ]"
+        },
+        {
+            "id": "protection",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.cuuokKqJ5IgaYdNT]"
+        },
+        {
+            "id": "deflection",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.pnhihi2oBjsjsh4N]"
+        },
+        {
+            "id": "boost",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.nDlqRLIhrZBc8Lko]"
+        },
+        {
+            "id": "lower",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.nDlqRLIhrZBc8Lko]"
+        },
+        {
+            "id": "arcane-protection",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.qjflUvZxnhUF91dS]"
+        },
+        {
+            "id": "burrow",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.BXORrKNOSAwAXW3m]"
+        },
+        {
+            "id": "confusion",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.FxiWV5YVRzqxioo7]"
+        },
+        {
+            "id": "damage-field",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.MQMboOtLOdzoVdIr]"
+        },
+        {
+            "id": "elemental-manipulation",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.MEjY7RhNahJGbfRC]"
+        },
+        {
+            "id": "growth",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.4naHN0itZM4uEdYg]"
+        },
+        {
+            "id": "shrink",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.4naHN0itZM4uEdYg]"
+        },
+        {
+            "id": "intangibility",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.DRY74t2m98JCjUpo]"
+        },
+        {
+            "id": "puppet",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.mVT0AsyhtjeltTHF]"
+        },
+        {
+            "id": "numb",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.QlGf5bxHPpHwrAU5]"
+        },
+        {
+            "id": "sloth",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.H5H71b5WDDMJ7nCL]"
+        },
+        {
+            "id": "speed",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.H5H71b5WDDMJ7nCL]"
+        },
+        {
+            "id": "slumber",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.UFQy5B0Egwhm96uM]"
+        },
+        {
+            "id": "silence",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.6bHl26mVNSdtQ0Tl]"
+        },
+        {
+            "id": "wall-walker",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.7UEQMywtDyAR1zSf]"
+        },
+        {
+            "id": "warriors-gift",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.ZvYOVQ9Rn5PbQswT]"
+        },
+        {
+            "id": "glow",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc.JournalEntry.swadefcp04arcana.JournalEntryPage.04activation0000#power-modifiers]"
+        },
+        {
+            "id": "shroud",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc.JournalEntry.swadefcp04arcana.JournalEntryPage.04activation0000#power-modifiers]"
+        },
+        {
+            "id": "hinder",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc.JournalEntry.swadefcp04arcana.JournalEntryPage.04activation0000#power-modifiers]"
+        },
+        {
+            "id": "hurry",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc.JournalEntry.swadefcp04arcana.JournalEntryPage.04activation0000#power-modifiers]"
+        },
+        {
+            "id": "sanctuary",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.cvxABXzInlhAa7cA]"
+        }
+    ]
+}

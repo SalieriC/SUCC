@@ -10,7 +10,7 @@ ul.chat-message.condition-list li {
 
 .chat-message.condition-list .remove-row,
 .chat-message.condition-list .undo-remove {
-   flex: 0 0 20px;
+    flex: 0 0 20px;
 }
 
 
@@ -26,12 +26,12 @@ label.xp-checkbox {
 img.condition-icon {
     width: 50px;
     height: 50px;
-    background:rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .enhanced-conditions div.condition-icon {
     display: flex;
-    flex: 0 0 24px; 
+    flex: 0 0 24px;
     margin: 0px 6px 0px 0px;
 }
 
@@ -72,7 +72,7 @@ a.add-temporary {
 /* -------------------------------------------- */
 
 #succ-condition-lab .hidden {
-  display: none;
+    display: none;
 }
 
 #succ-condition-lab ol.condition-lab {
@@ -84,7 +84,7 @@ a.add-temporary {
     padding: 0px;
     border: 2px inset;
     /* background: url('/ui/denim025.png'); */
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 #succ-condition-lab div.sort {
@@ -99,17 +99,17 @@ a.add-temporary {
 }
 
 #succ-condition-lab div.filter div.input-wrapper {
-  position: relative;
+    position: relative;
 }
 
 #succ-condition-lab div.filter div.input-wrapper i {
-  position: absolute;
-  top: 5px;
-  left: 5px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
 }
 
 #succ-condition-lab div.filter div.input-wrapper input {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
 #succ-condition-lab div.condition-list-controls {
@@ -175,8 +175,8 @@ a.add-temporary {
 }
 
 .condition-lab .reference div.enriched-link {
-  flex: 0 1 0%;
-  margin: 3px;
+    flex: 0 1 0%;
+    margin: 3px;
 }
 
 .condition-lab .reference-type {
@@ -223,7 +223,7 @@ a.add-temporary {
 .condition-lab img {
     width: 60px;
     height: 60px;
-    background-color:rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .condition-lab a.trash {
@@ -284,16 +284,16 @@ a.add-temporary {
 }
 
 .condition-lab .row-controls div {
-  display: flex;
+    display: flex;
 }
 
 .condition-lab .row-controls div.remove-row {
-  flex: 4;
-  align-items: center;
+    flex: 4;
+    align-items: center;
 }
 
 .condition-lab .row-controls div.move-down {
-  align-items: flex-end;
+    align-items: flex-end;
 }
 
 .condition-lab .row-controls a {
@@ -370,5 +370,56 @@ a.add-temporary {
 }
 
 #settings div#succ {
-  margin: 0;
+    margin: 0;
+}
+
+.succ-default-conditions .condition-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.succ-default-conditions .condition-list {
+    padding: 1rem;
+}
+
+.succ-default-conditions footer {
+    margin-top: auto;
+    padding: 1rem;
+}
+
+.succ-default-conditions .condition-list input {
+    vertical-align: middle;
+}
+
+.succ-default-conditions .save-button {
+    background: rgba(0, 0, 0, 0.1);
+    border: 2px groove var(--color-border-light-highlight);
+}
+
+.succ-default-conditions aside.sidebar {
+    flex: 0 0 200px;
+    height: 100%;
+    padding: 1rem;
+    border-right: 1px solid var(--color-border-light-primary);
+    font-size: var(--font-size-12);
+}
+
+.succ-default-conditions aside.sidebar nav.tabs {
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden auto;
+}
+
+.succ-default-conditions aside.sidebar nav.tabs .group-tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--color-border-light-primary);
+    text-align: left;
+}
+
+.succ-default-conditions aside.sidebar nav.tabs .group-tab.active {
+    font-weight: bold;
+    border-bottom: 1px solid var(--color-underline-active);
 }

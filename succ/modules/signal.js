@@ -9,7 +9,6 @@ import { registerSettings } from "./settings.js";
 
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
 import { EnhancedConditionsAPI } from "./enhanced-conditions/enhanced-conditions-api.js";
-import { DeprecatedAPI } from "./enhanced-conditions/dep-api.js";
 
 /* ------------------- Utils ------------------ */
 
@@ -71,14 +70,6 @@ export class Signal {
             game.succ.removeAllConditions = EnhancedConditionsAPI.removeAllConditions;
             game.succ.toggleCondition = EnhancedConditionsAPI.toggleCondition;
             game.succ.removeTemporaryEffects = EnhancedConditionsAPI.removeTemporaryEffects;
-            
-            // Expose deprecated API methods
-            window.succ = window.succ ?? {};
-            window.succ.apply_status = DeprecatedAPI.apply_status;
-            window.succ.toggle_status = DeprecatedAPI.toggle_status;
-            window.succ.check_status = DeprecatedAPI.check_status;
-            window.succ.get_condition = DeprecatedAPI.get_condition;
-            window.succ.get_condition_from = DeprecatedAPI.get_condition_from;
         });
 
         Hooks.on("ready", () => {
@@ -101,6 +92,10 @@ export class Signal {
 
         Hooks.on("updateActor", (tokenDocument, updateData, options, userId) => {
             EnhancedConditions._onUpdateActor(tokenDocument, updateData, options, userId);
+        });
+
+        Hooks.on("swadeActorPrepareDerivedData", (actor, _, __) => {
+            EnhancedConditions._onSwadeActorPrepareDerivedData(actor)
         });
 
         /* -------------------------------------------- */

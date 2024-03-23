@@ -1,0 +1,19 @@
+{
+    "id": "uncommon-conditions",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.UncommonN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.UncommonD",
+    "sortOrder": 20,
+    "enabledByDefault": true,
+    "canBeDisabled": true,
+    "conditions": [
+        "berserk",
+        "blind",
+        "boost",
+        "frightened",
+        "invisible",
+        "lower",
+        "poisoned",
+        "protection",
+        "smite"
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "id": "rare-conditions",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareD",
+    "sortOrder": 30,
+    "enabledByDefault": true,
+    "canBeDisabled": true,
+    "conditions": [
+        "cold-bodied",
+        "cover",
+        "cover-shield",
+        "diseased",
+        "encumbered",
+        "heart-attack",
+        "on-fire",
+        "reach",
+        "the-drop",
+        "torch"
+    ]
+}
