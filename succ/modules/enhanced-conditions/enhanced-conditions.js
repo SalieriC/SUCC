@@ -23,8 +23,6 @@ export class EnhancedConditions {
      * 4. Override status effects
      */
     static async _onReady() {
-        await EnhancedConditions.loadConditionConfigMap();
-
         if (game.user.isGM) {
             await EnhancedConditions.loadConditionConfigMap();
             await EnhancedConditions.updateConditionMapFromDefaults();
