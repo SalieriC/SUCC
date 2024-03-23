@@ -111,6 +111,10 @@ export class EnhancedConditions {
     }
 
     static async _onSwadeActorPrepareDerivedData(actor) {
+        if (!game.succ.conditions) {
+            //The conditions map has not yet been set so we cannot apply encumbrance
+            return;
+        }
         //Get the user defined ID for the condition to be added if overencumbered:
         const encumberedId = game.succ.conditions.find(c => c.options.encumbered)?.id
         //Add/Remove Encumbrance if game setting for that is true and a condition is set for it:
