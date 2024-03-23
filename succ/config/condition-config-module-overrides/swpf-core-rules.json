@@ -11,7 +11,7 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03combat00000000#incapacitation]"
         },
         {
-            "id": "defeated",
+            "id": "dead",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore03rules0.JournalEntryPage.03combat00000000#incapacitation]"
         },
         {

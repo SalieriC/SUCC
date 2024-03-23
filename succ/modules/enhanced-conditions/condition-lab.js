@@ -166,7 +166,6 @@ export class ConditionLab extends FormApplication {
         const optionsOverlayRegex = new RegExp("options-overlay", "i");
         const optionsRemoveRegex = new RegExp("options-remove-others", "i");
         const optionsOutputChatRegex = new RegExp("options-output-chat", "i");
-        const optionsDefeatedRegex = new RegExp("options-mark-defeated", "i");
         const rowRegex = new RegExp(/\d+$/);
 
         //write it back to the relevant condition map

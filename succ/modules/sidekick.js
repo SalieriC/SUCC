@@ -565,10 +565,10 @@ export class Sidekick {
                 return "coldBodied";
 
             case "DEFEATED":
-                return "";
+                return "markDefeated";
 
             case "INCAPACITATED":
-                return "markDefeated";  
+                return "markIncapacitated";  
 
             case "INVISIBLE":
                 return "markInvisible";

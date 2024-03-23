@@ -8,7 +8,7 @@
     "conditions": [
         "bleeding-out",
         "bound",
-        "defeated",
+        "dead",
         "distracted",
         "entangled",
         "holding",

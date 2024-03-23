@@ -10,12 +10,16 @@
         {
             "id": "incapacitated",
             "name": "SWADE.Incap",
-            "icon": "modules/succ/assets/icons/3-incapacitated.svg"
+            "icon": "modules/succ/assets/icons/3-incapacitated.svg",
+            "options": {
+                "markIncapacitated": true,
+                "overlay": true
+            }
         },
         {
-            "id": "defeated",
+            "id": "dead",
             "name": "COMBAT.CombatantDefeated",
-            "icon": "modules/succ/assets/icons/3-defeated.svg",
+            "icon": "modules/succ/assets/icons/3-dead.svg",
             "options": {
                 "markDefeated": true,
                 "overlay": true

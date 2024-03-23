@@ -220,8 +220,6 @@
 	"SUCC.smite.no_weapons": "Não foi encontrada nenhuma arma para aplicar Ferir.",
 	"SUCC.setting.modify_status_definitions": "Modificar estados do sistema",
 	"SUCC.setting.modify_status_definitions_hint": "JSON para modificar os valores padrão de estados do sistema",
-	"SUCC.setting.mark_inc_defeated": "Marcar NPCs incapacitados como mortos:",
-	"SUCC.setting.mark_inc_defeated_hint": "Os tokens de NPC com a condição Incapacitado serão definidos como derrotados.",
 	"SUCC.setting.boost_lower": "Adicionar condições de Aumento e Redução",
 	"SUCC.setting.boost_lower_hint": "Duas novas condições serão adicionadas para aplicar os efeitos do poder de Aumentar/Reduzir Característica.",
 	"SUCC.condition.boost": "Aumentar Característica",

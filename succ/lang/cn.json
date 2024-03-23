@@ -249,8 +249,6 @@
 	"ENHANCED_CONDITIONS.Notification.NoConvictionToken": "此角色没有信念点。",
 	"SUCC.setting.icon_definitions_hint": "用于更改状态图像的JSON",
 	"SUCC.smite.no_weapons": "没有找到可以应用痛击的武器。",
-	"SUCC.setting.mark_inc_defeated": "标记无力化NPC为死亡：",
-	"SUCC.setting.mark_inc_defeated_hint": "如果设置为是，则带有无力化状态的NPC指示物将被设置为已击败。",
 	"SUCC.dialogue.boost_builder_dialogue": "<p><i>强化特性</i>提升接收者的单个特性。请选择受影响的特性和施法者的成功程度。</p>",
 	"SUCC.dialogue.lower_builder_dialogue": "<p><i>削弱</i>削弱接收者的单个特性。请选择受影响的特性和施法者的成功程度。</p>",
 	"SUCC.dialogue.trait": "特性：",

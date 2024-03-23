@@ -252,10 +252,10 @@ export class EnhancedConditionsPowers {
                         await EnhancedConditionsPowers.deflectionBuilder(effect, "Ranged");
                     }
                 },
-                both: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Both"),
+                raise: {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Raise"),
                     callback: async (html) => {
-                        await EnhancedConditionsPowers.deflectionBuilder(effect, "Both");
+                        await EnhancedConditionsPowers.deflectionBuilder(effect, "Raise");
                     }
                 },
                 cancel: {
