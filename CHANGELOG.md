@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `game.succ.toggleCondition()` to toggle a condition on or off.
 - Added several new optional conditions for various powers, modifiers, etc. from core and some official settings.
+- - These can be easily added/removed to the Condition Lab from the game settings of SUCC.
 - Added a new setting to add/remove the new conditions to the Condition Lab.
 - Added several icons for the new conditions.
 - Added an option for conditions that allows the condition to be added for actors that exceed their carry limit.
