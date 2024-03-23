@@ -23,6 +23,8 @@ export class EnhancedConditions {
      * 4. Override status effects
      */
     static async _onReady() {
+        await EnhancedConditions.loadConditionConfigMap();
+
         if (game.user.isGM) {
             await EnhancedConditions.loadConditionConfigMap();
             await EnhancedConditions.updateConditionMapFromDefaults();
@@ -111,10 +113,12 @@ export class EnhancedConditions {
     }
 
     static async _onSwadeActorPrepareDerivedData(actor) {
-        //Add/Remove Encumbrance if game setting for that is true
-        if (game.settings.get('swade', 'applyEncumbrance')) {
+        //Get the user defined ID for the condition to be added if overencumbered:
+        const encumberedId = game.succ.conditions.find(c => c.options.encumbered)?.id
+        //Add/Remove Encumbrance if game setting for that is true and a condition is set for it:
+        if (game.settings.get('swade', 'applyEncumbrance') && encumberedId) {
             //Check if overencumbered and if the condition is already applied:
-            const hasEncumberedCondition = await EnhancedConditionsAPI.hasCondition('encumbered', actor)
+            const hasEncumberedCondition = await EnhancedConditionsAPI.hasCondition(encumberedId, actor)
             let isEncumbered = actor.system.details.encumbrance.value > actor.system.details.encumbrance.max ? true : false
             //If BRSW is enabled also check if NPCs should get encumbrance:
             if (game.modules.get('betterrolls-swade2')?.active) {
@@ -123,8 +127,8 @@ export class EnhancedConditions {
                     .indexOf('NPCDontUseEncumbrance') > -1;
                 if (npcAvoidEncumbrance && actor.type === 'npc') { isEncumbered = false }
             }
-            if (isEncumbered && !hasEncumberedCondition) { EnhancedConditionsAPI.addCondition('encumbered', actor) }
-            else if (!isEncumbered && hasEncumberedCondition) { EnhancedConditionsAPI.removeCondition('encumbered', actor) }
+            if (isEncumbered && !hasEncumberedCondition) { EnhancedConditionsAPI.addCondition(encumberedId, actor) }
+            else if (!isEncumbered && hasEncumberedCondition) { EnhancedConditionsAPI.removeCondition(encumberedId, actor) }
         }
     }
 

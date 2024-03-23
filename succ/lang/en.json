@@ -111,18 +111,15 @@
                     "Label": "Conviction",
                     "Notes": "When applied, this Condition will activate Conviction on the affected Token"
                 },
+                "Encumbered": {
+                    "Label": "Encumbered",
+                    "Notes": "If enabled, this condition will be added to actors that are exceeding the carry limit, if the 'Apply Encumbrance Penalties' setting in SWADE is active (and will also respect the relevant setting in BRSW)"
+                },
                 "SpecialStatusEffectOverride": {
                     "Title": "Override Existing Condition for this Status Effect?",
                     "Content": "Another Condition ({existingCondition}) is already setup to apply this special Status Effect: {statusEffect}. <p>If you click 'Yes' and Save this Condition's Options you will override that existing mapping.</p>"
                 },
                 "SaveNote": "Note: Clicking Save will Save Condition Lab Mapping"
-            },
-            "Deprecation": {
-                "apply_status": "apply_status is deprecated. Use addCondition or removeCondition instead.",
-                "toggle_status": "toggle_status is deprecated. Use addCondition or removeCondition instead.",
-                "check_status": "check_status is deprecated. Use hasCondition instead.",
-                "get_condition": "get_condition is deprecated. Use getCondition instead.",
-                "get_condition_from": "get_condition_from is deprecated. Use getConditionFrom instead."
             }
         },
         "SETTINGS": {

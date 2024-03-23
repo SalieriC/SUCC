@@ -180,13 +180,6 @@
 				"RemoveHeading": "删除宏命令",
 				"SelectNone": "--无宏命令--",
 				"Description": "选择一个宏命令，在将此状态添加到指示物/角色或从其删除时执行"
-			},
-			"Deprecation": {
-				"apply_status": "apply_status已弃用。请改用addCondition或removeCondition。",
-				"toggle_status": "toggle_status已弃用。请改用addCondition或removeCondition。",
-				"check_status": "check_status已弃用。请改用hasCondition。",
-				"get_condition": "get_condition已弃用。请改用getCondition。",
-				"get_condition_from": "get_condition_from已弃用。请改用getConditionFrom。"
 			}
 		},
 		"SHORT_NAME": "SUCC",
