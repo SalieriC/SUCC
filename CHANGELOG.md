@@ -5,9 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+☮️ Peace in the world, or the world in pieces. 🕊️
 
 ## [3.0.0] - 2024-03-24 aka "Open the flood gates!"
-☮️ Peace in the world, or the world in pieces. 🕊️
 ### Added
 - `game.succ.toggleCondition()` to toggle a condition on or off.
 - Added several new optional conditions for various powers, modifiers, etc. from core and some official settings.
