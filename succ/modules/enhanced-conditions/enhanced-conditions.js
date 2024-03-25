@@ -115,8 +115,9 @@ export class EnhancedConditions {
             //The conditions map has not yet been set so we cannot apply encumbrance
             return;
         }
+        
         //Get the user defined ID for the condition to be added if overencumbered:
-        const encumberedId = game.succ.conditions.find(c => c.options.encumbered)?.id
+        const encumberedId = game.succ.conditions.find(c => c.options?.encumbered)?.id
         //Add/Remove Encumbrance if game setting for that is true and a condition is set for it:
         if (game.settings.get('swade', 'applyEncumbrance') && encumberedId) {
             //Check if overencumbered and if the condition is already applied:
