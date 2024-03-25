@@ -3,19 +3,18 @@
     "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredN",
     "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RequiredD",
     "sortOrder": 0,
-    "enabledByDefault": true,
     "canBeDisabled": false,
     "conditions": [
-        "bleeding-out",
-        "bound",
-        "dead",
-        "distracted",
-        "entangled",
-        "holding",
-        "incapacitated",
-        "prone",
-        "shaken",
-        "stunned",
-        "vulnerable"
+        {"id":"bleeding-out", "enabledByDefault": true},
+        {"id":"bound", "enabledByDefault": true},
+        {"id":"dead", "enabledByDefault": true},
+        {"id":"distracted", "enabledByDefault": true},
+        {"id":"entangled", "enabledByDefault": true},
+        {"id":"holding", "enabledByDefault": true},
+        {"id":"incapacitated", "enabledByDefault": true},
+        {"id":"prone", "enabledByDefault": true},
+        {"id":"shaken", "enabledByDefault": true},
+        {"id":"stunned", "enabledByDefault": true},
+        {"id":"vulnerable", "enabledByDefault": true}
     ]
 }

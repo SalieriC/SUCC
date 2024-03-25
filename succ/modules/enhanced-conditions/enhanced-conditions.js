@@ -699,7 +699,7 @@ export class EnhancedConditions {
                     continue;
                 }
 
-                let conditionId = group.conditions.find(c => c === condition.id);
+                let conditionId = group.conditions.find(c => c.id === condition.id);
                 if (conditionId) {
                     condition.destroyDisabled = true;
                     break;
@@ -809,10 +809,10 @@ export class EnhancedConditions {
         for (let condition of game.succ.conditionConfigMap) {
             let foundCondition = false;
             for (let group of groupsJsons) {
-                let conditionId = group.conditions.find(c => c === condition.id);
-                if (conditionId) {
+                const defaultCondition = group.conditions.find(c => c.id === condition.id);
+                if (defaultCondition) {
                     foundCondition = true;
-                    if (group.enabledByDefault) {
+                    if (defaultCondition.enabledByDefault) {
                         defaultConditions.push(condition.id);
                     }
                     break;

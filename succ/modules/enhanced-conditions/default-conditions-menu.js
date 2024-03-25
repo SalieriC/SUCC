@@ -1,10 +1,6 @@
 import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { EnhancedConditions } from "./enhanced-conditions.js";
-import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
-import EnhancedEffectConfig from "./enhanced-effect-config.js";
-import EnhancedConditionMacroConfig from "./enhanced-condition-macro.js";
-import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
 
 /**
  * Form application for managing mapping of Conditions to Icons and JournalEntries
@@ -47,9 +43,9 @@ export class DefaultConditionsMenu extends FormApplication {
         for (let group of groupsJsons) {
             groups[group.id] = { id: group.id, name: group.name, description: group.description, canBeDisabled: group.canBeDisabled, conditions: [] };
             for (let condition of group.conditions) {
-                let defaultCondition = this.defaultConditions.find(c => c === condition);
-                const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition);
-                groups[group.id].conditions.push({ id: condition, name: conditionConfig.name, enabled: !!defaultCondition });
+                let defaultCondition = this.defaultConditions.find(c => c === condition.id);
+                const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
+                groups[group.id].conditions.push({ id: condition.id, name: conditionConfig.name, enabled: !!defaultCondition });
             }
         }
 
