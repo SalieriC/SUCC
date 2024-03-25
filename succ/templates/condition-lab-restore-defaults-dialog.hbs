@@ -9,9 +9,39 @@
 </div>
 {{#unless isDefaultMapType}}
 <div class="formgroup">
-    <input type="checkbox" id="keep-added" style="vertical-align: middle;" checked>
-    <label for="keep-added" style="vertical-align: middle;">
-        {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.KeepAdded.CheckboxText"}}
+    <input type="checkbox" id="reset-names" style="vertical-align: middle;">
+    <label for="reset-names" style="vertical-align: middle;">
+        {{localize "Reset Names"}}
+    </label>
+</div>
+<div class="formgroup">
+    <input type="checkbox" id="reset-refs" style="vertical-align: middle;">
+    <label for="reset-refs" style="vertical-align: middle;">
+        {{localize "Reset Reference Links"}}
+    </label>
+</div>
+<div class="formgroup">
+    <input type="checkbox" id="reset-icons" style="vertical-align: middle;">
+    <label for="reset-icons" style="vertical-align: middle;">
+        {{localize "Reset Icons"}}
+    </label>
+</div>
+<div class="formgroup">
+    <input type="checkbox" id="reset-aes" style="vertical-align: middle;">
+    <label for="reset-aes" style="vertical-align: middle;">
+        {{localize "Reset Active Effects"}}
+    </label>
+</div>
+<div class="formgroup">
+    <input type="checkbox" id="reset-macros" style="vertical-align: middle;">
+    <label for="reset-macros" style="vertical-align: middle;">
+        {{localize "Reset Macros"}}
+    </label>
+</div>
+<div class="formgroup">
+    <input type="checkbox" id="remove-added" style="vertical-align: middle;">
+    <label for="remove-added" style="vertical-align: middle;">
+        {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.RemoveAdded.CheckboxText"}}
     </label>
 </div>
 {{/unless}}

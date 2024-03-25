@@ -175,7 +175,7 @@
     "ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle": "Restore Defaults?",
     "ENHANCED_CONDITIONS.Lab.RestoreDefaults.Body": "<p>Are you sure you want to restore this mapping to defaults?</p><strong>If you save, this change will be permanent.</strong>",
     "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ClearCache.CheckboxText": "Clear cache and reload defaults from module folder?",
-    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.KeepAdded.CheckboxText": "Keep conditions added through the Condition Lab?",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.RemoveAdded.CheckboxText": "Remove conditions added through the Condition Lab?",
     "ENHANCED_CONDITIONS.Lab.ResetFormTitle": "Reset Form?",
     "ENHANCED_CONDITIONS.Lab.ResetFormContent": "<p>Are you sure you want to reset the form?</p><p><strong>You will lose any unsaved changes.</strong></p>",
     "ENHANCED_CONDITIONS.Lab.SaveFailed": "Condition Lab failed to Save and Close",
