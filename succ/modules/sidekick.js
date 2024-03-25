@@ -45,12 +45,8 @@ export class Sidekick {
      * @param {*} awaitResult 
      * @returns {Promise | ClientSetting}
      */
-    static setSetting(key, value, awaitResult=false) {
-        if (!awaitResult) {
-            return game.settings.set(BUTLER.NAME, key, value);
-        }
-
-        game.settings.set(BUTLER.NAME, key, value).then(result => {
+    static async setSetting(key, value) {
+        await game.settings.set(BUTLER.NAME, key, value).then(result => {
             return result;
         }).catch(rejected => {
             throw rejected;
