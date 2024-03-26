@@ -43,9 +43,9 @@ export class DefaultConditionsMenu extends FormApplication {
         for (let group of groupsJsons) {
             groups[group.id] = { id: group.id, name: group.name, description: group.description, canBeDisabled: group.canBeDisabled, conditions: [] };
             for (let condition of group.conditions) {
-                let defaultCondition = this.defaultConditions.find(c => c === condition.id);
+                let defaultCondition = this.defaultConditions.find(c => c.id === condition.id);
                 const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
-                groups[group.id].conditions.push({ id: condition.id, name: conditionConfig.name, enabled: !!defaultCondition });
+                groups[group.id].conditions.push({ id: condition.id, name: conditionConfig.name, enabled: defaultCondition.enabled });
             }
         }
 
@@ -111,14 +111,12 @@ export class DefaultConditionsMenu extends FormApplication {
     }
 
     async _updateObject(_, formData) {
-        let newDefaultConditions = [];
         for (let condition of game.succ.conditionConfigMap) {
-            if (formData[condition.id] || condition.destroyDisabled) {
-                newDefaultConditions.push(condition.id);
-            }
+            let defaultCondition = this.defaultConditions.find(c => c.id === condition.id);
+            defaultCondition.enabled = (formData[condition.id] != undefined && formData[condition.id]) || condition.destroyDisabled == true;
         }
         
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, newDefaultConditions, true);
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, this.defaultConditions, true);
 
         new Dialog({
             title: game.i18n.localize("succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Dialog.RefreshMapDefaultsT"),
