@@ -3,12 +3,11 @@
     "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.PowerModifiersN",
     "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.PowerModifiersD",
     "sortOrder": 50,
-    "enabledByDefault": false,
     "canBeDisabled": true,
     "conditions": [
-        "glow",
-        "hinder",
-        "hurry",
-        "shroud"
+        {"id":"glow", "enabledByDefault": false},
+        {"id":"hinder", "enabledByDefault": false},
+        {"id":"hurry", "enabledByDefault": false},
+        {"id":"shroud", "enabledByDefault": false}
     ]
 }

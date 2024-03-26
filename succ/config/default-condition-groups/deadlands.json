@@ -3,11 +3,10 @@
     "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.DeadlandsN",
     "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.DeadlandsD",
     "sortOrder": 70,
-    "enabledByDefault": false,
     "canBeDisabled": true,
     "conditions": [
-        "ammo-whammy",
-        "holy-symbol",
-        "let-the-devil-out"
+        {"id":"ammo-whammy", "enabledByDefault": false},
+        {"id":"holy-symbol", "enabledByDefault": false},
+        {"id":"let-the-devil-out", "enabledByDefault": false}
     ]
 }

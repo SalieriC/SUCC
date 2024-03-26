@@ -34,10 +34,21 @@ export class EnhancedConditions {
         const mapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
         const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
 
-        // If there's no defaultConditions, check storage then set appropriately
-        if (!defaultConditions || defaultConditions.length === 0) {
-            if (game.user.isGM) {
+        if (game.user.isGM) {
+            if (!defaultConditions || defaultConditions.length === 0) {
+                //If there's no defaultConditions, load them and save them
                 defaultConditions = await EnhancedConditions._loadDefaultConditions();
+                Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, defaultConditions);
+            } else {
+                //If we do have defaultConditions, ensure that the list matches our list of defaults without changing any of the current values
+                let newDefaultConditions = await EnhancedConditions._loadDefaultConditions();
+                for (let newDefault of newDefaultConditions) {
+                    const oldDefault = defaultConditions.find(c => c.id === newDefault.id);
+                    if (oldDefault) {
+                        Object.assign(newDefault, oldDefault);
+                    }
+                }
+                defaultConditions = newDefaultConditions;
                 Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, defaultConditions);
             }
         }
@@ -699,7 +710,7 @@ export class EnhancedConditions {
                     continue;
                 }
 
-                let conditionId = group.conditions.find(c => c === condition.id);
+                let conditionId = group.conditions.find(c => c.id === condition.id);
                 if (conditionId) {
                     condition.destroyDisabled = true;
                     break;
@@ -809,12 +820,10 @@ export class EnhancedConditions {
         for (let condition of game.succ.conditionConfigMap) {
             let foundCondition = false;
             for (let group of groupsJsons) {
-                let conditionId = group.conditions.find(c => c === condition.id);
-                if (conditionId) {
+                const defaultCondition = group.conditions.find(c => c.id === condition.id);
+                if (defaultCondition) {
                     foundCondition = true;
-                    if (group.enabledByDefault) {
-                        defaultConditions.push(condition.id);
-                    }
+                    defaultConditions.push({id: condition.id, enabled: !!defaultCondition.enabledByDefault});
                     break;
                 }
             }
@@ -822,7 +831,7 @@ export class EnhancedConditions {
             if (!foundCondition) {
                 //This condition doesn't exist in any of our groups so we'll assume it came from the system
                 //Add it to the default map so that the user can see it
-                defaultConditions.push(condition.id);
+                defaultConditions.push({id: condition.id, enabled: true});
             }
         }
 
@@ -1146,8 +1155,10 @@ export class EnhancedConditions {
      */
     static getMapForDefaultConditions(defaultConditions) {
         let map = [];
-        for (let conditionId of defaultConditions) {
-            map.push(game.succ.conditionConfigMap.find(c => c.id === conditionId));
+        for (let defaultCondition of defaultConditions) {
+            if (defaultCondition.enabled) {
+                map.push(game.succ.conditionConfigMap.find(c => c.id === defaultCondition.id));
+            }
         }
         return map;
     }
