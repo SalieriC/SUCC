@@ -3,18 +3,17 @@
     "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareN",
     "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.RareD",
     "sortOrder": 30,
-    "enabledByDefault": true,
     "canBeDisabled": true,
     "conditions": [
-        "cold-bodied",
-        "cover",
-        "cover-shield",
-        "diseased",
-        "encumbered",
-        "heart-attack",
-        "on-fire",
-        "reach",
-        "the-drop",
-        "torch"
+        {"id":"cold-bodied", "enabledByDefault": true},
+        {"id":"cover", "enabledByDefault": true},
+        {"id":"cover-shield", "enabledByDefault": true},
+        {"id":"diseased", "enabledByDefault": true},
+        {"id":"encumbered", "enabledByDefault": true},
+        {"id":"heart-attack", "enabledByDefault": true},
+        {"id":"on-fire", "enabledByDefault": true},
+        {"id":"reach", "enabledByDefault": true},
+        {"id":"the-drop", "enabledByDefault": false},
+        {"id":"torch", "enabledByDefault": true}
     ]
 }
