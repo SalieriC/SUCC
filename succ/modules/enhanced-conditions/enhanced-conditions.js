@@ -1233,6 +1233,6 @@ export class EnhancedConditions {
             }
         }
 
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, conditionMap, true);
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, conditionMap);
     }
 }
