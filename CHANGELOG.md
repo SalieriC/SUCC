@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [3.1.0] - 2024-03-26 aka "Drop The Drop"
+### Changed
+- Changed the way conditions in the default condition setting are determined as being en-/disabled by default. This is an internal change and shouldn't affect the user.
+- Changed the The Drop condition to be disabled by default since it was removed from the system. It can still be added by activating it in the default conditions setting.
+### Fixed
+- Fixed a few bugs with the refactor.
+
 ## [3.0.0] - 2024-03-24 aka "Open the flood gates!"
 ### Added
 - `game.succ.toggleCondition()` to toggle a condition on or off.

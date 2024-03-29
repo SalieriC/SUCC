@@ -293,7 +293,7 @@ export class ConditionLab extends FormApplication {
                 yes: ($html) => {
                     const checkbox = $html[0].querySelector("input[name='dont-show-again']");
                     if (checkbox.checked) {
-                        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog, false);
+                        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog);
                     }
                     this._processFormUpdate(formData);
                 },
@@ -332,9 +332,9 @@ export class ConditionLab extends FormApplication {
         this.mapType = this.initialMapType = mapType;
         const preparedMap = EnhancedConditions._prepareMap(newMap);
 
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, mapType, true);
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, preparedMap, true);
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, this.deletedConditionsMap, true);
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, mapType);
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, preparedMap);
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, this.deletedConditionsMap);
 
         return this._finaliseSave(preparedMap);
     }
