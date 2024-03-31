@@ -573,4 +573,42 @@ export class Sidekick {
                 break;
         }
     }
+
+    /**
+     * Get the enum for a special status effect in Foundry based on the option name
+     * @param {*} conditionMap 
+     */
+    static ensureStatusEffectOptionExclusivity(conditionMap) {
+        for (let specialStatusEffect of Object.values(BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects)) {
+            const existingConditions = conditionMap.filter(c => {
+                const optionValue = foundry.utils.getProperty(c, `options.${specialStatusEffect.optionProperty}`);
+                return optionValue == true;
+            });
+
+            if (existingConditions.length < 2) {
+                continue;
+            }
+
+            let defaultConditionConfig = game.succ.conditionConfigMap.find(c => foundry.utils.getProperty(c, `options.${specialStatusEffect.optionProperty}`) == true);
+            if (!defaultConditionConfig) {
+                //This shouldn't be possible but we'll just disable everything so that we're in a safe state
+                for (let condition of existingConditions) {
+                    condition.options[specialStatusEffect.optionProperty] = false;
+                }
+                continue;
+            }
+
+            if (existingConditions.length == 2) {
+                //If we're here, we're likely in an edge case where the user removed the original default condition and then set the option on a different condition
+                //We need to figure out which is the default and disable that
+                let defaultCondition = conditionMap.find(c => c.id === defaultConditionConfig.id);
+                defaultCondition.options[specialStatusEffect.optionProperty] = false;
+            } else {
+                //Something got very borked. Fall back to the default
+                for (let condition of existingConditions) {
+                    condition.options[specialStatusEffect.optionProperty] = defaultConditionConfig.id == condition.id;
+                }
+            }
+        }
+    }
 }
