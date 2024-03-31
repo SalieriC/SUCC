@@ -116,7 +116,7 @@ export class DefaultConditionsMenu extends FormApplication {
             defaultCondition.enabled = (formData[condition.id] != undefined && formData[condition.id]) || condition.destroyDisabled == true;
         }
         
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, newDefaultConditions);
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, this.defaultConditions);
 
         new Dialog({
             title: game.i18n.localize("succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Dialog.RefreshMapDefaultsT"),
@@ -164,6 +164,8 @@ export class DefaultConditionsMenu extends FormApplication {
                 newMap.splice(conditionIndex, 0, condition);
             }
         }
+
+        Sidekick.ensureStatusEffectOptionExclusivity(newMap);
 
         const oldDeletedConditionsMap = duplicate(deletedConditionsMap);
         for (let deletedCondition of oldDeletedConditionsMap) {

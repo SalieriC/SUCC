@@ -224,7 +224,8 @@ export class ConditionLab extends FormApplication {
     /**
      * Restore defaults for a mapping
      */
-    async _restoreDefaults({clearCache=false, resetNames=false, resetRefs=false, resetIcons=false, resetAes=false, resetMacros=false, resetOptions=false, removeConditionsAddedByLab=false}={}) {
+    async _restoreDefaults({clearCache=false, resetNames=false, resetRefs=false, resetIcons=false,
+                            resetAes=false, resetMacros=false, resetOptions=false, removeConditionsAddedByLab=false}={}) {
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
@@ -273,6 +274,15 @@ export class ConditionLab extends FormApplication {
             if (!resetMacros) {
                 newCondition.macros = oldCondition.macros;
             }
+
+            if (!resetOptions) {
+                newCondition.options = oldCondition.options;
+            }
+        }
+
+        //If we didn't reset the options, we need to do a pass and make sure that each option is still exclusive
+        if (!resetOptions) {
+            Sidekick.ensureStatusEffectOptionExclusivity(this.map);
         }
 
         this.render(true);
