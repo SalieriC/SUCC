@@ -126,7 +126,7 @@ export class DefaultConditionsMenu extends FormApplication {
                     icon: `<i class="fa fa-check"></i>`,
                     label: game.i18n.localize("WORDS._Yes"),
                     callback: html => {
-                        this.refreshMapDefaults()
+                        EnhancedConditions.refreshMapDefaults();
                     }
                 },
                 no: {
@@ -136,67 +136,5 @@ export class DefaultConditionsMenu extends FormApplication {
             },
             default: "yes"
         }).render(true);
-    }
-
-    /**
-     * Adds/removes default conditions to the map
-     * This does not touch conditions that are already in the map and so won't overwrite any changes from the user
-     */
-    async refreshMapDefaults() {
-        const newMap = EnhancedConditions.getDefaultMap();
-        const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-        const deletedConditionsMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap);
-
-        for (let newCondition of newMap) {
-            let condition = conditionMap.find(c => c.id === newCondition.id);
-            if (condition) {
-                //We had this condition in the old map
-                //Copy over its settings to the new map
-                let conditionIndex = newMap.findIndex(c => c.id === condition.id);
-                newMap[conditionIndex] = condition;
-            }
-        }
-
-        //Loop over the old map and add any manually added conditions to the new map
-        for (let condition of conditionMap) {
-            if (condition.addedByLab) {
-                let conditionIndex = conditionMap.findIndex(c => c.id === condition.id);
-                newMap.splice(conditionIndex, 0, condition);
-            }
-        }
-
-        Sidekick.ensureStatusEffectOptionExclusivity(newMap);
-
-        const oldDeletedConditionsMap = duplicate(deletedConditionsMap);
-        for (let deletedCondition of oldDeletedConditionsMap) {
-            const newIdx = newMap.findIndex(c => c.id === deletedCondition.id);
-            if (newIdx < 0) {
-                //This condition doesn't exist in the new map which means it has been disabled in the options
-                //Let's remove it from the deleted conditions so that it will reappear if it's reenabled
-                const delIdx = deletedConditionsMap.findIndex(c => c.id === deletedCondition.id);
-                deletedConditionsMap.splice(delIdx, 1);
-            } else {
-                //This condition exists in the new map but we manually deleted it
-                //Remove it from the new map
-                newMap.splice(newIdx, 1);
-            }
-        }
-
-        //Sort the map in an attempt to maintain as close to the same sort as we had before
-        //If a condition wasn't in the old map, we'll use its position in the new map as a rough estimate for where it should be
-        newMap.sort((a, b) => {
-            let aIdx = conditionMap.findIndex(c => c.id === a.id);
-            let bIdx = conditionMap.findIndex(c => c.id === b.id);
-            if (aIdx == -1) {
-                aIdx = newMap.findIndex(c => c.id === a.id);
-            }
-            if (bIdx == -1) {
-                bIdx = newMap.findIndex(c => c.id === b.id);
-            }
-            return aIdx - bIdx;
-        });
-        
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, deletedConditionsMap);
     }
 }
