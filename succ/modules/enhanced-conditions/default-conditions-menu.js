@@ -165,6 +165,8 @@ export class DefaultConditionsMenu extends FormApplication {
             }
         }
 
+        Sidekick.ensureStatusEffectOptionExclusivity(newMap);
+
         const oldDeletedConditionsMap = duplicate(deletedConditionsMap);
         for (let deletedCondition of oldDeletedConditionsMap) {
             const newIdx = newMap.findIndex(c => c.id === deletedCondition.id);

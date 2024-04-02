@@ -224,13 +224,12 @@ export class ConditionLab extends FormApplication {
     /**
      * Restore defaults for a mapping
      */
-    async _restoreDefaults({clearCache=false, keepConditionsAddedByLab=false}={}) {
+    async _restoreDefaults({clearCache=false, resetNames=false, resetRefs=false, resetIcons=false,
+                            resetAes=false, resetMacros=false, resetOptions=false, removeConditionsAddedByLab=false}={}) {
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
         if (clearCache) {
-            defaultConditions = await EnhancedConditions._loadDefaultConditions();
-            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, defaultConditions);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.defaultSpecialStatusEffects);
         }
@@ -243,12 +242,47 @@ export class ConditionLab extends FormApplication {
         // Loop over the old map and readd any conditions that were added by the user through the Condition Lab
         const oldMap = duplicate(this.map);
         this.map = duplicate(tempMap);
-        if (keepConditionsAddedByLab) {
-            for (const condition of oldMap) {
-                if (condition.addedByLab) {
-                    this.map.push(condition);
+        for (const oldCondition of oldMap) {
+            if (oldCondition.addedByLab) {
+                if (!removeConditionsAddedByLab) {
+                    this.map.push(oldCondition);
                 }
+                continue;
             }
+
+            let newCondition = this.map.find(c => c.id === oldCondition.id);
+            if (!newCondition) {
+                continue;
+            }
+
+            if (!resetNames) {
+                newCondition.name = oldCondition.name;
+            }
+
+            if (!resetRefs) {
+                newCondition.referenceId = oldCondition.referenceId;
+            }
+
+            if (!resetIcons) {
+                newCondition.icon = oldCondition.icon;
+            }
+
+            if (!resetAes) {
+                newCondition.activeEffect = oldCondition.activeEffect;
+            }
+
+            if (!resetMacros) {
+                newCondition.macros = oldCondition.macros;
+            }
+
+            if (!resetOptions) {
+                newCondition.options = oldCondition.options;
+            }
+        }
+
+        //If we didn't reset the options, we need to do a pass and make sure that each option is still exclusive
+        if (!resetOptions) {
+            Sidekick.ensureStatusEffectOptionExclusivity(this.map);
         }
 
         this.render(true);
@@ -823,11 +857,17 @@ export class ConditionLab extends FormApplication {
                     icon: `<i class="fas fa-check"></i>`,
                     label: game.i18n.localize("WORDS.Yes"),
                     callback: ($html) => {
-                        const clearCacheCheckbox = $html[0].querySelector("input[id='clear-cache']");
-                        const clearCache = clearCacheCheckbox?.checked;
-                        const keepAddedCheckbox = $html[0].querySelector("input[id='keep-added']");
-                        const keepAdded = keepAddedCheckbox?.checked;
-                        this._restoreDefaults({clearCache:clearCache, keepConditionsAddedByLab:keepAdded});
+                        let options = {
+                            clearCache: $html[0].querySelector("input[id='clear-cache']")?.checked,
+                            resetNames: $html[0].querySelector("input[id='reset-names']")?.checked,
+                            resetRefs: $html[0].querySelector("input[id='reset-refs']")?.checked,
+                            resetIcons: $html[0].querySelector("input[id='reset-icons']")?.checked,
+                            resetAes: $html[0].querySelector("input[id='reset-aes']")?.checked,
+                            resetMacros: $html[0].querySelector("input[id='reset-macros']")?.checked,
+                            resetOptions: $html[0].querySelector("input[id='reset-options']")?.checked,
+                            removeConditionsAddedByLab: $html[0].querySelector("input[id='remove-added']")?.checked
+                        }
+                        this._restoreDefaults(options);
                     }
                 },
                 no: {
