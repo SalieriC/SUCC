@@ -5,7 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.2.0] - 2024-04-02 aka "Let me fix that real quick"
 ☮️ Peace in the world, or the world in pieces. 🕊️
+### Added
+- Better control over changes when making default choices.
+- Condition map is refreshed on world (re-)load (ready hook) if default settings have changed.
+### Fixed
+- A critical bug caused by a bad merge.
 
 ## [3.1.0] - 2024-03-26 aka "Drop The Drop"
 ### Changed
