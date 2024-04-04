@@ -61,6 +61,36 @@
                     "RefreshMapDefaultsB": "Would you like to refresh your current map to match the new defaults?<p>This will ensure that the list of conditions matches the defaults but will not reset any existing conditions. We will attempt to maintain current sort order as much as possible.<p><p>"
                 }
             },
+            "TokenDisplaySettingsMenu": {
+                "Title": "Token Display Settings",
+                "Hint": "Controls the appearance behaviour of the token effect icons",
+                "Settings": {
+                    "SizeN": "Effect Icon Size",
+                    "SizeD": "Sets the size for effect icons on the token.",
+                    "BGShapeN": "Background Shape",
+                    "BGShapeD": "The shape of the background behind the effect icons.",
+                    "PositioningN": "Effect Icon Positioning",
+                    "PositioningD": "How the effect icons are positioned on the token."
+                },
+                "SizeChoices" : {
+                    "Small": "Small",
+                    "Medium": "Medium",
+                    "Large": "Large",
+                    "XtraLarge": "Extra Large"
+                },
+                "ShapeChoices" : {
+                    "Circle": "Circle",
+                    "RoundedRect": "Rounded Rectangle",
+                    "Rect": "Rectangle",
+                    "None": "None"
+                },
+                "PositioningChoices" : {
+                    "Columns": "Columns",
+                    "Rows": "Rows",
+                    "Counterclockwise": "Circle (Counterclockwise)",
+                    "Clockwise": "Circle (Clockwise)"
+                }
+            },
             "MacroConfig": {
                 "Heading": "Macros to Execute",
                 "ApplyHeading": "Apply Macro",
@@ -290,9 +320,6 @@
     "SETTINGS.EnhancedConditions.ActiveConditionMapN": "Active Condition Map",
     "SETTINGS.EnhancedConditions.ActiveConditionMapH": "Stores the active condition map",
     
-    "SETTINGS.TokenUtility.TokenEffectSizeN": "Token Effect Icon Size",
-    "SETTINGS.TokenUtility.TokenEffectSizeH": "Sets the size for token effect icons on the token. Numbers represent the amount of effect icons to show (X * Y). Default: Small - 5x5",
-        
     "WORDS.IUnderstand": "I Understand",
     "WORDS.Import": "Import",
     "WORDS.Export": "Export",

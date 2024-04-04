@@ -2,6 +2,7 @@ import * as BUTLER from "./butler.js";
 import { DefaultConditionsMenu } from "./enhanced-conditions/default-conditions-menu.js";
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
 import { Sidekick } from "./sidekick.js";
+import { TokenDisplaySettings } from "./token-display-settings.js";
 import { TokenUtility } from "./utils/token.js";
 
 export function registerSettings() {
@@ -141,17 +142,23 @@ export function registerSettings() {
     /*                 TokenUtility                 */
     /* -------------------------------------------- */
 
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize, {
-        name: "SETTINGS.TokenUtility.TokenEffectSizeN",
-        hint: "SETTINGS.TokenUtility.TokenEffectSizeH",
-        default: Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices, BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices.small),
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.tokenDisplaySettings, {
+        name: "tokenDisplaySettings",
         scope: "client",
-        type: String,
-        choices: BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices,
-        config: true,
+        type: Object,
+        default: BUTLER.DEFAULT_CONFIG.enhancedConditions.tokenDisplayDefaultSettings,
+        config: false,
         onChange: s => {
             TokenUtility.patchCore();
             canvas.draw();
         }
+    });
+
+    Sidekick.registerMenu(BUTLER.SETTING_KEYS.tokenUtility.tokenDisplaySettingsMenu, {
+        name: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Title",
+        hint: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Hint",
+        label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Title",
+        scope: "client",
+        type: TokenDisplaySettings
     });
 }

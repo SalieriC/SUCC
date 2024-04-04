@@ -22,6 +22,15 @@ export const DEFAULT_CONFIG = {
             id: "succ-default-conditions-menu",
             title: "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Title",
         },
+        tokenDisplaySettingsMenu: {
+            id: "succ-token-display-settings-menu",
+            title: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Title",
+        },
+        tokenDisplayDefaultSettings: {
+            effectSize: "small",
+            bgShape: "circle",
+            effectPositioning: "columns"
+        },
         macroConfig: {
             id: "succ-enhanced-condition-macro-config",
             title: "SUCC Enhanced Condition - Macro Config"
@@ -40,6 +49,7 @@ export const DEFAULT_CONFIG = {
             conditionLab: `${PATH}/templates/condition-lab.hbs`,
             conditionLabRestoreDefaultsDialog: `${PATH}/templates/condition-lab-restore-defaults-dialog.hbs`,
             defaultConditionsMenu: `${PATH}/templates/default-conditions-menu.hbs`,
+            tokenDisplaySettingsMenu: `${PATH}/templates/token-display-settings.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
             chatConditionsPartial: `${PATH}/templates/partials/chat-card-condition-list.hbs`,
             importDialog: `${PATH}/templates/import-conditions.html`,
@@ -82,28 +92,28 @@ export const DEFAULT_CONFIG = {
     },
     tokenUtility: {
         effectSize: {
-            xLarge: {
-                multiplier: 5,
-                divisor: 2
-            },
-            large: {
-                multiplier: 3.3,
-                divisor: 3
-            },
-            medium: {
-                multiplier: 2.5,
-                divisor: 4
-            },
-            small: {
-                multiplier: 2,
-                divisor: 5
-            }
+            xLarge: 5,
+            large: 3.3,
+            medium: 2.5,
+            small: 2
         },
         effectSizeChoices: {
-            "small": "Small (Default) - 5x5",
-            "medium": "Medium - 4x4",
-            "large": "Large - 3x3",
-            "xLarge": "Extra Large - 2x2"
+            "small": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.Small",
+            "medium": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.Medium",
+            "large": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.Large",
+            "xLarge": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.XtraLarge"
+        },
+        effectBGShapeChoices: {
+            "circle": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.Circle",
+            "roundedRect": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.RoundedRect",
+            "rect": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.Rect",
+            "none": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.None"
+        },
+        effectPositioningChoices: {
+            "columns": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Columns",
+            "rows": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Rows",
+            "counterclockwise": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Counterclockwise",
+            "clockwise": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Clockwise"
         }
     }
 }
@@ -131,7 +141,8 @@ export const SETTING_KEYS = {
         defaultConditionsMenu: "defaultConditionsMenu"
     },
     tokenUtility: {
-        effectSize: "effectSize"
+        tokenDisplaySettings: "tokenDisplaySettings",
+        tokenDisplaySettingsMenu: "tokenDisplaySettingsMenu"
     }
 }
 
