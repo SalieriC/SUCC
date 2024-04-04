@@ -79,7 +79,7 @@ The icons are modified icons used from [game-icons.net](https://game-icons.net/)
 - Minus: [Minus SVG Vector by SVG Repo](https://www.svgrepo.com/svg/8923/minus)
 All of these icons were modified by SalieriC, their original files are published under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 ### Mentions
-Thank you very much to Javier Rivera Castro for his tireless efforts to teach SalieriC JavaScript, CSS, HTML and HBS.  
+Thank you very much to Javier Rivera Castro for his initial work that helped to get SUCC started but since moved on.  
 Many thanks also go to the fine people of the Foundry VTT Discord server and their helpful advice and explanations.  
 ### Module Developers
 This module is brought to you by SalieriC and Javier Rivera Castro. TheChemist (ddbrown30) is also heavily involved in the development.  
