@@ -1,0 +1,43 @@
+<div class="settings-section">
+    <form id="settings-form" class='sheet-body settings-list'>
+        <div class="form-group">
+            <label>{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.SizeN"}}</label>
+            <select name="effect-size" data-dtype="String">
+                {{#select this.tokenDisplaySettings.effectSize}}
+                {{#each this.sizeChoices as |name k|}}
+                <option value="{{k}}">{{localize name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.SizeD"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.BGShapeN"}}</label>
+            <select name="bg-shape" data-dtype="String">
+                {{#select this.tokenDisplaySettings.bgShape}}
+                {{#each this.shapeChoices as |name k|}}
+                <option value="{{k}}">{{localize name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.BGShapeD"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.PositioningN"}}</label>
+            <select name="effect-positioning" data-dtype="String">
+                {{#select this.tokenDisplaySettings.effectPositioning}}
+                {{#each this.positioningChoices as |name k|}}
+                <option value="{{k}}">{{localize name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.PositioningD"}}</p>
+        </div>
+    </form>
+
+    <footer>
+        <button type="submit" form="settings-form" class="save-button"><i class="fas fa-save"></i>{{localize "succ.WORDS.Save"}}</button>
+    </footer>
+</div>

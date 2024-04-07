@@ -52,12 +52,8 @@ export class Signal {
             // Instantiate utility classes
             game.succ.tokenUtility = new TokenUtility();
             
-            // Handle any monkeypatching
-            const effectSize = Sidekick.getSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize);
-            
-            if (effectSize) {
-                TokenUtility.patchCore();
-            }
+            // Patch the effect rendering
+            TokenUtility.patchCore();
 
             // Expose API methods
             game.succ.getCondition = EnhancedConditionsAPI.getCondition;

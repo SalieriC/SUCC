@@ -423,3 +423,31 @@ a.add-temporary {
     font-weight: bold;
     border-bottom: 1px solid var(--color-underline-active);
 }
+
+.succ-token-display-settings .settings-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.succ-token-display-settings .settings-list {
+    padding: 1rem;
+}
+
+.succ-token-display-settings .form-group {
+    margin-bottom: 1rem;
+}
+
+.succ-token-display-settings footer {
+    margin-top: auto;
+    padding: 1rem;
+}
+
+.succ-token-display-settings .settings-list input {
+    vertical-align: middle;
+}
+
+.succ-token-display-settings .save-button {
+    background: rgba(0, 0, 0, 0.1);
+    border: 2px groove var(--color-border-light-highlight);
+}
