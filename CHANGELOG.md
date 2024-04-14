@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
+### Fixed
+- SUCC won't try to add encumbrance to vehicles anymore.
 
 ## [3.2.0] - 2024-04-02 aka "Let me fix that real quick"
 ### Added

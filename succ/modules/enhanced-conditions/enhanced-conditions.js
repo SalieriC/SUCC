@@ -137,8 +137,8 @@ export class EnhancedConditions {
     }
 
     static async _onSwadeActorPrepareDerivedData(actor) {
-        if (!game.succ.conditions) {
-            //The conditions map has not yet been set so we cannot apply encumbrance
+        if (!game.succ.conditions || actor.type === "vehicle") {
+            //The conditions map has not yet been set or the actor is a vehicle, either way we cannot apply encumbrance
             return;
         }
         
