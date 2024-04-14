@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
+### Added
+- Alternative ways to display condition icons on tokens (columns, rows, and circle around the token).
 ### Fixed
 - SUCC won't try to add encumbrance to vehicles anymore.
 

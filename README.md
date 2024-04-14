@@ -80,7 +80,8 @@ The icons are modified icons used from [game-icons.net](https://game-icons.net/)
 All of these icons were modified by SalieriC, their original files are published under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 ### Mentions
 Thank you very much to Javier Rivera Castro for his initial work that helped to get SUCC started but since moved on.  
-Many thanks also go to the fine people of the Foundry VTT Discord server and their helpful advice and explanations.  
+Many thanks also go to the fine people of the Foundry VTT Discord server and their helpful advice and explanations.
+Status effects circle around the token inspired by [PF2e Dorako UI](https://foundryvtt.com/packages/pf2e-dorako-ui) and [Status Halo](https://foundryvtt.com/packages/status-halo).
 ### Module Developers
 This module is brought to you by SalieriC and Javier Rivera Castro. TheChemist (ddbrown30) is also heavily involved in the development.  
 Salieri is accepting donations, so if you wish to support him financially, please head over to his Ko-fi and leave him a donation. =)  
