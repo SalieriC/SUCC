@@ -30,9 +30,9 @@ export class EnhancedConditions {
             //We were forced to rename defeated to dead due to a system change
             //This logic automatically converts the defeated to dead so the user doesn't have to clear their cache
             let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-            const defeatedCondition = conditionMap.find(c => c.id === "dead");
+            const defeatedCondition = conditionMap.find(c => c.id === "defeated");
             if (defeatedCondition) {
-                defeatedCondition.id = "defeated";
+                defeatedCondition.id = "dead";
                 await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, conditionMap);
             }
         }
