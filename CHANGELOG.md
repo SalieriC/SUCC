@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
+
+## [3.3.0] - 2024-04-27 aka "Is this fair use?"
 ### Added
 - Alternative ways to display condition icons on tokens (columns, rows, and circle around the token).
 ### Fixed
