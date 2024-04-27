@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Alternative ways to display condition icons on tokens (columns, rows, and circle around the token).
 ### Fixed
 - SUCC won't try to add encumbrance to vehicles anymore.
+- The dead condition didn't get that id on startup in some cases.
 
 ## [3.2.0] - 2024-04-02 aka "Let me fix that real quick"
 ### Added
