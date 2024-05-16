@@ -8,6 +8,10 @@
                 "Title": "Enable Output to Chat for All Conditions?",
                 "Content": "Click 'Yes' to enable 'Output to Chat' on all Conditions"
             },
+            "SystemIconRefresh": {
+                "Title": "Reset icons?",
+                "Content": "The \"Use System Icons\" setting was changed. Would you like to reset icons on all conditions?<br><br>"
+            },
             "ConditionLab": {
                 "NoReference": "--No Reference Entry-- (Drag a Journal, Item, Actor, etc. into this field to set)",
                 "FilterInputTitle": "Filter by Name",
@@ -155,7 +159,9 @@
         "SETTINGS": {
             "ENHANCED_CONDITIONS": {
                 "ShowSortDirectionDialogN": "Show Condition Lab Sort Direction Save Dialog",
-                "ShowSortDirectionDialogH": "Whether or not to show the confirmation dialog for saving the sort direction."
+                "ShowSortDirectionDialogH": "Whether or not to show the confirmation dialog for saving the sort direction.",
+                "UseSystemIconsN": "Use System Icons",
+                "UseSystemIconsH": "If true, conditions will default to using the default system icon when available."
             }
         },
         "WORDS": {
