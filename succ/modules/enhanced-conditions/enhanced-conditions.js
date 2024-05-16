@@ -734,6 +734,8 @@ export class EnhancedConditions {
             }
         }
 
+        const useSystemIcons = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.useSystemIcons)
+
         //Loop over the default conditions and look for ones that are missing from our full map
         const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
         for (let statusEffect of statusEffects) {
@@ -754,6 +756,8 @@ export class EnhancedConditions {
                     };
                 }
                 game.succ.conditionConfigMap.push(newCondition);
+            } else if (useSystemIcons) {
+                conditionConfig.icon = statusEffect.icon;
             }
         }
 

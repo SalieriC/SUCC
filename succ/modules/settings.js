@@ -138,6 +138,32 @@ export function registerSettings() {
         onChange: () => {}
     });
 
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.useSystemIcons, {
+        name: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.UseSystemIconsN`,
+        hint: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.UseSystemIconsH`,
+        scope: "world",
+        type: Boolean,
+        default: false,
+        config: true,
+        onChange: async () => {
+            await EnhancedConditions.loadConditionConfigMap();
+            const dialog = Dialog.confirm({
+                title: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.SystemIconRefresh.Title`),
+                content: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.SystemIconRefresh.Content`),
+                yes: () => {
+                    for (const condition of game.succ.conditions) {
+                        const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
+                        if (conditionConfig) {
+                            condition.icon = conditionConfig.icon;
+                        }
+                    }
+                    Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, game.succ.conditions);
+                },
+                no: () => {}
+            });
+        }
+    });
+
     /* -------------------------------------------- */
     /*                 TokenUtility                 */
     /* -------------------------------------------- */

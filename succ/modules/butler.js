@@ -138,7 +138,8 @@ export const SETTING_KEYS = {
         showSortDirectionDialog: "showSortDirectionDialog",
         defaultSpecialStatusEffects: "defaultSpecialStatusEffects",
         specialStatusEffectMapping: "specialStatusEffectMapping",
-        defaultConditionsMenu: "defaultConditionsMenu"
+        defaultConditionsMenu: "defaultConditionsMenu",
+        useSystemIcons: "useSystemIcons"
     },
     tokenUtility: {
         tokenDisplaySettings: "tokenDisplaySettings",
