@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [3.3.1] - 2024-05-26 aka "Just because you can doesn't mean you should..."
+This will very likely be the last update for v11 Foundry VTT.
+### Added
+- Brought bach the feature to use the system icons instead of the ones in SUCC.
+
 ## [3.3.0] - 2024-04-27 aka "Is this fair use?"
 ### Added
 - Alternative ways to display condition icons on tokens (columns, rows, and circle around the token).
