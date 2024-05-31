@@ -409,6 +409,7 @@ a.add-temporary {
     flex-direction: column;
     justify-content: flex-start;
     overflow: hidden auto;
+    align-items: normal;
 }
 
 .succ-default-conditions aside.sidebar nav.tabs .group-tab {
