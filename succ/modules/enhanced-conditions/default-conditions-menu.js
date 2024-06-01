@@ -16,7 +16,7 @@ export class DefaultConditionsMenu extends FormApplication {
      * Get options for the form
      */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: BUTLER.DEFAULT_CONFIG.enhancedConditions.defaultConditionsMenu.id,
             title: BUTLER.DEFAULT_CONFIG.enhancedConditions.defaultConditionsMenu.title,
             template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.defaultConditionsMenu,
