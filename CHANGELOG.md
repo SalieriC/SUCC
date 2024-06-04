@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [3.3.2] - 2024-06-04 aka "Backwards compatible...for once"
+This is the first update for v12 Foundry VTT and backwards compatible from our testing.
+### Changed
+- Switched from deprecated to newer API functions. Those already existed in v11, so it shouldn't break backwards compatibility.
+- Some changes to the CSS needed for v12 compatibility.
+
 ## [3.3.1] - 2024-05-26 aka "Just because you can doesn't mean you should..."
 This will very likely be the last update for v11 Foundry VTT.
 ### Added
