@@ -319,7 +319,7 @@ export class EnhancedConditions {
             case "create":
                 macros = condition.macros?.filter(m => m.type === "apply");
 
-                const hasEffectOptions = hasProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.effectOptions}`);
+                const hasEffectOptions = foundry.utils.hasProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.effectOptions}`);
                 if (hasEffectOptions && Object.keys(effect.flags.succ.effectOptions).length > 0) {
                     EnhancedConditions.applyEffectOptions(effect, actor);
                 } else {
@@ -877,7 +877,7 @@ export class EnhancedConditions {
 
         // Iterate through the map validating/preparing the data
         for (let i = 0; i < conditionMap.length; i++) {
-            let condition = duplicate(conditionMap[i]);
+            let condition = foundry.utils.duplicate(conditionMap[i]);
 
             // Delete falsy values
             if (!condition) preparedMap.splice(i, 1);
@@ -911,7 +911,7 @@ export class EnhancedConditions {
      * Duplicate the core status icons, freeze the duplicate then store a copy in settings
      */
     static _backupCoreEffects() {
-        CONFIG.defaultStatusEffects = CONFIG.defaultStatusEffects || duplicate(CONFIG.statusEffects);
+        CONFIG.defaultStatusEffects = CONFIG.defaultStatusEffects || foundry.utils.duplicate(CONFIG.statusEffects);
         if (!Object.isFrozen(CONFIG.defaultStatusEffects)) {
             Object.freeze(CONFIG.defaultStatusEffects);
         }
@@ -1003,8 +1003,8 @@ export class EnhancedConditions {
             const activeCondition = activeConditionMap.find(c => c.id === CONFIG.specialStatusEffects[key]);
             if (activeCondition) {
                 //The name of this effect matches one of our effect. Check its options
-                if (hasProperty(activeCondition.options, optionName)) {
-                    if (getProperty(activeCondition.options, optionName)) {
+                if (foundry.utils.hasProperty(activeCondition.options, optionName)) {
+                    if (foundry.utils.getProperty(activeCondition.options, optionName)) {
                         //This effect has the option enabled, so just leave it as is
                         return;
                     }
@@ -1016,8 +1016,8 @@ export class EnhancedConditions {
 
             //Check our map to see if any of our conditions have this option enabled
             const configCondition = activeConditionMap.find(c => {
-                if (hasProperty(c.options, optionName)) {
-                    const optionValue = getProperty(c.options, optionName);
+                if (foundry.utils.hasProperty(c.options, optionName)) {
+                    const optionValue = foundry.utils.getProperty(c.options, optionName);
                     return optionValue;
                 }
                 return false;
@@ -1076,7 +1076,7 @@ export class EnhancedConditions {
         if (!effects) return;
 
         for (const effect of effects) {
-            const overlay = getProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.overlay}`);
+            const overlay = foundry.utils.getProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.overlay}`);
             // If the parent Condition for the ActiveEffect defines it as an overlay, mark the ActiveEffect as an overlay
             if (overlay) {
                 effect.flags.core = effect.flags.core ? effect.flags.core : {};
@@ -1230,7 +1230,7 @@ export class EnhancedConditions {
                 const defaultCondition = defaultConditions.find(c => c === conditionConfig.id);
                 const deletedCondition = deletedConditionsMap.find(c => c.id === conditionConfig.id);
                 if (defaultCondition && !deletedCondition) {
-                    conditionMap.push(duplicate(conditionConfig));
+                    conditionMap.push(foundry.utils.duplicate(conditionConfig));
                 }
             } else {
                 if (!conditionConfig.activeEffect) {
@@ -1282,7 +1282,7 @@ export class EnhancedConditions {
             }
         }
 
-        const oldDeletedConditionsMap = duplicate(deletedConditionsMap);
+        const oldDeletedConditionsMap = foundry.utils.duplicate(deletedConditionsMap);
         for (let deletedCondition of oldDeletedConditionsMap) {
             const newIdx = newMap.findIndex(c => c.id === deletedCondition.id);
             if (newIdx < 0) {

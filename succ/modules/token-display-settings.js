@@ -4,7 +4,7 @@ import { Sidekick } from "./sidekick.js";
 export class TokenDisplaySettings extends FormApplication {
   
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: BUTLER.DEFAULT_CONFIG.enhancedConditions.tokenDisplaySettingsMenu.id,
       title: BUTLER.DEFAULT_CONFIG.enhancedConditions.tokenDisplaySettingsMenu.title,
       template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.tokenDisplaySettingsMenu,

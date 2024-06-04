@@ -29,7 +29,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
      * @override
      */
     async _updateObject(event, formData) {
-        const conditionIdFlag = getProperty(this.object.flags, `${NAME}.${FLAGS.enhancedConditions.conditionId}`);
+        const conditionIdFlag = foundry.utils.getProperty(this.object.flags, `${NAME}.${FLAGS.enhancedConditions.conditionId}`);
         if (!conditionIdFlag) return;
 
         // find the matching condition row
@@ -44,7 +44,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 
         // update the effect data
         
-        condition.activeEffect = condition.activeEffect ? mergeObject(condition.activeEffect, formData) : formData;
+        condition.activeEffect = condition.activeEffect ? foundry.utils.mergeObject(condition.activeEffect, formData) : formData;
         
         this.object.updateSource(formData);
         if (this._state == 2) await this.render();

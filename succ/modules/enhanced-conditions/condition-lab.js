@@ -28,7 +28,7 @@ export class ConditionLab extends FormApplication {
      * Get options for the form
      */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.id,
             title: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title,
             template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLab,
@@ -64,7 +64,7 @@ export class ConditionLab extends FormApplication {
         const mapTypeChoices = BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes;
 
         const mapType = this.mapType = (this.mapType || this.initialMapType || "other");
-        let conditionMap = this.map ? this.map : (this.map = duplicate(this.initialMap));
+        let conditionMap = this.map ? this.map : (this.map = foundry.utils.duplicate(this.initialMap));
 
         const isDefault = this.mapType === Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
@@ -240,8 +240,8 @@ export class ConditionLab extends FormApplication {
         const tempMap = (this.mapType != otherMapType && EnhancedConditions.getMapForDefaultConditions(defaultConditions)) ? EnhancedConditions.getMapForDefaultConditions(defaultConditions) : [];
 
         // Loop over the old map and readd any conditions that were added by the user through the Condition Lab
-        const oldMap = duplicate(this.map);
-        this.map = duplicate(tempMap);
+        const oldMap = foundry.utils.duplicate(this.map);
+        this.map = foundry.utils.duplicate(tempMap);
         for (const oldCondition of oldMap) {
             if (oldCondition.addedByLab) {
                 if (!removeConditionsAddedByLab) {
@@ -327,7 +327,7 @@ export class ConditionLab extends FormApplication {
         
         if (mapType === defaultMapType) {
             const defaultMap = EnhancedConditions.getDefaultMap();
-            newMap = mergeObject(newMap, defaultMap);
+            newMap = foundry.utils.mergeObject(newMap, defaultMap);
         }
 
         return this._saveMapping(newMap, mapType);
@@ -366,7 +366,7 @@ export class ConditionLab extends FormApplication {
      * Exports the current map to JSON
      */
     _exportToJSON() {
-        const map = duplicate(this.map);
+        const map = foundry.utils.duplicate(this.map);
         const data = {
             system: game.system.id,
             map
@@ -644,8 +644,8 @@ export class ConditionLab extends FormApplication {
         
         if (!conditionEffect) return;
 
-        if (!hasProperty(conditionEffect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`)) {
-            setProperty(conditionEffect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`, conditionId);
+        if (!foundry.utils.hasProperty(conditionEffect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`)) {
+            foundry.utils.setProperty(conditionEffect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`, conditionId);
         }
 
         // Build a fake effect object for the ActiveEffectConfig sheet
@@ -694,12 +694,12 @@ export class ConditionLab extends FormApplication {
 
         if (this.mapType === defaultMapType) {
             const defaultMap = EnhancedConditions.getDefaultMap();
-            this.map = mergeObject(fdMap, defaultMap);
+            this.map = foundry.utils.mergeObject(fdMap, defaultMap);
         } else {
             this.map = fdMap;
         }
         
-        const newMap = duplicate(this.map);
+        const newMap = foundry.utils.duplicate(this.map);
         const exisitingIds = this.map.filter(c => c.id).map(c => c.id);
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
         
@@ -742,7 +742,7 @@ export class ConditionLab extends FormApplication {
                     icon: `<i class="fa fa-check"></i>`,
                     label: game.i18n.localize("WORDS._Yes"),
                     callback: async event => {
-                        const newMap = duplicate(this.map);
+                        const newMap = foundry.utils.duplicate(this.map);
                         if (!newMap[row].addedByLab) {
                             this.deletedConditionsMap.push(newMap[row]);
                         }

@@ -86,7 +86,7 @@ export class EnhancedConditionsAPI {
                 }
                 
                 if (effectOptions) {
-                    setProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.effectOptions}`, effectOptions);
+                    foundry.utils.setProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.effectOptions}`, effectOptions);
                 }
             }
 
@@ -117,7 +117,7 @@ export class EnhancedConditionsAPI {
                         continue;
                     }
 
-                    const conditionId = getProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`);
+                    const conditionId = foundry.utils.getProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`);
                     const matchedConditionEffects = existingConditionEffects.filter(e => e.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId) === conditionId);
 
                     // Scenario 2: if duplicates are allowed, and existing conditions should be replaced, add any existing conditions to update
