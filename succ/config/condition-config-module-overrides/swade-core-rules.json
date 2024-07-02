@@ -167,6 +167,10 @@
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.tvkJEXvT34m8Xx9c]"
         },
         {
+            "id": "environmental-protection",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.mrY41ijR3wZgc3sQ]"
+        },
+        {
             "id": "growth",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.Uc35itYBnj3SmOde]"
         },

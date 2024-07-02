@@ -375,6 +375,22 @@
             }
         },
         {
+            "id": "environmental-protection",
+            "name": "ENHANCED_CONDITIONS.Condition.EnvironmentalProtection",
+            "icon": "modules/succ/assets/icons/m-environmental-protection.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.mrY41ijR3wZgc3sQ]",
+            "activeEffect": {
+                "flags": {
+                    "swade": {
+                        "expiration": 3
+                    }
+                },
+                "duration": {
+                    "rounds": 600
+                }
+            }
+        },
+        {
             "id": "growth",
             "name": "ENHANCED_CONDITIONS.Condition.Growth",
             "icon": "modules/succ/assets/icons/m-growth.svg",

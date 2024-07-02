@@ -51,6 +51,10 @@
             "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.MEjY7RhNahJGbfRC]"
         },
         {
+            "id": "environmental-protection",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.N7AS7Joyq6QbLf25]"
+        },
+        {
             "id": "growth",
             "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.4naHN0itZM4uEdYg]"
         },

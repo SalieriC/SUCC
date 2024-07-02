@@ -11,6 +11,7 @@
         {"id":"damage-field", "enabledByDefault": false},
         {"id":"deflection", "enabledByDefault": false},
         {"id":"elemental-manipulation", "enabledByDefault": false},
+        {"id":"environmental-protection", "enabledByDefault": false},
         {"id":"growth", "enabledByDefault": false},
         {"id":"intangibility", "enabledByDefault": false},
         {"id":"numb", "enabledByDefault": false},
