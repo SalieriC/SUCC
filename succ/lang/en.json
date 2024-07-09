@@ -250,6 +250,7 @@
     "ENHANCED_CONDITIONS.Condition.Confusion": "Confusion",
     "ENHANCED_CONDITIONS.Condition.DamageField": "Damage Field",
     "ENHANCED_CONDITIONS.Condition.ElementalManipulation": "Elemental Manipulation",
+    "ENHANCED_CONDITIONS.Condition.EnvironmentalProtection": "Environmental Protection",
     "ENHANCED_CONDITIONS.Condition.Growth": "Growth",
     "ENHANCED_CONDITIONS.Condition.Shrink": "Shrink",
     "ENHANCED_CONDITIONS.Condition.Intangibility": "Intangibility",

@@ -192,6 +192,10 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.7cxfDDvXQDGYAkkl]"
         },
         {
+            "id": "environmental-protection",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.1RNsGDWnX19ZfXp8]"
+        },
+        {
             "id": "growth",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.4vBy88UUWVWcznLK]"
         },
