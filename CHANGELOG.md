@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [4.0.0] - 2024-08-06 aka "Backwards compatible...no more"
+This removes backwards compatibility with v11 of Foundry and earlier due to necessary changes made to the core version.
+### Added
+- Added a way to use the SWADE system icons instead of the ones SUCC comes with.
+### Fixed
+- Fixed a bug about the data structure of active effects that resulted in missing images and names.
+
 ## [3.3.2] - 2024-06-04 aka "Backwards compatible...for once"
 This is the first update for v12 Foundry VTT and backwards compatible from our testing.
 ### Changed
