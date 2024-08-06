@@ -154,7 +154,7 @@ export function registerSettings() {
                     for (const condition of game.succ.conditions) {
                         const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
                         if (conditionConfig) {
-                            condition.icon = conditionConfig.icon;
+                            condition.img = conditionConfig.img;
                         }
                     }
                     Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, game.succ.conditions);

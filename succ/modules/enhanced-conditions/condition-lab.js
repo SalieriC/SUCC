@@ -206,7 +206,7 @@ export class ConditionLab extends FormApplication {
             const condition = {
                 id,
                 name,
-                icon: icons[i],
+                img: icons[i],
                 referenceId: references[i],
                 activeEffect,
                 macros,
@@ -264,7 +264,7 @@ export class ConditionLab extends FormApplication {
             }
 
             if (!resetIcons) {
-                newCondition.icon = oldCondition.icon;
+                newCondition.img = oldCondition.img;
             }
 
             if (!resetAes) {
