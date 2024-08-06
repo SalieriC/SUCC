@@ -277,13 +277,13 @@ export class EnhancedConditions {
         effectIcons.each((index, element) => {
             const url = new URL(element.src);
             const path = url?.pathname?.substring(1);
-            const conditions = EnhancedConditions.getConditionsByIcon(path);
-            const statusEffect = CONFIG.statusEffects.find(e => e.icon === path);
+            const conditions = EnhancedConditions.getConditionsByImg(path);
+            const statusEffect = CONFIG.statusEffects.find(e => e.img === path);
 
             if (conditions?.length) {
                 element.title = conditions[0];
-            } else if (statusEffect?.label) {
-                element.title = statusEffect.label;
+            } else if (statusEffect?.name) {
+                element.title = statusEffect.name;
             }
             element.title = game.i18n.localize(element.title);
         });
@@ -379,7 +379,7 @@ export class EnhancedConditions {
         async function applySharedOptions(options) {
             let updates = activeEffect.toObject();
             foundry.utils.mergeObject(updates.flags, options.flags, { overwrite: false });
-            if (options.icon) { updates.icon = options.icon; }
+            if (options.img) { updates.img = options.img; }
             await activeEffect.update(updates);
         }
 
@@ -744,8 +744,8 @@ export class EnhancedConditions {
                 //If the condition doesn't exist in the full map, it must be something new that was added to the system, so we need to add it
                 let newCondition = {
                     id: statusEffect.id,
-                    name: statusEffect.label,
-                    icon: statusEffect.icon
+                    name: statusEffect.name,
+                    img: statusEffect.img
                 };
 
                 if (statusEffect.changes) {
@@ -757,7 +757,7 @@ export class EnhancedConditions {
                 }
                 game.succ.conditionConfigMap.push(newCondition);
             } else if (useSystemIcons) {
-                conditionConfig.icon = statusEffect.icon;
+                conditionConfig.img = statusEffect.img;
             }
         }
 
@@ -823,7 +823,7 @@ export class EnhancedConditions {
             }
 
             if (condition.activeEffect) {
-                condition.activeEffect.label = game.i18n.localize(condition.name);
+                condition.activeEffect.name = game.i18n.localize(condition.name);
             }
         }
     }
@@ -883,12 +883,12 @@ export class EnhancedConditions {
             if (!condition) preparedMap.splice(i, 1);
 
             if (!condition.name) {
-                condition.name = condition.label ?? (condition.icon ? Sidekick.getNameFromFilePath(condition.icon) : "");
+                condition.name = condition.name ?? (condition.img ? Sidekick.getNameFromFilePath(condition.img) : "");
             }
 
             //If this condition matches something in our default status effects, copy its id
             let statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
-            const statusEffect = statusEffects.find(e => e.label === condition.name);
+            const statusEffect = statusEffects.find(e => e.name === condition.name);
             if (statusEffect) {
                 condition.id = statusEffect.id;
             } else if (!condition.id) {
@@ -1055,8 +1055,8 @@ export class EnhancedConditions {
                         [BUTLER.FLAGS.enhancedConditions.overlay]: c?.options?.overlay ?? false
                     }
                 },
-                label: c.name,
-                icon: c.icon,
+                name: c.name,
+                img: c.img,
                 changes: c.activeEffect?.changes || [],
                 duration: c.duration || c.activeEffect?.duration || {},
                 description: c.activeEffect?.description || '',
@@ -1105,7 +1105,7 @@ export class EnhancedConditions {
         }
 
         if (conditionMap instanceof Array) {
-            return conditionMap.map(mapEntry => mapEntry.icon);
+            return conditionMap.map(mapEntry => mapEntry.img);
         }
 
         return [];
@@ -1123,7 +1123,7 @@ export class EnhancedConditions {
         }
 
         if (conditionMap instanceof Array) {
-            const filteredConditions = conditionMap.filter(c => c.name === condition).map(c => c.icon);
+            const filteredConditions = conditionMap.filter(c => c.name === condition).map(c => c.img);
             if (!filteredConditions.length) {
                 return;
             }
@@ -1138,15 +1138,15 @@ export class EnhancedConditions {
      * Retrieves a condition name by its mapped icon
      * @param {*} icon 
      */
-    static getConditionsByIcon(icon, { firstOnly = false } = {}) {
+    static getConditionsByImg(img, { firstOnly = false } = {}) {
         const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
 
-        if (!conditionMap || !icon) {
+        if (!conditionMap || !img) {
             return;
         }
 
         if (conditionMap instanceof Array && conditionMap.length) {
-            const filteredIcons = conditionMap.filter(c => c.icon === icon).map(c => c.name);
+            const filteredIcons = conditionMap.filter(c => c.img === img).map(c => c.name);
             if (!filteredIcons.length) {
                 return null;
             }
