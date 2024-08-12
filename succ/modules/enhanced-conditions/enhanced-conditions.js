@@ -27,12 +27,44 @@ export class EnhancedConditions {
             await EnhancedConditions.loadConditionConfigMap();
             await EnhancedConditions.updateConditionMapFromDefaults();
 
-            //We were forced to rename defeated to dead due to a system change
-            //This logic automatically converts the defeated to dead so the user doesn't have to clear their cache
-            let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-            const defeatedCondition = conditionMap.find(c => c.id === "defeated");
-            if (defeatedCondition) {
-                defeatedCondition.id = "dead";
+            if (Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.skipIconMigration) == false) {
+                //Core Foundry changed icon to be img. This logic will migrate the old property to the new so the user doesn't have to manually reset their icons
+                let nullImg = false;
+                let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+                for (let condition of conditionMap) {
+                    if (!condition.img) {
+                        if (condition.icon) {
+                            condition.img = condition.icon;
+                            condition.icon = undefined;
+                        } else {
+                            const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
+                            condition.img = conditionConfig?.img;
+                        }
+                        if (!condition.img) {
+                            nullImg = true;
+                        }
+                    }
+                }
+                if (nullImg) {
+                    new Dialog({
+                        title: "Migration Warning",
+                        content: `<p>One or more of your conditions does not have an icon set. Please open the Condition Lab to fix the problem manually.</p>`,
+                        buttons: {
+                            ok: {
+                                label: "OK",
+                            },
+                            ignore: {
+                                label: "Don't warn again",
+                                callback: async (html) => {
+                                    await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.skipIconMigration, true);
+                                }
+                            }
+                        }
+                    }).render(true);
+                } else {
+                    await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.skipIconMigration, true);
+                }
+
                 await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, conditionMap);
             }
         }
