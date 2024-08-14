@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [4.0.1] - 2024-08-14 aka "Icon Migration Boogie"
+Not backwards compatible with v11 of Foundry.
+### Added
+- Added a migration for condition icons that removes the need to manually reset them.
+
 ## [4.0.0] - 2024-08-06 aka "Backwards compatible...no more"
 This removes backwards compatibility with v11 of Foundry and earlier due to necessary changes made to the core version.
 ### Added
