@@ -706,7 +706,7 @@ export class ConditionLab extends FormApplication {
         newMap.push({
             id: Sidekick.createId(exisitingIds),
             name: newConditionName,
-            icon: "icons/svg/d20-black.svg",
+            img: "icons/svg/d20-black.svg",
             referenceId: "",
             options: {
                 outputChat: outputChatSetting

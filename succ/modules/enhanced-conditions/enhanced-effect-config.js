@@ -35,7 +35,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
         // find the matching condition row
         const map = ui.succ?.conditionLab?.map;
 
-        if (!map && !map.length) return;
+        if (!map || !map.length) return;
 
         const conditionId = conditionIdFlag.replace(`${NAME}.`, "");
         const condition = map.find(c => c.id === conditionId);
