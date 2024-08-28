@@ -122,7 +122,8 @@ export const FLAGS = {
     enhancedConditions: {
         conditionId: "conditionId",
         overlay: "overlay",
-        effectOptions: "effectOptions"
+        effectOptions: "effectOptions",
+        createProcessed: "createProcessed"
     }
 }
 

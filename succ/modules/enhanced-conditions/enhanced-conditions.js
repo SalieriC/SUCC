@@ -205,7 +205,13 @@ export class EnhancedConditions {
             return;
         }
 
+        const createProcessed = effect.getFlag(`${BUTLER.NAME}`, `${BUTLER.FLAGS.enhancedConditions.createProcessed}`);
+        if (createProcessed){
+            return;
+        }
+
         EnhancedConditions._processActiveEffectChange(effect, "create", userId);
+        effect.setFlag(`${BUTLER.NAME}`, `${BUTLER.FLAGS.enhancedConditions.createProcessed}`, true);
     }
 
     /**
@@ -475,7 +481,6 @@ export class EnhancedConditions {
      */
     static async outputChatMessage(entity, entries, options = { type: "active" }) {
         const isActorEntity = entity instanceof Actor;
-        const isTokenEntity = entity instanceof Token || entity instanceof TokenDocument;
         // Turn a single condition mapping entry into an array
         entries = entries instanceof Array ? entries : [entries];
 
@@ -502,8 +507,7 @@ export class EnhancedConditions {
         }
 
         const chatUser = game.userId;
-        //const token = token || this.currentToken;
-        const chatType = CONST.CHAT_MESSAGE_TYPES.OTHER;
+        const chatType = CONST.CHAT_MESSAGE_STYLES.OTHER;
         const speaker = isActorEntity ? ChatMessage.getSpeaker({ actor: entity }) : ChatMessage.getSpeaker({ token: entity });
         const timestamp = type.active ? null : Date.now();
 
