@@ -238,6 +238,7 @@
 
     "ENHANCED_CONDITIONS.ChatCard.Buttons.Undo": "Undo Remove Condition",
     "ENHANCED_CONDITIONS.ChatCard.Buttons.Remove": "Remove Condition",
+    "ENHANCED_CONDITIONS.ChatCard.Error.TokenDeleted": "The token associated with this condition change was not found.",
     
     "ENHANCED_CONDITIONS.Condition.Boost": "Boost Trait",
     "ENHANCED_CONDITIONS.Condition.Lower": "Lower Trait",
