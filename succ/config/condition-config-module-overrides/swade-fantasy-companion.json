@@ -117,6 +117,10 @@
         {
             "id": "sanctuary",
             "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.cvxABXzInlhAa7cA]"
+        },
+        {
+            "id": "shape-change",
+            "referenceId": "@UUID[Compendium.swade-fantasy-companion.swade-fc-powers.Item.fK9adaURLKcCGv99]"
         }
     ]
 }

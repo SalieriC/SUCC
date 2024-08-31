@@ -229,6 +229,10 @@
         {
             "id": "hurry",
             "referenceId": "@UUID[Compendium.swade-core-rules.swade-rules.JournalEntry.swadecor05powers.JournalEntryPage.05hinderorhurr00]"
+        },
+        {
+            "id": "shape-change",
+            "referenceId": "@UUID[Compendium.swade-core-rules.swade-powers.Item.IuQbYf6obG8a865u]"
         }
     ]
 }

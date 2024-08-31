@@ -258,6 +258,10 @@
         {
             "id": "sanctuary",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.sZehAgoPVPZE2mEC]"
+        },
+        {
+            "id": "shape-change",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.rB1U38hCiB7tkD1e]"
         }
     ]
 }

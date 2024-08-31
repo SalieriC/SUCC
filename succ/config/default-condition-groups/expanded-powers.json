@@ -16,6 +16,7 @@
         {"id":"intangibility", "enabledByDefault": false},
         {"id":"numb", "enabledByDefault": false},
         {"id":"puppet", "enabledByDefault": false},
+        {"id":"shape-change", "enabledByDefault": false},
         {"id":"shrink", "enabledByDefault": false},
         {"id":"silence", "enabledByDefault": false},
         {"id":"sloth", "enabledByDefault": false},
