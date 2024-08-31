@@ -531,7 +531,7 @@ export class EnhancedConditions {
         const speaker = isActorEntity ? ChatMessage.getSpeaker({ actor: entity }) : ChatMessage.getSpeaker({ token: entity });
         const timestamp = type.active ? null : Date.now();
 
-        if (speaker.token && isActorEntity && !entity.prototypeToken.actorLink) {
+        if (speaker.token && isActorEntity && (!entity.prototypeToken.actorLink || !entity.token?.actorLink)) {
             delete speaker.actor;
         }
 
