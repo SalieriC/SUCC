@@ -346,7 +346,7 @@ export class EnhancedConditions {
 
         if (!condition) return;
 
-        const shouldOutput = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat) && condition.options.outputChat;
+        const shouldOutput = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat) && condition.options?.outputChat;
         const outputType = type === "delete" ? "removed" : "added";
         const actor = effect.parent;
 
@@ -535,7 +535,7 @@ export class EnhancedConditions {
         const lastMessage = game.messages.contents[game.messages.contents.length - 1];
         const lastMessageSpeaker = lastMessage?.speaker;
         const sameSpeaker = isActorEntity ? lastMessageSpeaker?.actor === speaker.actor : lastMessageSpeaker?.token === speaker.token;
-        const hasPermissions = game.user.isGM || lastMessage?.user?.id == game.userId;
+        const hasPermissions = game.user.isGM || lastMessage?.author?.id == game.userId;
 
         // hard code the recent timestamp to 30s for now
         const recentTimestamp = Date.now() <= lastMessage?.timestamp + 30000;
@@ -561,7 +561,7 @@ export class EnhancedConditions {
                 speaker,
                 content,
                 type: chatType,
-                user: chatUser
+                author: chatUser
             });
         }
     }
