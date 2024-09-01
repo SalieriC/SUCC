@@ -255,7 +255,7 @@ export class Sidekick {
        
        let i = 0;
        while(i < iterations) {
-           const id = randomID(length);
+           const id = foundry.utils.randomID(length);
            if (!existingIds.includes(id)) {
                return id;
            }

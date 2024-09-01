@@ -26,11 +26,7 @@
         <div class="form-group">
             <label>{{localize "ENHANCED_CONDITIONS.Lab.MappingType.Label"}}</label>
             <select name="map-type" class="map-type" title="">
-                {{#select mapType}}
-                {{#each mapTypeChoices as |label name|}}
-                    <option value="{{name}}">{{label}}</option>
-                {{/each}}
-                {{/select}}
+                {{selectOptions mapTypeChoices selected=mapType localize=true}}
             </select>
         </div>
         {{!-- <hr>     --}}

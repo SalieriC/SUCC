@@ -205,7 +205,13 @@ export class EnhancedConditions {
             return;
         }
 
-        EnhancedConditions._processActiveEffectChange(effect, "create", userId);
+        const createProcessed = effect.getFlag(`${BUTLER.NAME}`, `${BUTLER.FLAGS.enhancedConditions.createProcessed}`);
+        if (createProcessed){
+            return;
+        }
+
+        EnhancedConditions._processActiveEffectChange(effect, "create", options);
+        effect.setFlag(`${BUTLER.NAME}`, `${BUTLER.FLAGS.enhancedConditions.createProcessed}`, true);
     }
 
     /**
@@ -220,7 +226,7 @@ export class EnhancedConditions {
             return;
         }
 
-        EnhancedConditions._processActiveEffectChange(effect, "delete", userId);
+        EnhancedConditions._processActiveEffectChange(effect, "delete", options);
     }
 
     /**
@@ -259,9 +265,23 @@ export class EnhancedConditions {
 
             if (!message) return;
 
-            const actor = ChatMessage.getSpeakerActor(message.speaker);
+            const speaker = message?.speaker;
 
-            EnhancedConditionsAPI.removeCondition(conditionId, actor, { warn: false });
+            if (!speaker) return;
+
+            const token = canvas.tokens.get(speaker.token);
+            const actor = game.actors.get(speaker.actor);
+            if (speaker.token && !token && !actor?.prototypeToken.actorLink) {
+                //This condition was originally associated with an unlinked token that has been deleted
+                ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.ChatCard.Error.TokenDeleted"));
+                return;
+            }
+
+            const entity = token ?? actor;
+
+            if (!entity) return;
+
+            EnhancedConditionsAPI.removeCondition(conditionId, entity, { warn: false });
         });
 
         undoRemoveAnchor.on("click", event => {
@@ -279,6 +299,12 @@ export class EnhancedConditions {
 
             const token = canvas.tokens.get(speaker.token);
             const actor = game.actors.get(speaker.actor);
+            if (speaker.token && !token && !actor?.prototypeToken.actorLink) {
+                //This condition was originally associated with an unlinked token that has been deleted
+                ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.ChatCard.Error.TokenDeleted"));
+                return;
+            }
+
             const entity = token ?? actor;
 
             if (!entity) return;
@@ -330,7 +356,7 @@ export class EnhancedConditions {
      * @param {ActiveEffect} effect  the effect
      * @param {String} type  the type of change to process
      */
-    static _processActiveEffectChange(effect, type = "create", userId) {
+    static _processActiveEffectChange(effect, type = "create", options) {
         if (!(effect instanceof ActiveEffect)) return;
 
         const effectId = effect.getFlag(`${BUTLER.NAME}`, `${BUTLER.FLAGS.enhancedConditions.conditionId}`);
@@ -340,7 +366,7 @@ export class EnhancedConditions {
 
         if (!condition) return;
 
-        const shouldOutput = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat) && condition.options.outputChat;
+        const shouldOutput = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat) && condition.options?.outputChat && (options?.render ?? true);
         const outputType = type === "delete" ? "removed" : "added";
         const actor = effect.parent;
 
@@ -475,7 +501,6 @@ export class EnhancedConditions {
      */
     static async outputChatMessage(entity, entries, options = { type: "active" }) {
         const isActorEntity = entity instanceof Actor;
-        const isTokenEntity = entity instanceof Token || entity instanceof TokenDocument;
         // Turn a single condition mapping entry into an array
         entries = entries instanceof Array ? entries : [entries];
 
@@ -502,10 +527,13 @@ export class EnhancedConditions {
         }
 
         const chatUser = game.userId;
-        //const token = token || this.currentToken;
-        const chatType = CONST.CHAT_MESSAGE_TYPES.OTHER;
+        const chatType = CONST.CHAT_MESSAGE_STYLES.OTHER;
         const speaker = isActorEntity ? ChatMessage.getSpeaker({ actor: entity }) : ChatMessage.getSpeaker({ token: entity });
         const timestamp = type.active ? null : Date.now();
+
+        if (speaker.token && isActorEntity && (!entity.prototypeToken.actorLink || !entity.token?.actorLink)) {
+            delete speaker.actor;
+        }
 
         // iterate over the entries and mark any with references for use in the template
         entries.forEach((v, i, a) => {
@@ -530,8 +558,8 @@ export class EnhancedConditions {
         // if the last message Enhanced conditions, append instead of making a new one
         const lastMessage = game.messages.contents[game.messages.contents.length - 1];
         const lastMessageSpeaker = lastMessage?.speaker;
-        const sameSpeaker = isActorEntity ? lastMessageSpeaker?.actor === speaker.actor : lastMessageSpeaker?.token === speaker.token;
-        const hasPermissions = game.user.isGM || lastMessage?.user?.id == game.userId;
+        const sameSpeaker = (isActorEntity && speaker.actor) ? lastMessageSpeaker?.actor === speaker.actor : lastMessageSpeaker?.token === speaker.token;
+        const hasPermissions = game.user.isGM || lastMessage?.author?.id == game.userId;
 
         // hard code the recent timestamp to 30s for now
         const recentTimestamp = Date.now() <= lastMessage?.timestamp + 30000;
@@ -557,7 +585,7 @@ export class EnhancedConditions {
                 speaker,
                 content,
                 type: chatType,
-                user: chatUser
+                author: chatUser
             });
         }
     }
