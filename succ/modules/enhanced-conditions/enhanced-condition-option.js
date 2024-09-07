@@ -67,7 +67,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
      */
     _onCheckboxChange(event) {
         if (!event.target?.checked) return;
-        const targetName = event.target?.id;
+        const targetName = event.target?.name;
         const propertyName = Sidekick.toCamelCase(targetName, "-");
         const specialStatusEffectsProps = Object.values(DEFAULT_CONFIG.enhancedConditions.specialStatusEffects).map((k) =>
             k.optionProperty
