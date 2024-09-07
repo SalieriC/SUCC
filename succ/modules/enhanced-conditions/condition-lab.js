@@ -973,7 +973,7 @@ export class ConditionLab extends FormApplication {
      * Save Macro button click handler
      * @param {*} event 
      */
-    _onClickSaveMacro(event) {
+    async _onClickSaveMacro(event) {
         const rowLi = event.target.closest("li");
         const conditionId = rowLi ? rowLi.dataset.conditionId : null;
 
@@ -981,6 +981,11 @@ export class ConditionLab extends FormApplication {
 
         let macroSlot = 0;
         let { page } = ui.hotbar;
+        
+        let folder = Macros.instance.folders.find(f => f.name == "SUCC");
+        if (!folder) {
+            folder = await Folder.create( { name: "SUCC", type: "Macro" } );
+        }
 
         // Starting from the current hotbar page, find the first empty slot
         do {
@@ -1000,8 +1005,10 @@ export class ConditionLab extends FormApplication {
             name: (game.i18n.localize("ENHANCED_CONDITIONS.Lab.CreatedToggleMacro.Name") + game.i18n.localize(condition.name)),
             img: condition.img,
             type: "script",
-            command: "game.succ.toggleCondition('" + condition.id + "', token);",
+            command: this.getMacroCommand(condition.id),
             scope: "global",
+            ownership: {default: 2},
+            folder: folder
         }).then((macro) => {
             // If we found an empty slot, assign the macro to that slot
             if (macroSlot > 0) {
@@ -1010,6 +1017,15 @@ export class ConditionLab extends FormApplication {
                 });
             }
         });
+    }
+
+    getMacroCommand(conditionId) {
+        return `` +
+        `if (!game.modules.get('succ')?.active) {\n` +
+        `   ui.notifications.error("You cannot execute this macro unless the SUCC module is active.");\n` +
+        `   return;\n` +
+        `}\n` +
+        `game.succ.toggleCondition('` + conditionId + `', token);`;
     }
 
     /**
