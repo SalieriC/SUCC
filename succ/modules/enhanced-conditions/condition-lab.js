@@ -991,7 +991,9 @@ export class ConditionLab extends FormApplication {
 
         const condition = this.map.find(c => c.id === conditionId);
 
-        new EnhancedConditionOptionConfig(condition).render(true);
+        new EnhancedConditionOptionConfig(condition, {
+            title: (game.i18n.localize(condition.name) + " - " + game.i18n.localize("succ.ENHANCED_CONDITIONS.OptionConfig.Heading"))
+        }).render(true);
     }
 
     /**

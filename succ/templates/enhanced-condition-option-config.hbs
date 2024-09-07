@@ -1,115 +1,85 @@
-<form data-condition-id="{{condition.id}}">
-    <h2>{{condition.name}} - {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Heading"}}</h3>
-    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Description"}}</p>
-    {{!-- <div class="flexrow options"> --}}
-        <div class="formgroup" title="{{localize "ENHANCED_CONDITIONS.Lab.Options.Overlay.Title"}}">
-            <input type="checkbox" name="overlay" {{checked condition.options.overlay}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="overlay">
-                {{localize "ENHANCED_CONDITIONS.Lab.Options.Overlay.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.Overlay.Title"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title"}}">
-            <input type="checkbox" name="remove-others" {{checked condition.options.removeOthers}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="remove-others">
-                {{localize "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Title"}}">
-            <input type="checkbox" name="output-chat" {{checked condition.options.outputChat}} {{#if ../disableChatOutput}}disabled{{/if}}>
-            <label for="output-chat">
-                {{localize "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span>     --}}
-            </label>
-            <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Title"}}</p>
-        </div>
-        <h3>{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffects.Heading"}}</h3>
-        <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffects.Description"}}</p>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Label"}}">
-            <input type="checkbox" name="blind-token" {{checked condition.options.blindToken}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="blind-token">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Notes"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Label"}}">
-            <input type="checkbox" name="mark-invisible" {{checked condition.options.markInvisible}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="mark-invisible">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Notes"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Label"}}">
-            <input type="checkbox" name="cold-bodied" {{checked condition.options.coldBodied}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="cold-bodied">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Notes"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Label"}}">
-            <input type="checkbox" name="boost-trait" {{checked condition.options.boostTrait}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="boost-trait">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Notes"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.LowerTrait.Label"}}">
-            <input type="checkbox" name="lower-trait" {{checked condition.options.lowerTrait}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="lower-trait">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.LowerTrait.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Notes"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Label"}}">
-            <input type="checkbox" name="smite" {{checked condition.options.smite}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="smite">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Notes"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Label"}}">
-            <input type="checkbox" name="protection" {{checked condition.options.protection}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="protection">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Notes"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Label"}}">
-            <input type="checkbox" name="deflection" {{checked condition.options.deflection}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="deflection">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Label"}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Notes"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Label"}}">
-            <input type="checkbox" name="conviction" {{checked condition.options.conviction}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="conviction">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Notes"}}</p>
-        </div>
-        <div class="formgroup" title="{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Label"}}">
-            <input type="checkbox" name="encumbered" {{checked condition.options.encumbered}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="encumbered">
-                {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Label"}}
-            </label>
-            <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Notes"}}</p>
-        </div>
-    {{!-- </div> --}}
-    <br/>    
+<form data-condition-id="{{condition.id}}" class="flex">
+    <nav class="sheet-tabs tabs" data-group="main" aria-role="Form Tab Navigation">
+        <a class="item active" data-tab="general-options">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Tabs.General"}}</a>
+        <a class="item" data-tab="special-effects">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Tabs.SpecialEffects"}}</a>
+    </nav>
+
+    <div class="scrollable">
+        <section class="condition-options">
+            <div class="tab active" data-group="main" data-tab="general-options">
+                <div class="formgroup" title="{{localize " ENHANCED_CONDITIONS.Lab.Options.Overlay.Title"}}">
+                    <label><input type="checkbox" name="overlay" {{checked condition.options.overlay}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "ENHANCED_CONDITIONS.Lab.Options.Overlay.Label"}}</label>
+                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.Overlay.Title"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title"}}">
+                    <label><input type="checkbox" name="remove-others" {{checked condition.options.removeOthers}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label"}}</label>
+                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " ENHANCED_CONDITIONS.Lab.Options.OutputChat.Title"}}">
+                    <label><input type="checkbox" name="output-chat" {{checked condition.options.outputChat}} {{#if ../disableChatOutput}}disabled{{/if}}>
+                        {{localize "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Label"}}</label>
+                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Title"}}</p>
+                </div>
+            </div>
+
+            <div class="tab" data-group="main" data-tab="special-effects">
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Label"}}">
+                    <label><input type="checkbox" name="blind-token" {{checked condition.options.blindToken}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Notes"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Label"}}">
+                    <label><input type="checkbox" name="mark-invisible" {{checked condition.options.markInvisible}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Notes"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Label"}}">
+                    <label><input type="checkbox" name="cold-bodied" {{checked condition.options.coldBodied}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Notes"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Label"}}">
+                    <label><input type="checkbox" name="boost-trait" {{checked condition.options.boostTrait}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Notes"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.LowerTrait.Label"}}">
+                    <label><input type="checkbox" name="lower-trait" {{checked condition.options.lowerTrait}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.LowerTrait.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Notes"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Label"}}">
+                    <label><input type="checkbox" name="smite" {{checked condition.options.smite}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Notes"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Label"}}">
+                    <label><input type="checkbox" name="protection" {{checked condition.options.protection}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Notes"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Label"}}">
+                    <label><input type="checkbox" name="deflection" {{checked condition.options.deflection}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Notes"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Label"}}">
+                    <label><input type="checkbox" name="conviction" {{checked condition.options.conviction}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Notes"}}</p>
+                </div>
+                <div class="formgroup" title="{{localize " succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Label"}}">
+                    <label><input type="checkbox" name="encumbered" {{checked condition.options.encumbered}} {{#if ../isDefault}}disabled{{/if}}>
+                        {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Label"}}</label>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Notes"}}</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <div class="footer">
-        {{canSave}}
         <button name="save" class="save" type="submit">
             <i class="fas fa-save"></i>&nbsp;{{localize "succ.PHRASES.SaveAndClose"}}
         </button>

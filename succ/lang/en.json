@@ -104,10 +104,9 @@
             },
             "OptionConfig": {
                 "Heading": "Options",
-                "Description": "General options for this Condition",
-                "SpecialStatusEffects": {
-                    "Heading": "Special Status Effects",
-                    "Description": "Special Effects applied using native Foundry functionality."
+                "Tabs": {
+                    "General": "General",
+                    "SpecialEffects": "Special Effects"
                 },
                 "BlindToken": {
                     "Label": "Blind Token",

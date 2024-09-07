@@ -452,3 +452,25 @@ a.add-temporary {
     background: rgba(0, 0, 0, 0.1);
     border: 2px groove var(--color-border-light-highlight);
 }
+
+.condition-options input {
+    vertical-align: middle;
+}
+
+.condition-options-config .flex {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.condition-options-config .scrollable {
+    flex: 1;
+    padding: 1rem;
+    overflow: hidden auto;
+}
+
+.condition-options-config .footer {
+    margin: 1rem;
+    flex: 0;
+}
