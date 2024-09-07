@@ -79,7 +79,10 @@ export class ConditionLab extends FormApplication {
 
             // Set the Output to Chat checkbox
             entry.options = entry.options ?? {};
-            entry.options.outputChat = entry?.options?.outputChat;
+            entry.options.outputChat = entry?.options?.outputChat ?? outputChatSetting;
+
+            entry.options.useAsStatusEffect = entry?.options?.useAsStatusEffect ?? true;
+            
             // @TODO #711
             entry.enrichedReference = entry.referenceId ? await TextEditor.enrichHTML(entry.referenceId, {async: true, documents: true}) : "";
 

@@ -1105,6 +1105,12 @@ export class EnhancedConditions {
         const statusEffects = [];
 
         for (const c of conditionMap) {
+            if (!c.destroyDisabled &&
+                c.options?.useAsStatusEffect != undefined &&
+                !c.options.useAsStatusEffect) {
+                continue;
+            }
+
             const id = c.id ?? Sidekick.createId(existingIds);
             const effect = {
                 id: id,
