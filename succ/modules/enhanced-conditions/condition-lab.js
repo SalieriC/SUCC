@@ -1025,7 +1025,7 @@ export class ConditionLab extends FormApplication {
         `   ui.notifications.error("You cannot execute this macro unless the SUCC module is active.");\n` +
         `   return;\n` +
         `}\n` +
-        `game.succ.toggleCondition('` + conditionId + `', token);`;
+        `game.succ.toggleCondition('` + conditionId + `', canvas.tokens.controlled);`;
     }
 
     /**
