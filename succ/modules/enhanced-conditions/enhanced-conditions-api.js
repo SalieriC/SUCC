@@ -111,6 +111,10 @@ export class EnhancedConditionsAPI {
 
                 // Loop through the effects sorting them into either existing or new effects
                 for (const effect of effects) {
+                    if (!allowDuplicates) {
+                        conditions = conditions.filter(c => c.id != effect.id);
+                    }
+
                     // Scenario 1: if duplicates are allowed, but existing conditions are not replaced, everything is new
                     if (allowDuplicates && !replaceExisting) {
                         newEffects.push(effect);

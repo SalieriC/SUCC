@@ -104,10 +104,9 @@
             },
             "OptionConfig": {
                 "Heading": "Options",
-                "Description": "General options for this Condition",
-                "SpecialStatusEffects": {
-                    "Heading": "Special Status Effects",
-                    "Description": "Special Effects applied using native Foundry functionality."
+                "Tabs": {
+                    "General": "General",
+                    "SpecialEffects": "Special Effects"
                 },
                 "BlindToken": {
                     "Label": "Blind Token",
@@ -202,9 +201,14 @@
     "ENHANCED_CONDITIONS.Lab.Title": "Condition Lab",
     "ENHANCED_CONDITIONS.Lab.MappingType.Label": "Mapping Type",
     "ENHANCED_CONDITIONS.Lab.MappingType.Unsaved": "(unsaved changes)",
+    "ENHANCED_CONDITIONS.Lab.ActiveEffects.Button": "Active Effect",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title": "Active Effect Config",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew": "Active Effect Config (Disabled - Save Mapping First)",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault": "Active Effect Config (Disabled - Cannot Edit Default Mapping)",
+    "ENHANCED_CONDITIONS.Lab.SaveMacro.Button": "Save Toggle Macro",
+    "ENHANCED_CONDITIONS.Lab.SaveMacro.Title": "Creates a toggle condition macro and adds it to the hotbar",
+    "ENHANCED_CONDITIONS.Lab.CreatedToggleMacro.Name": "Toggle ",
+    "ENHANCED_CONDITIONS.Lab.MacrosConfig.Button": "Macros Config",
     "ENHANCED_CONDITIONS.Lab.Import.NoFile": "You did not upload a data file!",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle": "Confirm Row Deletion",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent": "Are you sure you want to delete this row?",
@@ -225,12 +229,14 @@
     "ENHANCED_CONDITIONS.Lab.ImportTitle": "Import Condition Map",
     "ENHANCED_CONDITIONS.Lab.ExportTitle": "Export Condition Map",
     "ENHANCED_CONDITIONS.Lab.Options.Title": "Options:",
-    "ENHANCED_CONDITIONS.Lab.Options.Overlay.Label": "Overlay",
-    "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label": "Remove Others",
     "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Label": "Output to Chat",
-    "ENHANCED_CONDITIONS.Lab.Options.Overlay.Title": "Condition is an overlay",
-    "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title": "Remove other conditions when this one is applied",
     "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Title": "Output this condition to chat when added/removed",
+    "ENHANCED_CONDITIONS.Lab.Options.Overlay.Label": "Overlay",
+    "ENHANCED_CONDITIONS.Lab.Options.Overlay.Title": "Condition is an overlay",
+    "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label": "Remove Others",
+    "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title": "Remove other conditions when this one is applied",
+    "ENHANCED_CONDITIONS.Lab.Options.UseAsStatusEffect.Label": "Use as Status Effect",
+    "ENHANCED_CONDITIONS.Lab.Options.UseAsStatusEffect.Title": "Condition will be included in the list of Foundry status effects e.g. it will appear in the Assign Status Effects menu. This allows you to have conditions that you can apply via macro or the API without cluttering up the UI.",
 
     "ENHANCED_CONDITIONS.ChatCard.Title.Active": "Active Conditions",
     "ENHANCED_CONDITIONS.ChatCard.Title.Added": "Added Conditions",

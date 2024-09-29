@@ -19,11 +19,18 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             id: DEFAULT_CONFIG.enhancedConditions.optionConfig.id,
-            title: DEFAULT_CONFIG.enhancedConditions.optionConfig.title,
             template: DEFAULT_CONFIG.enhancedConditions.templates.optionConfig,
-            classes: ["sheet"],
+            tabs: [
+                {
+                    navSelector: ".sheet-tabs",
+                    contentSelector: ".condition-options",
+                    initial: "enable",
+                },
+            ],
+            classes: ["sheet", "condition-options-config"],
             closeOnSubmit: false,
-            width: 500
+            width: 500,
+            height: 600
         });
     }
 
@@ -67,7 +74,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
         );
 
         if (!propertyName || !specialStatusEffectsProps) return;
-        
+
         if (specialStatusEffectsProps.includes(propertyName)) {
             event.detail = (event.detail && event.detail instanceof Object) ? event.detail : {};
             event.detail.statusName = targetName;
@@ -91,13 +98,13 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
             event.preventDefault();
             // raise a dialog asking for override
             const title = game.i18n.localize(`${NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Title`);
-            const content = game.i18n.format(`${NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Content`, {existingCondition: existingCondition.name, statusEffect: event.detail.statusLabel ?? event.detail.statusName});
-            const yes = () => {};
+            const content = game.i18n.format(`${NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Content`, { existingCondition: existingCondition.name, statusEffect: event.detail.statusLabel ?? event.detail.statusName });
+            const yes = () => { };
             const no = () => {
                 return event.target.checked = false;
             };
             const defaultYes = false;
-            return Dialog.confirm({title, content, yes, no, defaultYes},{});
+            return Dialog.confirm({ title, content, yes, no, defaultYes }, {});
         }
 
         return event;
@@ -121,7 +128,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
             const element = event.target?.querySelector(`input[name="${field}"]`);
             const propertyName = Sidekick.toCamelCase(field, "-");
             const specialStatusEffect = this.getSpecialStatusEffectByField(field);
-            
+
             if (specialStatusEffect) {
                 const existingMapping = foundry.utils.getProperty(specialStatusEffectMapping, specialStatusEffect);
                 if (existingMapping === this.object.id && value === false) {
@@ -136,7 +143,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
                         options[propertyName] = false;
                         newMap[existingConditionIndex] = existingCondition;
                     }
-                    
+
                 }
             }
 
@@ -163,7 +170,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
             case 'cold-bodied':
                 return "COLDBODIED";
-        
+
             default:
                 break;
         }
@@ -174,9 +181,9 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
      * @param {*} effect 
      * @param {*} conditionId 
      */
-    setSpecialStatusEffectMapping(effect, conditionId=null) {
+    setSpecialStatusEffectMapping(effect, conditionId = null) {
         if (!CONFIG.specialStatusEffects.hasOwnProperty(effect)) return;
-        
+
         CONFIG.specialStatusEffects[effect] = conditionId ? conditionId : "";
         Sidekick.setSetting(SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.specialStatusEffects);
     }

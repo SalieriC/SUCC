@@ -1039,7 +1039,7 @@ export class EnhancedConditions {
             return;
         }
 
-        const activeConditionEffects = EnhancedConditions._prepareStatusEffects(activeConditionMap);
+        const activeConditionEffects = EnhancedConditions._prepareStatusEffects(activeConditionMap, {excludeDisabledStatusEffects: true});
 
         if (removeDefaultEffects) {
             CONFIG.statusEffects = activeConditionEffects ?? [];
@@ -1095,7 +1095,7 @@ export class EnhancedConditions {
      * @param {Array | Object} conditionMap 
      * @returns {Array} statusEffects
      */
-    static _prepareStatusEffects(conditionMap) {
+    static _prepareStatusEffects(conditionMap, {excludeDisabledStatusEffects=false}={}) {
         conditionMap = conditionMap instanceof Array ? conditionMap : [conditionMap];
 
         if (!conditionMap.length) return;
@@ -1105,6 +1105,12 @@ export class EnhancedConditions {
         const statusEffects = [];
 
         for (const c of conditionMap) {
+            if (excludeDisabledStatusEffects && !c.destroyDisabled &&
+                c.options?.useAsStatusEffect != undefined &&
+                !c.options.useAsStatusEffect) {
+                continue;
+            }
+
             const id = c.id ?? Sidekick.createId(existingIds);
             const effect = {
                 id: id,

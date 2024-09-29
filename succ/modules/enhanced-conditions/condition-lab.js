@@ -79,7 +79,10 @@ export class ConditionLab extends FormApplication {
 
             // Set the Output to Chat checkbox
             entry.options = entry.options ?? {};
-            entry.options.outputChat = entry?.options?.outputChat;
+            entry.options.outputChat = entry?.options?.outputChat ?? outputChatSetting;
+
+            entry.options.useAsStatusEffect = entry?.options?.useAsStatusEffect ?? true;
+
             // @TODO #711
             entry.enrichedReference = entry.referenceId ? await TextEditor.enrichHTML(entry.referenceId, {async: true, documents: true}) : "";
 
@@ -503,6 +506,7 @@ export class ConditionLab extends FormApplication {
         const refreshRefsButton = html.find("button[name='refresh-refs']");
         const filterInput = html.find("input[name='filter-list']");
         const sortButton = html.find("a.sort-list");
+        const saveMacroButton = html.find("button.save-macro");
         const macroConfigButton = html.find("button.macro-config");
         const optionConfigButton = html.find("button.option-config");
 
@@ -518,6 +522,7 @@ export class ConditionLab extends FormApplication {
         refreshRefsButton.on("click", event => this._onRefreshRefs(event));
         filterInput.on("input", (event) => this._onChangeFilter(event));
         sortButton.on("click", (event) => this._onClickSortButton(event));
+        saveMacroButton.on("click", (event) => this._onClickSaveMacro(event));
         macroConfigButton.on("click", (event) => this._onClickMacroConfig(event));
         optionConfigButton.on("click", (event) => this._onClickOptionConfig(event));
 
@@ -965,6 +970,65 @@ export class ConditionLab extends FormApplication {
     }
 
     /**
+     * Save Macro button click handler
+     * @param {*} event 
+     */
+    async _onClickSaveMacro(event) {
+        const rowLi = event.target.closest("li");
+        const conditionId = rowLi ? rowLi.dataset.conditionId : null;
+
+        if (!conditionId) return;
+
+        let macroSlot = 0;
+        let { page } = ui.hotbar;
+        
+        let folder = Macros.instance.folders.find(f => f.name == "SUCC");
+        if (!folder) {
+            folder = await Folder.create( { name: "SUCC", type: "Macro" } );
+        }
+
+        // Starting from the current hotbar page, find the first empty slot
+        do {
+            let macros = game.user.getHotbarMacros(page);
+            for (const macro of macros) {
+                if (macro.macro === undefined || macro.macro === null) {
+                    macroSlot = macro.slot;
+                    break;
+                }
+            }
+            page = page < 5 ? page + 1 : 1;
+        } while (macroSlot === 0 && page !== ui.hotbar.page);
+
+
+        const condition = this.map.find(c => c.id === conditionId);
+        Macro.create({
+            name: (game.i18n.localize("ENHANCED_CONDITIONS.Lab.CreatedToggleMacro.Name") + game.i18n.localize(condition.name)),
+            img: condition.img,
+            type: "script",
+            command: this.getMacroCommand(condition.id),
+            scope: "global",
+            ownership: {default: 2},
+            folder: folder
+        }).then((macro) => {
+            // If we found an empty slot, assign the macro to that slot
+            if (macroSlot > 0) {
+                game.user.assignHotbarMacro(macro, macroSlot).catch(() => {
+                    Sidekick.consoleMessage("error", "_onClickSaveMacro", "Error assigning macro to Hot Bar");
+                });
+            }
+        });
+    }
+
+    getMacroCommand(conditionId) {
+        return `` +
+        `if (!game.modules.get('succ')?.active) {\n` +
+        `   ui.notifications.error("You cannot execute this macro unless the SUCC module is active.");\n` +
+        `   return;\n` +
+        `}\n` +
+        `game.succ.toggleCondition('` + conditionId + `', canvas.tokens.controlled);`;
+    }
+
+    /**
      * Macro Config button click handler
      * @param {*} event 
      */
@@ -991,7 +1055,9 @@ export class ConditionLab extends FormApplication {
 
         const condition = this.map.find(c => c.id === conditionId);
 
-        new EnhancedConditionOptionConfig(condition).render(true);
+        new EnhancedConditionOptionConfig(condition, {
+            title: (game.i18n.localize(condition.name) + " - " + game.i18n.localize("succ.ENHANCED_CONDITIONS.OptionConfig.Heading"))
+        }).render(true);
     }
 
     /**
