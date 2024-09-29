@@ -69,6 +69,7 @@ export function registerSettings() {
         hint: "SETTINGS.EnhancedConditions.DefaultConditionsMenuH",
         label: "SETTINGS.EnhancedConditions.DefaultConditionsMenuN",
         scope: "world",
+        restricted: true,
         type: DefaultConditionsMenu
     });
 

@@ -60,7 +60,7 @@ export class Sidekick {
      * @returns {ClientSettings.register}
      */
     static registerSetting(key, metadata) {
-        return game.settings.register(BUTLER.NAME, key, metadata);
+        game.settings.register(BUTLER.NAME, key, metadata);
     }
 
     /**
@@ -70,7 +70,7 @@ export class Sidekick {
      * @returns {ClientSettings.registerMenu}
      */
     static registerMenu(key, metadata) {
-        return game.settings.registerMenu(BUTLER.NAME, key, metadata);
+        game.settings.registerMenu(BUTLER.NAME, key, metadata);
     }
 
     /**
