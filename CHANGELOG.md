@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [4.1.0] - 2024-09-29 aka "Macro Mambo"
+### Added
+- Added an option to exclude conditions from the core status effect list.
+- Added a way to generate a toggle macro for each condition.
+### Changed
+- Macros will now be sorted in the macros config.
+- The default conditions button is now hidden for non-GMs.
+### Fixed
+- Fixed a bug when adding duplicate conditions.
+
 ## [4.0.2] - 2024-09-01 aka "Bugfix Boogaloo"
 ### Added
 - Shape change added to extended conditions.
