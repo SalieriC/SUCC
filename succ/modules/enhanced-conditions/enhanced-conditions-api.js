@@ -71,7 +71,7 @@ export class EnhancedConditionsAPI {
         let resultEffects = []
 
         for (let entity of entities) {
-            const actor = await EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
             
             if (!actor) continue;
 
@@ -90,7 +90,7 @@ export class EnhancedConditionsAPI {
                 }
             }
 
-            const hasDuplicates = await EnhancedConditionsAPI.hasCondition(conditionIds, actor, {warn: false});
+            const hasDuplicates = EnhancedConditionsAPI.hasCondition(conditionIds, actor, {warn: false});
             const newEffects = [];
             const updateEffects = [];
             
@@ -106,7 +106,7 @@ export class EnhancedConditionsAPI {
                 */
 
                 // Get the existing conditions on the actor
-                let existingConditionEffects = await EnhancedConditionsAPI.getConditionEffects(actor, {warn: false});
+                let existingConditionEffects = EnhancedConditionsAPI.getConditionEffects(actor, {warn: false});
                 existingConditionEffects = existingConditionEffects instanceof Array ? existingConditionEffects : [existingConditionEffects];
 
                 // Loop through the effects sorting them into either existing or new effects
@@ -209,7 +209,7 @@ export class EnhancedConditionsAPI {
         if (entities && !(entities instanceof Array)) entities = [entities];
 
         for (let entity of entities) {
-            const actor = await EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
             const activeEffects = actor.effects.contents.filter(e => effects.map(e => e.flags[BUTLER.NAME].conditionId).includes(e.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId)));
 
             if (!activeEffects || (activeEffects && !activeEffects.length)) {
@@ -251,9 +251,9 @@ export class EnhancedConditionsAPI {
         entities = entities instanceof Array ? entities : [entities];
 
         for (let entity of entities) {
-            const actor = await EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
 
-            let actorConditionEffects = await EnhancedConditionsAPI.getConditionEffects(actor, {warn: false});
+            let actorConditionEffects = EnhancedConditionsAPI.getConditionEffects(actor, {warn: false});
 
             if (!actorConditionEffects) continue;
 
@@ -276,7 +276,7 @@ export class EnhancedConditionsAPI {
      */
     static async toggleCondition(conditionId, entities=null, finalState, options={}) {
         if (typeof finalState === 'undefined') {
-            let currentState = await EnhancedConditionsAPI.hasCondition(conditionId, entities)
+            let currentState = EnhancedConditionsAPI.hasCondition(conditionId, entities)
             finalState = !currentState
         }
         if (finalState) {
@@ -308,7 +308,7 @@ export class EnhancedConditionsAPI {
      * @param {Actor | String | Object} entity the Actor or Token to get the condition from
      * @param {*} options.warn whether or not to raise warnings on errors
      */
-    static async getConditionFrom(conditionId, entity, {warn=false}={}) {
+    static getConditionFrom(conditionId, entity, {warn=false}={}) {
         if (!conditionId) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetCondition.Failed.NoCondition"));
         }        
@@ -318,7 +318,7 @@ export class EnhancedConditionsAPI {
             return;
         }
 
-        const actor = await EnhancedConditionsAPI.getActorFromEntity(entity);
+        const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
         
         if (!actor) {
             return;
@@ -354,7 +354,7 @@ export class EnhancedConditionsAPI {
      * // Get conditions for the currently controlled Token
      * game.succ.getConditions();
      */
-    static async getConditions(entities=null, {warn=true}={}) {
+    static getConditions(entities=null, {warn=true}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -385,7 +385,7 @@ export class EnhancedConditionsAPI {
         const results = [];
 
         for (let entity of entities) {
-            const actor = await EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
 
             const effects = actor?.effects.contents;
 
@@ -427,7 +427,7 @@ export class EnhancedConditionsAPI {
      * @param {Boolean} warn  whether or not to raise warnings on errors
      * @returns {Map | Object} A Map containing the Actor Id and the Condition Active Effect instances if any
      */
-    static async getConditionEffects(entities, map=null, {warn=true}={}) {
+    static getConditionEffects(entities, map=null, {warn=true}={}) {
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -447,7 +447,7 @@ export class EnhancedConditionsAPI {
         let results = new Collection();
 
         for (const entity of entities) {
-            const actor = await EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
             const activeEffects = actor.effects.contents;
 
             if (!activeEffects.length) continue;
@@ -478,7 +478,7 @@ export class EnhancedConditionsAPI {
      * // Check for the "Charmed" and "Deafened" conditions on the controlled tokens
      * game.succ.hasCondition(["Charmed", "Deafened"]);
      */
-    static async hasCondition(conditionId, entities=null, {warn=true}={}) {
+    static hasCondition(conditionId, entities=null, {warn=true}={}) {
         if (!conditionId) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition"));
             console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition")}`);
@@ -513,7 +513,7 @@ export class EnhancedConditionsAPI {
         conditions = conditions instanceof Array ? conditions : [conditions];
 
         for (let entity of entities) {
-            const actor = await EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
 
             if (!actor.effects.size) continue;
 
@@ -532,24 +532,8 @@ export class EnhancedConditionsAPI {
      * @param {Actor | Token | TokenDocument | String} entity  The entity to convert
      * @returns {Actor} Returns the converted Actor or null if none was found
      */
-    static async getActorFromEntity(entity) {
-        let actor = null;
-        if (typeof (entity) === "string") {
-            actor = await canvas.tokens.get(target);
-            if (!actor) {
-                actor = await game.actors.get(entity);
-            }
-            
-            if (!actor) {
-                return null;
-            }
-        }
-
-        if (!actor) {
-            actor = entity instanceof Actor ? entity : entity instanceof Token || entity instanceof TokenDocument ? entity.actor : null;
-        }
-
-        return actor;
+    static getActorFromEntity(entity) {
+        return entity instanceof Actor ? entity : entity instanceof Token || entity instanceof TokenDocument ? entity.actor : null;;
     }
 
     /**

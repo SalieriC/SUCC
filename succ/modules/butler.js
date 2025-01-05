@@ -1,6 +1,7 @@
 export const NAME = "succ";
 
 export const TITLE = "SWADE Ultimate Condition Changer";
+export const SHORT_TITLE = "SUCC";
 
 export const PATH = "modules/succ";
 export const CONFIG_PATH = PATH + "/config";

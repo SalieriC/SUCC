@@ -156,7 +156,7 @@ export class EnhancedConditions {
             //Add Conviction:
             if (update?.system?.details?.conviction?.active === true) {
                 //Check if condition was toggled on token, otherwise toggle it here:
-                if (await EnhancedConditionsAPI.hasCondition(convictionCondition.id, actor, { warn: false }) === true) { return; }
+                if (EnhancedConditionsAPI.hasCondition(convictionCondition.id, actor, { warn: false }) === true) { return; }
     
                 await EnhancedConditionsAPI.addCondition(convictionCondition.id, actor);
             }
@@ -179,7 +179,7 @@ export class EnhancedConditions {
         //Add/Remove Encumbrance if game setting for that is true and a condition is set for it:
         if (game.settings.get('swade', 'applyEncumbrance') && encumberedId) {
             //Check if overencumbered and if the condition is already applied:
-            const hasEncumberedCondition = await EnhancedConditionsAPI.hasCondition(encumberedId, actor)
+            const hasEncumberedCondition = EnhancedConditionsAPI.hasCondition(encumberedId, actor)
             let isEncumbered = actor.system.details.encumbrance.value > actor.system.details.encumbrance.max ? true : false
             //If BRSW is enabled also check if NPCs should get encumbrance:
             if (game.modules.get('betterrolls-swade2')?.active) {

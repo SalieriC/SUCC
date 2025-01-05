@@ -14,6 +14,7 @@ import { EnhancedConditionsAPI } from "./enhanced-conditions/enhanced-conditions
 
 import { TokenUtility } from "./utils/token.js";
 import { ConditionLab } from "./enhanced-conditions/condition-lab.js";
+import { SUCCTokenActionHud } from "./enhanced-conditions/token-action-hud.js";
 
 /* -------------------------------------------- */
 /*                     Class                    */
@@ -39,6 +40,9 @@ export class Signal {
             game.succ = game.succ ?? {};
             ui.succ = ui.succ ?? {};
 
+            //We need to check the version of TAH before registering hooks which means we can't do it until init
+            Signal.registerTokenActionHudHooks();
+
             // Execute housekeeping
             Sidekick.showCUBWarning();
             Sidekick.handlebarsHelpers();
@@ -51,7 +55,7 @@ export class Signal {
 
             // Instantiate utility classes
             game.succ.tokenUtility = new TokenUtility();
-            
+
             // Patch the effect rendering
             TokenUtility.patchCore();
 
@@ -69,7 +73,7 @@ export class Signal {
         });
 
         Hooks.on("ready", () => {
-            EnhancedConditions._onReady();       
+            EnhancedConditions._onReady();
         });
 
         /* -------------------------------------------- */
@@ -115,12 +119,12 @@ export class Signal {
         Hooks.on("renderChatMessage", (app, html, data) => {
             EnhancedConditions._onRenderChatMessage(app, html, data);
         });
-        
+
         Hooks.on("renderDialog", (app, html, data) => {
             switch (app.title) {
                 case game.i18n.localize("COMBAT.EndTitle"):
                     break;
-                
+
                 case game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`):
                     ConditionLab._onRenderSaveDialog(app, html, data);
                     break;
@@ -129,7 +133,7 @@ export class Signal {
                     break;
             }
         });
-        
+
         /* -------------- Combat Tracker -------------- */
 
         Hooks.on("renderCombatTracker", (app, html, data) => {
@@ -140,6 +144,31 @@ export class Signal {
 
         Hooks.on("renderConditionLab", (app, html, data) => {
             ConditionLab._onRender(app, html, data);
+        });
+    }
+
+    /* -------------------------------------------- */
+    /*              Token Action HUD                */
+    /* -------------------------------------------- */
+    static registerTokenActionHudHooks() {
+        if (!SUCCTokenActionHud.hasValidTokenActionHudVersion()) {
+            return;
+        }
+
+        Hooks.on('tokenActionHudCoreRegisterDefaults', (defaults) => {
+            SUCCTokenActionHud.registerDefaults(defaults);
+        });
+
+        Hooks.on('tokenActionHudCoreApiReady', (module) => {
+            SUCCTokenActionHud.createTokenActionHudClasses(module);
+        });
+
+        Hooks.on('tokenActionHudCoreAddActionHandlerExtenders', (actionHandler) => {
+            actionHandler.addActionHandlerExtender(new game.succ.SUCCActionHandlerExtender(actionHandler));
+        });
+
+        Hooks.on('tokenActionHudCoreAddRollHandlerExtenders', (rollHandler) => {
+            rollHandler.addRollHandlerExtender(new game.succ.SUCCRollHandlerExtender());
         });
     }
 }
