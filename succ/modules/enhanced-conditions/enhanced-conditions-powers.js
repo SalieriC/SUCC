@@ -132,9 +132,9 @@ export class EnhancedConditionsPowers {
                 apply: {
                     label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Apply"),
                     callback: async (html) => {
-                        let selectedWeaponName = html.find(`#weapon`)[0].value
-                        let damageBonus = Number(html.find("#damageBonus")[0].value)
-                        if (damageBonus >= 0) { damageBonus = '+' + damageBonus }
+                        let selectedWeaponName = html.find(`#weapon`)[0].value;
+                        let damageBonus = html.find("#damageBonus")[0].value;
+                        if (damageBonus[0] != '+') { damageBonus = '+' + damageBonus; }
                         await EnhancedConditionsPowers.smiteBuilder(effect, selectedWeaponName, damageBonus);
                     }
                 },
