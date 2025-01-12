@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [4.2.0] - 2025-01-12 aka "Smite 'em with math"
+### Added
+- Token Hud Support
+### Changed
+- Smite dialog now accepts formulae.
+
 ## [4.1.0] - 2024-09-29 aka "Macro Mambo"
 ### Added
 - Added an option to exclude conditions from the core status effect list.
