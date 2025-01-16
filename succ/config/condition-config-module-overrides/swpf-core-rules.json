@@ -24,10 +24,8 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore01charac.JournalEntryPage.01edges000000000#barbarian]",
             "ignoreSystemSettings": true,
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
