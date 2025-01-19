@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [5.0.0] - 2025-01-12 aka "Salute the flag goodbye"
+### Changed
+- [Breaking] Changed conditions to use system property instead of flags as per SWADE v. 4.2.3. This makes CUB v.5.0.0 incompatible with earlier versions of the system, so make sure to update the system as well.
+- Changing, adding and removing conditions now forces the custom mode in the Condition Lab.
+
 ## [4.2.0] - 2025-01-12 aka "Smite 'em with math"
 ### Added
 - Token Hud Support
