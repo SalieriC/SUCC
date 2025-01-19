@@ -67,6 +67,7 @@ export class ConditionLab extends FormApplication {
         let conditionMap = this.map ? this.map : (this.map = foundry.utils.duplicate(this.initialMap));
 
         const isDefault = this.mapType === Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
+        const isCustom = this.mapType === Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.custom);
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
         const disableChatOutput = isDefault || !outputChatSetting;
 
@@ -115,7 +116,7 @@ export class ConditionLab extends FormApplication {
             mapType,
             conditionMap,
             displayedMap,
-            isDefault,
+            isCustom,
             disableChatOutput,
             unsavedMap
         }
@@ -152,10 +153,6 @@ export class ConditionLab extends FormApplication {
         let conditions = [];
         let icons = [];
         let references = [];
-        let optionsOverlay = [];
-        let optionsRemove = [];
-        let optionsOutputChat = [];
-        let optionsDefeated = [];
         let newMap = [];
         const rows = [];
         const existingMap = this.map ?? Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
@@ -166,9 +163,6 @@ export class ConditionLab extends FormApplication {
         const idRegex = new RegExp(/^id/, "i");
         const iconRegex = new RegExp("icon", "i");
         const referenceRegex = new RegExp("reference", "i");
-        const optionsOverlayRegex = new RegExp("options-overlay", "i");
-        const optionsRemoveRegex = new RegExp("options-remove-others", "i");
-        const optionsOutputChatRegex = new RegExp("options-output-chat", "i");
         const rowRegex = new RegExp(/\d+$/);
 
         //write it back to the relevant condition map
@@ -198,8 +192,10 @@ export class ConditionLab extends FormApplication {
 
         for (let i = 0; i < uniqueRows.length; i++) {
             const id = ids[i] ?? null;
-            const name = conditions[i];
             const existingCondition = (existingMap && id) ? existingMap.find(c => c.id === id) : null;
+            const name = conditions[i] ?? existingCondition?.name;
+            const img = icons[i] ?? existingCondition?.img;
+            const referenceId = references[i] ?? existingCondition?.referenceId;
             const activeEffect = existingCondition ? existingCondition.activeEffect : null;
             const macros = existingCondition ? existingCondition.macros : null;
             const options = existingCondition ? existingCondition.options : {};
@@ -209,8 +205,8 @@ export class ConditionLab extends FormApplication {
             const condition = {
                 id,
                 name,
-                img: icons[i],
-                referenceId: references[i],
+                img,
+                referenceId,
                 activeEffect,
                 macros,
                 options,
@@ -598,10 +594,14 @@ export class ConditionLab extends FormApplication {
         const newType = this.mapType = selection.val();
 
         switch (newType) {
-            case "default":
-            case "custom":
+            case "default": {
                 const defaultMap = EnhancedConditions.getDefaultMap();
-                this.map = defaultMap?.length ? EnhancedConditions._prepareMap(defaultMap) : []; 
+                this.map = defaultMap?.length ? EnhancedConditions._prepareMap(defaultMap) : [];
+            }
+            break;
+
+            case "custom":
+                //When switching to custom, we just take whatever was already in the map and modify it from there
                 break;
             
             case "other":
@@ -693,17 +693,7 @@ export class ConditionLab extends FormApplication {
         const existingNewConditions = this.map.filter(m => m.name.match(/^New Condition \d+$/));
         const newConditionIndex = existingNewConditions.length ? Math.max(...existingNewConditions.map(m => 1 * m.name.match(/\d+$/g)[0])) + 1 : 1;
         const newConditionName = `New Condition ${newConditionIndex}`;
-        const fdMap = this.updatedMap;
-        const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
-        const customMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.custom);
 
-        if (this.mapType === defaultMapType) {
-            const defaultMap = EnhancedConditions.getDefaultMap();
-            this.map = foundry.utils.mergeObject(fdMap, defaultMap);
-        } else {
-            this.map = fdMap;
-        }
-        
         const newMap = foundry.utils.duplicate(this.map);
         const exisitingIds = this.map.filter(c => c.id).map(c => c.id);
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
@@ -718,10 +708,9 @@ export class ConditionLab extends FormApplication {
             },
             addedByLab: true
         });
-        
-        const newMapType = this.mapType === defaultMapType ? customMapType : this.mapType; 
 
-        this.mapType = newMapType;
+        const customMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.custom);
+        this.mapType = customMapType;
         this.map = newMap;
         this.data = null;
         

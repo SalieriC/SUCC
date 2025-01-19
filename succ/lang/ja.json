@@ -68,7 +68,7 @@
     "ENHANCED_CONDITIONS.Lab.MappingType.Unsaved": "（未保存の変更）",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title": "アクティブ効果設定",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabled": "アクティブ効果設定（無効：最初にマッピングの保存を行ってください）",
-    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault": "アクティブ効果設定（無効：デフォルトマッピングを編集できません）",
+    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom": "アクティブ効果設定（無効：デフォルトマッピングを編集できません）",
     "ENHANCED_CONDITIONS.LAB.Import.NoFile": "データファイルがアップロードされていません！",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle": "行の削除確認",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent": "本当にこの行を削除しますか？",

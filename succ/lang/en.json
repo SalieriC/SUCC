@@ -204,7 +204,7 @@
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.Button": "Active Effect",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title": "Active Effect Config",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew": "Active Effect Config (Disabled - Save Mapping First)",
-    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault": "Active Effect Config (Disabled - Cannot Edit Default Mapping)",
+    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom": "Active Effect Config (Disabled - Can Only Edit Custom Mappings)",
     "ENHANCED_CONDITIONS.Lab.SaveMacro.Button": "Save Toggle Macro",
     "ENHANCED_CONDITIONS.Lab.SaveMacro.Title": "Creates a toggle condition macro and adds it to the hotbar",
     "ENHANCED_CONDITIONS.Lab.CreatedToggleMacro.Name": "Toggle ",
