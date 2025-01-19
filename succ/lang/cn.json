@@ -222,7 +222,7 @@
 	"ENHANCED_CONDITIONS.Lab.RestoreDefaults.Body": "<p>您确定要将此映射恢复为默认值吗？</p><strong>如果您保存，此更改将是永久性的。</strong>",
 	"ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew": "主动效果配置（禁用 - 首先保存映射）",
 	"ENHANCED_CONDITIONS.Lab.RestoreDefaults.ClearCache.CheckboxText": "清除缓存并从模组文件夹重新加载默认值？",
-	"ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault": "主动效果配置（禁用 - 无法编辑默认映射）",
+	"ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom": "主动效果配置（禁用 - 无法编辑默认映射）",
 	"ENHANCED_CONDITIONS.Condition.Lower": "削弱特性",
 	"ENHANCED_CONDITIONS.Dialog.Trait": "特性： ",
 	"ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name": "强化特性构建器",

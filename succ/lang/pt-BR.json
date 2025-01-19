@@ -179,7 +179,7 @@
 	"ENHANCED_CONDITIONS.Lab.Title": "Laboratório de Condições",
 	"ENHANCED_CONDITIONS.Lab.MappingType.Label": "Tipo de Mapeamento",
 	"ENHANCED_CONDITIONS.Lab.MappingType.Unsaved": "(alterações não salvas)",
-	"ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault": "Active Effect Config (Desativado - Não é possível editar o mapeamento padrão)",
+	"ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom": "Active Effect Config (Desativado - Não é possível editar o mapeamento padrão)",
 	"ENHANCED_CONDITIONS.Lab.Import.NoFile": "Você não fez upload de um arquivo de dados!",
 	"ENHANCED_CONDITIONS.Lab.RestoreDefaults.ClearCache.CheckboxText": "Limpar o cache e recarregar os padrões da pasta do módulo?",
 	"ENHANCED_CONDITIONS.Lab.RestoreDefaults.KeepAdded.CheckboxText": "Manter as condições adicionadas por meio do Laboratório de Condições?",

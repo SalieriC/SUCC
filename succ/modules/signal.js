@@ -90,6 +90,9 @@ export class Signal {
             EnhancedConditions._onDeleteActiveEffect(effect, options, userId);
         });
 
+        Hooks.on("updateActiveEffect", (effect, options, userId) => {
+        });
+
         Hooks.on("updateActor", (tokenDocument, updateData, options, userId) => {
             EnhancedConditions._onUpdateActor(tokenDocument, updateData, options, userId);
         });

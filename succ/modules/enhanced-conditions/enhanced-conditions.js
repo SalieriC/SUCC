@@ -25,6 +25,7 @@ export class EnhancedConditions {
     static async _onReady() {
         if (game.user.isGM) {
             await EnhancedConditions.loadConditionConfigMap();
+            await EnhancedConditions.migrateFlagsToSystem();
             await EnhancedConditions.updateConditionMapFromDefaults();
 
             if (Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.skipIconMigration) == false) {
@@ -812,7 +813,8 @@ export class EnhancedConditions {
                     newCondition.activeEffect = {
                         changes: statusEffect.changes,
                         duration: statusEffect.duration,
-                        flags: statusEffect.flags
+                        flags: statusEffect.flags,
+                        system: statusEffect.system
                     };
                 }
                 game.succ.conditionConfigMap.push(newCondition);
@@ -840,7 +842,7 @@ export class EnhancedConditions {
 
         // If the default config contains changes and we have not overridden them in the system definition, copy those over
         for (let statusEffect of statusEffects) {
-            if (!statusEffect.changes && !statusEffect.duration && !statusEffect.flags) {
+            if (!statusEffect.changes && !statusEffect.duration && !statusEffect.flags && !statusEffect.system) {
                 continue;
             }
 
@@ -859,12 +861,14 @@ export class EnhancedConditions {
                 delete conditionConfig.activeEffect.changes;
                 delete conditionConfig.activeEffect.duration;
                 delete conditionConfig.activeEffect.flags;
+                delete conditionConfig.activeEffect.system;
 
                 conditionConfig.activeEffect = {
                     ...conditionConfig.activeEffect,
                     ...statusEffect.changes != undefined ? { changes: statusEffect.changes } : null,
                     ...statusEffect.duration != undefined ? { duration: statusEffect.duration } : null,
-                    ...statusEffect.flags != undefined ? { flags: statusEffect.flags } : null
+                    ...statusEffect.flags != undefined ? { system: statusEffect.flags } : null,
+                    ...statusEffect.system != undefined ? { system: statusEffect.system } : null
                 }
             }
         }
@@ -1121,6 +1125,7 @@ export class EnhancedConditions {
                         [BUTLER.FLAGS.enhancedConditions.overlay]: c?.options?.overlay ?? false
                     }
                 },
+                system: c.activeEffect?.system,
                 name: c.name,
                 img: c.img,
                 changes: c.activeEffect?.changes || [],
@@ -1257,6 +1262,43 @@ export class EnhancedConditions {
 
         return EnhancedConditions.getMapForDefaultConditions(defaultConditions);
     }
+    /**
+     * The system changed AEs to use system instead of flags.swade. This function migrates our data to that structure
+     */
+    static async migrateFlagsToSystem() {
+        let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+        for (let condition of conditionMap) {
+            if (!condition.activeEffect) {
+                continue;
+            }
+
+            if (condition.activeEffect.system == undefined) {
+                const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
+                if (conditionConfig?.activeEffect?.system) {
+                    condition.activeEffect.system = conditionConfig.activeEffect.system;
+                }
+            }
+
+            if (condition.activeEffect.flags?.swade) {
+                const flags = condition.activeEffect.flags.swade;
+                condition.activeEffect.system = condition.activeEffect.system ?? {};
+                condition.activeEffect.system = foundry.utils.mergeObject(condition.activeEffect.system, flags);
+                
+                delete condition.activeEffect.system.related; //Hack to deal with a temp issue in the system code effect definitions
+                delete condition.activeEffect.flags.swade.expiration;
+                delete condition.activeEffect.flags.swade.loseTurnOnHold;
+                if (Object.keys(condition.activeEffect.flags.swade).length == 0) {
+                    delete condition.activeEffect.flags.swade;
+
+                    if (Object.keys(condition.activeEffect.flags).length == 0) {
+                        delete condition.activeEffect.flags;
+                    }
+                }
+            }
+        }
+
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, conditionMap);
+    }
 
     /**
      * Updates the condition map to include any changes from the default map and system settings
@@ -1284,6 +1326,7 @@ export class EnhancedConditions {
 
                 if (JSON.stringify(condition.activeEffect.changes) !== JSON.stringify(conditionConfig.activeEffect.changes) ||
                     JSON.stringify(condition.activeEffect.flags) !== JSON.stringify(conditionConfig.activeEffect.flags) ||
+                    JSON.stringify(condition.activeEffect.system) !== JSON.stringify(conditionConfig.activeEffect.system) ||
                     JSON.stringify(condition.activeEffect.duration) !== JSON.stringify(conditionConfig.activeEffect.duration)) {
                     currentDiffs.push(conditionConfig);
                 }

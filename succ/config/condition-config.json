@@ -30,10 +30,8 @@
             "name": "SWADE.Aiming",
             "img": "modules/succ/assets/icons/1-aiming.svg",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 1
-                    }
+                "system": {
+                    "expiration": 1
                 },
                 "duration": {
                     "rounds": 1
@@ -71,10 +69,8 @@
             "name": "SWADE.Conv",
             "img": "modules/succ/assets/icons/1-conviction.svg",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 1
-                    }
+                "system": {
+                    "expiration": 1
                 }
             },
             "options": {
@@ -199,10 +195,8 @@
             "img": "modules/succ/assets/icons/m-blind.svg",
             "referenceId": "@UUID[Compendium.swade.powers.GxPhaUI4jQtFiXIr]{EFFECT.StatusBlind}",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 1
@@ -215,10 +209,8 @@
             "img": "modules/succ/assets/icons/m-smite.svg",
             "referenceId": "@UUID[Compendium.swade.powers.AlGYtSZmjUDRfUGM]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -243,10 +235,8 @@
             "img": "modules/succ/assets/icons/m-deflection.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.Tvr0FZJPP3ygOl94]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -262,10 +252,8 @@
             "img": "modules/succ/assets/icons/m-boost.svg",
             "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -281,10 +269,8 @@
             "img": "modules/succ/assets/icons/m-lower.svg",
             "referenceId": "@UUID[Compendium.swade.powers.FSwGNyzYvYRMhOkV]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 1
@@ -300,10 +286,8 @@
             "img": "modules/succ/assets/icons/m-arcane-protection.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.YCK7uLmPENKq0Zdb]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -316,10 +300,8 @@
             "img": "modules/succ/assets/icons/m-burrow.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.cLRfMRfjBZZBQmFW]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -332,10 +314,8 @@
             "img": "modules/succ/assets/icons/m-confusion.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.Ewds3tTHCxbtl6i9]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 2
-                    }
+                "system": {
+                    "expiration": 2
                 },
                 "duration": {
                     "rounds": 1
@@ -348,10 +328,8 @@
             "img": "modules/succ/assets/icons/m-damage-field.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.NJViHErRJmmNKMxC]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -364,10 +342,8 @@
             "img": "modules/succ/assets/icons/m-elemental-manipulation.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.tvkJEXvT34m8Xx9c]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -380,10 +356,8 @@
             "img": "modules/succ/assets/icons/m-environmental-protection.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.mrY41ijR3wZgc3sQ]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 600
@@ -396,10 +370,8 @@
             "img": "modules/succ/assets/icons/m-growth.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.Uc35itYBnj3SmOde]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -412,10 +384,8 @@
             "img": "modules/succ/assets/icons/m-shrink.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.Uc35itYBnj3SmOde]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -428,10 +398,8 @@
             "img": "modules/succ/assets/icons/m-intangibility.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.2WMVbzAqJG5EO3hd]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -444,10 +412,8 @@
             "img": "modules/succ/assets/icons/m-puppet.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.oRef4wp8YizkFo8u]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -476,10 +442,8 @@
             "img": "modules/succ/assets/icons/m-sloth.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.zCMcQuzYNvkEiw1r]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 1
@@ -492,10 +456,8 @@
             "img": "modules/succ/assets/icons/m-speed.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.zCMcQuzYNvkEiw1r]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -520,10 +482,8 @@
             "img": "modules/succ/assets/icons/m-wall-walker.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.VExCzgzDejsraifN]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -536,10 +496,8 @@
             "img": "modules/succ/assets/icons/m-warriors-gift.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.R3CtmF3sFkFIh3UQ]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -571,10 +529,8 @@
             "name": "ENHANCED_CONDITIONS.Condition.Sanctuary",
             "img": "modules/succ/assets/icons/m-sanctuary.svg",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -586,10 +542,8 @@
             "name": "ENHANCED_CONDITIONS.Condition.FeatherFall",
             "img": "modules/succ/assets/icons/m-feather-fall.svg",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -602,10 +556,8 @@
             "img": "modules/succ/assets/icons/m-shape-change.svg",
             "referenceId": "@UUID[Compendium.swade.powers.Item.IuQbYf6obG8a865u]",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -617,10 +569,8 @@
             "name": "ENHANCED_CONDITIONS.Condition.AmmoWhammy",
             "img": "modules/succ/assets/icons/m-ammo-whammy.svg",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -632,10 +582,8 @@
             "name": "ENHANCED_CONDITIONS.Condition.HolySymbol",
             "img": "modules/succ/assets/icons/m-holy-symbol.svg",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5
@@ -647,10 +595,8 @@
             "name": "ENHANCED_CONDITIONS.Condition.LetTheDevilOut",
             "img": "modules/succ/assets/icons/let-the-devil-out.svg",
             "activeEffect": {
-                "flags": {
-                    "swade": {
-                        "expiration": 3
-                    }
+                "system": {
+                    "expiration": 3
                 },
                 "duration": {
                     "rounds": 5

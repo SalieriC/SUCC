@@ -166,7 +166,7 @@
     "ENHANCED_CONDITIONS.Lab.MappingType.Unsaved": "(ungespeicherte Änderungen)",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title": "Aktive Effekte-Konfiguration",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew": "Aktive Effekte-Konfiguration (Deaktiviert - Zuordnung zuerst speichern)",
-    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault": "Aktive Effekte-Konfiguration (Deaktiviert - Kann Standard-Zuordnung nicht bearbeiten)",
+    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom": "Aktive Effekte-Konfiguration (Deaktiviert - Kann Standard-Zuordnung nicht bearbeiten)",
     "ENHANCED_CONDITIONS.LAB.Import.NoFile": "Keine Datendatei hochgeladen!",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle": "Zeilenlöschung bestätigen",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent": "Diese Zeile wirklich löschen?",

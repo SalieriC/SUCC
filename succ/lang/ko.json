@@ -67,7 +67,7 @@
     "ENHANCED_CONDITIONS.Lab.MappingType.Unsaved": "(저장되지 않은 변화 내역)",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title": "활성화 효과 설정",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabled": "활성화 효과 설정 (비활성화됨 - 우선 매핑 저장 해주세요)",
-    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault": "활성화 효과 설정 (비활성화 - 매핑 기본값을 수정할 수 없음)",
+    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom": "활성화 효과 설정 (비활성화 - 매핑 기본값을 수정할 수 없음)",
     "ENHANCED_CONDITIONS.LAB.Import.NoFile": "데이터 파일을 업로드하지 않았습니다!",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle": "행 삭제 확인",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent": "이 행을 삭제하시겠습니까?",
