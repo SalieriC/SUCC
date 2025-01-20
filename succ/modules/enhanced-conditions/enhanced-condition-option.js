@@ -43,7 +43,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
         const data = {
             condition: this.object,
             labData: this.labData,
-            customId: this.object.options.customId
+            customId: this.object.id
         };
 
         return data;
@@ -116,7 +116,6 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
      * @param {*} formData 
      */
     async _updateObject(event, formData) {
-        let oldOptions = foundry.utils.duplicate(this.object.options);
         this.object.options = {};
         const specialStatusEffectMapping = Sidekick.getSetting(SETTING_KEYS.enhancedConditions.specialStatusEffectMapping);
         const map = game.succ.conditionLab.map;
@@ -125,6 +124,8 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
         // Loop over the list of options and see if any of them need to be pushed up to the Foundry config
         for (const field in formData) {
+            if (field == "custom-id") continue;
+
             const value = formData[field];
             const element = event.target?.querySelector(`input[name="${field}"]`);
             const propertyName = Sidekick.toCamelCase(field, "-");
@@ -147,31 +148,30 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
                 }
             }
-
+            
             this.object.options[propertyName] = value;
         }
 
-
-        const customId = formData["custom-id"];
-        if (customId) {
-            let foundExisting = false;
-            for (let condition of map) {
-                if (condition.id == this.object.id) continue;
-
-                if (customId == condition.id ||
-                    (customId && customId == condition.options?.customId)) {
-                    foundExisting = true;
-                    this.object.options.customId = oldOptions.customId;
-                    Sidekick.showNotification("error", game.i18n.localize("ENHANCED_CONDITIONS.Lab.Options.CustomId.DuplicateRevert"));
-                    break;
+        if (this.object.addedByLab) {
+            const customId = formData["custom-id"];
+            if (customId) {
+                let foundExisting = false;
+                for (let condition of map) {
+                    if (condition == this.object) continue;
+    
+                    if (customId == condition.id) {
+                        foundExisting = true;
+                        Sidekick.showNotification("error", game.i18n.localize("ENHANCED_CONDITIONS.Lab.Options.CustomId.DuplicateRevert"));
+                        break;
+                    }
                 }
-            }
-
-            if (!foundExisting) {
+    
+                if (!foundExisting) {
+                    this.object.id = customId;
+                }
+            } else {
                 this.object.id = undefined;
             }
-        } else {
-            this.object.id = undefined;
         }
 
         newMap[conditionIndex] = this.object;
