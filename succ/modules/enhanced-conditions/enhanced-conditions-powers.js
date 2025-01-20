@@ -1,5 +1,5 @@
-import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
+import { EnhancedConditionsAPIDialogs } from "./enhanced-conditions-api-dialogs.js";
 import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
 
 /**
@@ -17,39 +17,17 @@ export class EnhancedConditionsPowers {
     static async boostLowerTrait(actor, condition, boost) {
         let effect = actor.effects.find(function (e) {
             return ((e.name === game.i18n.localize(condition.name)))
-        })
-        //Building options
-        let traitOptions = Sidekick.getTraitOptions(actor);
+        });
+        
+        let type = boost ? "boost" : "lower";
+        let result = await EnhancedConditionsAPIDialogs.boostLowerTraitDialog(actor, type);
 
-        const traitData = { condition, traitOptions, boost };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.boostLowerDialog, traitData);
+        if (!result) {
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true});
+            return;
+        }
 
-        new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name"),
-            content: content,
-            buttons: {
-                success: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Success"),
-                    callback: async (html) => {
-                        const trait = html.find(`#selected_trait`)[0].value;
-                        await EnhancedConditionsPowers.boostLowerBuilder(effect, actor, trait, boost ? "boost" : "lower", "success")
-                    }
-                },
-                raise: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Raise"),
-                    callback: async (html) => {
-                        const trait = html.find(`#selected_trait`)[0].value;
-                        await EnhancedConditionsPowers.boostLowerBuilder(effect, actor, trait, boost ? "boost" : "lower", "raise")
-                    }
-                },
-                cancel: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
-                    callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true})
-                    }
-                }
-            }
-        }).render(true)
+        await EnhancedConditionsPowers.boostLowerBuilder(effect, actor, result.trait, type, result.degree);
     }
 
     /**
@@ -99,6 +77,7 @@ export class EnhancedConditionsPowers {
         await effect.update(updates);
     }
 
+    // static async smite(actor, condition) {
     /**
      * Adds a smite effect to an actor
      * @param {Actor} actor  Actor to apply the effect to
@@ -108,44 +87,16 @@ export class EnhancedConditionsPowers {
         //Get the active effect from the actor
         let effect = actor.effects.find(function (e) {
             return ((e.name === game.i18n.localize(condition.name)));
-        })
+        });
 
-        //Get the list of weapons this actor owns
-        const weapons = actor.items.filter(i => i.type === "weapon");
-        if (weapons.length === 0) {
-            return ui.notifications.warn(`${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.NoWeapons")}`);
+        let result = await EnhancedConditionsAPIDialogs.smiteDialog(actor);
+
+        if (!result) {
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
+            return;
         }
 
-        //Build the options list for the dialog from our list of weapons
-        let weapOptions;
-        for (let weapon of weapons) {
-            weapOptions = weapOptions + `<option value="${weapon.name}">${weapon.name}</option>`
-        }
-
-        const smiteData = { condition, weapOptions };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.smiteDialog, smiteData);
-
-        new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name"),
-            content: content,
-            buttons: {
-                apply: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Apply"),
-                    callback: async (html) => {
-                        let selectedWeaponName = html.find(`#weapon`)[0].value;
-                        let damageBonus = html.find("#damageBonus")[0].value;
-                        if (damageBonus[0] != '+') { damageBonus = '+' + damageBonus; }
-                        await EnhancedConditionsPowers.smiteBuilder(effect, selectedWeaponName, damageBonus);
-                    }
-                },
-                cancel: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
-                    callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true})
-                    }
-                }
-            }
-        }).render(true)
+        await EnhancedConditionsPowers.smiteBuilder(effect, result.weapon, result.bonus);
     }
 
     /**
@@ -174,37 +125,16 @@ export class EnhancedConditionsPowers {
         //Get the active effect from the actor
         let effect = actor.effects.find(function (e) {
             return ((e.name === game.i18n.localize(condition.name)))
-        })
+        });
 
-        const protectionData = { condition };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.protectionDialog, protectionData);
+        let result = await EnhancedConditionsAPIDialogs.protectionDialog();
 
-        new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Name"),
-            content: content,
-            buttons: {
-                armor: {
-                    label: game.i18n.localize("SWADE.Armor"),
-                    callback: async (html) => {  
-                        let protectionAmount = Number(html.find("#protectionAmount")[0].value);
-                        await EnhancedConditionsPowers.protectionBuilder(effect, protectionAmount, "armor");
-                    }
-                },
-                toughness: {
-                    label: game.i18n.localize("SWADE.Tough"),
-                    callback: async (html) => {
-                        let protectionAmount = Number(html.find("#protectionAmount")[0].value);
-                        await EnhancedConditionsPowers.protectionBuilder(effect, protectionAmount, "toughness");
-                    }
-                },
-                cancel: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
-                    callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true})
-                    }
-                }
-            }
-        }).render(true)
+        if (!result) {
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true});
+            return;
+        }
+
+        await EnhancedConditionsPowers.protectionBuilder(effect, result.bonus, result.type);
     }
 
     /**
@@ -231,41 +161,16 @@ export class EnhancedConditionsPowers {
         //Get the active effect from the actor
         let effect = actor.effects.find(function (e) {
             return ((e.name === game.i18n.localize(condition.name)))
-        })
+        });
 
-        const deflectionData = { condition };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.deflectionDialog, deflectionData);
+        let result = await EnhancedConditionsAPIDialogs.deflectionDialog();
 
-        new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Name"),
-            content: content,
-            buttons: {
-                melee: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Melee"),
-                    callback: async (html) => {  
-                        await EnhancedConditionsPowers.deflectionBuilder(effect, "Melee");
-                    }
-                },
-                ranged: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Ranged"),
-                    callback: async (html) => {
-                        await EnhancedConditionsPowers.deflectionBuilder(effect, "Ranged");
-                    }
-                },
-                raise: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Raise"),
-                    callback: async (html) => {
-                        await EnhancedConditionsPowers.deflectionBuilder(effect, "Raise");
-                    }
-                },
-                cancel: {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
-                    callback: async (html) => {
-                        await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true})
-                    }
-                }
-            }
-        }).render(true)
+        if (!result) {
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true});
+            return;
+        }
+
+        await EnhancedConditionsPowers.deflectionBuilder(effect, result.type);
     }
 
     /**
