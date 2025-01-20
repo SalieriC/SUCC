@@ -414,6 +414,14 @@ export class Sidekick {
     }
 
     /**
+     * Shows notification messages with the SUCC format
+     */
+    static showNotification(type, message, options) {
+        const msg = `${BUTLER.SHORT_TITLE} | ${message}`;
+        return ui.notifications[type](msg, options);
+    }
+
+    /**
      * Retrieves all the owners of a given document
      * @param {*} document 
      * @returns {Array}

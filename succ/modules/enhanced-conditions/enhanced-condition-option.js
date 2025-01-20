@@ -5,10 +5,11 @@ import { Sidekick } from "../sidekick.js";
  * Enhanced Condition Trigger Config Application
  */
 export default class EnhancedConditionOptionConfig extends FormApplication {
-    constructor(object, options) {
+    constructor(object, labData, options) {
         super(object, options);
 
         this.object = this.object ?? {};
+        this.labData = labData;
 
         this.initialObject = foundry.utils.duplicate(this.object);
     }
@@ -39,11 +40,10 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
      * @returns {Object} data
      */
     getData() {
-        const optionData = this.object.options;
-
         const data = {
             condition: this.object,
-            optionData
+            labData: this.labData,
+            customId: this.object.options.customId
         };
 
         return data;
@@ -116,6 +116,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
      * @param {*} formData 
      */
     async _updateObject(event, formData) {
+        let oldOptions = foundry.utils.duplicate(this.object.options);
         this.object.options = {};
         const specialStatusEffectMapping = Sidekick.getSetting(SETTING_KEYS.enhancedConditions.specialStatusEffectMapping);
         const map = game.succ.conditionLab.map;
@@ -148,6 +149,29 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
             }
 
             this.object.options[propertyName] = value;
+        }
+
+
+        const customId = formData["custom-id"];
+        if (customId) {
+            let foundExisting = false;
+            for (let condition of map) {
+                if (condition.id == this.object.id) continue;
+
+                if (customId == condition.id ||
+                    (customId && customId == condition.options?.customId)) {
+                    foundExisting = true;
+                    this.object.options.customId = oldOptions.customId;
+                    Sidekick.showNotification("error", game.i18n.localize("ENHANCED_CONDITIONS.Lab.Options.CustomId.DuplicateRevert"));
+                    break;
+                }
+            }
+
+            if (!foundExisting) {
+                this.object.id = undefined;
+            }
+        } else {
+            this.object.id = undefined;
         }
 
         newMap[conditionIndex] = this.object;

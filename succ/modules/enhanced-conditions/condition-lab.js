@@ -1036,15 +1036,16 @@ export class ConditionLab extends FormApplication {
      * Option Config button click handler
      * @param {*} event 
      */
-    _onClickOptionConfig(event) {
+    async _onClickOptionConfig(event) {
         const rowLi = event.target.closest("li");
         const conditionId = rowLi ? rowLi.dataset.conditionId : null;
 
         if (!conditionId) return;
 
         const condition = this.map.find(c => c.id === conditionId);
+        const labData = await this.getData();
 
-        new EnhancedConditionOptionConfig(condition, {
+        new EnhancedConditionOptionConfig(condition, labData, {
             title: (game.i18n.localize(condition.name) + " - " + game.i18n.localize("succ.ENHANCED_CONDITIONS.OptionConfig.Heading"))
         }).render(true);
     }
