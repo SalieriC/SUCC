@@ -7,78 +7,85 @@
     <div class="scrollable">
         <section class="condition-options">
             <div class="tab active" data-group="main" data-tab="general-options">
+                {{#if condition.addedByLab}}
                 <div class="formgroup">
-                    <label><input type="checkbox" name="overlay" {{checked condition.options.overlay}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label>{{localize "ENHANCED_CONDITIONS.Lab.Options.CustomId.Label"}}
+                    <input type="text" name="custom-id" value="{{customId}}"></label>
+                    <p class="notes">{{{localize "ENHANCED_CONDITIONS.Lab.Options.CustomId.Desc"}}}</p>
+                </div>
+                {{/if}}
+                <div class="formgroup">
+                    <label><input type="checkbox" name="overlay" {{checked condition.options.overlay}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "ENHANCED_CONDITIONS.Lab.Options.Overlay.Label"}}</label>
-                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.Overlay.Title"}}</p>
+                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.Overlay.Desc"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="remove-others" {{checked condition.options.removeOthers}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="remove-others" {{checked condition.options.removeOthers}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label"}}</label>
-                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title"}}</p>
+                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Desc"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="output-chat" {{checked condition.options.outputChat}} {{#if ../disableChatOutput}}disabled{{/if}}>
+                    <label><input type="checkbox" name="output-chat" {{checked condition.options.outputChat}} {{#if labData.disableChatOutput}}disabled{{/if}}>
                         {{localize "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Label"}}</label>
-                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Title"}}</p>
+                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Desc"}}</p>
                 </div>
                 {{#unless condition.destroyDisabled}}
                 <div class="formgroup">
                     <label><input type="checkbox" name="use-as-status-effect" {{checked condition.options.useAsStatusEffect}}>
                         {{localize "ENHANCED_CONDITIONS.Lab.Options.UseAsStatusEffect.Label"}}</label>
-                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.UseAsStatusEffect.Title"}}</p>
+                    <p class="notes">{{localize "ENHANCED_CONDITIONS.Lab.Options.UseAsStatusEffect.Desc"}}</p>
                 </div>
                 {{/unless}}
             </div>
 
             <div class="tab" data-group="main" data-tab="special-effects">
                 <div class="formgroup">
-                    <label><input type="checkbox" name="blind-token" {{checked condition.options.blindToken}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="blind-token" {{checked condition.options.blindToken}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Label"}}</label>
                     <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Notes"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="mark-invisible" {{checked condition.options.markInvisible}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="mark-invisible" {{checked condition.options.markInvisible}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Label"}}</label>
                     <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Notes"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="cold-bodied" {{checked condition.options.coldBodied}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="cold-bodied" {{checked condition.options.coldBodied}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Label"}}</label>
                     <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Notes"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="boost-trait" {{checked condition.options.boostTrait}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="boost-trait" {{checked condition.options.boostTrait}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Label"}}</label>
                     <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Notes"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="lower-trait" {{checked condition.options.lowerTrait}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="lower-trait" {{checked condition.options.lowerTrait}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.LowerTrait.Label"}}</label>
-                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Notes"}}</p>
+                    <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.LowerTrait.Notes"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="smite" {{checked condition.options.smite}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="smite" {{checked condition.options.smite}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Label"}}</label>
                     <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Notes"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="protection" {{checked condition.options.protection}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="protection" {{checked condition.options.protection}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Label"}}</label>
                     <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Notes"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="deflection" {{checked condition.options.deflection}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="deflection" {{checked condition.options.deflection}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Label"}}</label>
                     <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Notes"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="conviction" {{checked condition.options.conviction}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="conviction" {{checked condition.options.conviction}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Label"}}</label>
                     <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Notes"}}</p>
                 </div>
                 <div class="formgroup">
-                    <label><input type="checkbox" name="encumbered" {{checked condition.options.encumbered}} {{#unless ../isCustom}}disabled{{/unless}}>
+                    <label><input type="checkbox" name="encumbered" {{checked condition.options.encumbered}} {{#unless labData.isCustom}}disabled{{/unless}}>
                         {{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Label"}}</label>
                     <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.OptionConfig.Encumbered.Notes"}}</p>
                 </div>

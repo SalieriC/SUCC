@@ -955,8 +955,10 @@ export class EnhancedConditions {
             const statusEffect = statusEffects.find(e => e.name === condition.name);
             if (statusEffect) {
                 condition.id = statusEffect.id;
+            } else if (condition.options.customId) {
+                condition.id = condition.options.customId;
             } else if (!condition.id) {
-                condition.id = condition.name;
+                condition.id = Sidekick.createId(existingIds);
             }
 
             // If conditionId doesn't exist, or is a duplicate, create a new Id
