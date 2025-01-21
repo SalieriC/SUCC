@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added the ability to set up IDs for custom conditions.
 - Added API call to open up the dialogues for Smite, Boost/Lower, Protection and Deflection, allowing developers to open the dialogues on other clients than the conditions are applied.
-- Added checkboxes for the new special efects of conditions (i.e. burrow and fly).
+- Added checkboxes for the new special effects of conditions (i.e. burrow and fly).
 
 ## [5.0.0] - 2025-01-12 aka "Salute the flag goodbye"
 ### Changed
