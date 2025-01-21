@@ -474,3 +474,17 @@ a.add-temporary {
     margin: 1rem;
     flex: 0;
 }
+
+dialog.succ-dialog .window-content button {
+    min-width: unset;
+}
+
+dialog.succ-dialog .dialog-content {
+    gap: unset;
+}
+
+.succ-dialog .smite-weapon {
+    flex: 1;
+    width: unset;
+    max-width: 250px;
+}
