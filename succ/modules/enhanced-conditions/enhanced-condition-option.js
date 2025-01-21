@@ -40,10 +40,23 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
      * @returns {Object} data
      */
     getData() {
+        let specialEffectOptions = [];
+        for (let specialStatusEffect of Object.keys(DEFAULT_CONFIG.enhancedConditions.specialStatusEffects)) {
+            const effectProperties = DEFAULT_CONFIG.enhancedConditions.specialStatusEffects[specialStatusEffect];
+            if (effectProperties.optionLabel) {
+                effectProperties.key = specialStatusEffect;
+                effectProperties.option = this.object.options[effectProperties.optionProperty];
+                specialEffectOptions.push(effectProperties);
+            }
+        }
+
+        specialEffectOptions = specialEffectOptions.sort((a, b) => a.key.localeCompare(b.key));
+
         const data = {
             condition: this.object,
             labData: this.labData,
-            customId: this.object.id
+            customId: this.object.id,
+            specialEffectOptions
         };
 
         return data;
@@ -100,9 +113,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
             const title = game.i18n.localize(`${NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Title`);
             const content = game.i18n.format(`${NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Content`, { existingCondition: existingCondition.name, statusEffect: event.detail.statusLabel ?? event.detail.statusName });
             const yes = () => { };
-            const no = () => {
-                return event.target.checked = false;
-            };
+            const no = () => { event.target.checked = false; };
             const defaultYes = false;
             return Dialog.confirm({ title, content, yes, no, defaultYes }, {});
         }
@@ -117,7 +128,6 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
      */
     async _updateObject(event, formData) {
         this.object.options = {};
-        const specialStatusEffectMapping = Sidekick.getSetting(SETTING_KEYS.enhancedConditions.specialStatusEffectMapping);
         const map = game.succ.conditionLab.map;
         const newMap = foundry.utils.deepClone(map);
         let conditionIndex = newMap.findIndex(c => c.id === this.object.id);
@@ -127,25 +137,16 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
             if (field == "custom-id") continue;
 
             const value = formData[field];
-            const element = event.target?.querySelector(`input[name="${field}"]`);
             const propertyName = Sidekick.toCamelCase(field, "-");
-            const specialStatusEffect = this.getSpecialStatusEffectByField(field);
+            const specialStatusEffect = Object.values(DEFAULT_CONFIG.enhancedConditions.specialStatusEffects).find((sse) => sse.optionProperty == propertyName);
 
-            if (specialStatusEffect) {
-                const existingMapping = foundry.utils.getProperty(specialStatusEffectMapping, specialStatusEffect);
-                if (existingMapping === this.object.id && value === false) {
-                    this.setSpecialStatusEffectMapping(specialStatusEffect);
-                } else if (existingMapping !== this.object.id && value === true) {
-                    this.setSpecialStatusEffectMapping(specialStatusEffect, this.object.id);
-                    if (existingMapping) {
-                        const existingId = existingMapping.replace(`${NAME}.`, "");
-                        const existingConditionIndex = newMap.findIndex(c => c.id === existingId);
-                        const existingCondition = newMap[existingConditionIndex];
-                        const options = existingCondition?.options;
-                        options[propertyName] = false;
-                        newMap[existingConditionIndex] = existingCondition;
-                    }
-
+            if (specialStatusEffect?.optionProperty && value === true) {
+                //If another condition already has this effect option enabled, disable it
+                const existingConditionIndex = newMap.findIndex(c => c.options && c.options[propertyName]);
+                const existingCondition = newMap[existingConditionIndex];
+                if (existingCondition && existingCondition != this.object) {
+                    existingCondition.options[propertyName] = false;
+                    newMap[existingConditionIndex] = existingCondition;
                 }
             }
             
@@ -177,38 +178,5 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
         newMap[conditionIndex] = this.object;
         await game.succ.conditionLab._saveMapping(newMap);
         await this.close();
-    }
-
-    /**
-     * Get the enum for a special status effect in Foundry based on the field name
-     * @param {*} field 
-     * @returns {String} enum for the special status effect 
-     */
-    getSpecialStatusEffectByField(field) {
-        switch (field) {
-            case "blind-token":
-                return "BLIND";
-
-            case 'mark-invisible':
-                return "INVISIBLE";
-
-            case 'cold-bodied':
-                return "COLDBODIED";
-
-            default:
-                break;
-        }
-    }
-
-    /**
-     * Sets the special status effect to the provided condition Id
-     * @param {*} effect 
-     * @param {*} conditionId 
-     */
-    setSpecialStatusEffectMapping(effect, conditionId = null) {
-        if (!CONFIG.specialStatusEffects.hasOwnProperty(effect)) return;
-
-        CONFIG.specialStatusEffects[effect] = conditionId ? conditionId : "";
-        Sidekick.setSetting(SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.specialStatusEffects);
     }
 }

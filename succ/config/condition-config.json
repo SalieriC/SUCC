@@ -57,7 +57,10 @@
             "id": "flying",
             "name": "SWADE.Flying",
             "img": "modules/succ/assets/icons/1-flying.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.kTZvicSOKqEr3QOk]"
+            "referenceId": "@UUID[Compendium.swade.powers.kTZvicSOKqEr3QOk]",
+            "options": {
+                "fly": true
+            }
         },
         {
             "id": "holding",
@@ -306,6 +309,9 @@
                 "duration": {
                     "rounds": 5
                 }
+            },
+            "options": {
+                "burrow": true
             }
         },
         {

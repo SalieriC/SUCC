@@ -62,32 +62,73 @@ export const DEFAULT_CONFIG = {
             deflectionDialog: `${PATH}/templates/deflection-dialog.hbs`
         },
         specialStatusEffects: {
+            defeated: { //Cannot be changed by users
+                optionProperty: "markDefeated",
+                systemProperty: "DEFEATED"
+            },
+            incapacitated: { //Cannot be changed by users
+                optionProperty: "markIncapacitated",
+                systemProperty: "INCAPACITATED"
+            },
             blinded: {
-                optionProperty: "blindToken"
+                optionProperty: "blindToken",
+                systemProperty: "BLIND",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Notes"
             },
             invisible: {
-                optionProperty: "markInvisible"
+                optionProperty: "markInvisible",
+                systemProperty: "INVISIBLE",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Notes"
             },
             coldBodied: {
-                optionProperty: "coldBodied"
+                optionProperty: "coldBodied",
+                systemProperty: "COLDBODIED",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.ColdBodied.Notes"
+            },
+            fly: {
+                optionProperty: "fly",
+                systemProperty: "FLY",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.Fly.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.Fly.Notes"
+            },
+            burrow: {
+                optionProperty: "burrow",
+                systemProperty: "BURROW",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.Burrow.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.Burrow.Notes"
             },
             boostTrait: {
-                optionProperty: "boostTrait"
+                optionProperty: "boostTrait",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.BoostTrait.Notes"
             },
             lowerTrait: {
-                optionProperty: "lowerTrait"
+                optionProperty: "lowerTrait",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.LowerTrait.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.LowerTrait.Notes"
             },
             smite: {
-                optionProperty: "smite"
+                optionProperty: "smite",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.Smite.Notes"
             },
             protection: {
-                optionProperty: "protection"
+                optionProperty: "protection",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.Protection.Notes"
             },
             deflection: {
-                optionProperty: "deflection"
+                optionProperty: "deflection",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Notes"
             },
             conviction: {
-                optionProperty: "conviction"
+                optionProperty: "conviction",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.Conviction.Notes"
             }
         }
     },

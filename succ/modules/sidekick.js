@@ -561,25 +561,8 @@ export class Sidekick {
      * @returns {String} enum for the special status effect 
      */
     static getOptionBySpecialStatusEffect(specialEffect) {
-        switch (specialEffect) {
-            case "BLIND":
-                return "blindToken";
-
-            case "COLDBODIED":
-                return "coldBodied";
-
-            case "DEFEATED":
-                return "markDefeated";
-
-            case "INCAPACITATED":
-                return "markIncapacitated";  
-
-            case "INVISIBLE":
-                return "markInvisible";
-
-            default:
-                break;
-        }
+        const specialStatusEffect = Object.values(BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects).find((sse) => sse.systemProperty == specialEffect);
+        return specialStatusEffect?.optionProperty;
     }
 
     /**
@@ -618,5 +601,22 @@ export class Sidekick {
                 }
             }
         }
+        
+        Sidekick.updateSpecialStatusEffectConfig(this.map);
+    }
+
+    /**
+     * Updates CONFIG.specialStatusEffects to match the settings in our condition map
+     * @param {*} conditionMap 
+     */
+    static async updateSpecialStatusEffectConfig(conditionMap) {
+        for (let specialStatusEffect of Object.values(BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects)) {
+            if (!specialStatusEffect.systemProperty) continue; //This status doesn't have a system property so nothing to do
+
+            const existingCondition = conditionMap.find(c => foundry.utils.getProperty(c, `options.${specialStatusEffect.optionProperty}`));
+            CONFIG.specialStatusEffects[specialStatusEffect.systemProperty] = existingCondition ? existingCondition.id : "";
+        }
+        
+        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.specialStatusEffects);
     }
 }
