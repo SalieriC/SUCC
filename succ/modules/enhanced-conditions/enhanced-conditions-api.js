@@ -533,7 +533,7 @@ export class EnhancedConditionsAPI {
      * @returns {Actor} Returns the converted Actor or null if none was found
      */
     static getActorFromEntity(entity) {
-        return entity instanceof Actor ? entity : entity instanceof Token || entity instanceof TokenDocument ? entity.actor : null;;
+        return entity instanceof Actor ? entity : entity instanceof Token || entity instanceof TokenDocument ? entity.actor : null;
     }
 
     /**

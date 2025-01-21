@@ -149,7 +149,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
                     newMap[existingConditionIndex] = existingCondition;
                 }
             }
-
+            
             this.object.options[propertyName] = value;
         }
 

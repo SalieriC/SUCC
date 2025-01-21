@@ -5,10 +5,11 @@ import * as BUTLER from "./butler.js";
 import { Sidekick } from "./sidekick.js";
 import { registerSettings } from "./settings.js";
 
-/* ------------------ Gadgets ----------------- */
+/* ------------------ EnhancedConditions ----------------- */
 
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
 import { EnhancedConditionsAPI } from "./enhanced-conditions/enhanced-conditions-api.js";
+import { EnhancedConditionsAPIDialogs } from "./enhanced-conditions/enhanced-conditions-api-dialogs.js";
 
 /* ------------------- Utils ------------------ */
 
@@ -70,6 +71,12 @@ export class Signal {
             game.succ.removeAllConditions = EnhancedConditionsAPI.removeAllConditions;
             game.succ.toggleCondition = EnhancedConditionsAPI.toggleCondition;
             game.succ.removeTemporaryEffects = EnhancedConditionsAPI.removeTemporaryEffects;
+
+            //Dialogs API
+            game.succ.boostLowerTraitDialog = EnhancedConditionsAPIDialogs.boostLowerTraitDialog;
+            game.succ.smiteDialog = EnhancedConditionsAPIDialogs.smiteDialog;
+            game.succ.protectionDialog = EnhancedConditionsAPIDialogs.protectionDialog;
+            game.succ.deflectionDialog = EnhancedConditionsAPIDialogs.deflectionDialog;
         });
 
         Hooks.on("ready", () => {
