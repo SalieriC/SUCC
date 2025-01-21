@@ -282,6 +282,8 @@ export class ConditionLab extends FormApplication {
         //If we didn't reset the options, we need to do a pass and make sure that each option is still exclusive
         if (!resetOptions) {
             Sidekick.ensureStatusEffectOptionExclusivity(this.map);
+        } else {
+            Sidekick.updateSpecialStatusEffectConfig(this.map);
         }
 
         this.render(true);
@@ -341,6 +343,7 @@ export class ConditionLab extends FormApplication {
         this.mapType = this.initialMapType = mapType;
         const preparedMap = EnhancedConditions._prepareMap(newMap);
 
+        await Sidekick.updateSpecialStatusEffectConfig(preparedMap);
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, mapType);
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, preparedMap);
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, this.deletedConditionsMap);

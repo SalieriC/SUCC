@@ -1068,7 +1068,7 @@ export class EnhancedConditions {
 
             const activeCondition = activeConditionMap.find(c => c.id === CONFIG.specialStatusEffects[key]);
             if (activeCondition) {
-                //The name of this effect matches one of our effect. Check its options
+                //The name of this effect matches one of our effects. Check its options
                 if (foundry.utils.hasProperty(activeCondition.options, optionName)) {
                     if (foundry.utils.getProperty(activeCondition.options, optionName)) {
                         //This effect has the option enabled, so just leave it as is

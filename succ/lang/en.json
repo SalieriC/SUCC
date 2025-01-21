@@ -120,6 +120,14 @@
                     "Label": "Cold Bodied",
                     "Notes": "When applied, this Condition will cause the affected Token to not longer be visible to \"Sense Heat\" detection"
                 },
+                "Fly": {
+                    "Label": "Fly",
+                    "Notes": "When applied, this Condition will cause the affected Token to not longer be visible to \"Feel Tremor\" detection"
+                },
+                "Burrow": {
+                    "Label": "Burrow",
+                    "Notes": "When applied, this Condition will cause the affected Token to not longer be visible to sight based detection"
+                },
                 "BoostTrait": {
                     "Label": "Boost Trait",
                     "Notes": "When applied, this Condition will open the Boost Trait dialog"
