@@ -107,6 +107,11 @@ export class EnhancedConditionsPowers {
                     valueMod = 2;
                 }
             }
+
+            if (!skill) {
+                //If we make it here with no skill, just early out since we don't need to change the effect
+                return;
+            }
         }
 
         if (keyPath) {
