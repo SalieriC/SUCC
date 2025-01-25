@@ -165,7 +165,8 @@ export const FLAGS = {
         conditionId: "conditionId",
         overlay: "overlay",
         effectOptions: "effectOptions",
-        createProcessed: "createProcessed"
+        createProcessed: "createProcessed",
+        addedSkillUuid: "addedSkillUuid"
     }
 }
 
