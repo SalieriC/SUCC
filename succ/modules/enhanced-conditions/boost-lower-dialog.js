@@ -34,6 +34,7 @@ export class BoostLowerDialog extends HandlebarsApplicationMixin(ApplicationV2) 
 
     constructor(options = {}) {
         super(options);
+        this.options.window.title = options.type == "boost" ? "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name" : "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Name";
         this.actor = options.actor;
         this.type = options.type;
         this.showAllSkills = false;
