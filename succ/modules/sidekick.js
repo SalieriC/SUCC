@@ -9,7 +9,7 @@ export class Sidekick {
      */
     static createSUCCDiv(html) {
         if (!game.user.isGM) return;
-        
+
         const succDiv = $(
             `<div id="succ">
                     <h4>SWADE Ultimate Condition Changer</h4>
@@ -34,7 +34,7 @@ export class Sidekick {
      * @returns {Array} settings
      */
     static getAllSettings() {
-        const settings = [...game.settings.settings].filter((k,v) => String(k).startsWith(BUTLER.NAME));
+        const settings = [...game.settings.settings].filter((k, v) => String(k).startsWith(BUTLER.NAME));
         return settings;
     }
 
@@ -89,10 +89,10 @@ export class Sidekick {
      */
     static async fetchJsons(source, path) {
         const extensions = [".json"];
-        const fp = await FilePicker.browse(source, path, {extensions});
+        const fp = await FilePicker.browse(source, path, { extensions });
         const fetchedJsons = fp?.files?.length ? await Promise.all(fp.files.map(f => Sidekick.fetchJson(f))) : [];
         const jsons = fetchedJsons.filter(j => !!j);
-        
+
         return jsons;
     }
 
@@ -111,6 +111,22 @@ export class Sidekick {
             console.warn(e.message);
             return null;
         }
+    }
+
+    static hasModuleFlags(obj) {
+        if (!obj.flags) {
+            return false;
+        }
+
+        return obj.flags[BUTLER.NAME] ? true : false;
+    }
+
+    static getModuleFlag(obj, flag) {
+        if (!Sidekick.hasModuleFlags(obj)) {
+            return;
+        }
+
+        return obj.flags[BUTLER.NAME][flag];
     }
 
     /**
@@ -169,7 +185,7 @@ export class Sidekick {
      * Adds additional jquery helpers
      */
     static jQueryHelpers() {
-        jQuery.expr[':'].icontains = function(a, i, m) {
+        jQuery.expr[':'].icontains = function (a, i, m) {
             return jQuery(a).text().toUpperCase()
                 .indexOf(m[3].toUpperCase()) >= 0;
         };
@@ -182,13 +198,13 @@ export class Sidekick {
     static getTerms(arr) {
         const terms = [];
         const rejectTerms = ["of", "its", "the", "a", "it's", "if", "in", "for", "on", "by", "and"];
-        for ( let i of arr.keys() ) {
+        for (let i of arr.keys()) {
             let len = arr.length - i;
-            for ( let p=0; p<=i; p++ ) {
-                let part = arr.slice(p, p+len);
+            for (let p = 0; p <= i; p++) {
+                let part = arr.slice(p, p + len);
                 if (part.length === 1 && rejectTerms.includes(part[0])) {
                     continue;
-                } 
+                }
                 terms.push(part.join(" "));
             }
         }
@@ -214,7 +230,7 @@ export class Sidekick {
         switch (type) {
             case "number":
                 return value * 1;
-                
+
             case "string":
                 return value.toString();
 
@@ -236,12 +252,12 @@ export class Sidekick {
 
         // Construct update data object by casting form data
         let formData = Array.from(FD).reduce((obj, [k, v]) => {
-        let dt = dtypes[k];
-        if ( dt === "Number" ) obj[k] = v !== "" ? Number(v) : null;
-        else if ( dt === "Boolean" ) obj[k] = v === "true";
-        else if ( dt === "Radio" ) obj[k] = JSON.parse(v);
-        else obj[k] = v;
-        return obj;
+            let dt = dtypes[k];
+            if (dt === "Number") obj[k] = v !== "" ? Number(v) : null;
+            else if (dt === "Boolean") obj[k] = v === "true";
+            else if (dt === "Radio") obj[k] = JSON.parse(v);
+            else obj[k] = v;
+            return obj;
         }, {});
 
         return formData;
@@ -251,19 +267,19 @@ export class Sidekick {
     * Get a random unique Id, checking an optional supplied array of ids for a match
     * @param {*} existingIds 
     */
-    static createId(existingIds=[], {iterations=10000, length=16}={}) {
-       
-       let i = 0;
-       while(i < iterations) {
-           const id = foundry.utils.randomID(length);
-           if (!existingIds.includes(id)) {
-               return id;
-           }
-           i++;
-           console.log(`SWADE Ultimate Condition Changer - Sidekick | Id ${id} already exists in the provided list of ids. ${i ? `This is attempt ${i} of ${iterations} `: ""}Trying again...`);
-       }
+    static createId(existingIds = [], { iterations = 10000, length = 16 } = {}) {
 
-       throw new Error(`SWADE Ultimate Condition Changer - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`)
+        let i = 0;
+        while (i < iterations) {
+            const id = foundry.utils.randomID(length);
+            if (!existingIds.includes(id)) {
+                return id;
+            }
+            i++;
+            console.log(`SWADE Ultimate Condition Changer - Sidekick | Id ${id} already exists in the provided list of ids. ${i ? `This is attempt ${i} of ${iterations} ` : ""}Trying again...`);
+        }
+
+        throw new Error(`SWADE Ultimate Condition Changer - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`)
     };
 
     /**
@@ -280,12 +296,12 @@ export class Sidekick {
      * @param {*} string 
      * @param {*} param2 
      */
-    static replaceOnDocument(pattern, string, {target = document.body} = {}) {
+    static replaceOnDocument(pattern, string, { target = document.body } = {}) {
         // Handle `string` — see the last section
-        [target,...target.querySelectorAll("*:not(script):not(noscript):not(style)")]
-        .forEach(({childNodes: [...nodes]}) => nodes
-        .filter(({nodeType}) => nodeType === document.TEXT_NODE)
-        .forEach((textNode) => textNode.textContent = textNode.textContent.replace(pattern, string)));
+        [target, ...target.querySelectorAll("*:not(script):not(noscript):not(style)")]
+            .forEach(({ childNodes: [...nodes] }) => nodes
+                .filter(({ nodeType }) => nodeType === document.TEXT_NODE)
+                .forEach((textNode) => textNode.textContent = textNode.textContent.replace(pattern, string)));
     };
 
     /**
@@ -302,7 +318,7 @@ export class Sidekick {
      * @param {*} string 
      * @param {*} idList 
      */
-    static generateUniqueSlugId(string, idList=[]) {
+    static generateUniqueSlugId(string, idList = []) {
         let slug = string.slugify();
 
         const existingIds = idList.filter(id => id === slug);
@@ -311,7 +327,7 @@ export class Sidekick {
 
         const uniqueIndex = existingIds.length > 1 ? Math.max(...existingIds.map(id => id.match(/\d+/g)[0])) + 1 : 1;
         slug = slug.replace(/\d+$/g, uniqueIndex);
-        
+
         return slug;
     }
 
@@ -436,7 +452,7 @@ export class Sidekick {
         return owners;
     }
 
-    static consoleMessage(type, source, {objects=[], message="", subStr=[]}) {
+    static consoleMessage(type, source, { objects = [], message = "", subStr = [] }) {
         const msg = `${BUTLER.TITLE} | ${source} :: ${message}`;
         const params = [];
         if (objects && objects.length) params.push(objects);
@@ -469,14 +485,14 @@ export class Sidekick {
             //If they're both undefined, they are equal
             return true;
         }
-        
+
         if ((!obj1 && obj2) || (obj1 && !obj2)) {
             //If only one is undefined, they are not equal
             return false;
         }
 
         return Object.keys(obj1).length === Object.keys(obj2).length &&
-        Object.keys(obj1).every(key => obj2.hasOwnProperty(key) && obj1[key] === obj2[key]);
+            Object.keys(obj1).every(key => obj2.hasOwnProperty(key) && obj1[key] === obj2[key]);
     }
 
     static showCUBWarning() {
@@ -496,12 +512,44 @@ export class Sidekick {
             }).render(true)
         }
     }
-    
+
+    /**
+     * Creates an array with the list of skills for a given actor or a list of all custom skills and all skills from every compendium 
+     * @param {Actor} actor
+     * @param {Boolean} getAllSkills
+     */
+    static async getSkillOptions(actor, getAllSkills) {
+        let skills = [];
+        if (getAllSkills) {
+            //First, grab all skills from all compendiums
+            for (const pack of game.packs) {
+                skills = skills.concat(await pack.getDocuments({ type: "skill" }));
+            }
+
+            //Next, grab all custom skills
+            skills = skills.concat(game.items.filter(i => i.type === "skill"));
+        } else {
+            skills = actor.items.filter(i => i.type === "skill");
+        }
+
+        if (skills.length >= 1) {
+            skills = Sidekick.sortSkills(skills);
+
+            //Remove duplicate skills
+            skills = skills.filter(function (skill, idx, array) {
+                return idx == 0 || skill.name != array[idx - 1].name;
+            })
+        }
+
+        return skills;
+    }
+
     /**
      * Creates an array with the full list of traits for a given actor
-     * @param {Actor} actor 
+     * @param {Actor} actor
+     * @param {Boolean} getAllSkills
      */
-    static getTraitOptions(actor) {
+    static async getTraitOptions(actor, getAllSkills) {
         // Start with attributes
         let traitOptions = `
             <option value="agility">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("agility")}</option>
@@ -511,17 +559,15 @@ export class Sidekick {
             <option value="vigor">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("vigor")}</option>
         `
         // Adding Skills
-        let allSkills = actor.items.filter(i => i.type === "skill")
-        if (allSkills.length >= 1) {
-            allSkills = Sidekick.sortSkills(allSkills)
-            for (let each of allSkills) {
-                traitOptions = traitOptions + `<option value="${each.id}">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Skill")} ${each.name}</option>`
-            }
+        let skills = await Sidekick.getSkillOptions(actor, getAllSkills);
+
+        for (let skill of skills) {
+            traitOptions = traitOptions + `<option value="${skill.name}">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Skill")} ${skill.name}</option>`
         }
 
         return traitOptions;
     }
-    
+
     /**
      * Returns the localized string for a given attribute
      * @param {Actor} actor 
@@ -541,7 +587,7 @@ export class Sidekick {
 
         return "Invalid Attribute";
     }
-    
+
     /**
      * Sorts a list of skills
      * @param {*} allSkills List of skills to be sorted
@@ -550,9 +596,36 @@ export class Sidekick {
         allSkills.sort(function (a, b) {
             let textA = a.name.toUpperCase();
             let textB = b.name.toUpperCase();
-            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            if (textA != textB) {
+                return textA < textB ? -1 : 1;
+            }
+            let compendiumA = a.compendium?.metadata?.id;
+            let compendiumB = b.compendium?.metadata?.id;
+            return Sidekick.compareSkillCompendiums(compendiumA, compendiumB);
         });
         return allSkills
+    }
+
+    /**
+     * Compares compendiums to ensure that specific module skills are higher than the basic skills and core swade skills 
+     */
+    static compareSkillCompendiums(a, b) {
+        if (a == b) { return 0; }
+
+        //Skills with no compendium are always the highest since it must be a custom skill
+        if (!a) { return -1; }
+        if (!b) { return 1; }
+
+        //Basic system skills are always the lowest
+        if (a == "swade.skills") { return 1; } 
+        if (b == "swade.skills") { return -1; }
+
+        //Skills from the core rules module come next
+        if (a == "swade-core-rules.swade-skills") { return 1; } 
+        if (b == "swade-core-rules.swade-skills") { return -1; }
+
+        //If we don't have a specific sort preference, just compare the ids directly
+        return a < b ? -1 : 1;
     }
 
     /**
@@ -601,7 +674,7 @@ export class Sidekick {
                 }
             }
         }
-        
+
         Sidekick.updateSpecialStatusEffectConfig(this.map);
     }
 
@@ -616,7 +689,7 @@ export class Sidekick {
             const existingCondition = conditionMap.find(c => foundry.utils.getProperty(c, `options.${specialStatusEffect.optionProperty}`));
             CONFIG.specialStatusEffects[specialStatusEffect.systemProperty] = existingCondition ? existingCondition.id : "";
         }
-        
+
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.specialStatusEffects);
     }
 }

@@ -1,3 +1,4 @@
+import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { EnhancedConditionsAPIDialogs } from "./enhanced-conditions-api-dialogs.js";
 import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
@@ -16,14 +17,14 @@ export class EnhancedConditionsPowers {
      */
     static async boostLowerTrait(actor, condition, boost) {
         let effect = actor.effects.find(function (e) {
-            return ((e.name === game.i18n.localize(condition.name)))
+            return ((e.name === game.i18n.localize(condition.name)));
         });
-        
+
         let type = boost ? "boost" : "lower";
         let result = await EnhancedConditionsAPIDialogs.boostLowerTraitDialog(actor, type);
 
         if (!result) {
-            await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true});
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
             return;
         }
 
@@ -31,8 +32,24 @@ export class EnhancedConditionsPowers {
     }
 
     /**
+     * Removes the skill added by boost trait if one was added
+     * @param {ActiveEffect} effect The boost effect that's being removed
+     */
+    static async deleteBoostSkill(effect) {
+        if (!Sidekick.hasModuleFlags(effect)) {
+            return;
+        }
+
+        let skillId = Sidekick.getModuleFlag(effect, BUTLER.FLAGS.enhancedConditions.addedSkillUuid);
+        let skill = fromUuidSync(skillId);
+        if (skill) {
+            await skill.delete();
+        }
+    }
+
+    /**
      * Creates and applies the active effects for a boost or lower trait condition
-     * @param {Object} effect  The active effect being updated
+     * @param {ActiveEffect} effect  The active effect being updated
      * @param {Actor} actor  Actor to update
      * @param {String} trait  The trait being affected
      * @param {String} type  Specifies if this a boost or lower
@@ -43,41 +60,65 @@ export class EnhancedConditionsPowers {
         let valueMod;
         let traitName;
 
+        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
+        //It loses .data in the middle because toObject() is just the cleaned up datalet updates = effect.toObject();
+        let updates = effect.toObject();
+
         if (trait === "agility" ||
             trait === "smarts" ||
             trait === "spirit" ||
             trait === "strength" ||
-            trait === "vigor" ) {                
+            trait === "vigor") {
             //Setting values:
             keyPath = `system.attributes.${trait}.die.sides`;
-            if (type === "lower") { valueMod = degree === "raise" ? -4 : -2 }
-            else { valueMod = degree === "raise" ? 4 : 2 } //System now handles going over d12 or under d4.
+            if (type === "lower") { valueMod = degree === "raise" ? -4 : -2; }
+            else { valueMod = degree === "raise" ? 4 : 2; }
             traitName = Sidekick.getLocalizedAttributeName(trait);
         } else {
             //Getting the skill:
-            let skill = actor.items.find(s => s.id === trait);
-            if (!skill) {
-                //We didn't find it by id so maybe this is the trait name
-                skill = actor.items.find(s => s.name.toLowerCase() === trait.toLowerCase());
-            }
-            keyPath = `@Skill{${skill.name}}[system.die.sides]`
-            if (type === "lower") { valueMod = degree === "raise" ? -4 : -2 }
-            else { valueMod = degree === "raise" ? 4 : 2 } //System now handles going over d12 or under d4.
-            traitName = skill.name;
-        }    
-        
-        let change = [];
-        change.push({ key: keyPath, mode: 2, priority: undefined, value: valueMod });
+            let skill = actor.items.find(s => s.type == "skill" && s.name.toLowerCase() === trait.toLowerCase());
+            if (skill) {
+                keyPath = `@Skill{${skill.name}}[system.die.sides]`;
+                if (type === "lower") { valueMod = degree === "raise" ? -4 : -2; }
+                else { valueMod = degree === "raise" ? 4 : 2; }
+                traitName = skill.name;
+            } else if (type === "boost") {
+                //We're boosting and this actor does not have this skill. Try to add it
+                let skills = await Sidekick.getSkillOptions(actor, true);
+                let skillItem = skills.find(s => s.name.toLowerCase() === trait.toLowerCase()).toObject();
+                if (!skillItem) {
+                    //This skill doesn't seem to exist anywhere
+                    //This shouldn't happen but just early out anyway
+                    return;
+                }
+                
+                traitName = skillItem.name; //Set the trait name to be the original skill name before we add the suffix
 
-        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
-        //It loses .data in the middle because toObject() is just the cleaned up datalet updates = effect.toObject();
-        let updates = effect.toObject();
-        updates.changes = change;
+                skillItem.name += game.i18n.localize("ENHANCED_CONDITIONS.Dialog.BoostBuilder.TempSkillSuffix");
+                skill = (await actor.createEmbeddedDocuments("Item", [skillItem], { render: false, renderSheet: false }))[0];
+
+                //Set the skill flag on the effect so we know to remove it when the effect is removed 
+                foundry.utils.setProperty(updates, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.addedSkillUuid}`, skill.uuid);
+
+                if (degree === "raise") {
+                    //Since we just added the skill, that already handles the success (unskilled to a d4)
+                    //If it's a raise, we only need to increase it by another 2 sides
+                    keyPath = `@Skill{${skillItem.name}}[system.die.sides]`;
+                    valueMod = 2;
+                }
+            }
+        }
+
+        if (keyPath) {
+            let change = [];
+            change.push({ key: keyPath, mode: 2, priority: undefined, value: valueMod });
+            updates.changes = change;
+        }
+
         updates.name += " (" + traitName + ")";
         await effect.update(updates);
     }
 
-    // static async smite(actor, condition) {
     /**
      * Adds a smite effect to an actor
      * @param {Actor} actor  Actor to apply the effect to
@@ -124,13 +165,13 @@ export class EnhancedConditionsPowers {
     static async protection(actor, condition) {
         //Get the active effect from the actor
         let effect = actor.effects.find(function (e) {
-            return ((e.name === game.i18n.localize(condition.name)))
+            return ((e.name === game.i18n.localize(condition.name)));
         });
 
         let result = await EnhancedConditionsAPIDialogs.protectionDialog();
 
         if (!result) {
-            await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true});
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
             return;
         }
 
@@ -149,7 +190,7 @@ export class EnhancedConditionsPowers {
         //It loses .data in the middle because toObject() is just the cleaned up data
         let updates = effect.toObject().changes;
         updates[index].value = protectionBonus;
-        await effect.update({ "changes": updates })
+        await effect.update({ "changes": updates });
     }
 
     /**
@@ -160,13 +201,13 @@ export class EnhancedConditionsPowers {
     static async deflection(actor, condition) {
         //Get the active effect from the actor
         let effect = actor.effects.find(function (e) {
-            return ((e.name === game.i18n.localize(condition.name)))
+            return ((e.name === game.i18n.localize(condition.name)));
         });
 
         let result = await EnhancedConditionsAPIDialogs.deflectionDialog();
 
         if (!result) {
-            await EnhancedConditionsAPI.removeCondition(condition.id, actor, {warn: true});
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
             return;
         }
 
