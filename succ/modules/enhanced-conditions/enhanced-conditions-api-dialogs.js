@@ -182,4 +182,39 @@ export class EnhancedConditionsAPIDialogs {
         });
         return result;
     }
+
+    /**
+     * Shows the numb dialog and returns the result
+     */
+    static async numbDialog() {
+        let condition = EnhancedConditions.lookupConditionById("numb");
+        const numbData = { condition };
+        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.numbDialog, numbData);
+
+        let result = await foundry.applications.api.DialogV2.wait({
+            window: { title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.NumbBuilder.Name") },
+            position: { width: 400 },
+            content: content,
+            classes: ["succ-dialog"],
+            rejectClose: false,
+            buttons: [
+                {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Success"),
+                    action: "success",
+                    callback: () => { return { bonus: 1 }; }
+                },
+                {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Raise"),
+                    action: "raise",
+                    callback: () => { return { bonus: 2 }; }
+                },
+                {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
+                    action: "cancel",
+                    callback: () => false
+                }
+            ]
+        });
+        return result;
+    }
 }

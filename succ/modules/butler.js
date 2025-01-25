@@ -59,7 +59,8 @@ export const DEFAULT_CONFIG = {
             boostLowerDialog: `${PATH}/templates/boost-lower-dialog.hbs`,
             smiteDialog: `${PATH}/templates/smite-dialog.hbs`,
             protectionDialog: `${PATH}/templates/protection-dialog.hbs`,
-            deflectionDialog: `${PATH}/templates/deflection-dialog.hbs`
+            deflectionDialog: `${PATH}/templates/deflection-dialog.hbs`,
+            numbDialog: `${PATH}/templates/numb-dialog.hbs`
         },
         specialStatusEffects: {
             defeated: { //Cannot be changed by users
@@ -124,6 +125,11 @@ export const DEFAULT_CONFIG = {
                 optionProperty: "deflection",
                 optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Label",
                 optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.Deflection.Notes"
+            },
+            numb: {
+                optionProperty: "numb",
+                optionLabel: "succ.ENHANCED_CONDITIONS.OptionConfig.Numb.Label",
+                optionNotes: "succ.ENHANCED_CONDITIONS.OptionConfig.Numb.Notes"
             },
             conviction: {
                 optionProperty: "conviction",
