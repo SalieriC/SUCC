@@ -593,6 +593,7 @@ export class Sidekick {
      * @param {*} allSkills List of skills to be sorted
      */
     static sortSkills(allSkills) {
+        const coreSkillsPack = game.settings.get('swade', 'coreSkillsCompendium');
         allSkills.sort(function (a, b) {
             let textA = a.name.toUpperCase();
             let textB = b.name.toUpperCase();
@@ -601,7 +602,7 @@ export class Sidekick {
             }
             let compendiumA = a.compendium?.metadata?.id;
             let compendiumB = b.compendium?.metadata?.id;
-            return Sidekick.compareSkillCompendiums(compendiumA, compendiumB);
+            return Sidekick.compareSkillCompendiums(compendiumA, compendiumB, coreSkillsPack);
         });
         return allSkills
     }
@@ -609,12 +610,16 @@ export class Sidekick {
     /**
      * Compares compendiums to ensure that specific module skills are higher than the basic skills and core swade skills 
      */
-    static compareSkillCompendiums(a, b) {
+    static compareSkillCompendiums(a, b, coreSkillsPack) {
         if (a == b) { return 0; }
 
         //Skills with no compendium are always the highest since it must be a custom skill
         if (!a) { return -1; }
         if (!b) { return 1; }
+
+        //Skills the user's chosen coreSkillsPack are the next highest
+        if (a == coreSkillsPack) { return 1; } 
+        if (b == coreSkillsPack) { return -1; }
 
         //Basic system skills are always the lowest
         if (a == "swade.skills") { return 1; } 
