@@ -488,3 +488,11 @@ dialog.succ-dialog .dialog-content {
     width: unset;
     max-width: 250px;
 }
+
+.succ-dialog .succ button {
+    min-width: unset;
+}
+
+.succ-dialog .all-skills {
+    padding-bottom: 10px;
+}

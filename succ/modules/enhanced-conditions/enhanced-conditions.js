@@ -382,13 +382,13 @@ export class EnhancedConditions {
                 if (hasEffectOptions && Object.keys(effect.flags.succ.effectOptions).length > 0) {
                     EnhancedConditions.applyEffectOptions(effect, actor);
                 } else {
-                    EnhancedConditions.applyConditionOptions(condition, actor, "create");
+                    EnhancedConditions.applyConditionOptions(effect, condition, actor, "create");
                 }
                 break;
 
             case "delete":
                 macros = condition.macros?.filter(m => m.type === "remove");
-                EnhancedConditions.applyConditionOptions(condition, actor, "delete");
+                EnhancedConditions.applyConditionOptions(effect, condition, actor, "delete");
                 break;
 
             default:
@@ -400,7 +400,7 @@ export class EnhancedConditions {
         if (macroIds?.length) EnhancedConditions._processMacros(macroIds, actor);
     }
 
-    static applyConditionOptions(condition, actor, type = "create") {
+    static applyConditionOptions(effect, condition, actor, type = "create") {
         switch (type) {
             case "create":
                 if (condition.options?.removeOthers) EnhancedConditions.removeOtherConditions(actor, condition.id);
@@ -418,6 +418,7 @@ export class EnhancedConditions {
             case "delete":
                 if (condition.options?.markDefeated) EnhancedConditions.toggleDefeated(actor, { markDefeated: false });
                 if (condition.options?.conviction) EnhancedConditions.deactivateConviction(actor);
+                if (condition.options?.boostTrait) EnhancedConditionsPowers.deleteBoostSkill(effect);
                 break;
 
             default:

@@ -1,16 +1,32 @@
-<h2><img src={{condition.img}} width="30" height="30" style="border:0;" />
-{{#if boost}}
-{{{localize "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name"}}}
-{{else}}
-{{{localize "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Name"}}}
-{{/if}} 
-</h2>
-{{#if boost}}
-{{{localize "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Body"}}}
-{{else}}
-{{{localize "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Body"}}}
-{{/if}} 
-<div class="form-group">
-    <label for="selected_trait">{{localize "ENHANCED_CONDITIONS.Dialog.Trait"}} </label>
-    <select id="selected_trait">{{{traitOptions}}}</select>
-</div>
+<form class="standard-form succ">
+    <div>
+        <h2>
+            <img src={{condition.img}} width="30" height="30" style="border:0;" />
+            {{#if boost}}
+            {{{localize "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name"}}}
+            {{else}}
+            {{{localize "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Name"}}}
+            {{/if}}
+        </h2>
+        {{#if boost}}
+        {{{localize "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Body"}}}
+        {{else}}
+        {{{localize "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Body"}}}
+        {{/if}}
+        {{#if boost}}
+        <div class="all-skills">
+            <input type="checkbox" id="all-skills" style="vertical-align: middle;" {{#if showAllSkills}}checked="checked"{{/if}}>
+            <label for="all-skills" style="vertical-align: middle;">
+                {{localize "ENHANCED_CONDITIONS.Dialog.BoostBuilder.ShowAllSkills"}}
+            </label>
+        </div>
+        {{/if}}
+        <label for="selected_trait">{{localize "ENHANCED_CONDITIONS.Dialog.Trait"}} </label>
+        <select id="selected_trait">{{{traitOptions}}}</select>
+    </div>
+    <footer class="form-footer">
+        <button type="button" data-action="success" class="succ">{{localize "ENHANCED_CONDITIONS.Dialog.Success"}}</button>
+        <button type="button" data-action="raise" class="succ">{{localize "ENHANCED_CONDITIONS.Dialog.Raise"}}</button>
+        <button type="button" data-action="cancel" class="succ">{{localize "ENHANCED_CONDITIONS.Dialog.Cancel"}}</button>
+    </footer>
+</form>

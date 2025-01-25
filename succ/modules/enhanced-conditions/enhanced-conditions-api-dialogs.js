@@ -1,5 +1,6 @@
 import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
+import { BoostLowerDialog } from "./boost-lower-dialog.js";
 import { EnhancedConditions } from "./enhanced-conditions.js";
 
 /**
@@ -15,42 +16,7 @@ export class EnhancedConditionsAPIDialogs {
      * Shows the boost/lower trait dialog and returns the result
      */
     static async boostLowerTraitDialog(actor, type) {
-        let condition = EnhancedConditions.lookupConditionById(type);
-        let traitOptions = Sidekick.getTraitOptions(actor);
-
-        const traitData = { condition, traitOptions, boost: type == "boost" };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.boostLowerDialog, traitData);
-
-        let result = await foundry.applications.api.DialogV2.wait({
-            window: { title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name") },
-            position: { width: 400 },
-            content: content,
-            classes: ["succ-dialog"],
-            rejectClose: false,
-            buttons: [
-                {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Success"),
-                    action: "success",
-                    callback: (event, button, dialog) => {
-                        const trait = dialog.querySelector("#selected_trait").value;
-                        return { trait: trait, degree: "success" };
-                    }
-                },
-                {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Raise"),
-                    action: "raise",
-                    callback: (event, button, dialog) => {
-                        const trait = dialog.querySelector("#selected_trait").value;
-                        return { trait: trait, degree: "raise" };
-                    }
-                },
-                {
-                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
-                    action: "cancel",
-                    callback: () => false
-                }
-            ]
-        });
+        let result = await new BoostLowerDialog({actor: actor, type: type}).wait();
         return result;
     }
 
