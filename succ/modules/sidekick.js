@@ -618,8 +618,8 @@ export class Sidekick {
         if (!b) { return 1; }
 
         //Skills the user's chosen coreSkillsPack are the next highest
-        if (a == coreSkillsPack) { return 1; } 
-        if (b == coreSkillsPack) { return -1; }
+        if (a == coreSkillsPack) { return -1; } 
+        if (b == coreSkillsPack) { return 1; }
 
         //Basic system skills are always the lowest
         if (a == "swade.skills") { return 1; } 
