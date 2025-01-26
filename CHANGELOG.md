@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [5.2.0] - 2025-01-12 aka "Wait, I've got this skill somewhere..."
+### Added
+- Added the ability to boost skills the target currently does not have.
+- - In order to achive this, a temporary skill is added.
+- - The skill options and items are taken from all compendiums, using the core skill compendium (setting in the SWADE System in the Setting Configurator under the Setting Rules tab) as a baseline and other compendiums will add to that.
+- - The skill item is removed from the character when the condition is removed.
+- Added the Numb condition along with a dialogue to configure it.
+
 ## [5.1.0] - 2025-01-12 aka "The ID is yours"
 ### Added
 - Added the ability to set up IDs for custom conditions.
