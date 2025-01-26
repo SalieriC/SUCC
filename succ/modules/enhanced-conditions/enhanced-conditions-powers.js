@@ -231,4 +231,38 @@ export class EnhancedConditionsPowers {
         updates.name += " (" + type + ")";
         await effect.update(updates);
     }
+
+    /**
+     * Adds a numb effect to an actor
+     * @param {Actor} actor  Actor to apply the effect to
+     * @param {Object} condition  The condition being applied (should be numb)
+     */
+    static async numb(actor, condition) {
+        //Get the active effect from the actor
+        let effect = actor.effects.find(function (e) {
+            return ((e.name === game.i18n.localize(condition.name)));
+        });
+
+        let result = await EnhancedConditionsAPIDialogs.numbDialog();
+
+        if (!result) {
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
+            return;
+        }
+
+        await EnhancedConditionsPowers.numbBuilder(effect, result.bonus);
+    }
+
+    /**
+     * Creates and applies the active effects for a numb condition
+     * @param {Object} effect  The active effect being updated
+     * @param {Number} bonus  The number of wounds/fatigue to ignore
+     */
+    static async numbBuilder(effect, bonus) {
+        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
+        //It loses .data in the middle because toObject() is just the cleaned up data
+        let updates = effect.toObject();
+        updates.changes[0].value = bonus;
+        await effect.update(updates);
+    }
 }

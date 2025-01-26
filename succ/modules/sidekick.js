@@ -447,7 +447,7 @@ export class Sidekick {
         if (!permissions) return null;
         const owners = [];
         for (const userId in permissions) {
-            if (permissions[userId] === foundry.CONST.DOCUMENT_PERMISSION_LEVELS.OWNER) owners.push(userId);
+            if (permissions[userId] === foundry.CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) owners.push(userId);
         }
         return owners;
     }

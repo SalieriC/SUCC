@@ -410,6 +410,7 @@ export class EnhancedConditions {
                 if (condition.options?.smite) EnhancedConditionsPowers.smite(actor, condition);
                 if (condition.options?.protection) EnhancedConditionsPowers.protection(actor, condition);
                 if (condition.options?.deflection) EnhancedConditionsPowers.deflection(actor, condition);
+                if (condition.options?.numb) EnhancedConditionsPowers.numb(actor, condition);
                 if (condition.options?.conviction) EnhancedConditions.activateConviction(actor);
 
                 break;
@@ -471,6 +472,12 @@ export class EnhancedConditions {
             let options = effect.flags.succ.effectOptions.deflection;
             await applySharedOptions(options);
             EnhancedConditionsPowers.deflectionBuilder(activeEffect, options.type);
+        }
+
+        if (effect.flags.succ.effectOptions.numb) {
+            let options = effect.flags.succ.effectOptions.numb;
+            await applySharedOptions(options);
+            EnhancedConditionsPowers.numbBuilder(activeEffect, options.bonus);
         }
     }
 

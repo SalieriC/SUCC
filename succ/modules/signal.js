@@ -77,6 +77,7 @@ export class Signal {
             game.succ.smiteDialog = EnhancedConditionsAPIDialogs.smiteDialog;
             game.succ.protectionDialog = EnhancedConditionsAPIDialogs.protectionDialog;
             game.succ.deflectionDialog = EnhancedConditionsAPIDialogs.deflectionDialog;
+            game.succ.numbDialog = EnhancedConditionsAPIDialogs.numbDialog;
         });
 
         Hooks.on("ready", () => {

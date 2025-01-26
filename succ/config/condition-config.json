@@ -440,6 +440,9 @@
                         "mode": 2
                     }
                 ]
+            },
+            "options": {
+                "numb": true
             }
         },
         {

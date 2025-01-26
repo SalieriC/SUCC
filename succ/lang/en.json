@@ -148,6 +148,10 @@
                     "Label": "Deflection",
                     "Notes": "When applied, this Condition will open the Deflection dialog"
                 },
+                "Numb": {
+                    "Label": "Numb",
+                    "Notes": "When applied, this Condition will open the Numb dialog"
+                },
                 "Conviction": {
                     "Label": "Conviction",
                     "Notes": "When applied, this Condition will activate Conviction on the affected Token"
@@ -313,6 +317,8 @@
     "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Ranged": "Ranged",
     "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Name": "Lower Trait Builder",
     "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Body": "<p><i>Lower Trait</i> lowers a single Trait of the recipient. Please choose the affected Trait and the degree of success the caster had.</p>",
+    "ENHANCED_CONDITIONS.Dialog.NumbBuilder.Name": "Numb Builder",
+    "ENHANCED_CONDITIONS.Dialog.NumbBuilder.Body": "<p><i>Numb</i> reduces the target's Wound and Fatigue penalties by 1 or 2 with a raise. Please choose the degree of success the caster had.</p>",
     "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name": "Smite Builder",
     "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Body": "<p><i>Smite</i> increases the damage of one of the recipients weapons. Please choose the weapon and amount to increase the weapons damage.</p>",
     "ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Name": "Protection Builder",
