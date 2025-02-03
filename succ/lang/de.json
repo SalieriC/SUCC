@@ -295,7 +295,7 @@
     "ENHANCED_CONDITIONS.Condition.Generic.White": "Weiß",
     "ENHANCED_CONDITIONS.Dialog.Attribute": "|ATTRIBUT|",
     "ENHANCED_CONDITIONS.Dialog.Skill": "|FERTIGKEIT|",
-    "ENHANCED_CONDITIONS.Dialog.Trait": "Eigenschaft: )",
+    "ENHANCED_CONDITIONS.Dialog.Trait": "Eigenschaft: ",
     "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name": "Eigenschaft Erhöhen Assistent",
     "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Body": "<p><i>Eigenschaft erhöhen</i> hebt eine einzelne Eigenschaft des Empfängers an. Bitte wähle die betroffene Eigenschaft und den Erfolgsgrad, den der Zaubernde hatte.</p>",
     "ENHANCED_CONDITIONS.Dialog.BoostBuilder.ShowAllSkills": "Zeige alle Fertigkeiten",
