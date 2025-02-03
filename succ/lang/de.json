@@ -214,7 +214,7 @@
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom": "Aktive Effekte-Konfiguration (Deaktiviert - Kann Standard-Zuordnung nicht bearbeiten)",
     "ENHANCED_CONDITIONS.Lab.SaveMacro.Button": "Umschaltmakro speichern",
     "ENHANCED_CONDITIONS.Lab.SaveMacro.Title": "Erstellt ein Makro zum Umschalten des Status und fügt es der Hotbar hinzu",
-    "ENHANCED_CONDITIONS.Lab.CreatedToggleMacro.Name": "(De)aktiviere )",
+    "ENHANCED_CONDITIONS.Lab.CreatedToggleMacro.Name": "(De-)aktiviere) ",
     "ENHANCED_CONDITIONS.Lab.MacrosConfig.Button": "Makros Einstellkungen)",
     "ENHANCED_CONDITIONS.Lab.Import.NoFile": "Du hast keine Datendatei hochgeladen!",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle": "Zeilenlöschung bestätigen",
