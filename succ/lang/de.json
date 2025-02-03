@@ -43,7 +43,7 @@
                 "Groups": {
                     "RequiredN": "Erforderliche Zustände",
                     "RequiredD": "Zustände, die das System benötigt, um zu funktionieren. Diese können nicht deaktiviert werden.",
-                    "CommonN": Allgemeine Zustände",
+                    "CommonN": "Allgemeine Zustände",
                     "CommonD": "Häufig verwendete Zustände aus der Liste der Zustände des SWADE-Systems.",
                     "UncommonN": "Ungewöhnliche Zustände",
                     "UncommonD": "Weniger häufig verwendete Zustände aus der Liste der Zustände des SWADE-Systems.",
