@@ -6,7 +6,11 @@
         "ENHANCED_CONDITIONS": {
             "OutputChatConfirm": {
                 "Title": "Chat-Ausgabe für ALLE Zustände aktivieren??",
-                "Content": "Click 'Yes' to enable 'Output to Chat' on all Conditions"
+                "Content": "Klicken Sie auf \"Ja\", um 'Ausgabe im Chat' für alle Zustände zu aktivieren."
+            },
+            "SystemIconRefresh": {
+                "Title": "Icons zurücksetzen?",
+                "Content": "Die Einstellung \"Systemsymbole verwenden\" wurde geändert. Möchten Sie die Symbole für alle Zustände zurücksetzen?"
             },
             "ConditionLab": {
                 "NoReference": "--Kein Referenzeintrag-- (Zum Setzen Notiz, Item, Akteur etc. in dieses Feld ziehen)",
@@ -17,13 +21,10 @@
                 "SortAnchorTitle_desc": "Sortiere nach Name - Z to A (Klicken zum Ändern)",
                 "SortDirectionSave": {
                     "Title": "Zuordnung mit Sortierreihenfolge speichern?",
-                    "Content": "<p>'Ja' klicken, um die Condition Lab-Zuordnungen mit der aktuellen Sortierreihenfolge zu speichern. 'Nein' klicken, um Speichern abzubrechen.</p>",
+                    "Content": "<p>\"Ja\" klicken, um die Condition Lab-Zuordnungen mit der aktuellen Sortierreihenfolge zu speichern. 'Nein' klicken, um Speichern abzubrechen.</p>",
                     "CheckboxText": "Nicht wieder anzeigen"
                 },
                 "BadReference": "Konnte keinen Link zu abgelegten Inhalt erzeugen (Akteur, Item, Notiz etc.)",
-                "RestoreDefaultClearCache": {
-                    "CheckboxText": "Cache löschen und Voreinstellungen aus Modulordner laden?"
-                },
                 "Buttons": {
                     "Options": "Optionen"
                 }
@@ -37,6 +38,63 @@
                     "Active": "Aktiv"
                 }
             },
+            "DefaultConditionsMenu": {
+                "Title": "Standardzustände",
+                "Groups": {
+                    "RequiredN": "Erforderliche Zustände",
+                    "RequiredD": "Zustände, die das System benötigt, um zu funktionieren. Diese können nicht deaktiviert werden.",
+                    "CommonN": "Allgemeine Zustände",
+                    "CommonD": "Häufig verwendete Zustände aus der Liste der Zustände des SWADE-Systems.",
+                    "UncommonN": "Ungewöhnliche Zustände",
+                    "UncommonD": "Weniger häufig verwendete Zustände aus der Liste der Zustände des SWADE-Systems.",
+                    "RareN": "Seltene Zustände",
+                    "RareD": "Selten verwendete Zustände aus der Liste der Zustände des SWADE-Systems.",
+                    "ExpandedPowersN": "Erweiterte Mächte",
+                    "ExpandedPowersD": "Zustände im Zusammenhang mit Mächten in den Grundregeln.",
+                    "PowerModifiersN": "Macht-Modifikatoren",
+                    "PowerModifiersD": "Zustände, die mit den üblichen Mächte-Modifikatoren verbunden sind.",
+                    "PathfinderPowersN": "Pfadfinder-Mächte",
+                    "PathfinderPowersD": "Zustände im Zusammenhang mit Mächten in Pathfinder.",
+                    "DeadlandsN": "Deadlands",
+                    "DeadlandsD": "Zustände in Verbindung mit Deadlands.",
+                    "GenericN": "Allgemein",
+                    "GenericD": "Allgemeine Zustände für allgemeine Verwendungszwecke."
+                },
+                "Dialog": {
+                    "RefreshMapDefaultsT": "Kartenvorgabenaktualisieren",
+                    "RefreshMapDefaultsB": "Möchtest du deine aktuelle Karte aktualisieren, damit sie mit den neuen Vorgaben übereinstimmt?<p>Damit wird sichergestellt, dass die Liste der Zustände mit den Vorgaben übereinstimmt, aber es werden keine bestehenden Zustände zurückgesetzt. Es wird versucht, die aktuelle Sortierreihenfolge so weit wie möglich beizubehalten.<p><p>"
+                }
+            },
+            "TokenDisplaySettingsMenu": {
+                "Title": "Einstellungen für die Figurenanzeige",
+                "Hint": "Steuert das Erscheinungsbild der Figuren-Effekt-Symbole",
+                "Settings": {
+                    "SizeN": "Effekt-Symbol Größe",
+                    "SizeD": "Legt die Größe der Effektsymbole auf dem Token fest.",
+                    "BGShapeN": "Hintergrundform",
+                    "BGShapeD": "Die Form des Hintergrunds hinter den Effektsymbolen.",
+                    "PositioningN": "Positionierung des Effektsymbols",
+                    "PositioningD": "Wie die Effektsymbole auf der Figur angeordnet sind."
+                },
+                "SizeChoices": {
+                    "Small": "Klein",
+                    "Medium": "Mittel",
+                    "Large": "Groß",
+                    "XtraLarge": "Extra groß"
+                },
+                "ShapeChoices": {
+                    "Circle": "Kreis",
+                    "RoundedRect": "Abgerundetes Rechteck",
+                    "Rect": "Rechteck",
+                    "None": "Kein"
+                },
+                "PositioningChoices": {
+                    "Columns": "Spalten",
+                    "Rows": "Zeilen",
+                    "Counterclockwise": "Kreis (gegen den Uhrzeigersinn)",
+                    "Clockwise": "Kreis (im Uhrzeigersinn)"
+                }
+            },
             "MacroConfig": {
                 "Heading": "Makros ausführen",
                 "ApplyHeading": "Makro bei Hinzufügen",
@@ -46,10 +104,9 @@
             },
             "OptionConfig": {
                 "Heading": "Optionen",
-                "Description": "Generelle Optionen für diesen Zustand",
-                "SpecialStatusEffects": {
-                    "Heading": "Spezielle Statuseffekte",
-                    "Description": "Spezielle Efekte, die auf Kernfunktionen von Foundry zurückgreifen."
+                "Tabs": {
+                    "General": "Allgemein",
+                    "SpecialEffects": "Spezialeffekte"
                 },
                 "BlindToken": {
                     "Label": "Spielfigur blenden",
@@ -59,6 +116,50 @@
                     "Label": "Als Unsichtbar markieren",
                     "Notes": "Zustand markiert Spielfigur als Unsichtbar"
                 },
+                "ColdBodied": {
+                    "Label": "Kaltblütig",
+                    "Notes": "Bei Anwendung dieses Zustands ist die betroffene Figur für die \"Wärme spüren\"-Erkennung nicht mehr sichtbar."
+                },
+                "Fly": {
+                    "Label": "Fliegen",
+                    "Notes": "Bei Anwendung dieses Zustands ist die betroffene Figur nicht mehr für die Erkennung bei \"Bewegung\" sichtbar."
+                },
+                "Burrow": {
+                    "Label": "Graben",
+                    "Notes": "Bei Anwendung dieses Zustands ist die betroffene Figur für die sichtbasierte Erkennung nicht mehr sichtbar."
+                },
+                "BoostTrait": {
+                    "Label": "Eigenschaft erhöhen",
+                    "Notes": "Bei Anwendung dieser Bedingung wird das Dialogfeld „Eigenschaft erhöhen“ geöffnet"
+                },
+                "LowerTrait": {
+                    "Label": "Eigenschaft senken",
+                    "Notes": "Bei Anwendung dieser Bedingung wird das Dialogfeld „Eigenschaft senken“ geöffnet"
+                },
+                "Smite": {
+                    "Label": "Waffe verbessern",
+                    "Notes": "Bei Anwendung dieser Bedingung wird das Dialogfeld „Waffe verbessern“ geöffnet"
+                },
+                "Protection": {
+                    "Label": "Schutz",
+                    "Notes": "Bei Anwendung dieser Bedingung wird das Dialogfeld „Schutz“ geöffnet"
+                },
+                "Deflection": {
+                    "Label": "Abwehren",
+                    "Notes": "Bei Anwendung dieser Bedingung wird das Dialogfeld „Abwehren“ geöffnet"
+                },
+                "Numb": {
+                    "Label": "Betäuben",
+                    "Notes": "Bei Anwendung dieser Bedingung wird das Dialogfeld „Betäuben“ geöffnet"
+                },
+                "Conviction": {
+                    "Label": "Entschlossenheit",
+                    "Notes": "Wenn dieser Zustand angewendet wird, aktiviert er die Entschlossenheit der betroffenen Figur."
+                },
+                "Encumbered": {
+                    "Label": "Belastet",
+                    "Notes": "Ist diese Option aktiviert, wird diese Bedingung zu Akteuren hinzugefügt, die die Belastungsgrenze überschreiten, wenn die Einstellung \"Belasungsstrafe\" in SWADE aktiv ist (und berücksichtigt auch die entsprechende Einstellung in BRSW)"
+                },
                 "SpecialStatusEffectOverride": {
                     "Title": "Bestehenden Zustand für diesen Statuseffekt überschreiben?",
                     "Content": "Ein anderer Zustand ({existingCondition}) existiert bereits, der diesen speziellen Statuseffekt nutzt: {statusEffect}. <p>Wenn du 'Ja' klickst und diesen Zustand speicherst, wird er die existierende Zuordnung überschreiben.</p>"
@@ -66,87 +167,30 @@
                 "SaveNote": "Hinweis: 'Speichern' wird die Zuordnung für das Condition Lab speichern"
             }
         },
-        "CONCENTRATOR": {
-            "MessagePrefix": "SWADE Ultimate Condition Changer - Konzentrator",
-            "NoMatchingCondition": "Kein passender Zustand für Konzentrator gefunden. Bitte prüfe Konzentrator und Condition Lab.",
-            "Prompts": {
-                "Check": {
-                    "Title": "Konzentrationsprobe",
-                    "Content": "<p>Eine Konzentrationsprobe für <strong>{actorName}</strong> würfeln?</p><p>Zauber: <strong>{spellName}</strong></p>",
-                    "ClosedByOther": "Ein anderer Spieler hat die Konzentrationsprobe gewürfelt"
-                },
-                "EnableEnhancedConditions": {
-                    "Title": "Verbesserte Zustände aktivieren?",
-                    "Content": "<p>Für den Konzentrator müssen Verbesserte Zustände aktiviert sein.</p><strong>Möchtest du Verbesserte Zustände aktivieren?</strong>"
-                }
-            },
-            "Messages": {
-                "StartConcentration": "<h3>Konzentrator</h3><p>{entityName} konzentriert sich nun auf <strong>{spellName}</strong>.",
-                "DoubleConcentration": "<h3>Konzentrator</h3><p>{entityName} wirkt <strong>{newSpellName}</strong> während Konzentration auf <strong>{oldSpellName}</strong>. Konzentration auf den ursprünglichen Zauber endet.",
-                "EndConcentration": "<h3>Konzentrator</h3><p>{entityName}s Konzentration auf <strong>{spellName}</strong> endet!</p>",
-                "ConcentrationTested": "<h3>Konzentrator</h3><strong>{entityName}</strong> hat Schaden genommen und die Konzentration auf <strong>{spellName}</strong> steht auf der Probe (<strong>SG{dc}</strong>)!</p>",
-                "Incapacitated": "<h3>Konzentrator</h3><strong>{entityName}</strong> ist kampfunfähig und die Konzentration auf <strong>{spellName}</strong> endet!</p>"
-            },
-            "UnknownSpell": "Unbekannter Zauber"
-        },
-        "HIDE_NAMES": {
-            "MessageIcon": {
-                "Title": {
-                    "NameNotHidden": "Name nicht verborgen (Klicke zum Verbergen)",
-                    "NameHiddenPrefix": "Ersatzname:",
-                    "NameHiddenSuffix": "(Kicke zum Zeigen)"
-                }
-            },
-            "ActorForm": {
-                "Title": "Akteursnamen verbergen (Konfiguration)"
-            }
-        },
         "SETTINGS": {
-            "CONCENTRATOR": {
-                "AutoEndConcentrationN": "Konzentration automatisch beendenn",
-                "AutoEndConcentrationH": "Legt fest, ob Konzentration bei fehlgeschlagenen Konzentrationsproben automatisch endet.",
-                "NotifyConcentrationN": "Bei Konzentrationanfang benachrichtigen",
-                "NotifyConcentrationH": "Sendet eine Nachricht, wenn ein Konzentrationszauber gewirkt wird.",
-                "NotifyConcentrationCheckN": "Bei Konzentrationsprobe benachrichtigen",
-                "NotifyConcentrationCheckH": "Sendet eine Nachricht, wenn ein konzentrierter Akteur gezwungen ist, eine Konzentrationsprobe abzulegen.",
-                "NotifyEndN": "Bei Konzentrationsende benachrichtigen",
-                "NotifyEndH": "Sendet eine Nachricht, wenn Konzentration auf einen Zauber endet. (Auch, wenn der Wirker kampfunfähig wird oder stirbt.)",
-                "HideNPCConcentrationN": "Verberge NSC-Konzentration",
-                "HideNPCConcentrationH": "Verbirgt Konzentrationsnachrichten von Akteuren, die nicht Spielern gehören vor Spielern. Gilt auch für Nachrichten, die auf 'Alle' gesetzt sind."
-            },
             "ENHANCED_CONDITIONS": {
-                "MigrationVersionN": "Migrations-Version",
-                "MigrationVersionH": "CUB-Version, für die zuletzt Migration durchgeführt wurde",
                 "ShowSortDirectionDialogN": "Zeige Speicherdialog für Sortierreihenfolge im Condition Lab",
-                "ShowSortDirectionDialogH": "Legt fest, ob der Bestätigungsdialog beim Speichern der Sortierreihenfolge im Condition Lab angezeigt werden soll."
-            },
-            "MIGHTY_SUMMONER": {
-                "PromptGMN": "GM für Mächtigen Beschwörer anfragen",
-                "PromptGMH": "Legt fest, ob GMs die Anfrage für den Mächtigen Beschwörer erhalten, wenn Spielfiguren platziert werden. Hinweis: Durch die Funktionsweise von Berechtigungen in Foundry wird jeder Akteur mit dem Talent Anfragen für jede platzierte Spielfigur an GMs senden, wenn diese Einstellung aktiviert wird."
+                "ShowSortDirectionDialogH": "Legt fest, ob der Bestätigungsdialog beim Speichern der Sortierreihenfolge im Condition Lab angezeigt werden soll.",
+                "UseSystemIconsN": "System-Symbole verwenden",
+                "UseSystemIconsH": "Wenn der Wert true ist, werden Zustände standardmäßig mit dem Standardsymbol des Systems angezeigt, wenn dieses verfügbar ist."
             }
-        },
-        "TEMPORARY_COMBATANTS": {
-            "Form": {
-                "Title": "Temporären Kampfteilnehmer hinzufügen"
-            },
-            "AddTempCombatant": "Neuer temporärer Teilnehmer"
-        },
-        "TRIGGLER": {
-            "ButtonTitle": "Triggler öffnen"
         },
         "WORDS": {
-            "Icon": "Icon",
+            "Icon": "Symbol",
             "Macro": "Makro",
             "Name": "Name",
             "Reference": "Referenz",
-            "Save": "Speichern"
+            "Save": "Speichern",
+            "Cancel": "Abbrechen",
+            "Reset": "Zurücksetzen",
+            "Actor": "Akteur",
+            "Token": "Figur",
+            "Proceed": "Fortfahren"
         },
         "PHRASES": {
             "SaveAndClose": "Speichern und schließen"
         }
     },
-    "ENHANCED_CONDITIONS.GameSystemNotSupported": "CUB Verbesserte Zustände funktionieren nicht mit diesem Spielsystem. Bitte sieh ins CUB Wiki für weitere Informationen!",
-    "ENHANCED_CONDITIONS.SimpleIconsNotSupported": "CUB Verbesserte Zustände unterstützen keine Spielsysteme, die einfache Statuseffekt-Icons verwenden.",
     "ENHANCED_CONDITIONS.MapMismatch": "Diese Zuordnung passt nicht zu deinem Spielsystem und funktioniert möglicherweise nicht wie erwartet.",
     "ENHANCED_CONDITIONS.AddCondition.Failed.NoToken": "Zuweisung des Zustandes fehlgeschlagen. Keine Spielfigur",
     "ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition": "Zuweisung des Zustandes fehlgeschlagen. Zustand nicht gefunden:",
@@ -164,14 +208,27 @@
     "ENHANCED_CONDITIONS.Lab.Title": "Condition Lab",
     "ENHANCED_CONDITIONS.Lab.MappingType.Label": "Zuordnungsart",
     "ENHANCED_CONDITIONS.Lab.MappingType.Unsaved": "(ungespeicherte Änderungen)",
+    "ENHANCED_CONDITIONS.Lab.ActiveEffects.Button": "Aktiver Effekt",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title": "Aktive Effekte-Konfiguration",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew": "Aktive Effekte-Konfiguration (Deaktiviert - Zuordnung zuerst speichern)",
     "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom": "Aktive Effekte-Konfiguration (Deaktiviert - Kann Standard-Zuordnung nicht bearbeiten)",
-    "ENHANCED_CONDITIONS.LAB.Import.NoFile": "Keine Datendatei hochgeladen!",
+    "ENHANCED_CONDITIONS.Lab.SaveMacro.Button": "Umschaltmakro speichern",
+    "ENHANCED_CONDITIONS.Lab.SaveMacro.Title": "Erstellt ein Makro zum Umschalten des Status und fügt es der Hotbar hinzu",
+    "ENHANCED_CONDITIONS.Lab.CreatedToggleMacro.Name": "(De-)aktiviere ",
+    "ENHANCED_CONDITIONS.Lab.MacrosConfig.Button": "Makros Einstellungen",
+    "ENHANCED_CONDITIONS.Lab.Import.NoFile": "Du hast keine Datendatei hochgeladen!",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle": "Zeilenlöschung bestätigen",
     "ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent": "Diese Zeile wirklich löschen?",
     "ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle": "Voreinstellungen wiederherstellen?",
-    "ENHANCED_CONDITIONS.Lab.RestoreDefaultsContent": "<p>Diese Zuordnung wirklich auf die Voreinstellung zurücksetzen?</p><strong>Nach dem nächsten Speichern ist diese Änderung dauerhaft.</strong>",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.Body": "<p>Bist du sicher, dass du diese Zuordnung auf die Standardwerte zurücksetzen willst?</p><strong>Wenn du speicherst, wird diese Änderung dauerhaft sein.</strong>",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ClearCache": "Cache löschen und Standardeinstellungen aus dem Modulordner neu laden",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.RemoveAdded": "Entfernen von Zuständen, die über das Condition Lab hinzugefügt wurden",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ResetActiveEffects": "Aktive Effekte zurücksetzen",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ResetIcons": "Symbole zurücksetzen",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ResetMacros": "Makros zurücksetzen",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ResetNames": "Namen zurücksetzen",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ResetOptions": "Einstellungen zurücksetzen",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ResetReferenceLinks": "Referenzlinks zurücksetzen",
     "ENHANCED_CONDITIONS.Lab.ResetFormTitle": "Formular zurücksetzen?",
     "ENHANCED_CONDITIONS.Lab.ResetFormContent": "<p>Soll  das Formular wirklich zurückgesetzt werden?</p><p><strong>Nicht gespeicherte Änderungen gehen verloren.</strong></p>",
     "ENHANCED_CONDITIONS.Lab.SaveFailed": "Condition Lab konnte nicht Speichern und Schließen",
@@ -179,26 +236,97 @@
     "ENHANCED_CONDITIONS.Lab.ImportTitle": "Zustands-Zuordnung importieren",
     "ENHANCED_CONDITIONS.Lab.ExportTitle": "Zustands-Zuordnung exmportieren",
     "ENHANCED_CONDITIONS.Lab.Options.Title": "Optionen:",
-    "ENHANCED_CONDITIONS.Lab.Options.Overlay.Label": "Überlagerung",
-    "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label": "Andere entfernen",
+    "ENHANCED_CONDITIONS.Lab.Options.CustomId.Label": "Benutzerdefinierte ID",
+    "ENHANCED_CONDITIONS.Lab.Options.CustomId.Desc": "Legen Sie eine benutzerdefinierte ID für diese Bedingung fest, damit sie von Code/Makros aus leichter referenziert werden kann<br>Leer lassen, um eine neue zufällige ID zu generieren",
+    "ENHANCED_CONDITIONS.Lab.Options.CustomId.DuplicateRevert": "Eine anderer Zustand hat bereits diese ID. Die ID wurde nicht geändert.",
     "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Label": "Ausgabe im Chat",
-    "ENHANCED_CONDITIONS.Lab.Options.MarkDefeated.Label": "Als Besiegt markieren",
-    "ENHANCED_CONDITIONS.Lab.Options.Overlay.Title": "Zustand ist eine Überlagerung",
-    "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title": "Entferne andere Zustände, wenn dieser hinzugefügt wird",
-    "ENHANCED_CONDITIONS.Lab.Options.MarkDefeated.Title": "Markiere passende Kampfteilnehmer als besiegt, wenn dieser Zustand angewendet wird",
-    "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Title": "Diesen Zustand im Chat ausgeben, wenn er hinzugefügt/entfernt wird",
-    "ENHANCED_CONDITIONS.PreventativeSaveReminder.Title": "CUB - Verbesserte Zustände | Präventive Speichererinnerung",
-    "ENHANCED_CONDITIONS.PreventativeSaveReminder.Content": "<p>Um einige Probleme zu vermeiden, die sich aus der Migration zu <i>Aktiven Effekten</i> ergeben, bitte das <stark>CUB Condition Lab</strong> öffnen und auf die Schaltfläche <stark>Zuordnung speichern</strong> klicken, falls dies seit CUB v1.3.0.</p><p> nicht bereits geschehen ist. Dies stellt sicher, dass die Zustandszuordnung korrekt konvertiert wird.</p>",
-    "ENHANCED_CONDITIONS.PreventativeSaveReminder.Suppress": "Diese Erinnerung nicht mehr zeigen",
+    "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Desc": "Diese Bedingung beim Hinzufügen/Entfernen in den Chat ausgeben",
+    "ENHANCED_CONDITIONS.Lab.Options.Overlay.Label": "Overlay",
+    "ENHANCED_CONDITIONS.Lab.Options.Overlay.Desc": "Zustande sind ein Overlay",
+    "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label": "Andere entfernen",
+    "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Desc": "Entfernt andere Zustände, wenn dieser Zustand eintritt",
+    "ENHANCED_CONDITIONS.Lab.Options.UseAsStatusEffect.Label": "Verwendung als Statuseffekt",
+    "ENHANCED_CONDITIONS.Lab.Options.UseAsStatusEffect.Desc": "Dieser Zustand wird in die Liste der Foundry-Statuseffekte aufgenommen, d. h. sie erscheinen im Menü Statuseffekte zuweisen. Damit kann dieser Status über Makros oder die API angewendet werden, ohne die Benutzeroberfläche zu überfrachten.",
     "ENHANCED_CONDITIONS.ChatCard.Title.Active": "Aktive Zustände",
     "ENHANCED_CONDITIONS.ChatCard.Title.Added": "Hinzugefügte Zustände",
     "ENHANCED_CONDITIONS.ChatCard.Title.Removed": "Entfernte Zustände",
     "ENHANCED_CONDITIONS.ChatCard.Buttons.Undo": "Zustand entfernen rückgängig machen",
     "ENHANCED_CONDITIONS.ChatCard.Buttons.Remove": "Zustand entfernen",
-    "SETTINGS.EnhancedConditions.EnableN": "Erweiterte Zustände aktivieren",
-    "SETTINGS.EnhancedConditions.EnableH": "Verknüpft Zustände mit Statusicons",
+    "ENHANCED_CONDITIONS.ChatCard.Error.TokenDeleted": "Die mit dieser Zustandsänderung verbundene Figur wurde nicht gefunden.",
+    "ENHANCED_CONDITIONS.Condition.Boost": "Eigenschaft erhöhen",
+    "ENHANCED_CONDITIONS.Condition.Lower": "Eigenschaft senken",
+    "ENHANCED_CONDITIONS.Condition.TheDrop": "Überraschungsangriff",
+    "ENHANCED_CONDITIONS.Condition.Slumber": "Schlummer",
+    "ENHANCED_CONDITIONS.Condition.Rage": "Zorn",
+    "ENHANCED_CONDITIONS.Condition.Deflection": "Abwehren",
+    "ENHANCED_CONDITIONS.Condition.ArcaneProtection": "Arkaner Schutz",
+    "ENHANCED_CONDITIONS.Condition.Burrow": "Graben",
+    "ENHANCED_CONDITIONS.Condition.Confusion": "Verwirrung",
+    "ENHANCED_CONDITIONS.Condition.DamageField": "Schadensfeld",
+    "ENHANCED_CONDITIONS.Condition.ElementalManipulation": "Elementarmanipulation",
+    "ENHANCED_CONDITIONS.Condition.EnvironmentalProtection": "Schutz vor Naturgewalten",
+    "ENHANCED_CONDITIONS.Condition.Growth": "Wachsen",
+    "ENHANCED_CONDITIONS.Condition.Shrink": "Schrumpfen",
+    "ENHANCED_CONDITIONS.Condition.Intangibility": "Unberührbarkeit",
+    "ENHANCED_CONDITIONS.Condition.Puppet": "Marionette",
+    "ENHANCED_CONDITIONS.Condition.Numb": "Taubheit",
+    "ENHANCED_CONDITIONS.Condition.Sloth": "Trägheit",
+    "ENHANCED_CONDITIONS.Condition.Speed": "Beschleunigung",
+    "ENHANCED_CONDITIONS.Condition.ShapeChange": "Gestaltwandel",
+    "ENHANCED_CONDITIONS.Condition.Silence": "Stille",
+    "ENHANCED_CONDITIONS.Condition.WallWalker": "Wandkrabbler",
+    "ENHANCED_CONDITIONS.Condition.WarriorsGift": "Kriegersegen",
+    "ENHANCED_CONDITIONS.Condition.Glow": "Leuchten",
+    "ENHANCED_CONDITIONS.Condition.Shroud": "Verschleiern",
+    "ENHANCED_CONDITIONS.Condition.Hinder": "Bremsen",
+    "ENHANCED_CONDITIONS.Condition.Hurry": "Beschleunigen",
+    "ENHANCED_CONDITIONS.Condition.Sanctuary": "Sanctuary",
+    "ENHANCED_CONDITIONS.Condition.FeatherFall": "Feather Fall",
+    "ENHANCED_CONDITIONS.Condition.AmmoWhammy": "Ammo Whammy",
+    "ENHANCED_CONDITIONS.Condition.HolySymbol": "Heiliges Symbol",
+    "ENHANCED_CONDITIONS.Condition.LetTheDevilOut": "Den Teufel rauslassen",
+    "ENHANCED_CONDITIONS.Condition.Generic.Plus": "Plus",
+    "ENHANCED_CONDITIONS.Condition.Generic.Minus": "Minus",
+    "ENHANCED_CONDITIONS.Condition.Generic.Red": "Rot",
+    "ENHANCED_CONDITIONS.Condition.Generic.Green": "Grün",
+    "ENHANCED_CONDITIONS.Condition.Generic.Blue": "Blau",
+    "ENHANCED_CONDITIONS.Condition.Generic.Yellow": "Gelb",
+    "ENHANCED_CONDITIONS.Condition.Generic.Black": "Schwarz",
+    "ENHANCED_CONDITIONS.Condition.Generic.White": "Weiß",
+    "ENHANCED_CONDITIONS.Dialog.Attribute": "|ATTRIBUT|",
+    "ENHANCED_CONDITIONS.Dialog.Skill": "|FERTIGKEIT|",
+    "ENHANCED_CONDITIONS.Dialog.Trait": "Eigenschaft: ",
+    "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name": "Eigenschaft Erhöhen Assistent",
+    "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Body": "<p><i>Eigenschaft erhöhen</i> hebt eine einzelne Eigenschaft des Empfängers an. Bitte wähle die betroffene Eigenschaft und den Erfolgsgrad, den der Zaubernde hatte.</p>",
+    "ENHANCED_CONDITIONS.Dialog.BoostBuilder.ShowAllSkills": "Zeige alle Fertigkeiten",
+    "ENHANCED_CONDITIONS.Dialog.BoostBuilder.TempSkillSuffix": " (Durch Erhöhung hinzugefügt)",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Name": "Abwehren Assistent",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Body": "<p><i>Abwehren</i> bewirkt, dass Feinde entweder von Nah- oder Fernkampfangriffen oder von beiden mit einer Steigerung 2 abziehen. Bitte wähle welche Angriffe abgewehrt werden sollen.</p>",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Melee": "Nahkampf",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Raise": "Steigerung",
+    "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Ranged": "Fernkampf",
+    "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Name": "Eigenschaft Senken Assistent",
+    "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Body": "<p><i>Eigenschaft senken</i> senkt eine einzelne Eigenschaft des Empfängers. Bitte wähle die betroffene Eigenschaft und den Erfolgsgrad, den der Zaubernde hatte.</p>",
+    "ENHANCED_CONDITIONS.Dialog.NumbBuilder.Name": "Taubheit Assistent",
+    "ENHANCED_CONDITIONS.Dialog.NumbBuilder.Body": "<p><i>Taubheit</i> verringert die Wund- und Erschöpfzungsabzüge des Ziels um 1 oder 2 mit einer Steigerung. Bitte wähle den Erfolgsgrad, den der Zaubernde hatte.</p>",
+    "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name": "Waffe Verbessern Assistent",
+    "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Body": "<p><i>Waffe verbessern</i> erhöht den Schaden einer der Waffen des Empfängers. Bitte wähle die Waffe und den Modifikator, um den Schaden der Waffe zu erhöhen.</p>",
+    "ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Name": "Schutz Assistent",
+    "ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Body": "<p><i>Schutz</i> erhöht die Rüstung oder Zähigkeit des Empfängers. Bitte wähle den Modifikator und klicke auf die entsprechende Schaltfläche, abhängig von den Modifikatoren, die der Zaubernde verwendet.</p>",
+    "ENHANCED_CONDITIONS.Dialog.Success": "Erfolg",
+    "ENHANCED_CONDITIONS.Dialog.Raise": "Steigerung",
+    "ENHANCED_CONDITIONS.Dialog.Apply": "Anwenden",
+    "ENHANCED_CONDITIONS.Dialog.Cancel": "Abbrechen",
+    "ENHANCED_CONDITIONS.Dialog.WeaponToAffect": "Ausgewählte Waffe: ",
+    "ENHANCED_CONDITIONS.Dialog.NoWeapons": "Es wurde keine Waffe gefunden, die man verbessern könnte.",
+    "ENHANCED_CONDITIONS.Dialog.AmountToIncrease": "Modifikator: ",
+    "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Name": "Vorübergehende Effekte entfernen",
+    "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Body": "<p>Dies wird <strong>ALLE</strong> Aktiven Effekte von <strong>ALLEN</strong> derzeit nicht im Kampf befindlichen Figuren auf der Szene {sceneName} unwiederbringlich entfernen. Fortfahren?</p>",
+    "ENHANCED_CONDITIONS.Notification.NoConvictionToken": "Dieser Akteur hat keine Entschlossenheit mehr.)",
     "SETTINGS.EnhancedConditions.CoreIconsN": "Kern-Status-Icons",
     "SETTINGS.EnhancedConditions.CoreIconsH": "Eine Kopie der Kernstatus-Icons",
+    "SETTINGS.EnhancedConditions.DefaultConditionsMenuN": "Standardzustände",
+    "SETTINGS.EnhancedConditions.DefaultConditionsMenuH": "Wählen Sie aus, welche Zustände in die Standardliste aufgenommen werden sollen",
     "SETTINGS.EnhancedConditions.SystemN": "Spielsystem",
     "SETTINGS.EnhancedConditions.SystemH": "Ein Verweis auf das Spielsystem. Steht standardmäßig auf andere, wenn sie dem Modul nicht bekannt sind.",
     "SETTINGS.EnhancedConditions.OutputChatN": "Ausgabe im Chat",
@@ -213,10 +341,6 @@
     "SETTINGS.EnhancedConditions.MapTypeH": "Derzeit verwendeter Zustandszuordnungsart - Default, Custom oder Other",
     "SETTINGS.EnhancedConditions.ActiveConditionMapN": "Aktive Zustandszuordnung",
     "SETTINGS.EnhancedConditions.ActiveConditionMapH": "Speichert die aktive Zustandszuordnung",
-    "SETTINGS.EnhancedConditions.SuppressPreventativeSaveReminderN": "Präventive Speicher-Erinnerung unterdrücken",
-    "SETTINGS.EnhancedConditions.SuppressPreventativeSaveReminderH": "Die Erinnerung an das Speichern des Condition Labs zur Vermeidung von Problemen unterdrücken (z.B. wenn der Benutzer dies bereits getan hat)",
-    "SETTINGS.TokenUtility.TokenEffectSizeN": "Icongröße für Spielfigur-Effekte",
-    "SETTINGS.TokenUtility.TokenEffectSizeH": "Legt die Größe für Effekticons auf Spielfiguren fest. Zahlen geben die Anzahl der anzuzeigenden Effektsymbole an (X * Y). Voreinstellung: Small - 5x5",
     "WORDS.IUnderstand": "Ich verstehe",
     "WORDS.Import": "Importieren",
     "WORDS.Export": "Exportieren",
@@ -226,17 +350,6 @@
     "WORDS.Yes": "Ja",
     "WORDS.No": "Nein",
     "WORDS.None": "Kein",
-    "WORDS.GMOnly": "Nur GM",
-    "WORDS.Everyone": "Jeder",
-    "WORDS.About": "Über",
-    "WORDS.OK": "OK",
-    "CUB.WORDS.Save": "Speichern",
-    "CUB.WORDS.Cancel": "Abbrechen",
-    "CUB.WORDS.Reset": "Zurücksetzen",
-    "CUB.WORDS.Actor": "Akteur",
-    "CUB.WORDS.Token": "Spielfigur",
-    "WORDS.Configuration": "Konfiguration",
-    
     "SUCC.added": "Hinzugefügt",
     "SUCC.removed": "Entfernt",
     "SUCC.undo": "Rückgängig machen",
@@ -274,5 +387,6 @@
     "SUCC.dialogue.raise": "Steigerung",
     "SUCC.effectBuilder.unskilled-coreRules": "Ungeübter Versuch",
     "SUCC.setting.disable_status_dialogue": "Deaktiviere den Angeschlagen/Betäubt Entfernungsdialog:",
-    "SUCC.setting.disable_status_dialogue_hint": "Wenn aktiv wir kein Dialog zur Entfernung von Angeschlagen oder Betäubt gesendet. Damit können die Würfe gemacht werden, ohne zuerst den Dialog schließen zu müssen."
+    "SUCC.setting.disable_status_dialogue_hint": "Wenn aktiv wir kein Dialog zur Entfernung von Angeschlagen oder Betäubt gesendet. Damit können die Würfe gemacht werden, ohne zuerst den Dialog schließen zu müssen.",
+    "SUCC.notification.no_conviction_token_left": "This actor has no conviction tokens left."
 }
