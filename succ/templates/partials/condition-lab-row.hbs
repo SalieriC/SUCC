@@ -92,13 +92,13 @@
             {{/unless}}
         </div>
         <div class="remove-row">
-            {{#unless isCustom}}
+            {{#if isCustom}}
             {{#unless destroyDisabled}}
             <a name="remove-row-{{@index}}" class="remove-row" title="Delete Row">
                 <i class="fas fa-trash"></i>
             </a>
             {{/unless}}
-            {{/unless}}
+            {{/if}}
         </div>
         <div class="move-down">
             {{#unless sortDirection}}
