@@ -172,7 +172,8 @@ export const FLAGS = {
         overlay: "overlay",
         effectOptions: "effectOptions",
         createProcessed: "createProcessed",
-        addedSkillUuid: "addedSkillUuid"
+        addedSkillUuid: "addedSkillUuid",
+        activeEffectCustomized: "activeEffectCustomized"
     }
 }
 
