@@ -223,7 +223,7 @@ export class ConditionLab extends FormApplication {
     /**
      * Restore defaults for a mapping
      */
-    async _restoreDefaults({condition=undefined, clearCache=false, resetNames=false, resetRefs=false, resetIcons=false,
+    _restoreDefaults({clearCache=false, resetNames=false, resetRefs=false, resetIcons=false,
                             resetAes=false, resetMacros=false, resetOptions=false, removeConditionsAddedByLab=false}={}) {
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         
@@ -232,14 +232,14 @@ export class ConditionLab extends FormApplication {
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.defaultSpecialStatusEffects);
         }
-        
+
         Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, []);
 
         // If the mapType is other then the map should be empty, otherwise it's the default map for the system
         const tempMap = (this.mapType != otherMapType && EnhancedConditions.getMapForDefaultConditions(defaultConditions)) ? EnhancedConditions.getMapForDefaultConditions(defaultConditions) : [];
 
         // Loop over the old map and readd any conditions that were added by the user through the Condition Lab
-        const oldMap = condition ? [condition] : foundry.utils.duplicate(this.map);
+        const oldMap = foundry.utils.duplicate(this.map);
         this.map = foundry.utils.duplicate(tempMap);
         for (const oldCondition of oldMap) {
             if (oldCondition.addedByLab) {
@@ -266,7 +266,7 @@ export class ConditionLab extends FormApplication {
                 newCondition.img = oldCondition.img;
             }
 
-            if (!resetAes) {
+            if (!resetAEs) {
                 newCondition.activeEffect = oldCondition.activeEffect;
             }
 
@@ -282,9 +282,47 @@ export class ConditionLab extends FormApplication {
         //If we didn't reset the options, we need to do a pass and make sure that each option is still exclusive
         if (!resetOptions) {
             Sidekick.ensureStatusEffectOptionExclusivity(this.map);
-        } else {
-            Sidekick.updateSpecialStatusEffectConfig(this.map);
         }
+
+        this.render(true);
+    }
+    
+    _restoreConditionDefaults(conditionId, options={}) {
+        const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
+        let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
+        const defaultMap = (this.mapType != otherMapType && EnhancedConditions.getMapForDefaultConditions(defaultConditions)) ? EnhancedConditions.getMapForDefaultConditions(defaultConditions) : [];
+        
+        let condition = this.map.find(c => c.id === conditionId);
+        let defaultCondition = defaultMap.find(c => c.id === conditionId);
+        if (!defaultCondition) {
+            return;
+        }
+
+        if (options.resetNames) {
+            condition.name = defaultCondition.name;
+        }
+
+        if (options.resetRefs) {
+            condition.referenceId = defaultCondition.referenceId;
+        }
+
+        if (options.resetIcons) {
+            condition.img = defaultCondition.img;
+        }
+
+        if (options.resetAEs) {
+            condition.activeEffect = defaultCondition.activeEffect;
+        }
+
+        if (options.resetMacros) {
+            condition.macros = defaultCondition.macros;
+        }
+
+        if (options.resetOptions) {
+            condition.options = defaultCondition.options;
+        }
+
+        Sidekick.ensureStatusEffectOptionExclusivity(this.map);
 
         this.render(true);
     }
@@ -356,7 +394,8 @@ export class ConditionLab extends FormApplication {
      * @param {*} preparedMap 
      */
     async _finaliseSave(preparedMap) {
-        this.map = this.initialMap = preparedMap;
+        this.map = preparedMap;
+        this.initialMap = foundry.utils.duplicate(this.map);
         this.unsaved = false;
         this.sortDirection = "";
 
@@ -506,7 +545,7 @@ export class ConditionLab extends FormApplication {
         const filterInput = html.find("input[name='filter-list']");
         const sortButton = html.find("a.sort-list");
         const saveMacroButton = html.find("button.save-macro");
-        const resetConditionButton = html.find("button.reset-condition");
+        const resetConditionButton = html.find("button.reset-condition-button");
         const macroConfigButton = html.find("button.macro-config");
         const optionConfigButton = html.find("button.option-config");
 
@@ -865,17 +904,20 @@ export class ConditionLab extends FormApplication {
                     label: game.i18n.localize("WORDS.Yes"),
                     callback: ($html) => {
                         let options = {
-                            condition: condition,
                             clearCache: $html[0].querySelector("input[id='clear-cache']")?.checked,
                             resetNames: $html[0].querySelector("input[id='reset-names']")?.checked,
                             resetRefs: $html[0].querySelector("input[id='reset-refs']")?.checked,
                             resetIcons: $html[0].querySelector("input[id='reset-icons']")?.checked,
-                            resetAes: $html[0].querySelector("input[id='reset-aes']")?.checked,
+                            resetAEs: $html[0].querySelector("input[id='reset-aes']")?.checked,
                             resetMacros: $html[0].querySelector("input[id='reset-macros']")?.checked,
                             resetOptions: $html[0].querySelector("input[id='reset-options']")?.checked,
                             removeConditionsAddedByLab: $html[0].querySelector("input[id='remove-added']")?.checked
                         }
-                        this._restoreDefaults(options);
+                        if (condition) {
+                            this._restoreConditionDefaults(condition.id, options);
+                        } else {
+                            this._restoreDefaults(options);
+                        }
                     }
                 },
                 no: {

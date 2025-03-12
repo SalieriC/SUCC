@@ -162,6 +162,10 @@ a.add-temporary {
     margin: 0px 0px 3px 0px;
 }
 
+.condition-lab .reset-condition {
+    flex: 0;
+}
+
 .condition-lab .flexcol.text-entry .path,
 .condition-lab .flexcol.text-entry .condition {
     display: flex;

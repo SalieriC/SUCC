@@ -702,8 +702,6 @@ export class Sidekick {
                 }
             }
         }
-
-        Sidekick.updateSpecialStatusEffectConfig(this.map);
     }
 
     /**

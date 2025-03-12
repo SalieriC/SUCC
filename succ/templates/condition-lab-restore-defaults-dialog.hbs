@@ -1,12 +1,14 @@
 {{{body}}}
 <br>
 <br>
+{{#unless condition}}
 <div class="formgroup">
     <input type="checkbox" id="clear-cache" style="vertical-align: middle;">
     <label for="clear-cache" style="vertical-align: middle;">
         {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ClearCache"}}
     </label>
 </div>
+{{/unless}}
 {{#unless isDefaultMapType}}
 <div class="formgroup">
     <input type="checkbox" id="reset-names" style="vertical-align: middle;">
