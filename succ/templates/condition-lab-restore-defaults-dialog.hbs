@@ -44,11 +44,13 @@
         {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ResetMacros"}}
     </label>
 </div>
+{{#unless condition}}
 <div class="formgroup">
     <input type="checkbox" id="remove-added" style="vertical-align: middle;">
     <label for="remove-added" style="vertical-align: middle;">
         {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.RemoveAdded"}}
     </label>
 </div>
+{{/unless}}
 {{/unless}}
 <br>

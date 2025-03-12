@@ -853,7 +853,7 @@ export class ConditionLab extends FormApplication {
         }
         
         const isDefaultMapType = game.succ.conditionLab.mapType === Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
-        const dialogData = { isDefaultMapType, body };
+        const dialogData = { isDefaultMapType, body, condition };
         const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabRestoreDefaultsDialog, dialogData);
 
         const confirmationDialog = new Dialog({

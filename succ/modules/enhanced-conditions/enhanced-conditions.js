@@ -881,7 +881,6 @@ export class EnhancedConditions {
                     conditionConfig.activeEffect.changes = conditionConfig.activeEffect.changes.filter((condition, pos) =>
                     conditionConfig.activeEffect.changes.findIndex(c => c.key == condition.key) === pos);
                 }
-                conditionConfig.activeEffect = conditionConfig.activeEffect;
             }
         }
 
