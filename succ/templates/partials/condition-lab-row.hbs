@@ -60,6 +60,11 @@
                     {{#unless (and (eq condition.isNew false) isCustom) }}disabled{{/unless}}>
                 <i class="fas fa-hand-sparkles"></i> {{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Button"}}
             </button>
+            <button type="button"
+                name="reset-condition"
+                class="reset-condition">
+                <i class="fas fa-history"></i> {{localize "ENHANCED_CONDITIONS.Lab.ResetCondition.Button"}}
+            </button>
             <div class="flex-break"></div>
             <button type="button"
                 name="save-macro"

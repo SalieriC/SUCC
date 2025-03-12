@@ -223,7 +223,7 @@ export class ConditionLab extends FormApplication {
     /**
      * Restore defaults for a mapping
      */
-    async _restoreDefaults({clearCache=false, resetNames=false, resetRefs=false, resetIcons=false,
+    async _restoreDefaults({condition=undefined, clearCache=false, resetNames=false, resetRefs=false, resetIcons=false,
                             resetAes=false, resetMacros=false, resetOptions=false, removeConditionsAddedByLab=false}={}) {
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         
@@ -239,7 +239,7 @@ export class ConditionLab extends FormApplication {
         const tempMap = (this.mapType != otherMapType && EnhancedConditions.getMapForDefaultConditions(defaultConditions)) ? EnhancedConditions.getMapForDefaultConditions(defaultConditions) : [];
 
         // Loop over the old map and readd any conditions that were added by the user through the Condition Lab
-        const oldMap = foundry.utils.duplicate(this.map);
+        const oldMap = condition ? [condition] : foundry.utils.duplicate(this.map);
         this.map = foundry.utils.duplicate(tempMap);
         for (const oldCondition of oldMap) {
             if (oldCondition.addedByLab) {
@@ -506,6 +506,7 @@ export class ConditionLab extends FormApplication {
         const filterInput = html.find("input[name='filter-list']");
         const sortButton = html.find("a.sort-list");
         const saveMacroButton = html.find("button.save-macro");
+        const resetConditionButton = html.find("button.reset-condition");
         const macroConfigButton = html.find("button.macro-config");
         const optionConfigButton = html.find("button.option-config");
 
@@ -521,6 +522,7 @@ export class ConditionLab extends FormApplication {
         refreshRefsButton.on("click", event => this._onRefreshRefs(event));
         filterInput.on("input", (event) => this._onChangeFilter(event));
         sortButton.on("click", (event) => this._onClickSortButton(event));
+        resetConditionButton.on("click", (event) => this._onClickResetCondition(event));
         saveMacroButton.on("click", (event) => this._onClickSaveMacro(event));
         macroConfigButton.on("click", (event) => this._onClickMacroConfig(event));
         optionConfigButton.on("click", (event) => this._onClickOptionConfig(event));
@@ -839,11 +841,19 @@ export class ConditionLab extends FormApplication {
      * 
      * @param {*} event 
      */
-    async _onRestoreDefaults(event) {
+    async _onRestoreDefaults(event, condition) {
         event.preventDefault();
+
+        let body;
+        if (condition) {
+            body = game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaults.Condition.Body");        
+            body = body.replace("{0}", game.i18n.localize(condition.name));
+        } else {
+            body = game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaults.Body");
+        }
         
         const isDefaultMapType = game.succ.conditionLab.mapType === Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
-        const dialogData = { isDefaultMapType };
+        const dialogData = { isDefaultMapType, body };
         const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabRestoreDefaultsDialog, dialogData);
 
         const confirmationDialog = new Dialog({
@@ -855,6 +865,7 @@ export class ConditionLab extends FormApplication {
                     label: game.i18n.localize("WORDS.Yes"),
                     callback: ($html) => {
                         let options = {
+                            condition: condition,
                             clearCache: $html[0].querySelector("input[id='clear-cache']")?.checked,
                             resetNames: $html[0].querySelector("input[id='reset-names']")?.checked,
                             resetRefs: $html[0].querySelector("input[id='reset-refs']")?.checked,
@@ -1045,12 +1056,26 @@ export class ConditionLab extends FormApplication {
 
         if (!conditionId) return;
 
-        const condition = this.map.find(c => c.id === conditionId);
+        const condition = this.map.find(c => c.id === conditionId);        
         const labData = await this.getData();
-
+        
         new EnhancedConditionOptionConfig(condition, labData, {
             title: (game.i18n.localize(condition.name) + " - " + game.i18n.localize("succ.ENHANCED_CONDITIONS.OptionConfig.Heading"))
         }).render(true);
+    }
+
+    /**
+     * Option Config button click handler
+     * @param {*} event 
+     */
+    async _onClickResetCondition(event) {
+        const rowLi = event.target.closest("li");
+        const conditionId = rowLi ? rowLi.dataset.conditionId : null;
+
+        if (!conditionId) return;
+
+        const condition = this.map.find(c => c.id === conditionId);
+        this._onRestoreDefaults(event, condition);
     }
 
     /**
