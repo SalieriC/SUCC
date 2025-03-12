@@ -93,11 +93,11 @@
         </div>
         <div class="remove-row">
             {{#if isCustom}}
-            {{#unless destroyDisabled}}
+            {{#if addedByLab}}
             <a name="remove-row-{{@index}}" class="remove-row" title="Delete Row">
                 <i class="fas fa-trash"></i>
             </a>
-            {{/unless}}
+            {{/if}}
             {{/if}}
         </div>
         <div class="move-down">
