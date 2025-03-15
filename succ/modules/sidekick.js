@@ -82,29 +82,6 @@ export class Sidekick {
         return Object.keys(settingsData).forEach((key) => Sidekick.registerSetting(key, settingsData[key]));
     }
 
-    static hasModuleFlags(obj) {
-        if (!obj.flags) {
-            return false;
-        }
-
-        return obj.flags[BUTLER.NAME] ? true : false;
-    }
-
-    static getModuleFlag(obj, flag) {
-        if (!Sidekick.hasModuleFlags(obj)) {
-            return;
-        }
-
-        return obj.flags[BUTLER.NAME][flag];
-    }
-
-    static async setModuleFlag(obj, flag, data) {
-        if (obj.setFlag) return await obj.setFlag(BUTLER.NAME, flag, data);
-        obj.flags = obj.flags ?? {};
-        obj.flags[BUTLER.NAME] = obj.flags[BUTLER.NAME] ?? {};
-        obj.flags[BUTLER.NAME][flag] = data;
-    }
-
     /**
      * Use FilePicker to browse then Fetch one or more JSONs and return them
      * @param {*} source
@@ -150,6 +127,13 @@ export class Sidekick {
         }
 
         return obj.flags[BUTLER.NAME][flag];
+    }
+
+    static async setModuleFlag(obj, flag, data) {
+        if (obj.setFlag) return await obj.setFlag(BUTLER.NAME, flag, data);
+        obj.flags = obj.flags ?? {};
+        obj.flags[BUTLER.NAME] = obj.flags[BUTLER.NAME] ?? {};
+        obj.flags[BUTLER.NAME][flag] = data;
     }
 
     /**
