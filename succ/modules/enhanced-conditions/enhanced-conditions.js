@@ -1337,7 +1337,7 @@ export class EnhancedConditions {
                     continue;
                 }
 
-                const activeEffectCustomized = Sidekick.getModuleFlag(condition.activeEffect, BUTLER.FLAGS.enhancedConditions.activeEffectCustomized);
+                const activeEffectCustomized = condition.activeEffect && Sidekick.getModuleFlag(condition.activeEffect, BUTLER.FLAGS.enhancedConditions.activeEffectCustomized);
                 if (activeEffectCustomized) {
                     //If the user has made changes to this condition, we'll assume they want it that way and leave it as is 
                     continue;
