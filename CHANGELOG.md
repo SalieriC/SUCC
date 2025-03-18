@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [5.3.0] - 2025-03-18 aka "System has other plans"
+### Added
+- Added a button to reset individual conditions.
+### Changed
+- SUCC now prefers system behaviour unless the user made changes.
+- Burrow now isn't considered a power condition anymore and doesn't come with a duration. Along with this the icon was changed to bein yellow. This is because of the addition in the system.
+### Fixed
+- Fixed missing remove row button.
+
 ## [5.2.0] - 2025-01-12 aka "Wait, I've got this skill somewhere..."
 ### Added
 - Added the ability to boost skills the target currently does not have.
