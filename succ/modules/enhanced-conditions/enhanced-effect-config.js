@@ -1,4 +1,5 @@
 import { NAME, FLAGS } from "../butler.js";
+import { Sidekick } from "../sidekick.js";
 
 export default class EnhancedEffectConfig extends ActiveEffectConfig {
 
@@ -45,6 +46,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
         // update the effect data
         
         condition.activeEffect = condition.activeEffect ? foundry.utils.mergeObject(condition.activeEffect, formData) : formData;
+        await Sidekick.setModuleFlag(condition.activeEffect, FLAGS.enhancedConditions.activeEffectCustomized, true);
         
         this.object.updateSource(formData);
         if (this._state == 2) await this.render();

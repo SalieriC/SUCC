@@ -863,20 +863,23 @@ export class EnhancedConditions {
 
                 conditionConfig.activeEffect = conditionConfig.activeEffect ? conditionConfig.activeEffect : {};
 
-                // Delete any existing data before using what's in the system
-                // This is to avoid cases where, for example, our config had a duration but the system's does not
-                // We want to ensure that, if the system has changes, we are matching it exactly 
-                delete conditionConfig.activeEffect.changes;
-                delete conditionConfig.activeEffect.duration;
-                delete conditionConfig.activeEffect.flags;
-                delete conditionConfig.activeEffect.system;
-
-                conditionConfig.activeEffect = {
-                    ...conditionConfig.activeEffect,
-                    ...statusEffect.changes != undefined ? { changes: statusEffect.changes } : null,
+                //Take anything that the system has set while prioritizing anything we've set in the config
+                //This allows us to use the system logic while overriding pieces of it
+                //This is most often used when the system effect does not have a duration but we want to add one                
+                conditionConfig.activeEffect = foundry.utils.mergeObject(conditionConfig.activeEffect, {
                     ...statusEffect.duration != undefined ? { duration: statusEffect.duration } : null,
-                    ...statusEffect.flags != undefined ? { system: statusEffect.flags } : null,
-                    ...statusEffect.system != undefined ? { system: statusEffect.system } : null
+                    ...statusEffect.system != undefined ? { system: statusEffect.system } : null,
+                });
+
+                //Combine the list of changes rather than stomping
+                //This allows us to add keys in the config while keeping the ones from the system
+                if (statusEffect.changes != undefined) {
+                    conditionConfig.activeEffect.changes = conditionConfig.activeEffect.changes ?? [];
+                    conditionConfig.activeEffect.changes = conditionConfig.activeEffect.changes.concat(statusEffect.changes);
+                    
+                    //Remove duplicate keys, keeping what is in our config
+                    conditionConfig.activeEffect.changes = conditionConfig.activeEffect.changes.filter((condition, pos) =>
+                    conditionConfig.activeEffect.changes.findIndex(c => c.key == condition.key) === pos);
                 }
             }
         }
@@ -1038,7 +1041,6 @@ export class EnhancedConditions {
      * @param {*} conditionMap 
      */
     static _updateStatusEffects(conditionMap) {
-        let entries;
         const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
 
         //save the original icons
@@ -1319,30 +1321,6 @@ export class EnhancedConditions {
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         let deletedConditionsMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap);
 
-        let currentDiffs = [];
-        for (let conditionConfig of game.succ.conditionConfigMap) {
-            const condition = conditionMap.find(c => c.id === conditionConfig.id);
-            if (condition) {
-                if (!!condition.activeEffect != !!conditionConfig.activeEffect) {
-                    //One has an active effect and the other doesn't which means they must be different
-                    currentDiffs.push(conditionConfig);
-                    continue;
-                }
-
-                if (!conditionConfig.activeEffect) {
-                    //Both must be null so that means they are the same
-                    continue;
-                }
-
-                if (JSON.stringify(condition.activeEffect.changes) !== JSON.stringify(conditionConfig.activeEffect.changes) ||
-                    JSON.stringify(condition.activeEffect.flags) !== JSON.stringify(conditionConfig.activeEffect.flags) ||
-                    JSON.stringify(condition.activeEffect.system) !== JSON.stringify(conditionConfig.activeEffect.system) ||
-                    JSON.stringify(condition.activeEffect.duration) !== JSON.stringify(conditionConfig.activeEffect.duration)) {
-                    currentDiffs.push(conditionConfig);
-                }
-            }
-        }
-
         for (let conditionConfig of game.succ.conditionConfigMap) {
             const condition = conditionMap.find(c => c.id === conditionConfig.id);
             if (!condition) {
@@ -1359,13 +1337,13 @@ export class EnhancedConditions {
                     continue;
                 }
 
-                let existingDiff = currentDiffs.find(d => d.id === conditionConfig.id);
-                if (existingDiff) {
-                    //If we had an existing diff for this condition, we'll assume the user wants it that way and leave it as is 
+                const activeEffectCustomized = condition.activeEffect && Sidekick.getModuleFlag(condition.activeEffect, BUTLER.FLAGS.enhancedConditions.activeEffectCustomized);
+                if (activeEffectCustomized) {
+                    //If the user has made changes to this condition, we'll assume they want it that way and leave it as is 
                     continue;
                 }
 
-                //If we didn't have an existing diff, we'll assume the user wants the most up to date functionality
+                //If we didn't have local changes, we'll assume the user wants the most up to date functionality
                 //For simplicity, we set the value here regardless of if it's changed or not
                 condition.activeEffect = { ...conditionConfig.activeEffect };
             }

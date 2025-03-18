@@ -1,12 +1,14 @@
-{{{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.Body"}}}
+{{{body}}}
 <br>
 <br>
+{{#unless condition}}
 <div class="formgroup">
     <input type="checkbox" id="clear-cache" style="vertical-align: middle;">
     <label for="clear-cache" style="vertical-align: middle;">
         {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ClearCache"}}
     </label>
 </div>
+{{/unless}}
 {{#unless isDefaultMapType}}
 <div class="formgroup">
     <input type="checkbox" id="reset-names" style="vertical-align: middle;">
@@ -44,11 +46,13 @@
         {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.ResetMacros"}}
     </label>
 </div>
+{{#unless condition}}
 <div class="formgroup">
     <input type="checkbox" id="remove-added" style="vertical-align: middle;">
     <label for="remove-added" style="vertical-align: middle;">
         {{localize "ENHANCED_CONDITIONS.Lab.RestoreDefaults.RemoveAdded"}}
     </label>
 </div>
+{{/unless}}
 {{/unless}}
 <br>

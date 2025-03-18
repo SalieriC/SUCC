@@ -6,7 +6,6 @@
     "canBeDisabled": true,
     "conditions": [
         {"id":"arcane-protection", "enabledByDefault": false},
-        {"id":"burrow", "enabledByDefault": false},
         {"id":"confusion", "enabledByDefault": false},
         {"id":"damage-field", "enabledByDefault": false},
         {"id":"deflection", "enabledByDefault": false},

@@ -63,6 +63,15 @@
             }
         },
         {
+            "id": "burrowing",
+            "name": "SWADE.Burrowing",
+            "img": "modules/succ/assets/icons/1-burrowing.svg",
+            "referenceId": "@UUID[Compendium.swade.powers.Item.cLRfMRfjBZZBQmFW]",
+            "options": {
+                "burrow": true
+            }
+        },
+        {
             "id": "holding",
             "name": "SWADE.Holding",
             "img": "modules/succ/assets/icons/1-holding.svg"
@@ -295,23 +304,6 @@
                 "duration": {
                     "rounds": 5
                 }
-            }
-        },
-        {
-            "id": "burrow",
-            "name": "ENHANCED_CONDITIONS.Condition.Burrow",
-            "img": "modules/succ/assets/icons/m-burrow.svg",
-            "referenceId": "@UUID[Compendium.swade.powers.Item.cLRfMRfjBZZBQmFW]",
-            "activeEffect": {
-                "system": {
-                    "expiration": 3
-                },
-                "duration": {
-                    "rounds": 5
-                }
-            },
-            "options": {
-                "burrow": true
             }
         },
         {

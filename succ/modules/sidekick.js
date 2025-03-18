@@ -129,6 +129,13 @@ export class Sidekick {
         return obj.flags[BUTLER.NAME][flag];
     }
 
+    static async setModuleFlag(obj, flag, data) {
+        if (obj.setFlag) return await obj.setFlag(BUTLER.NAME, flag, data);
+        obj.flags = obj.flags ?? {};
+        obj.flags[BUTLER.NAME] = obj.flags[BUTLER.NAME] ?? {};
+        obj.flags[BUTLER.NAME][flag] = data;
+    }
+
     /**
      * Validate that an object is actually an object
      * @param {Object} object 
@@ -679,8 +686,6 @@ export class Sidekick {
                 }
             }
         }
-
-        Sidekick.updateSpecialStatusEffectConfig(this.map);
     }
 
     /**

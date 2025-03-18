@@ -8,6 +8,7 @@
         {"id":"berserk", "enabledByDefault": true},
         {"id":"blind", "enabledByDefault": true},
         {"id":"boost", "enabledByDefault": true},
+        {"id":"burrowing", "enabledByDefault": true},
         {"id":"frightened", "enabledByDefault": true},
         {"id":"invisible", "enabledByDefault": true},
         {"id":"lower", "enabledByDefault": true},

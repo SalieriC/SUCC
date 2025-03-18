@@ -1,9 +1,9 @@
-<li class="row flexrow {{#if condition.hidden}}hidden{{/if}}" data-mapping-row="{{@index}}" data-condition-id="{{condition.id}}" >
+<li class="row flexrow {{#if condition.hidden}}hidden{{/if}}" data-mapping-row="{{@index}}" data-condition-id="{{condition.id}}">
     <!--column 1-->
-    
+
     <!--column 2-->
     <div class="flexcol content1">
-        
+
         <!--row 1 icon + text-->
         <div class="flexrow">
             <!--row 1 col 1 icon-->
@@ -23,7 +23,7 @@
                 <div class="flexrow condition-lab text-entry reference">
                     <div class="wrapper-rel">
                         <label for="reference-item-{{@index}}" class="inset-label">{{localize "succ.WORDS.Reference"}}</label>
-                        <input type="text" name="reference-item-{{@index}}" value="{{condition.referenceId}}" title="Condition Reference" placeholder="{{localize "succ.ENHANCED_CONDITIONS.ConditionLab.NoReference"}}" {{#unless isCustom}}disabled{{/unless}}>
+                        <input type="text" name="reference-item-{{@index}}" value="{{condition.referenceId}}" title="Condition Reference" placeholder="{{localize " succ.ENHANCED_CONDITIONS.ConditionLab.NoReference"}}" {{#unless isCustom}}disabled{{/unless}}>
                     </div>
                     <div class="enriched-link">{{{condition.enrichedReference}}}</div>
                 </div>
@@ -42,14 +42,15 @@
     </div>
     <!--column 3-->
     <div class="flexcol content2">
-        <div class="flexrow related-buttons">
+        <div class="flexrow">
+            <div class="flexrow related-buttons">
             {{!-- <div class="active-effect"> --}}
             <button type="button"
                 name="option-config"
                 class="option-config"
                 title="{{condition.optionButtonTitle}}">
-                <i class="fas fa-cog"></i> {{localize "succ.ENHANCED_CONDITIONS.ConditionLab.Buttons.Options"}}
-            </button>
+                    <i class="fas fa-cog"></i> {{localize "succ.ENHANCED_CONDITIONS.ConditionLab.Buttons.Options"}}
+                </button>
             <button type="button"
                     class="active-effect-config"
                     title="{{#if condition.isNew}}
@@ -58,23 +59,31 @@
                         {{else}}{{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title"}}
                         {{/if}}" 
                     {{#unless (and (eq condition.isNew false) isCustom) }}disabled{{/unless}}>
-                <i class="fas fa-hand-sparkles"></i> {{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Button"}}
-            </button>
-            <div class="flex-break"></div>
+                    <i class="fas fa-hand-sparkles"></i> {{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Button"}}
+                </button>
+                <div class="flex-break"></div>
             <button type="button"
                 name="save-macro"
                 class="save-macro"
                 title="{{localize "ENHANCED_CONDITIONS.Lab.SaveMacro.Title"}}">
-                <i class="fas fa-save"></i> {{localize "ENHANCED_CONDITIONS.Lab.SaveMacro.Button"}}
-            </button>
+                    <i class="fas fa-save"></i> {{localize "ENHANCED_CONDITIONS.Lab.SaveMacro.Button"}}
+                </button>
             <button type="button"
                 name="macro-config"
                 class="macro-config">
-                <i class="fas fa-code"></i> {{localize "ENHANCED_CONDITIONS.Lab.MacrosConfig.Button"}}
-            </button>
+                    <i class="fas fa-code"></i> {{localize "ENHANCED_CONDITIONS.Lab.MacrosConfig.Button"}}
+                </button>
+            </div>
+            <div class="flexrow reset-condition">
+                <button type="button"
+                    name="reset-condition-button"
+                    class="reset-condition-button" {{#if condition.addedByLab}}disabled{{/if}}>
+                    <i class="fas fa-history"></i> {{localize "ENHANCED_CONDITIONS.Lab.ResetCondition.Button"}}
+                </button>
+            </div>
         </div>
     </div>
-    <!--column 4-->                  
+    <!--column 4-->
     <!--delete row-->
     <div class="flexcol row-controls">
         <div class="move-up">
@@ -83,19 +92,18 @@
             {{/unless}}
         </div>
         <div class="remove-row">
-            {{#unless isCustom}}
-            {{#unless destroyDisabled}}
+            {{#if isCustom}}
+            {{#if addedByLab}}
             <a name="remove-row-{{@index}}" class="remove-row" title="Delete Row">
                 <i class="fas fa-trash"></i>
             </a>
-            {{/unless}}
-            {{/unless}}
-        </div> 
+            {{/if}}
+            {{/if}}
+        </div>
         <div class="move-down">
             {{#unless sortDirection}}
             {{#unless (eq key conditionMapLength)}}<a class="move-down"><i class="fas fa-chevron-down"></i></a>{{/unless}}
             {{/unless}}
         </div>
     </div>
-        
 </li>
