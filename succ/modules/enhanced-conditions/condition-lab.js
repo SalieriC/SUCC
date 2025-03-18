@@ -224,7 +224,7 @@ export class ConditionLab extends FormApplication {
      * Restore defaults for a mapping
      */
     _restoreDefaults({clearCache=false, resetNames=false, resetRefs=false, resetIcons=false,
-                            resetAes=false, resetMacros=false, resetOptions=false, removeConditionsAddedByLab=false}={}) {
+                            resetAEs=false, resetMacros=false, resetOptions=false, removeConditionsAddedByLab=false}={}) {
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
