@@ -68,6 +68,10 @@
             "TokenDisplaySettingsMenu": {
                 "Title": "Token Display Settings",
                 "Hint": "Controls the appearance behaviour of the token effect icons",
+                "Header": {
+                    "Client": "Local",
+                    "World": "World Defaults"
+                },
                 "Settings": {
                     "SizeN": "Effect Icon Size",
                     "SizeD": "Sets the size for effect icons on the token.",
@@ -76,6 +80,7 @@
                     "PositioningN": "Effect Icon Positioning",
                     "PositioningD": "How the effect icons are positioned on the token."
                 },
+                "WorldDefault": "World Default",
                 "SizeChoices" : {
                     "Small": "Small",
                     "Medium": "Medium",

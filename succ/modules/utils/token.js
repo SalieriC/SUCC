@@ -14,7 +14,13 @@ export class TokenUtility {
  * from foundry.js Token#_refreshEffects()
  */
   static _refreshEffectsOverride() {
-    const tokenDisplaySettings = Sidekick.getSetting(SETTING_KEYS.tokenUtility.tokenDisplaySettings);
+    const clientTokenDisplaySettings = Sidekick.getSetting(SETTING_KEYS.tokenUtility.clientTokenDisplaySettings);
+    let tokenDisplaySettings = Sidekick.getSetting(SETTING_KEYS.tokenUtility.worldTokenDisplaySettings);
+    for (let [key, value] of Object.entries(clientTokenDisplaySettings)) {
+      if (value != "default") {
+        tokenDisplaySettings[key] = value;
+      }
+    }
 
     const tokenHeight = this.document.height * canvas.dimensions.size;
     const tokenWidth = this.document.width * canvas.dimensions.size;

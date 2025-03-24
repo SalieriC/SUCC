@@ -176,11 +176,23 @@ export function registerSettings() {
     /*                 TokenUtility                 */
     /* -------------------------------------------- */
 
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.tokenDisplaySettings, {
-        name: "tokenDisplaySettings",
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.clientTokenDisplaySettings, {
+        name: "clientTokenDisplaySettings",
+        scope: "client",
+        type: Object,
+        default: BUTLER.DEFAULT_CONFIG.enhancedConditions.clientTokenDisplayDefaultSettings,
+        config: false,
+        onChange: s => {
+            TokenUtility.patchCore();
+            canvas.draw();
+        }
+    });
+
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.worldTokenDisplaySettings, {
+        name: "worldTokenDisplaySettings",
         scope: "world",
         type: Object,
-        default: BUTLER.DEFAULT_CONFIG.enhancedConditions.tokenDisplayDefaultSettings,
+        default: BUTLER.DEFAULT_CONFIG.enhancedConditions.worldTokenDisplayDefaultSettings,
         config: false,
         onChange: s => {
             TokenUtility.patchCore();
@@ -192,6 +204,7 @@ export function registerSettings() {
         name: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Title",
         hint: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Hint",
         label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Title",
+        scope: "client",
         type: TokenDisplaySettings
     });
 }
