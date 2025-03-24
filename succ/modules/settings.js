@@ -178,7 +178,7 @@ export function registerSettings() {
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.tokenDisplaySettings, {
         name: "tokenDisplaySettings",
-        scope: "client",
+        scope: "world",
         type: Object,
         default: BUTLER.DEFAULT_CONFIG.enhancedConditions.tokenDisplayDefaultSettings,
         config: false,
@@ -192,7 +192,6 @@ export function registerSettings() {
         name: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Title",
         hint: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Hint",
         label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Title",
-        scope: "client",
         type: TokenDisplaySettings
     });
 }
