@@ -31,17 +31,19 @@ export class SUCCTokenActionHud {
 
                 let actionsData = [];
 
-                let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-                for (let condition of conditionMap) {
-                    const encodedValue = [BUTLER.NAME, condition.id].join(this.actionHandler.delimiter);
-
-                    actionsData.push({
-                        id: condition.id,
-                        name: game.i18n.localize(condition.name),
-                        img: condition.img,
-                        cssClass: this.actor.statuses.has(condition.id) ? "toggle active" : "toggle",
-                        encodedValue: encodedValue,
-                    });
+                if (this.actor) {
+                    let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+                    for (let condition of conditionMap) {
+                        const encodedValue = [BUTLER.NAME, condition.id].join(this.actionHandler.delimiter);
+    
+                        actionsData.push({
+                            id: condition.id,
+                            name: game.i18n.localize(condition.name),
+                            img: condition.img,
+                            cssClass: this.actor.statuses.has(condition.id) ? "toggle active" : "toggle",
+                            encodedValue: encodedValue,
+                        });
+                    }
                 }
 
                 this.actionHandler.addActions(actionsData, { id: BUTLER.NAME, type: 'system' })
