@@ -27,7 +27,12 @@ export const DEFAULT_CONFIG = {
             id: "succ-token-display-settings-menu",
             title: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Title",
         },
-        tokenDisplayDefaultSettings: {
+        clientTokenDisplayDefaultSettings: {
+            effectSize: "default",
+            bgShape: "default",
+            effectPositioning: "default"
+        },
+        worldTokenDisplayDefaultSettings: {
             effectSize: "small",
             bgShape: "circle",
             effectPositioning: "columns"
@@ -145,24 +150,24 @@ export const DEFAULT_CONFIG = {
             medium: 2.5,
             small: 2
         },
-        effectSizeChoices: {
-            "small": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.Small",
-            "medium": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.Medium",
-            "large": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.Large",
-            "xLarge": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.XtraLarge"
-        },
-        effectBGShapeChoices: {
-            "circle": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.Circle",
-            "roundedRect": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.RoundedRect",
-            "rect": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.Rect",
-            "none": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.None"
-        },
-        effectPositioningChoices: {
-            "columns": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Columns",
-            "rows": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Rows",
-            "counterclockwise": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Counterclockwise",
-            "clockwise": "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Clockwise"
-        }
+        effectSizeChoices: [
+            { id: "small", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.Small" },
+            { id: "medium", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.Medium" },
+            { id: "large", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.Large" },
+            { id: "xLarge", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.SizeChoices.XtraLarge" },
+        ],
+        effectBGShapeChoices: [
+            { id: "circle", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.Circle" },
+            { id: "roundedRect", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.RoundedRect" },
+            { id: "rect", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.Rect" },
+            { id: "none", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.ShapeChoices.None" },
+        ],
+        effectPositioningChoices: [
+            { id: "columns", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Columns" },
+            { id: "rows", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Rows" },
+            { id: "counterclockwise", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Counterclockwise" },
+            { id: "clockwise", label: "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.PositioningChoices.Clockwise" },
+        ],
     }
 }
 
@@ -194,7 +199,8 @@ export const SETTING_KEYS = {
         skipIconMigration: "skipIconMigration"
     },
     tokenUtility: {
-        tokenDisplaySettings: "tokenDisplaySettings",
+        clientTokenDisplaySettings: "clientTokenDisplaySettings",
+        worldTokenDisplaySettings: "worldTokenDisplaySettings",
         tokenDisplaySettingsMenu: "tokenDisplaySettingsMenu"
     }
 }
