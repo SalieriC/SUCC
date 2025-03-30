@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [5.4.0] - 2025-03-30 aka "Choices!"
+### Added
+- Added conditionid to macro scope.
+- Added Option for the GM to set some adjustments for all clients. Clients can still overwrite these settings.
+### Fixed
+- Fixed null error when selecting multiple tokens
+
 ## [5.3.0] - 2025-03-18 aka "System has other plans"
 ### Added
 - Added a button to reset individual conditions.
