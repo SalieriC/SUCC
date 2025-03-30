@@ -360,10 +360,10 @@ export class EnhancedConditions {
     static _processActiveEffectChange(effect, type = "create", options) {
         if (!(effect instanceof ActiveEffect)) return;
 
-        const effectId = effect.getFlag(`${BUTLER.NAME}`, `${BUTLER.FLAGS.enhancedConditions.conditionId}`);
-        if (!effectId) return;
+        const conditionId = effect.getFlag(`${BUTLER.NAME}`, `${BUTLER.FLAGS.enhancedConditions.conditionId}`);
+        if (!conditionId) return;
 
-        const condition = EnhancedConditions.lookupEntryMapping(effectId);
+        const condition = EnhancedConditions.lookupEntryMapping(conditionId);
 
         if (!condition) return;
 
@@ -397,7 +397,7 @@ export class EnhancedConditions {
 
         const macroIds = macros?.length ? macros.filter(m => m.id).map(m => m.id) : null;
 
-        if (macroIds?.length) EnhancedConditions._processMacros(macroIds, actor);
+        if (macroIds?.length) EnhancedConditions._processMacros(macroIds, actor, conditionId);
     }
 
     static applyConditionOptions(effect, condition, actor, type = "create") {
@@ -697,16 +697,18 @@ export class EnhancedConditions {
      * Process macros based on given Ids
      * @param {*} macroIds 
      * @param {*} entity 
+     * @param {*} conditionId 
      */
-    static async _processMacros(macroIds, entity = null) {
-        const isToken = entity instanceof Token || entity instanceof TokenDocument;
-        const isActor = entity instanceof Actor;
-
+    static async _processMacros(macroIds, actor, conditionId) {
         for (const macroId of macroIds) {
             const macro = game.macros.get(macroId);
             if (!macro) continue;
 
-            const scope = isToken ? { token: entity } : (isActor ? { actor: entity } : null);
+            const scope = {
+                actor: actor,
+                conditionId: conditionId,
+            };
+
             await macro.execute(scope);
         }
     }
