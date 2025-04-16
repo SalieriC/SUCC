@@ -91,13 +91,13 @@ export class EnhancedConditionsPowers {
                     //This shouldn't happen but just early out anyway
                     return;
                 }
-                
+
                 traitName = skillItem.name; //Set the trait name to be the original skill name before we add the suffix
 
                 skillItem.name += game.i18n.localize("ENHANCED_CONDITIONS.Dialog.BoostBuilder.TempSkillSuffix");
                 skill = (await actor.createEmbeddedDocuments("Item", [skillItem], { render: false, renderSheet: false }))[0];
 
-                //Set the skill flag on the effect so we know to remove it when the effect is removed 
+                //Set the skill flag on the effect so we know to remove it when the effect is removed
                 foundry.utils.setProperty(updates, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.addedSkillUuid}`, skill.uuid);
 
                 if (degree === "raise") {
@@ -142,7 +142,7 @@ export class EnhancedConditionsPowers {
             return;
         }
 
-        await EnhancedConditionsPowers.smiteBuilder(effect, result.weapon, result.bonus);
+        await EnhancedConditionsPowers.smiteBuilder(effect, result);
     }
 
     /**
@@ -151,13 +151,20 @@ export class EnhancedConditionsPowers {
      * @param {String} weaponName  The name of the weapon being affected
      * @param {String} damageBonus  The damage bonus
      */
-    static async smiteBuilder(effect, weaponName, damageBonus) {
-        let change = { key: `@Weapon{${weaponName}}[system.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus };
+    static async smiteBuilder(effect, { weaponName, damageBonus, apBonus, heavy }) {
+        let changes = [{ key: `@Weapon{${weaponName}}[system.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }];
+        if(apBonus != 0) {
+            changes.push({ key: `@Weapon{${weaponName}}[system.ap]`, mode: 2, priority: undefined, value: apBonus });
+        }
+
+        if(heavy) {
+            changes.push({ key: `@Weapon{${weaponName}}[system.isHeavyWeapon]`, mode: 5, priority: undefined, value: true });
+        }
 
         //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
         //It loses .data in the middle because toObject() is just the cleaned up datalet updates = effect.toObject();
         let updates = effect.toObject();
-        updates.changes = [change];
+        updates.changes = changes;
         updates.name += " (" + weaponName + ")";
         await effect.update(updates);
     }
