@@ -54,8 +54,9 @@ export class EnhancedConditionsAPIDialogs {
                     callback: (event, button, dialog) => {
                         let selectedWeaponName = dialog.querySelector("#weapon").value;
                         let damageBonus = dialog.querySelector("#damageBonus").value;
-                        if (damageBonus[0] != '+') { damageBonus = '+' + damageBonus; }
-                        return { weapon: selectedWeaponName, bonus: damageBonus };
+                        let apBonus = dialog.querySelector("#apBonus").value;
+                        let heavy = dialog.querySelector("#heavy").checked;
+                        return { weaponName: selectedWeaponName, damageBonus: damageBonus, apBonus: apBonus, heavy: heavy };
                     }
                 },
                 {
