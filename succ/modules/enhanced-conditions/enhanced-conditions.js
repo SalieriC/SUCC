@@ -158,10 +158,10 @@ export class EnhancedConditions {
             if (update?.system?.details?.conviction?.active === true) {
                 //Check if condition was toggled on token, otherwise toggle it here:
                 if (EnhancedConditionsAPI.hasCondition(convictionCondition.id, actor, { warn: false }) === true) { return; }
-    
+
                 await EnhancedConditionsAPI.addCondition(convictionCondition.id, actor);
             }
-    
+
             //Remove Conviction:
             if (update?.system?.details?.conviction?.active === false) {
                 await EnhancedConditionsAPI.removeCondition(convictionCondition.id, actor, { warn: false });
@@ -174,7 +174,7 @@ export class EnhancedConditions {
             //The conditions map has not yet been set or the actor is a vehicle, either way we cannot apply encumbrance
             return;
         }
-        
+
         //Get the user defined ID for the condition to be added if overencumbered:
         const encumberedId = game.succ.conditions.find(c => c.options?.encumbered)?.id
         //Add/Remove Encumbrance if game setting for that is true and a condition is set for it:
@@ -196,10 +196,10 @@ export class EnhancedConditions {
 
     /**
      * Create Active Effect handler
-     * @param {*} actor 
-     * @param {*} update 
-     * @param {*} options 
-     * @param {*} userId 
+     * @param {*} actor
+     * @param {*} update
+     * @param {*} options
+     * @param {*} userId
      */
     static _onCreateActiveEffect(effect, options, userId) {
         if (game.userId !== userId) {
@@ -217,10 +217,10 @@ export class EnhancedConditions {
 
     /**
      * Create Active Effect handler
-     * @param {*} actor 
-     * @param {*} update 
-     * @param {*} options 
-     * @param {*} userId 
+     * @param {*} actor
+     * @param {*} update
+     * @param {*} options
+     * @param {*} userId
      */
     static _onDeleteActiveEffect(effect, options, userId) {
         if (game.userId !== userId) {
@@ -232,9 +232,9 @@ export class EnhancedConditions {
 
     /**
      * Render Chat Message handler
-     * @param {*} app 
-     * @param {*} html 
-     * @param {*} data 
+     * @param {*} app
+     * @param {*} html
+     * @param {*} data
      * @todo move to chatlog render?
      */
     static async _onRenderChatMessage(app, html, data) {
@@ -316,19 +316,19 @@ export class EnhancedConditions {
 
     /**
      * ChatLog render hook
-     * @param {*} app 
-     * @param {*} html 
-     * @param {*} data 
+     * @param {*} app
+     * @param {*} html
+     * @param {*} data
      */
     static async _onRenderChatLog(app, html, data) {
         EnhancedConditions.updateConditionTimestamps();
     }
 
     /**
-     * 
-     * @param {*} app 
-     * @param {*} html 
-     * @param {*} data 
+     *
+     * @param {*} app
+     * @param {*} html
+     * @param {*} data
      */
     static async _onRenderCombatTracker(app, html, data) {
         const effectIcons = html.find("img[class='token-effect']");
@@ -428,8 +428,8 @@ export class EnhancedConditions {
 
     /**
      * Processes effect options and applies them to active effects
-     * @param {*} effect The effect containing the effect options 
-     * @param {*} actor The actor containing the effect 
+     * @param {*} effect The effect containing the effect options
+     * @param {*} actor The actor containing the effect
      */
     static async applyEffectOptions(effect, actor) {
         const activeEffect = actor.effects.find(function (e) {
@@ -459,7 +459,7 @@ export class EnhancedConditions {
         if (effect.flags.succ.effectOptions.smite) {
             let options = effect.flags.succ.effectOptions.smite;
             await applySharedOptions(options);
-            EnhancedConditionsPowers.smiteBuilder(activeEffect, options.weapon, options.bonus);
+            EnhancedConditionsPowers.smiteBuilder(activeEffect, { weaponName: options.weapon, damageBonus: options.bonus, apBonus: options.apBonus, heavy: options.heavy });
         }
 
         if (effect.flags.succ.effectOptions.protection) {
@@ -676,8 +676,8 @@ export class EnhancedConditions {
 
     /**
      * For a given entity, removes conditions other than the one supplied
-     * @param {*} entity 
-     * @param {*} conditionId 
+     * @param {*} entity
+     * @param {*} conditionId
      */
     static async removeOtherConditions(entity, conditionId) {
         const entityConditions = await EnhancedConditionsAPI.getConditions(entity, { warn: false });
@@ -695,9 +695,9 @@ export class EnhancedConditions {
 
     /**
      * Process macros based on given Ids
-     * @param {*} macroIds 
-     * @param {*} entity 
-     * @param {*} conditionId 
+     * @param {*} macroIds
+     * @param {*} entity
+     * @param {*} conditionId
      */
     static async _processMacros(macroIds, actor, conditionId) {
         for (const macroId of macroIds) {
@@ -757,7 +757,7 @@ export class EnhancedConditions {
 
     /**
      * Determines whether to display the combat utility belt div in the settings sidebar
-     * @param {Boolean} display 
+     * @param {Boolean} display
      * @todo: extract to helper in sidekick class?
      */
     static _toggleLabButtonVisibility(display) {
@@ -867,7 +867,7 @@ export class EnhancedConditions {
 
                 //Take anything that the system has set while prioritizing anything we've set in the config
                 //This allows us to use the system logic while overriding pieces of it
-                //This is most often used when the system effect does not have a duration but we want to add one                
+                //This is most often used when the system effect does not have a duration but we want to add one
                 conditionConfig.activeEffect = foundry.utils.mergeObject(conditionConfig.activeEffect, {
                     ...statusEffect.duration != undefined ? { duration: statusEffect.duration } : null,
                     ...statusEffect.system != undefined ? { system: statusEffect.system } : null,
@@ -878,7 +878,7 @@ export class EnhancedConditions {
                 if (statusEffect.changes != undefined) {
                     conditionConfig.activeEffect.changes = conditionConfig.activeEffect.changes ?? [];
                     conditionConfig.activeEffect.changes = conditionConfig.activeEffect.changes.concat(statusEffect.changes);
-                    
+
                     //Remove duplicate keys, keeping what is in our config
                     conditionConfig.activeEffect.changes = conditionConfig.activeEffect.changes.filter((condition, pos) =>
                     conditionConfig.activeEffect.changes.findIndex(c => c.key == condition.key) === pos);
@@ -937,7 +937,7 @@ export class EnhancedConditions {
 
     /**
      * Parse the provided Condition Map and prepare it for storage, validating and correcting bad or missing data where possible
-     * @param {*} conditionMap 
+     * @param {*} conditionMap
      */
     static _prepareMap(conditionMap) {
         const preparedMap = [];
@@ -1040,7 +1040,7 @@ export class EnhancedConditions {
 
     /**
      * Updates the CONFIG.statusEffect effects with Condition Map ones
-     * @param {*} conditionMap 
+     * @param {*} conditionMap
      */
     static _updateStatusEffects(conditionMap) {
         const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
@@ -1110,7 +1110,7 @@ export class EnhancedConditions {
 
     /**
      * Converts the given Condition Map (one or more Conditions) into a Status Effects array or object
-     * @param {Array | Object} conditionMap 
+     * @param {Array | Object} conditionMap
      * @returns {Array} statusEffects
      */
     static _prepareStatusEffects(conditionMap, {excludeDisabledStatusEffects=false}={}) {
@@ -1198,7 +1198,7 @@ export class EnhancedConditions {
 
     /**
      * Retrieves a condition icon by its mapped name
-     * @param {*} condition 
+     * @param {*} condition
      */
     static getIconsByCondition(condition, { firstOnly = false } = {}) {
         const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
@@ -1221,7 +1221,7 @@ export class EnhancedConditions {
 
     /**
      * Retrieves a condition name by its mapped icon
-     * @param {*} icon 
+     * @param {*} icon
      */
     static getConditionsByImg(img, { firstOnly = false } = {}) {
         const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
@@ -1243,7 +1243,7 @@ export class EnhancedConditions {
 
     /**
      * Parses a condition map JSON and returns a map
-     * @param {*} json 
+     * @param {*} json
      */
     static mapFromJson(json) {
         if (json.system !== game.system.id) {
@@ -1297,7 +1297,7 @@ export class EnhancedConditions {
                 const flags = condition.activeEffect.flags.swade;
                 condition.activeEffect.system = condition.activeEffect.system ?? {};
                 condition.activeEffect.system = foundry.utils.mergeObject(condition.activeEffect.system, flags);
-                
+
                 delete condition.activeEffect.system.related; //Hack to deal with a temp issue in the system code effect definitions
                 delete condition.activeEffect.flags.swade.expiration;
                 delete condition.activeEffect.flags.swade.loseTurnOnHold;
@@ -1341,7 +1341,7 @@ export class EnhancedConditions {
 
                 const activeEffectCustomized = condition.activeEffect && Sidekick.getModuleFlag(condition.activeEffect, BUTLER.FLAGS.enhancedConditions.activeEffectCustomized);
                 if (activeEffectCustomized) {
-                    //If the user has made changes to this condition, we'll assume they want it that way and leave it as is 
+                    //If the user has made changes to this condition, we'll assume they want it that way and leave it as is
                     continue;
                 }
 
@@ -1409,7 +1409,7 @@ export class EnhancedConditions {
             }
             return aIdx - bIdx;
         });
-        
+
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.deletedConditionsMap, deletedConditionsMap);
     }

@@ -150,8 +150,10 @@ export class EnhancedConditionsPowers {
      * @param {Object} effect  The active effect being updated
      * @param {String} weaponName  The name of the weapon being affected
      * @param {String} damageBonus  The damage bonus
+     * @param {String} apBonus  The AP bonus
+     * @param {Boolean} heavy  If the weapon should be made heavy or not
      */
-    static async smiteBuilder(effect, { weaponName, damageBonus, apBonus, heavy }) {
+    static async smiteBuilder(effect, {weaponName, damageBonus, apBonus, heavy}) {
         let changes = [{ key: `@Weapon{${weaponName}}[system.actions.dmgMod]`, mode: 2, priority: undefined, value: damageBonus }];
         if(apBonus != 0) {
             changes.push({ key: `@Weapon{${weaponName}}[system.ap]`, mode: 2, priority: undefined, value: apBonus });
