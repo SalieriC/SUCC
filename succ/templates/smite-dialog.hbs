@@ -1,10 +1,30 @@
-<h2><img src={{condition.img}} width="30" height="30" style="border:0;" /> {{{localize "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name"}}}</h2>
-{{{localize "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Body"}}}
-<div style="display:flex">
-    <p style="flex:3">{{{localize "ENHANCED_CONDITIONS.Dialog.WeaponToAffect"}}}</p>
-    <select id="weapon" class="smite-weapon">{{{weapOptions}}}</select>
-</div>
-<div style="display:flex">
-    <p style="flex:3">{{{localize "ENHANCED_CONDITIONS.Dialog.AmountToIncrease"}}}</p>
-    <input type="text" id="damageBonus" value="2" style="flex:1"/></input>
+<div class="smite-dialog">
+    <h2><img src={{condition.img}} width="30" height="30" style="border:0;" /> {{{localize "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name"}}}</h2>
+    {{{localize "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Body"}}}
+    <div class="smite-group">
+        <div class="smite-row">
+            <label>{{{localize "ENHANCED_CONDITIONS.Dialog.WeaponToAffect"}}}</label>
+            <div class="smite-field">
+                <select id="weapon">{{{weapOptions}}}</select>
+            </div>
+        </div>
+        <div class="smite-row">
+            <label>{{{localize "ENHANCED_CONDITIONS.Dialog.AmountToIncrease"}}}</label>
+            <div class="smite-field">
+                <input type="text" id="damageBonus" value="2"></input>
+            </div>
+        </div>
+        <div class="smite-row">
+            <label>{{{localize "ENHANCED_CONDITIONS.Dialog.APModifier"}}}</label>
+            <div class="smite-field">
+                <input type="text" id="apBonus" value="0"></input>
+            </div>
+        </div>
+        <div class="smite-row">
+            <label for="heavy">{{{localize "ENHANCED_CONDITIONS.Dialog.HeavyWeapon"}}}</label>
+            <div class="smite-field">
+                <input type="checkbox" id="heavy"></input>
+            </div>
+        </div>
+    </div>
 </div>

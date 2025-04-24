@@ -518,10 +518,58 @@ dialog.succ-dialog .dialog-content {
     gap: unset;
 }
 
-.succ-dialog .smite-weapon {
+.succ-dialog .smite-dialog h2 {
+    margin: 0px;
+}
+
+.succ-dialog .smite-dialog .smite-group {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    border-style: groove;
+    border-color: var(--color-fieldset-border);
+    border-radius: 8px;
+}
+
+.succ-dialog .smite-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    gap: 0.5rem;
+}
+
+.succ-dialog .smite-row label {
     flex: 1;
+    font-weight: bold;
+}
+
+.succ-dialog .smite-row div > * {
+    height: var(--form-field-height);
+}
+
+.succ-dialog .smite-row div > input[type="checkbox"] {
+    flex: none;
     width: unset;
-    max-width: 250px;
+    margin: unset;
+}
+
+.succ-dialog .smite-row div > input[type="text"] {
+    text-align: center;
+    max-width: 50px;
+}
+
+.succ-dialog .smite-field {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
 }
 
 .succ-dialog .succ button {

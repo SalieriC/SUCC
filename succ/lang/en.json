@@ -202,19 +202,19 @@
     "ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition": "Add Condition failed. Could not find condition:",
     "ENHANCED_CONDITIONS.AddCondition.Failed.NoIcon": "Add Condition failed. Could not find icon.",
     "ENHANCED_CONDITIONS.AddCondition.Failed.AlreadyActive": "is already active. Add Condition failed",
-    
+
     "ENHANCED_CONDITIONS.GetConditions.Failed.NoToken": "Get Conditions failed. No entity provided and none could be found automatically",
     "ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition": "Get Conditions failed. No Condition Map found",
     "ENHANCED_CONDITIONS.GetConditions.Failed.NoResults": "Get Conditions failed. No Conditions found on Actor/Token",
-    
+
     "ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken": "Remove Condition failed. No token provided",
     "ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition": "Remove Condition failed. Could not find condition with name:",
     "ENHANCED_CONDITIONS.RemoveCondition.Failed.NoIcon": "Remove Condition failed. Could not find icon",
     "ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive": "is not active on token. Remove Condition failed.",
-    
+
     "ENHANCED_CONDITIONS.RemoveAllConditions.Failed.NoToken": "Remove Conditions failed. No token/s provided",
     "ENHANCED_CONDITIONS.RemoveAllConditions.Failed.NoCondition": "Remove Conditions failed. There is no active Condition Map",
-    
+
     "ENHANCED_CONDITIONS.Lab.Title": "Condition Lab",
     "ENHANCED_CONDITIONS.Lab.MappingType.Label": "Mapping Type",
     "ENHANCED_CONDITIONS.Lab.MappingType.Unsaved": "(unsaved changes)",
@@ -267,7 +267,7 @@
     "ENHANCED_CONDITIONS.ChatCard.Buttons.Undo": "Undo Remove Condition",
     "ENHANCED_CONDITIONS.ChatCard.Buttons.Remove": "Remove Condition",
     "ENHANCED_CONDITIONS.ChatCard.Error.TokenDeleted": "The token associated with this condition change was not found.",
-    
+
     "ENHANCED_CONDITIONS.Condition.Boost": "Boost Trait",
     "ENHANCED_CONDITIONS.Condition.Lower": "Lower Trait",
     "ENHANCED_CONDITIONS.Condition.TheDrop": "The Drop",
@@ -299,7 +299,7 @@
     "ENHANCED_CONDITIONS.Condition.AmmoWhammy": "Ammo Whammy",
     "ENHANCED_CONDITIONS.Condition.HolySymbol": "Holy Symbol",
     "ENHANCED_CONDITIONS.Condition.LetTheDevilOut": "Let the Devil Out",
-    
+
     "ENHANCED_CONDITIONS.Condition.Generic.Plus": "Plus",
     "ENHANCED_CONDITIONS.Condition.Generic.Minus": "Minus",
     "ENHANCED_CONDITIONS.Condition.Generic.Red": "Red",
@@ -326,21 +326,23 @@
     "ENHANCED_CONDITIONS.Dialog.NumbBuilder.Name": "Numb Builder",
     "ENHANCED_CONDITIONS.Dialog.NumbBuilder.Body": "<p><i>Numb</i> reduces the target's Wound and Fatigue penalties by 1 or 2 with a raise. Please choose the degree of success the caster had.</p>",
     "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name": "Smite Builder",
-    "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Body": "<p><i>Smite</i> increases the damage of one of the recipients weapons. Please choose the weapon and amount to increase the weapons damage.</p>",
+    "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Body": "<p><i>Smite</i> increases the damage potential of one of the target's weapons. Select the weapon and modifiers.</p>",
     "ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Name": "Protection Builder",
     "ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Body": "<p><i>Protection</i> increases the armor or toughness of the recipient. Please choose the amount to increase and click on the appropriate button, depending on modifiers used by the spellcaster.</p>",
     "ENHANCED_CONDITIONS.Dialog.Success": "Success",
     "ENHANCED_CONDITIONS.Dialog.Raise": "Raise",
     "ENHANCED_CONDITIONS.Dialog.Apply": "Apply",
     "ENHANCED_CONDITIONS.Dialog.Cancel": "Cancel",
-    "ENHANCED_CONDITIONS.Dialog.WeaponToAffect": "Weapon to affect: ",
+    "ENHANCED_CONDITIONS.Dialog.WeaponToAffect": "Weapon",
     "ENHANCED_CONDITIONS.Dialog.NoWeapons": "No weapon to apply smite to was found.",
-    "ENHANCED_CONDITIONS.Dialog.AmountToIncrease": "Amount to increase: ",
+    "ENHANCED_CONDITIONS.Dialog.AmountToIncrease": "Damage Modifier",
+    "ENHANCED_CONDITIONS.Dialog.APModifier": "AP Modifier",
+    "ENHANCED_CONDITIONS.Dialog.HeavyWeapon": "Heavy Weapon",
     "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Name": "Remove temporary effects",
     "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Body": "<p>You are about to delete <b>all</b> active effects from <b>all</b> tokens not currently in combat that are present on the scene with the name {sceneName}.</p><p><b>This can not be undone.</b> Do you really want to proceed?</p>",
-    
+
     "ENHANCED_CONDITIONS.Notification.NoConvictionToken": "This actor has no conviction tokens left.",
-    
+
     "SETTINGS.EnhancedConditions.CoreIconsN": "Core Status Icons",
     "SETTINGS.EnhancedConditions.CoreIconsH": "A copy of the core status icons",
     "SETTINGS.EnhancedConditions.DefaultConditionsMenuN": "Default Conditions",
@@ -359,7 +361,7 @@
     "SETTINGS.EnhancedConditions.MapTypeH": "Condition map type currently in use -- default, custom or other",
     "SETTINGS.EnhancedConditions.ActiveConditionMapN": "Active Condition Map",
     "SETTINGS.EnhancedConditions.ActiveConditionMapH": "Stores the active condition map",
-    
+
     "WORDS.IUnderstand": "I Understand",
     "WORDS.Import": "Import",
     "WORDS.Export": "Export",
