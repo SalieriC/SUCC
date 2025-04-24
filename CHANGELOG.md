@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [5.4.1] - 2025-04-24 aka "Dialogue overhaul part 1"
+### Added
+- Added AP and heavy weapon support to the smite dialog and improved the layout.
+### Changed
+- Updated the API according to these options.
+
 ## [5.4.0] - 2025-03-30 aka "Choices!"
 ### Added
 - Added conditionid to macro scope.
