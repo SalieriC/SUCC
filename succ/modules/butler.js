@@ -65,7 +65,8 @@ export const DEFAULT_CONFIG = {
             smiteDialog: `${PATH}/templates/smite-dialog.hbs`,
             protectionDialog: `${PATH}/templates/protection-dialog.hbs`,
             deflectionDialog: `${PATH}/templates/deflection-dialog.hbs`,
-            numbDialog: `${PATH}/templates/numb-dialog.hbs`
+            numbDialog: `${PATH}/templates/numb-dialog.hbs`,
+            flyingDialog: `${PATH}/templates/flying-dialog.hbs`
         },
         specialStatusEffects: {
             defeated: { //Cannot be changed by users

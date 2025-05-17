@@ -184,4 +184,44 @@ export class EnhancedConditionsAPIDialogs {
         });
         return result;
     }
+
+    /**
+     * Shows the flying dialog and returns the result
+     */
+    static async flyingDialog() {
+        let condition = EnhancedConditions.lookupConditionById("flying");
+        const flyingData = { condition };
+        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.flyingDialog, flyingData);
+
+        let result = await foundry.applications.api.DialogV2.wait({
+            window: { title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.FlyingBuilder.Name") },
+            position: { width: 400 },
+            content: content,
+            classes: ["succ-dialog"],
+            rejectClose: false,
+            buttons: [
+                {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Apply"),
+                    action: "apply",
+                    callback: (event, button, dialog) => {
+                        let pace = Number(dialog.querySelector("#pace").value);
+                        return { pace };
+                    }
+                },
+                {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Skip"),
+                    action: "skip",
+                    callback: () => {
+                        return { pace: null };
+                    }
+                },
+                {
+                    label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Cancel"),
+                    action: "cancel",
+                    callback: () => false
+                }
+            ]
+        });
+        return result;
+    }
 }

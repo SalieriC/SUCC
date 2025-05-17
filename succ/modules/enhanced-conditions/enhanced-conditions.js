@@ -411,6 +411,7 @@ export class EnhancedConditions {
                 if (condition.options?.protection) EnhancedConditionsPowers.protection(actor, condition);
                 if (condition.options?.deflection) EnhancedConditionsPowers.deflection(actor, condition);
                 if (condition.options?.numb) EnhancedConditionsPowers.numb(actor, condition);
+                if (condition.options?.fly) EnhancedConditionsPowers.flying(actor, condition);
                 if (condition.options?.conviction) EnhancedConditions.activateConviction(actor);
 
                 break;
