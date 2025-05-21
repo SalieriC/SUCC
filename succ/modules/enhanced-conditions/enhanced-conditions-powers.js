@@ -274,4 +274,40 @@ export class EnhancedConditionsPowers {
         updates.changes[0].value = bonus;
         await effect.update(updates);
     }
+
+    /**
+     * Adds a flying effect to an actor
+     * @param {Actor} actor  Actor to apply the effect to
+     * @param {Object} condition  The condition being applied (should be flying)
+     */
+    static async flying(actor, condition) {
+        //Get the active effect from the actor
+        let effect = actor.effects.find(function (e) {
+            return ((e.name === game.i18n.localize(condition.name)));
+        });
+
+        let result = await EnhancedConditionsAPIDialogs.flyingDialog();
+
+        if (!result) {
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
+            return;
+        }
+
+        if (result.pace != null) {
+            await EnhancedConditionsPowers.flyingBuilder(effect, result.pace);
+        }
+    }
+
+    /**
+     * Creates and applies the active effects for a flying condition
+     * @param {Object} effect  The active effect being updated
+     * @param {Number} pace  The pace to use
+     */
+    static async flyingBuilder(effect, pace) {
+        //Foundry rejects identical objects -> You need to toObject() the effect then change the result of that then pass that over
+        //It loses .data in the middle because toObject() is just the cleaned up data
+        let updates = effect.toObject();
+        updates.changes.push({ key: "system.pace.fly", mode: 5, priority: undefined, value: pace });
+        await effect.update(updates);
+    }
 }

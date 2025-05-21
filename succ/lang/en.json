@@ -127,7 +127,7 @@
                 },
                 "Fly": {
                     "Label": "Fly",
-                    "Notes": "When applied, this Condition will cause the affected Token to not longer be visible to \"Feel Tremor\" detection"
+                    "Notes": "When applied, this Condition will cause the affected Token to not longer be visible to \"Feel Tremor\" detection and it will open the Flying dialog"
                 },
                 "Burrow": {
                     "Label": "Burrow",
@@ -323,6 +323,8 @@
     "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Melee": "Melee",
     "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Raise": "Raise",
     "ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Ranged": "Ranged",
+    "ENHANCED_CONDITIONS.Dialog.FlyingBuilder.Name": "Flying Builder",
+    "ENHANCED_CONDITIONS.Dialog.FlyingBuilder.Body": "<p>Please enter the flying Pace to use. Press Skip to not make any changes to the target's flying Pace.</p>",
     "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Name": "Lower Trait Builder",
     "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Body": "<p><i>Lower Trait</i> lowers a single Trait of the recipient. Please choose the affected Trait and the degree of success the caster had.</p>",
     "ENHANCED_CONDITIONS.Dialog.NumbBuilder.Name": "Numb Builder",
@@ -335,11 +337,13 @@
     "ENHANCED_CONDITIONS.Dialog.Raise": "Raise",
     "ENHANCED_CONDITIONS.Dialog.Apply": "Apply",
     "ENHANCED_CONDITIONS.Dialog.Cancel": "Cancel",
+    "ENHANCED_CONDITIONS.Dialog.Skip": "Skip",
     "ENHANCED_CONDITIONS.Dialog.WeaponToAffect": "Weapon",
     "ENHANCED_CONDITIONS.Dialog.NoWeapons": "No weapon to apply smite to was found.",
     "ENHANCED_CONDITIONS.Dialog.AmountToIncrease": "Damage Modifier",
     "ENHANCED_CONDITIONS.Dialog.APModifier": "AP Modifier",
     "ENHANCED_CONDITIONS.Dialog.HeavyWeapon": "Heavy Weapon",
+    "ENHANCED_CONDITIONS.Dialog.Pace": "Pace",
     "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Name": "Remove temporary effects",
     "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Body": "<p>You are about to delete <b>all</b> active effects from <b>all</b> tokens not currently in combat that are present on the scene with the name {sceneName}.</p><p><b>This can not be undone.</b> Do you really want to proceed?</p>",
 

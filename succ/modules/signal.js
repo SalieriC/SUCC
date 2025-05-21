@@ -78,6 +78,7 @@ export class Signal {
             game.succ.protectionDialog = EnhancedConditionsAPIDialogs.protectionDialog;
             game.succ.deflectionDialog = EnhancedConditionsAPIDialogs.deflectionDialog;
             game.succ.numbDialog = EnhancedConditionsAPIDialogs.numbDialog;
+            game.succ.flyingDialog = EnhancedConditionsAPIDialogs.flyingDialog;
         });
 
         Hooks.on("ready", () => {
