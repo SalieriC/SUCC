@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [5.5.0] - 2025-05-21 aka "Farewell v12"
+**This is likely the last version for FVTT v12. Whether the v13 release will be backwards compatible is currently unknown.**
+### Added
+- Dialogue when setting up a flying effect to set the pace.
+- Added the id for default conditions into the options window with a button to copy it to the clipboard.
+
 ## [5.4.1] - 2025-04-24 aka "Dialogue overhaul part 1"
 ### Added
 - Added AP and heavy weapon support to the smite dialog and improved the layout.
