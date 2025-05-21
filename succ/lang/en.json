@@ -248,6 +248,8 @@
     "ENHANCED_CONDITIONS.Lab.ImportTitle": "Import Condition Map",
     "ENHANCED_CONDITIONS.Lab.ExportTitle": "Export Condition Map",
     "ENHANCED_CONDITIONS.Lab.Options.Title": "Options:",
+    "ENHANCED_CONDITIONS.Lab.Options.ConditionId.Label": "Condition ID:",
+    "ENHANCED_CONDITIONS.Lab.Options.ConditionId.Desc": "The ID for this condition. Use this to reference the condition from code/macros.",
     "ENHANCED_CONDITIONS.Lab.Options.CustomId.Label": "Custom ID",
     "ENHANCED_CONDITIONS.Lab.Options.CustomId.Desc": "Set a custom ID for this condition to make it easier to reference from code/macros<br>Leave blank to generate a new random ID",
     "ENHANCED_CONDITIONS.Lab.Options.CustomId.DuplicateRevert": "Another condition already has this ID. ID has not been changed.",

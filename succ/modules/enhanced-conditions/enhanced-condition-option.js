@@ -64,7 +64,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
     /**
      * Application listeners
-     * @param {jQuery} html 
+     * @param {jQuery} html
      */
     activateListeners(html) {
         const checkboxes = html.find("input[type='checkbox']");
@@ -72,11 +72,16 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
         for (const checkbox of checkboxes) {
             checkbox.addEventListener("change", (event) => this._onCheckboxChange(event));
         }
+
+        const copyIdButton = html.find("button[name='copy-id']");
+        copyIdButton.on("click", (event) => {
+            navigator.clipboard.writeText(this.object.id);
+        });
     }
 
     /**
      * Checkbox change event handler
-     * @param {*} event 
+     * @param {*} event
      */
     _onCheckboxChange(event) {
         if (!event.target?.checked) return;
@@ -99,7 +104,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
     /**
      * Special Status Effect toggle handler
-     * @param {*} event 
+     * @param {*} event
      */
     static async _onSpecialStatusEffectToggle(event) {
         // is another condition already using this special status effect?
@@ -123,8 +128,8 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
     /**
      * Update Object on Form Submission
-     * @param {*} event 
-     * @param {*} formData 
+     * @param {*} event
+     * @param {*} formData
      */
     async _updateObject(event, formData) {
         this.object.options = {};
@@ -149,7 +154,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
                     newMap[existingConditionIndex] = existingCondition;
                 }
             }
-            
+
             this.object.options[propertyName] = value;
         }
 
@@ -159,14 +164,14 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
                 let foundExisting = false;
                 for (let condition of map) {
                     if (condition == this.object) continue;
-    
+
                     if (customId == condition.id) {
                         foundExisting = true;
                         Sidekick.showNotification("error", game.i18n.localize("ENHANCED_CONDITIONS.Lab.Options.CustomId.DuplicateRevert"));
                         break;
                     }
                 }
-    
+
                 if (!foundExisting) {
                     this.object.id = customId;
                 }
