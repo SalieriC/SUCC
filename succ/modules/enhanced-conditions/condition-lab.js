@@ -85,7 +85,7 @@ export class ConditionLab extends FormApplication {
             entry.options.useAsStatusEffect = entry?.options?.useAsStatusEffect ?? true;
 
             // @TODO #711
-            entry.enrichedReference = entry.referenceId ? await TextEditor.enrichHTML(entry.referenceId, {async: true, documents: true}) : "";
+            entry.enrichedReference = entry.referenceId ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(entry.referenceId, {async: true, documents: true}) : "";
 
             // Default all entries to show
             entry.hidden = entry.hidden ?? false;
@@ -93,7 +93,7 @@ export class ConditionLab extends FormApplication {
 
         // Pre-apply any filter value
         this.displayedMap = filterValue ? this._filterMapByName(conditionMap, filterValue) : foundry.utils.duplicate(conditionMap);
-        
+
         // Sort the displayed map based on the sort direction
         if (sortDirection) {
             this.displayedMap = this._sortMapByName(this.displayedMap, sortDirection);
@@ -105,7 +105,7 @@ export class ConditionLab extends FormApplication {
         if (mapType != this.initialMapType || conditionMap?.length != this.initialMap?.length || conditionMap.some(c => c.isNew || c.isChanged)) {
             unsavedMap = true;
         }
-        
+
         // Prepare final data object for template
         const data = {
             sortTitle,
@@ -120,7 +120,7 @@ export class ConditionLab extends FormApplication {
             disableChatOutput,
             unsavedMap
         }
-        
+
         this.data = data;
         return data;
     }
@@ -146,7 +146,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Processes the Form Data and builds a usable Condition Map
-     * @param {*} formData 
+     * @param {*} formData
      */
     _processFormData(formData) {
         let ids = [];
@@ -184,7 +184,7 @@ export class ConditionLab extends FormApplication {
             } else if (e.match(iconRegex)) {
                 icons[row] = formData[e];
             } else if (e.match(referenceRegex)) {
-                references[row] = formData[e]; 
+                references[row] = formData[e];
             }
         }
 
@@ -226,7 +226,7 @@ export class ConditionLab extends FormApplication {
     _restoreDefaults({clearCache=false, resetNames=false, resetRefs=false, resetIcons=false,
                             resetAEs=false, resetMacros=false, resetOptions=false, removeConditionsAddedByLab=false}={}) {
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
-        
+
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
         if (clearCache) {
             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
@@ -286,12 +286,12 @@ export class ConditionLab extends FormApplication {
 
         this.render(true);
     }
-    
+
     _restoreConditionDefaults(conditionId, options={}) {
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         const defaultMap = (this.mapType != otherMapType && EnhancedConditions.getMapForDefaultConditions(defaultConditions)) ? EnhancedConditions.getMapForDefaultConditions(defaultConditions) : [];
-        
+
         let condition = this.map.find(c => c.id === conditionId);
         let defaultCondition = defaultMap.find(c => c.id === conditionId);
         if (!defaultCondition) {
@@ -329,8 +329,8 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Take the new map and write it back to settings, overwriting existing
-     * @param {Object} event 
-     * @param {Object} formData 
+     * @param {Object} event
+     * @param {Object} formData
      */
     async _updateObject(event, formData) {
         const showDialogSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog);
@@ -353,17 +353,17 @@ export class ConditionLab extends FormApplication {
         } else {
             this._processFormUpdate(formData);
         }
-    } 
+    }
 
     /**
      * Process Condition Lab formdata and then save changes
-     * @param {*} formData 
+     * @param {*} formData
      */
     async _processFormUpdate(formData) {
         const mapType = formData["map-type"];
         let newMap = this.updatedMap;
         const defaultMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
-        
+
         if (mapType === defaultMapType) {
             const defaultMap = EnhancedConditions.getDefaultMap();
             newMap = foundry.utils.mergeObject(newMap, defaultMap);
@@ -374,8 +374,8 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Saves a given map and option map type to storage
-     * @param {*} newMap 
-     * @param {*} mapType 
+     * @param {*} newMap
+     * @param {*} mapType
      */
     async _saveMapping(newMap, mapType=this.mapType) {
         this.mapType = this.initialMapType = mapType;
@@ -391,7 +391,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Performs final steps after saving mapping
-     * @param {*} preparedMap 
+     * @param {*} preparedMap
      */
     async _finaliseSave(preparedMap) {
         this.map = preparedMap;
@@ -417,7 +417,7 @@ export class ConditionLab extends FormApplication {
         const filename = `succ-${game.system.id}-condition-config.json`;
         saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
     }
-    
+
 
     /**
      * Initiates an import via a dialog
@@ -446,7 +446,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Process a Condition Map Import
-     * @param {*} html 
+     * @param {*} html
      */
     async _processImport(html) {
         const form = html.find("form")[0];
@@ -473,7 +473,7 @@ export class ConditionLab extends FormApplication {
      */
     _getHeaderButtons() {
         let buttons = super._getHeaderButtons();
-        
+
         buttons.unshift(
             {
                 label: game.i18n.localize("WORDS.Import"),
@@ -502,19 +502,19 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Condition Lab Render handler
-     * @param {*} app 
-     * @param {*} html 
-     * @param {*} data 
+     * @param {*} app
+     * @param {*} html
+     * @param {*} data
      */
      static _onRender(app, html, data) {
         ui.succ.conditionLab = app;
     }
-    
+
     /**
      * Render save dialog hook handler
-     * @param {*} app 
-     * @param {jQuery} html 
-     * @param {*} data 
+     * @param {*} app
+     * @param {jQuery} html
+     * @param {*} data
      */
     static async _onRenderSaveDialog(app, html, data) {
         const contentDiv = html[0].querySelector("div.dialog-content");
@@ -529,7 +529,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Activate app listeners
-     * @param {*} html 
+     * @param {*} html
      */
     activateListeners(html) {
         const inputs = html.find("input");
@@ -546,7 +546,7 @@ export class ConditionLab extends FormApplication {
         const sortButton = html.find("a.sort-list");
         const saveMacroButton = html.find("button.save-macro");
         const resetConditionButton = html.find("button.reset-condition-button");
-        const macroConfigButton = html.find("button.macro-config");
+        const macroConfigButton = html.find("button.macro-config-button");
         const optionConfigButton = html.find("button.option-config");
 
         inputs.on("change", event => this._onChangeInputs(event));
@@ -566,12 +566,12 @@ export class ConditionLab extends FormApplication {
         macroConfigButton.on("click", (event) => this._onClickMacroConfig(event));
         optionConfigButton.on("click", (event) => this._onClickOptionConfig(event));
 
-        super.activateListeners(html);     
+        super.activateListeners(html);
     }
 
     /**
      * Input change handler
-     * @param {*} event 
+     * @param {*} event
      * @returns {Application.render}
      */
     async _onChangeInputs(event) {
@@ -620,8 +620,8 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Filter the given map by the name property using the supplied filter value, marking filtered entries as "hidden"
-     * @param {Array} map 
-     * @param {String} filter 
+     * @param {Array} map
+     * @param {String} filter
      * @returns filteredMap
      */
     _filterMapByName(map, filter) {
@@ -630,7 +630,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Change Map Type event handler
-     * @param {*} event 
+     * @param {*} event
      */
     async _onChangeMapType(event) {
         event.preventDefault();
@@ -647,11 +647,11 @@ export class ConditionLab extends FormApplication {
             case "custom":
                 //When switching to custom, we just take whatever was already in the map and modify it from there
                 break;
-            
+
             case "other":
                 this.map = this.initialMapType == "other" ? this.initialMap : [];
                 break;
-        
+
             default:
                 break;
         }
@@ -662,11 +662,11 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Handle icon path change
-     * @param {*} event 
+     * @param {*} event
      */
     _onChangeIconPath(event) {
         event.preventDefault();
-        
+
         const row = event.target.name.match(/\d+$/)[0];
 
         //target the icon
@@ -676,7 +676,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Handle click Active Effect Config button
-     * @param {*} event 
+     * @param {*} event
      */
     async _onClickActiveEffectConfig(event) {
         const li = event.currentTarget.closest("li");
@@ -690,7 +690,7 @@ export class ConditionLab extends FormApplication {
         if (!condition) return;
 
         const conditionEffect = condition.activeEffect ?? EnhancedConditionsAPI.getActiveEffect(condition);
-        
+
         if (!conditionEffect) return;
 
         if (!foundry.utils.hasProperty(conditionEffect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`)) {
@@ -708,17 +708,17 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Reference Link change handler
-     * @param {*} event 
+     * @param {*} event
      */
     async _onChangeReferenceId(event) {
         event.preventDefault();
-        
+
         const input = event.currentTarget ?? event.target;
 
         // Update the enriched link
         const $linkDiv = $(input.parentElement.nextElementSibling);
-        const $link = $linkDiv.first();   
-        const newLink = await TextEditor.enrichHTML(input.value, {async: true, documents: true});
+        const $link = $linkDiv.first();
+        const newLink = await foundry.applications.ux.TextEditor.implementation.enrichHTML(input.value, {async: true, documents: true});
 
         if (!$link.length) {
             $linkDiv.append(newLink);
@@ -729,7 +729,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Add Row event handler
-     * @param {*} event 
+     * @param {*} event
      */
     _onAddRow(event) {
         event.preventDefault();
@@ -741,7 +741,7 @@ export class ConditionLab extends FormApplication {
         const newMap = foundry.utils.duplicate(this.map);
         const exisitingIds = this.map.filter(c => c.id).map(c => c.id);
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
-        
+
         newMap.push({
             id: Sidekick.createId(exisitingIds),
             name: newConditionName,
@@ -757,13 +757,13 @@ export class ConditionLab extends FormApplication {
         this.mapType = customMapType;
         this.map = newMap;
         this.data = null;
-        
+
         this.render();
     }
 
     /**
      * Handler for remove row event
-     * @param {*} event 
+     * @param {*} event
      */
     _onRemoveRow(event) {
         event.preventDefault();
@@ -803,11 +803,11 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Handle a change sort order click
-     * @param {*} event 
+     * @param {*} event
      */
     _onChangeSortOrder(event) {
         event.preventDefault();
-        
+
         const anchor = event.currentTarget;
         const liRow = anchor?.closest("li");
         const rowNumber = parseInt(liRow?.dataset.mappingRow);
@@ -820,7 +820,7 @@ export class ConditionLab extends FormApplication {
             case "move-up":
                 newIndex = rowNumber - 1;
                 break;
-            
+
             case "move-down":
                 newIndex = rowNumber + 1;
                 break;
@@ -838,7 +838,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Sort button handler
-     * @param {*} event 
+     * @param {*} event
      */
     _onClickSortButton(event) {
         const sortDirection = this.sortDirection;
@@ -860,13 +860,13 @@ export class ConditionLab extends FormApplication {
                 break;
         }
 
-        return this.render();        
+        return this.render();
     }
 
     /**
      * Sorts the given map by the name property
-     * @param {Array} map 
-     * @param {*} direction 
+     * @param {Array} map
+     * @param {*} direction
      * @returns {Array}
      */
     _sortMapByName(map, direction) {
@@ -877,20 +877,20 @@ export class ConditionLab extends FormApplication {
     }
 
     /**
-     * 
-     * @param {*} event 
+     *
+     * @param {*} event
      */
     async _onRestoreDefaults(event, condition) {
         event.preventDefault();
 
         let body;
         if (condition) {
-            body = game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaults.Condition.Body");        
+            body = game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaults.Condition.Body");
             body = body.replace("{0}", game.i18n.localize(condition.name));
         } else {
             body = game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaults.Body");
         }
-        
+
         const isDefaultMapType = game.succ.conditionLab.mapType === Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
         const dialogData = { isDefaultMapType, body, condition };
         const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabRestoreDefaultsDialog, dialogData);
@@ -935,7 +935,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Reset form handler
-     * @param {*} event 
+     * @param {*} event
      */
     _onResetForm(event) {
         const dialog = new Dialog({
@@ -963,7 +963,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Save and Close handler
-     * @param {*} event 
+     * @param {*} event
      */
     _onSaveClose(event) {
         this.submit().then(result => {
@@ -971,13 +971,13 @@ export class ConditionLab extends FormApplication {
         }).catch(reject => {
             ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Lab.SaveFailed"));
         });
-        
+
     }
 
     async _onDrop(event) {
         event.preventDefault();
-        const eventData = TextEditor.getDragEventData(event);
-        const link = await TextEditor.getContentLink(eventData);
+        const eventData = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
+        const link = await foundry.applications.ux.TextEditor.implementation.getContentLink(eventData);
         const targetInput = event.currentTarget;
         if (link) {
             targetInput.value = link;
@@ -989,7 +989,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Save and Close handler
-     * @param {*} event 
+     * @param {*} event
      */
     _onRefreshRefs(event) {
         for (let condition of this.map) {
@@ -1003,8 +1003,8 @@ export class ConditionLab extends FormApplication {
 
     async _onDrop(event) {
         event.preventDefault();
-        const eventData = TextEditor.getDragEventData(event);
-        const link = await TextEditor.getContentLink(eventData);
+        const eventData = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
+        const link = await foundry.applications.ux.TextEditor.implementation.getContentLink(eventData);
         const targetInput = event.currentTarget;
         if (link) {
             targetInput.value = link;
@@ -1016,7 +1016,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Save Macro button click handler
-     * @param {*} event 
+     * @param {*} event
      */
     async _onClickSaveMacro(event) {
         const rowLi = event.target.closest("li");
@@ -1026,7 +1026,7 @@ export class ConditionLab extends FormApplication {
 
         let macroSlot = 0;
         let { page } = ui.hotbar;
-        
+
         let folder = Macros.instance.folders.find(f => f.name == "SUCC");
         if (!folder) {
             folder = await Folder.create( { name: "SUCC", type: "Macro" } );
@@ -1075,7 +1075,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Macro Config button click handler
-     * @param {*} event 
+     * @param {*} event
      */
     _onClickMacroConfig(event) {
         const rowLi = event.target.closest("li");
@@ -1090,7 +1090,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Option Config button click handler
-     * @param {*} event 
+     * @param {*} event
      */
     async _onClickOptionConfig(event) {
         const rowLi = event.target.closest("li");
@@ -1098,9 +1098,9 @@ export class ConditionLab extends FormApplication {
 
         if (!conditionId) return;
 
-        const condition = this.map.find(c => c.id === conditionId);        
+        const condition = this.map.find(c => c.id === conditionId);
         const labData = await this.getData();
-        
+
         new EnhancedConditionOptionConfig(condition, labData, {
             title: (game.i18n.localize(condition.name) + " - " + game.i18n.localize("succ.ENHANCED_CONDITIONS.OptionConfig.Heading"))
         }).render(true);
@@ -1108,7 +1108,7 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Option Config button click handler
-     * @param {*} event 
+     * @param {*} event
      */
     async _onClickResetCondition(event) {
         const rowLi = event.target.closest("li");
@@ -1170,7 +1170,7 @@ export class ConditionLab extends FormApplication {
             "activeEffect"
         ];
 
-        const hasChanged = entry.isNew 
+        const hasChanged = entry.isNew
             || (index != this.initialMap?.indexOf(existingEntry))
             //|| !foundry.utils.isObjectEmpty(foundry.utils.diffObject(existingEntry, entry));
             || propsToCheck.some(p => this._hasPropertyChanged(p, existingEntry, entry));
@@ -1180,15 +1180,15 @@ export class ConditionLab extends FormApplication {
 
     /**
      * Checks a given propertyName on an original and comparison object to see if it has changed
-     * @param {*} propertyName 
-     * @param {*} original 
-     * @param {*} comparison 
+     * @param {*} propertyName
+     * @param {*} original
+     * @param {*} comparison
      * @returns {Boolean}
      */
     _hasPropertyChanged(propertyName, original, comparison) {
         let propertyChanged = false;
 
-        if ((original[propertyName] && !comparison[propertyName]) 
+        if ((original[propertyName] && !comparison[propertyName])
             || (original && (JSON.stringify(original[propertyName]) != JSON.stringify(comparison[[propertyName]])))
         ) {
             propertyChanged = true;

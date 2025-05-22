@@ -57,7 +57,7 @@
                         {{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew"}}
                         {{else unless isCustom}}{{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom"}}
                         {{else}}{{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title"}}
-                        {{/if}}" 
+                        {{/if}}"
                     {{#unless (and (eq condition.isNew false) isCustom) }}disabled{{/unless}}>
                     <i class="fas fa-hand-sparkles"></i> {{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Button"}}
                 </button>
@@ -69,8 +69,7 @@
                     <i class="fas fa-save"></i> {{localize "ENHANCED_CONDITIONS.Lab.SaveMacro.Button"}}
                 </button>
             <button type="button"
-                name="macro-config"
-                class="macro-config">
+                class="macro-config-button">
                     <i class="fas fa-code"></i> {{localize "ENHANCED_CONDITIONS.Lab.MacrosConfig.Button"}}
                 </button>
             </div>

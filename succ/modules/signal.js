@@ -115,7 +115,7 @@ export class Signal {
 
         Hooks.on("renderSettings", (app, html) => {
             Sidekick.createSUCCDiv(html);
-            EnhancedConditions._createLabButton(html);
+            Sidekick.createLabButton(html);
             EnhancedConditions._toggleLabButtonVisibility(true);
         });
 

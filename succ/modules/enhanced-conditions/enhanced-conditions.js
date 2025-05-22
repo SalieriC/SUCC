@@ -141,6 +141,7 @@ export class EnhancedConditions {
             game.succ.conditions = conditionMap;
         }
 
+        ui.combat.render(true);
         Hooks.callAll('succReady', game.succ);
     }
 
@@ -331,9 +332,9 @@ export class EnhancedConditions {
      * @param {*} data
      */
     static async _onRenderCombatTracker(app, html, data) {
-        const effectIcons = html.find("img[class='token-effect']");
+        const effectIcons = html.querySelectorAll("img[class='token-effect']");
 
-        effectIcons.each((index, element) => {
+        effectIcons.forEach((element, index) => {
             const url = new URL(element.src);
             const path = url?.pathname?.substring(1);
             const conditions = EnhancedConditions.getConditionsByImg(path);
@@ -733,28 +734,6 @@ export class EnhancedConditions {
     /* -------------------------------------------- */
     /*                    Helpers                   */
     /* -------------------------------------------- */
-
-    /**
-     * Creates a button for the Condition Lab
-     * @param {Object} html the html element where the button will be created
-     */
-    static _createLabButton(html) {
-        if (!game.user.isGM) return;
-
-        const succDiv = html.find("#succ");
-
-        const labButton = $(
-            `<button id="condition-lab" data-action="condition-lab">
-                    <i class="fas fa-flask"></i> ${BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title}
-                </button>`
-        );
-
-        succDiv.append(labButton);
-
-        labButton.on("click", event => {
-            return game.succ.conditionLab = new ConditionLab().render(true);
-        });
-    }
 
     /**
      * Determines whether to display the combat utility belt div in the settings sidebar

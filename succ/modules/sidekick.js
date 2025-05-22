@@ -1,28 +1,48 @@
 import * as BUTLER from "./butler.js";
+import { ConditionLab } from "./enhanced-conditions/condition-lab.js";
 /**
  * Provides helper methods for use elsewhere in the module (and has your back in a melee)
  */
 export class Sidekick {
     /**
      * Creates the SUCC div in the Sidebar
-     * @param {*} html 
+     * @param {*} html
      */
     static createSUCCDiv(html) {
         if (!game.user.isGM) return;
 
-        const succDiv = $(
-            `<div id="succ">
-                    <h4>SWADE Ultimate Condition Changer</h4>
-                </div>`
-        );
+        const succDiv = document.createElement("section");
+        succDiv.classList.add("succ");
+        succDiv.classList.add("flexcol");
+        succDiv.innerHTML = `<h4 class="divider">Ultimate Condition Changer</h4>`;
 
-        const setupButton = html.find("div#settings-game");
-        setupButton.append(succDiv);
+        const setupButton = html.querySelector("section.settings");
+        setupButton.parentNode.insertBefore(succDiv, setupButton.nextSibling);
+    }
+
+    /**
+     * Creates a button for the Condition Lab
+     * @param {Object} html the html element where the button will be created
+     */
+    static createLabButton(html) {
+        if (!game.user.isGM) return;
+
+        const labButton = document.createElement("button");
+        labButton.id = "condition-lab";
+        labButton.dataset["action"] = "condition-lab";
+        labButton.innerHTML = `<i class="fas fa-flask"></i> ${BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title}`;
+
+        const succDiv = html.querySelector(".succ");
+        succDiv.appendChild(labButton);
+
+        labButton.addEventListener("click", (event) => {
+            return game.succ.conditionLab = new ConditionLab().render(true);
+        });
     }
 
     /**
      * Get a single setting using the provided key
-     * @param {*} key 
+     * @param {*} key
      * @returns {Object} setting
      */
     static getSetting(key) {
@@ -40,9 +60,9 @@ export class Sidekick {
 
     /**
      * Sets a single game setting
-     * @param {*} key 
-     * @param {*} value 
-     * @param {*} awaitResult 
+     * @param {*} key
+     * @param {*} value
+     * @param {*} awaitResult
      * @returns {Promise | ClientSetting}
      */
     static async setSetting(key, value) {
@@ -55,8 +75,8 @@ export class Sidekick {
 
     /**
      * Register a single setting using the provided key and setting data
-     * @param {*} key 
-     * @param {*} metadata 
+     * @param {*} key
+     * @param {*} metadata
      * @returns {ClientSettings.register}
      */
     static registerSetting(key, metadata) {
@@ -65,8 +85,8 @@ export class Sidekick {
 
     /**
      * Register a menu setting using the provided key and setting data
-     * @param {*} key 
-     * @param {*} metadata 
+     * @param {*} key
+     * @param {*} metadata
      * @returns {ClientSettings.registerMenu}
      */
     static registerMenu(key, metadata) {
@@ -75,7 +95,7 @@ export class Sidekick {
 
     /**
      * Register all provided setting data
-     * @param {*} settingsData 
+     * @param {*} settingsData
      * @returns {Array}
      */
     static registerAllSettings(settingsData) {
@@ -85,11 +105,11 @@ export class Sidekick {
     /**
      * Use FilePicker to browse then Fetch one or more JSONs and return them
      * @param {*} source
-     * @param {*} path 
+     * @param {*} path
      */
     static async fetchJsons(source, path) {
         const extensions = [".json"];
-        const fp = await FilePicker.browse(source, path, { extensions });
+        const fp = await foundry.applications.apps.FilePicker.implementation.browse(source, path, { extensions });
         const fetchedJsons = fp?.files?.length ? await Promise.all(fp.files.map(f => Sidekick.fetchJson(f))) : [];
         const jsons = fetchedJsons.filter(j => !!j);
 
@@ -98,7 +118,7 @@ export class Sidekick {
 
     /**
      * Fetch a JSON from a given file
-     * @param {File} file 
+     * @param {File} file
      * @returns JSON | null
      */
     static async fetchJson(file) {
@@ -138,7 +158,7 @@ export class Sidekick {
 
     /**
      * Validate that an object is actually an object
-     * @param {Object} object 
+     * @param {Object} object
      * @returns {Boolean}
      */
     static validateObject(object) {
@@ -147,7 +167,7 @@ export class Sidekick {
 
     /**
      * Convert any ES6 Maps/Sets to objects for settings use
-     * @param {Map} map 
+     * @param {Map} map
      */
     static convertMapToArray(map) {
         return map instanceof Map ? Array.from(map.entries()) : null;
@@ -156,7 +176,7 @@ export class Sidekick {
     /**
      * Retrieves a key using the given value
      * @param {Object} object -- the object that contains the key/value
-     * @param {*} value 
+     * @param {*} value
      */
     static getKeyByValue(object, value) {
         return Object.keys(object).find(key => object[key] === value);
@@ -200,7 +220,7 @@ export class Sidekick {
 
     /**
      * Takes an array of terms (eg. name parts) and returns groups of neighbouring terms
-     * @param {*} arr 
+     * @param {*} arr
      */
     static getTerms(arr) {
         const terms = [];
@@ -220,7 +240,7 @@ export class Sidekick {
 
     /**
      * Escapes regex special chars
-     * @param {String} string 
+     * @param {String} string
      * @return {String} escapedString
      */
     static escapeRegExp(string) {
@@ -229,9 +249,9 @@ export class Sidekick {
 
     /**
      * Attempts to coerce a target value into the exemplar's type
-     * @param {*} target 
+     * @param {*} target
      * @param {*} type
-     * @returns {*} coercedValue 
+     * @returns {*} coercedValue
      */
     static coerceType(value, type) {
         switch (type) {
@@ -252,7 +272,7 @@ export class Sidekick {
     /**
      * Builds a FD returned from FormDataExtended into a formData array
      * Borrowed from foundry.js
-     * @param {*} FD 
+     * @param {*} FD
      */
     static buildFormData(FD) {
         const dtypes = FD._dtypes;
@@ -272,7 +292,7 @@ export class Sidekick {
 
     /**
     * Get a random unique Id, checking an optional supplied array of ids for a match
-    * @param {*} existingIds 
+    * @param {*} existingIds
     */
     static createId(existingIds = [], { iterations = 10000, length = 16 } = {}) {
 
@@ -291,7 +311,7 @@ export class Sidekick {
 
     /**
      * Sets a string to Title Case
-     * @param {*} string 
+     * @param {*} string
      */
     static toTitleCase(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -299,9 +319,9 @@ export class Sidekick {
 
     /**
      * Parses HTML and replaces instances of a matched pattern
-     * @param {*} pattern 
-     * @param {*} string 
-     * @param {*} param2 
+     * @param {*} pattern
+     * @param {*} string
+     * @param {*} param2
      */
     static replaceOnDocument(pattern, string, { target = document.body } = {}) {
         // Handle `string` — see the last section
@@ -313,7 +333,7 @@ export class Sidekick {
 
     /**
      * Get text nodes in a given element
-     * @param {*} el 
+     * @param {*} el
      * @returns {jQuery}
      */
     static getTextNodesIn(el) {
@@ -322,8 +342,8 @@ export class Sidekick {
 
     /**
      * For a given string generate a slug, optionally checking a list of existing Ids for uniqueness
-     * @param {*} string 
-     * @param {*} idList 
+     * @param {*} string
+     * @param {*} idList
      */
     static generateUniqueSlugId(string, idList = []) {
         let slug = string.slugify();
@@ -340,7 +360,7 @@ export class Sidekick {
 
     /**
      * For a given file path, find the filename and then apply title case
-     * @param {String} path 
+     * @param {String} path
      * @returns {String}
      */
     static getNameFromFilePath(path) {
@@ -378,7 +398,7 @@ export class Sidekick {
 
     /**
      * Gets an Actor from an Actor or Token UUID
-     * @param {*} uuid 
+     * @param {*} uuid
      */
     static async getActorFromUuid(uuid) {
         const isActor = uuid.includes("Actor");
@@ -395,8 +415,8 @@ export class Sidekick {
 
     /**
      * Filters an array down to just its duplicate elements based on the property specified
-     * @param {*} arrayToCheck 
-     * @param {*} filterProperty 
+     * @param {*} arrayToCheck
+     * @param {*} filterProperty
      * @returns {Array}
      */
     static findArrayDuplicates(arrayToCheck, filterProperty) {
@@ -410,8 +430,8 @@ export class Sidekick {
 
     /**
      * Returns true for each array element that is a duplicate based on the property specified
-     * @param {*} arrayToCheck 
-     * @param {*} filterProperty 
+     * @param {*} arrayToCheck
+     * @param {*} filterProperty
      * @returns {Boolean}
      */
     static identifyArrayDuplicatesByProperty(arrayToCheck, filterProperty) {
@@ -433,7 +453,7 @@ export class Sidekick {
             `${BUTLER.PATH}/templates/partials/chat-card-condition-list.hbs`,
             `${BUTLER.PATH}/templates/partials/condition-lab-row.hbs`
         ];
-        await loadTemplates(templates)
+        await foundry.applications.handlebars.loadTemplates(templates)
     }
 
     /**
@@ -446,7 +466,7 @@ export class Sidekick {
 
     /**
      * Retrieves all the owners of a given document
-     * @param {*} document 
+     * @param {*} document
      * @returns {Array}
      */
     static getDocumentOwners(document) {
@@ -470,8 +490,8 @@ export class Sidekick {
 
     /**
      * Converts the given string to camelCase using the provided delimiter to break up words
-     * @param {String} string 
-     * @param {String} delimiter 
+     * @param {String} string
+     * @param {String} delimiter
      * @returns the converted string
      * @example Sidekick.toCamelCase("my-cool-string", "-") // returns "myCoolString"
      */
@@ -521,7 +541,7 @@ export class Sidekick {
     }
 
     /**
-     * Creates an array with the list of skills for a given actor or a list of all custom skills and all skills from every compendium 
+     * Creates an array with the list of skills for a given actor or a list of all custom skills and all skills from every compendium
      * @param {Actor} actor
      * @param {Boolean} getAllSkills
      */
@@ -577,7 +597,7 @@ export class Sidekick {
 
     /**
      * Returns the localized string for a given attribute
-     * @param {Actor} actor 
+     * @param {Actor} actor
      */
     static getLocalizedAttributeName(attribute) {
         if (attribute === "agility") {
@@ -615,7 +635,7 @@ export class Sidekick {
     }
 
     /**
-     * Compares compendiums to ensure that specific module skills are higher than the basic skills and core swade skills 
+     * Compares compendiums to ensure that specific module skills are higher than the basic skills and core swade skills
      */
     static compareSkillCompendiums(a, b, coreSkillsPack) {
         if (a == b) { return 0; }
@@ -625,15 +645,15 @@ export class Sidekick {
         if (!b) { return 1; }
 
         //Skills the user's chosen coreSkillsPack are the next highest
-        if (a == coreSkillsPack) { return -1; } 
+        if (a == coreSkillsPack) { return -1; }
         if (b == coreSkillsPack) { return 1; }
 
         //Basic system skills are always the lowest
-        if (a == "swade.skills") { return 1; } 
+        if (a == "swade.skills") { return 1; }
         if (b == "swade.skills") { return -1; }
 
         //Skills from the core rules module come next
-        if (a == "swade-core-rules.swade-skills") { return 1; } 
+        if (a == "swade-core-rules.swade-skills") { return 1; }
         if (b == "swade-core-rules.swade-skills") { return -1; }
 
         //If we don't have a specific sort preference, just compare the ids directly
@@ -642,8 +662,8 @@ export class Sidekick {
 
     /**
      * Get the enum for a special status effect in Foundry based on the option name
-     * @param {*} option 
-     * @returns {String} enum for the special status effect 
+     * @param {*} option
+     * @returns {String} enum for the special status effect
      */
     static getOptionBySpecialStatusEffect(specialEffect) {
         const specialStatusEffect = Object.values(BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects).find((sse) => sse.systemProperty == specialEffect);
@@ -652,7 +672,7 @@ export class Sidekick {
 
     /**
      * Get the enum for a special status effect in Foundry based on the option name
-     * @param {*} conditionMap 
+     * @param {*} conditionMap
      */
     static ensureStatusEffectOptionExclusivity(conditionMap) {
         for (let specialStatusEffect of Object.values(BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects)) {
@@ -690,7 +710,7 @@ export class Sidekick {
 
     /**
      * Updates CONFIG.specialStatusEffects to match the settings in our condition map
-     * @param {*} conditionMap 
+     * @param {*} conditionMap
      */
     static async updateSpecialStatusEffectConfig(conditionMap) {
         for (let specialStatusEffect of Object.values(BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects)) {
