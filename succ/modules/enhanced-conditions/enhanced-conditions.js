@@ -579,7 +579,7 @@ export class EnhancedConditions {
         if (!type.active && enhancedConditionsDiv && sameSpeaker && recentTimestamp && hasPermissions) {
             let newContent = "";
             for (const condition of entries) {
-                const newRow = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatConditionsPartial, { condition, type, timestamp });
+                const newRow = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatConditionsPartial, { condition, type, timestamp });
                 newContent += newRow;
             }
             const existingContent = lastMessage.content;
@@ -590,7 +590,7 @@ export class EnhancedConditions {
             EnhancedConditions.updateConditionTimestamps();
             ui.chat.scrollBottom();
         } else {
-            const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatOutput, templateData);
+            const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatOutput, templateData);
 
             await ChatMessage.create({
                 speaker,

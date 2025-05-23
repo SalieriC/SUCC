@@ -39,7 +39,7 @@ export class EnhancedConditionsAPIDialogs {
         }
 
         const smiteData = { condition, weapOptions };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.smiteDialog, smiteData);
+        const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.smiteDialog, smiteData);
 
         let result = await foundry.applications.api.DialogV2.wait({
             window: { title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name") },
@@ -75,7 +75,7 @@ export class EnhancedConditionsAPIDialogs {
     static async protectionDialog() {
         let condition = EnhancedConditions.lookupConditionById("protection");
         const protectionData = { condition };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.protectionDialog, protectionData);
+        const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.protectionDialog, protectionData);
 
         let result = await foundry.applications.api.DialogV2.wait({
             window: { title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Name") },
@@ -116,7 +116,7 @@ export class EnhancedConditionsAPIDialogs {
     static async deflectionDialog() {
         let condition = EnhancedConditions.lookupConditionById("deflection");
         const deflectionData = { condition };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.deflectionDialog, deflectionData);
+        const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.deflectionDialog, deflectionData);
 
         let result = await foundry.applications.api.DialogV2.wait({
             window: { title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.DeflectionBuilder.Name") },
@@ -156,7 +156,7 @@ export class EnhancedConditionsAPIDialogs {
     static async numbDialog() {
         let condition = EnhancedConditions.lookupConditionById("numb");
         const numbData = { condition };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.numbDialog, numbData);
+        const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.numbDialog, numbData);
 
         let result = await foundry.applications.api.DialogV2.wait({
             window: { title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.NumbBuilder.Name") },
@@ -191,7 +191,7 @@ export class EnhancedConditionsAPIDialogs {
     static async flyingDialog() {
         let condition = EnhancedConditions.lookupConditionById("flying");
         const flyingData = { condition };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.flyingDialog, flyingData);
+        const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.flyingDialog, flyingData);
 
         let result = await foundry.applications.api.DialogV2.wait({
             window: { title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.FlyingBuilder.Name") },

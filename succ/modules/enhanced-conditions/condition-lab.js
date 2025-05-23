@@ -426,7 +426,7 @@ export class ConditionLab extends FormApplication {
     async _importFromJSONDialog() {
         new Dialog({
             title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ImportTitle"),
-            content: await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.importDialog, {}),
+            content: await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.importDialog, {}),
             buttons: {
                 import: {
                     icon: '<i class="fas fa-file-import"></i>',
@@ -697,13 +697,14 @@ export class ConditionLab extends FormApplication {
             foundry.utils.setProperty(conditionEffect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`, conditionId);
         }
 
-        // Build a fake effect object for the ActiveEffectConfig sheet
-        // @todo #544 make Conditions an ActiveEffect extension?
+        conditionEffect.img = condition.img;
         delete conditionEffect.id;
+
+        // Build a fake effect object for the ActiveEffectConfig sheet
         const effect = new ActiveEffect(conditionEffect);
         effect.testUserPermission = (...args) => { return true};
 
-        new EnhancedEffectConfig(effect).render(true);
+        new EnhancedEffectConfig({ document: effect }).render(true);
     }
 
     /**
@@ -893,7 +894,7 @@ export class ConditionLab extends FormApplication {
 
         const isDefaultMapType = game.succ.conditionLab.mapType === Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default);
         const dialogData = { isDefaultMapType, body, condition };
-        const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabRestoreDefaultsDialog, dialogData);
+        const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabRestoreDefaultsDialog, dialogData);
 
         const confirmationDialog = new Dialog({
             title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle"),
@@ -1126,14 +1127,6 @@ export class ConditionLab extends FormApplication {
     _hasMapChanged() {
         let hasChanged = false;
 
-        const propsToCheck = [
-            "name",
-            "icon",
-            "options",
-            "referenceId",
-            "activeEffect"
-        ];
-
         const conditionMap = this.updatedMap;
 
         conditionMap.forEach((entry, index, array) => {
@@ -1146,13 +1139,6 @@ export class ConditionLab extends FormApplication {
 
             // If it's not changed, test the tracked properties until a change is found
             if (!entry.isChanged) {
-                // for (const prop of propsToCheck) {
-                //     if (this._hasPropertyChanged(prop, existingEntry, entry)) {
-                //         entry.isChanged = true;
-                //         hasChanged = true;
-                //         break;
-                //     }
-                // }
                 entry.isChanged = foundry.utils.isEmpty(foundry.utils.diffObject(existingEntry, entry));
                 hasChanged = true;
             }
@@ -1164,7 +1150,7 @@ export class ConditionLab extends FormApplication {
     _hasEntryChanged(entry, existingEntry, index) {
         const propsToCheck = [
             "name",
-            "icon",
+            "img",
             "options",
             "referenceId",
             "activeEffect"
@@ -1172,7 +1158,6 @@ export class ConditionLab extends FormApplication {
 
         const hasChanged = entry.isNew
             || (index != this.initialMap?.indexOf(existingEntry))
-            //|| !foundry.utils.isObjectEmpty(foundry.utils.diffObject(existingEntry, entry));
             || propsToCheck.some(p => this._hasPropertyChanged(p, existingEntry, entry));
 
         return hasChanged;
