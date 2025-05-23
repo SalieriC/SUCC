@@ -125,8 +125,8 @@ export class Signal {
             EnhancedConditions._onRenderChatLog(app, html, data);
         });
 
-        Hooks.on("renderChatMessage", (app, html, data) => {
-            EnhancedConditions._onRenderChatMessage(app, html, data);
+        Hooks.on("renderChatMessageHTML", (message, html, data) => {
+            EnhancedConditions._onRenderChatMessageHTML(message, html, data);
         });
 
         Hooks.on("renderDialog", (app, html, data) => {

@@ -233,12 +233,11 @@ export class EnhancedConditions {
 
     /**
      * Render Chat Message handler
-     * @param {*} app
+     * @param {*} message
      * @param {*} html
      * @param {*} data
-     * @todo move to chatlog render?
      */
-    static async _onRenderChatMessage(app, html, data) {
+    static async _onRenderChatMessageHTML(message, html, data) {
         if (data.message.content && !data.message.content.match("enhanced-conditions")) {
             return;
         }
@@ -247,18 +246,16 @@ export class EnhancedConditions {
 
         if (!speaker) return;
 
-        const removeConditionAnchor = html.find("a[name='remove-row']");
-        const undoRemoveAnchor = html.find("a[name='undo-remove']");
+        const removeConditionAnchors = [...html.querySelectorAll("a[name='remove-row']")];
+        const undoRemoveAnchors = [...html.querySelectorAll("a[name='undo-remove']")];
 
         if (!game.user.isGM) {
-            removeConditionAnchor.parent().hide();
-            undoRemoveAnchor.parent().hide();
+            removeConditionAnchors.forEach( (anchor) => anchor.parentElement.hidden = true);
+            undoRemoveAnchors.forEach( (anchor) => anchor.parentElement.hidden = true);
+            return;
         }
 
-        /**
-         * @todo #284 move to chatlog listener instead
-         */
-        removeConditionAnchor.on("click", event => {
+        removeConditionAnchors.forEach( (anchor) => anchor.addEventListener("click", (event) => {
             const conditionListItem = event.target.closest("li");
             const conditionId = conditionListItem.dataset.conditionId;
             const messageListItem = conditionListItem?.parentElement?.closest("li");
@@ -284,9 +281,9 @@ export class EnhancedConditions {
             if (!entity) return;
 
             EnhancedConditionsAPI.removeCondition(conditionId, entity, { warn: false });
-        });
+        }));
 
-        undoRemoveAnchor.on("click", event => {
+        undoRemoveAnchors.forEach( (anchor) => anchor.addEventListener("click", (event) => {
             const conditionListItem = event.target.closest("li");
             const conditionId = conditionListItem.dataset.conditionId;
             const messageListItem = conditionListItem?.parentElement?.closest("li");
@@ -312,7 +309,7 @@ export class EnhancedConditions {
             if (!entity) return;
 
             EnhancedConditionsAPI.addCondition(conditionId, entity);
-        });
+        }));
     }
 
     /**
@@ -621,7 +618,7 @@ export class EnhancedConditions {
 
         entities = entities instanceof Array ? entities : [entities];
 
-        const tokens = entities.flatMap(e => (e instanceof Token || e instanceof TokenDocument) ? e : e instanceof Actor ? e.getActiveTokens() : null);
+        const tokens = entities.flatMap(e => (e instanceof foundry.canvas.placeables.Token || e instanceof TokenDocument) ? e : e instanceof Actor ? e.getActiveTokens() : null);
 
         const updates = [];
 
