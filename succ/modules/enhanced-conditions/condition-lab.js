@@ -1029,7 +1029,7 @@ export class ConditionLab extends FormApplication {
         let macroSlot = 0;
         let { page } = ui.hotbar;
 
-        let folder = Macros.instance.folders.find(f => f.name == "SUCC");
+        let folder = foundry.documents.collections.Macros.instance.folders.find(f => f.name == "SUCC");
         if (!folder) {
             folder = await Folder.create( { name: "SUCC", type: "Macro" } );
         }
