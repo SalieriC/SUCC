@@ -701,7 +701,8 @@ export class ConditionLab extends FormApplication {
         delete conditionEffect.id;
 
         // Build a fake effect object for the ActiveEffectConfig sheet
-        const effect = new ActiveEffect(conditionEffect);
+        const tempActor = new Actor.implementation({ name: "Temp", type: "character" });
+        const effect = new ActiveEffect(conditionEffect, { parent: tempActor });
         effect.testUserPermission = (...args) => { return true};
 
         new EnhancedEffectConfig({ document: effect }).render(true);
