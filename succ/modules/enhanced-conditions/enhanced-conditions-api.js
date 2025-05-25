@@ -36,7 +36,7 @@ export class EnhancedConditionsAPI {
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
             else if (game.user.character) entities = game.user.character;
         }
-        
+
         if (!entities) {
             ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoToken"));
             console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoToken")}`);
@@ -44,7 +44,7 @@ export class EnhancedConditionsAPI {
         }
 
         let conditions = EnhancedConditions.lookupConditionById(conditionId);
-        
+
         if (!conditions) {
             ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition")} ${conditionId}`);
             console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition")}`, conditionId);
@@ -55,7 +55,7 @@ export class EnhancedConditionsAPI {
         const conditionIds = conditions.map(c => c.id);
 
         let effects = EnhancedConditionsAPI.getActiveEffect(conditions);
-        
+
         if (!effects) {
             ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoEffect")} ${conditions}`);
             console.log(`SWADE Ultimate Condition Changer - Enhanced Condition | ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoEffect")}`, conditions);
@@ -63,7 +63,7 @@ export class EnhancedConditionsAPI {
         }
 
         effects = effects instanceof Array ? EnhancedConditions._prepareActiveEffects(effects) : EnhancedConditions._prepareActiveEffects([effects]);
-        
+
         if (entities && !(entities instanceof Array)) {
             entities = [entities];
         }
@@ -72,7 +72,7 @@ export class EnhancedConditionsAPI {
 
         for (let entity of entities) {
             const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
-            
+
             if (!actor) continue;
 
             for (const effect of effects) {
@@ -84,7 +84,7 @@ export class EnhancedConditionsAPI {
                 if (duration != undefined) {
                     effect.duration.rounds = duration;
                 }
-                
+
                 if (effectOptions) {
                     foundry.utils.setProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.effectOptions}`, effectOptions);
                 }
@@ -93,7 +93,7 @@ export class EnhancedConditionsAPI {
             const hasDuplicates = EnhancedConditionsAPI.hasCondition(conditionIds, actor, {warn: false});
             const newEffects = [];
             const updateEffects = [];
-            
+
 
             // If there are duplicate Condition effects on the Actor take extra steps
             if (hasDuplicates) {
@@ -130,7 +130,7 @@ export class EnhancedConditionsAPI {
                             updateEffects.push({id: matchedCondition.id, ...effect});
                         }
                     }
-                    
+
                     // Scenario 2 cont'd: if the condition is not matched, it must be new, so add to the new effects
                     // Scenario 3: if duplicates are not allowed, and existing conditions are not replaced, just add the new conditions
                     if (!matchedConditionEffects.length) newEffects.push(effect);
@@ -150,7 +150,7 @@ export class EnhancedConditionsAPI {
                 const createdDocuments = await actor.createEmbeddedDocuments("ActiveEffect", createData);
                 resultEffects = resultEffects.concat(createdDocuments);
             }
-              
+
             if (updateData.length) {
                 const updatedDocuments = await actor.updateEmbeddedDocuments("ActiveEffect", updateData);
                 resultEffects = resultEffects.concat(updatedDocuments);
@@ -165,10 +165,10 @@ export class EnhancedConditionsAPI {
      * @param {String} conditionId  the id of the Condition to remove
      * @param {Actor | Token} entities  One or more Actors or Tokens
      * @param {Boolean} options.warn  whether or not to raise warnings on errors
-     * @example 
+     * @example
      * // Remove Condition named "Blinded" from an Actor named Bob
      * game.succ.removeCondition("Blinded", game.actors.getName("Bob"));
-     * @example 
+     * @example
      * // Remove Condition named "Charmed" from the currently controlled Token, but don't show any warnings if it fails.
      * game.succ.removeCondition("Charmed", {warn=false});
      */
@@ -178,7 +178,7 @@ export class EnhancedConditionsAPI {
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
             else if (game.user.character) entities = game.user.character;
             else entities = null;
-        }        
+        }
 
         if (!entities) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken"));
@@ -205,7 +205,7 @@ export class EnhancedConditionsAPI {
         }
 
         if (!(effects instanceof Array)) effects = [effects];
-        
+
         if (entities && !(entities instanceof Array)) entities = [entities];
 
         for (let entity of entities) {
@@ -228,7 +228,7 @@ export class EnhancedConditionsAPI {
      * Removes all conditions from the provided entities
      * @param {Actors | Tokens} entities  One or more Actors or Tokens to remove Conditions from
      * @param {Boolean} options.warn  output notifications
-     * @example 
+     * @example
      * // Remove all Conditions on an Actor named Bob
      * game.succ.removeAllConditions(game.actors.getName("Bob"));
      * @example
@@ -241,7 +241,7 @@ export class EnhancedConditionsAPI {
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
             else if (game.user.character) entities = game.user.character;
         }
-        
+
         if (!entities) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken"));
             console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken")}`);
@@ -264,7 +264,7 @@ export class EnhancedConditionsAPI {
             await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
         }
     }
-    
+
     /**
      * Apply the named condition to the provided entities (Actors or Tokens)
      * @param {*} conditionId the id of the Condition to find
@@ -311,7 +311,7 @@ export class EnhancedConditionsAPI {
     static getConditionFrom(conditionId, entity, {warn=false}={}) {
         if (!conditionId) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetCondition.Failed.NoCondition"));
-        }        
+        }
         if (!entity) {
             ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoToken"));
             console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoToken")}`);
@@ -319,7 +319,7 @@ export class EnhancedConditionsAPI {
         }
 
         const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
-        
+
         if (!actor) {
             return;
         }
@@ -362,7 +362,7 @@ export class EnhancedConditionsAPI {
             // Then check if the user has an assigned character
             else if (game.user.character) entities = game.user.character;
         }
-        
+
 
         if (!entities) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoToken"));
@@ -396,13 +396,13 @@ export class EnhancedConditionsAPI {
             if (!effectIds.length) continue;
 
             const entityConditions = {
-                entity: entity, 
+                entity: entity,
                 conditions: EnhancedConditions.lookupEntryMapping(effectIds)
             };
 
             results.push(entityConditions);
         }
-        
+
         if (!results.length) {
             if (warn) ui.notifications.notify(game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoResults"));
             console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.GetConditions.Failed.NoResults")}`);
@@ -433,7 +433,7 @@ export class EnhancedConditionsAPI {
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
             else if (game.user.character) entities = game.user.character;
         }
-        
+
         if (!entities) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetConditionEffects.Failed.NoEntity"));
             console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken")}`);
@@ -451,7 +451,7 @@ export class EnhancedConditionsAPI {
             const activeEffects = actor.effects.contents;
 
             if (!activeEffects.length) continue;
-            
+
             const conditionEffects = activeEffects.filter(ae => ae.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId));
 
             if (!conditionEffects.length) continue;
@@ -468,7 +468,7 @@ export class EnhancedConditionsAPI {
      * Checks if the provided Entity (Actor or Token) has the given condition
      * @param {String | Array} conditionId  the id/s of the condition or conditions to check for
      * @param {Actor | Token | Array} entities  the entity or entities to check (Actor/s or Token/s)
-     * @param {Object} [options]  options object  
+     * @param {Object} [options]  options object
      * @param {Boolean} [options.warn]  whether or not to output notifications
      * @returns {Boolean} hasCondition  Returns true if one or more of the provided entities has one or more of the provided conditions
      * @example
@@ -533,7 +533,7 @@ export class EnhancedConditionsAPI {
      * @returns {Actor} Returns the converted Actor or null if none was found
      */
     static getActorFromEntity(entity) {
-        return entity instanceof Actor ? entity : entity instanceof Token || entity instanceof TokenDocument ? entity.actor : null;
+        return entity instanceof Actor ? entity : entity instanceof foundry.canvas.placeables.Token || entity instanceof TokenDocument ? entity.actor : null;
     }
 
     /**

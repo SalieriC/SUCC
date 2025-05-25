@@ -6,7 +6,7 @@ export class TokenUtility {
    * Patch core methods
    */
   static patchCore() {
-    Token.prototype._refreshEffects = TokenUtility._refreshEffectsOverride;
+    foundry.canvas.placeables.Token.prototype._refreshEffects = TokenUtility._refreshEffectsOverride;
   }
 
   /**
@@ -71,7 +71,7 @@ export class TokenUtility {
 
   static drawRows(params, tokenWidth) {
     const columns = Math.floor(tokenWidth / params.iconWidth);
-    
+
     let iconCount = 0;
     for (const effect of params.token.effects.children) {
       if (effect === params.bg) continue;
@@ -118,7 +118,7 @@ export class TokenUtility {
     const numSlots = Math.floor(circum / params.iconWidth);
     const angleIncrements = ((Math.PI * 2) / numSlots) * dir;
     const startingAngle = (Math.PI * 1.5) + angleIncrements;
-    
+
     return {
       radius: radius,
       numSlots: numSlots,

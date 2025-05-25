@@ -141,6 +141,7 @@ export class EnhancedConditions {
             game.succ.conditions = conditionMap;
         }
 
+        ui.combat.render(true);
         Hooks.callAll('succReady', game.succ);
     }
 
@@ -232,12 +233,11 @@ export class EnhancedConditions {
 
     /**
      * Render Chat Message handler
-     * @param {*} app
+     * @param {*} message
      * @param {*} html
      * @param {*} data
-     * @todo move to chatlog render?
      */
-    static async _onRenderChatMessage(app, html, data) {
+    static async _onRenderChatMessageHTML(message, html, data) {
         if (data.message.content && !data.message.content.match("enhanced-conditions")) {
             return;
         }
@@ -246,18 +246,16 @@ export class EnhancedConditions {
 
         if (!speaker) return;
 
-        const removeConditionAnchor = html.find("a[name='remove-row']");
-        const undoRemoveAnchor = html.find("a[name='undo-remove']");
+        const removeConditionAnchors = [...html.querySelectorAll("a[name='remove-row']")];
+        const undoRemoveAnchors = [...html.querySelectorAll("a[name='undo-remove']")];
 
         if (!game.user.isGM) {
-            removeConditionAnchor.parent().hide();
-            undoRemoveAnchor.parent().hide();
+            removeConditionAnchors.forEach( (anchor) => anchor.parentElement.hidden = true);
+            undoRemoveAnchors.forEach( (anchor) => anchor.parentElement.hidden = true);
+            return;
         }
 
-        /**
-         * @todo #284 move to chatlog listener instead
-         */
-        removeConditionAnchor.on("click", event => {
+        removeConditionAnchors.forEach( (anchor) => anchor.addEventListener("click", (event) => {
             const conditionListItem = event.target.closest("li");
             const conditionId = conditionListItem.dataset.conditionId;
             const messageListItem = conditionListItem?.parentElement?.closest("li");
@@ -283,9 +281,9 @@ export class EnhancedConditions {
             if (!entity) return;
 
             EnhancedConditionsAPI.removeCondition(conditionId, entity, { warn: false });
-        });
+        }));
 
-        undoRemoveAnchor.on("click", event => {
+        undoRemoveAnchors.forEach( (anchor) => anchor.addEventListener("click", (event) => {
             const conditionListItem = event.target.closest("li");
             const conditionId = conditionListItem.dataset.conditionId;
             const messageListItem = conditionListItem?.parentElement?.closest("li");
@@ -311,7 +309,7 @@ export class EnhancedConditions {
             if (!entity) return;
 
             EnhancedConditionsAPI.addCondition(conditionId, entity);
-        });
+        }));
     }
 
     /**
@@ -331,9 +329,9 @@ export class EnhancedConditions {
      * @param {*} data
      */
     static async _onRenderCombatTracker(app, html, data) {
-        const effectIcons = html.find("img[class='token-effect']");
+        const effectIcons = html.querySelectorAll("img[class='token-effect']");
 
-        effectIcons.each((index, element) => {
+        effectIcons.forEach((element, index) => {
             const url = new URL(element.src);
             const path = url?.pathname?.substring(1);
             const conditions = EnhancedConditions.getConditionsByImg(path);
@@ -578,7 +576,7 @@ export class EnhancedConditions {
         if (!type.active && enhancedConditionsDiv && sameSpeaker && recentTimestamp && hasPermissions) {
             let newContent = "";
             for (const condition of entries) {
-                const newRow = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatConditionsPartial, { condition, type, timestamp });
+                const newRow = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatConditionsPartial, { condition, type, timestamp });
                 newContent += newRow;
             }
             const existingContent = lastMessage.content;
@@ -589,7 +587,7 @@ export class EnhancedConditions {
             EnhancedConditions.updateConditionTimestamps();
             ui.chat.scrollBottom();
         } else {
-            const content = await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatOutput, templateData);
+            const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatOutput, templateData);
 
             await ChatMessage.create({
                 speaker,
@@ -620,7 +618,7 @@ export class EnhancedConditions {
 
         entities = entities instanceof Array ? entities : [entities];
 
-        const tokens = entities.flatMap(e => (e instanceof Token || e instanceof TokenDocument) ? e : e instanceof Actor ? e.getActiveTokens() : null);
+        const tokens = entities.flatMap(e => (e instanceof foundry.canvas.placeables.Token || e instanceof TokenDocument) ? e : e instanceof Actor ? e.getActiveTokens() : null);
 
         const updates = [];
 
@@ -733,28 +731,6 @@ export class EnhancedConditions {
     /* -------------------------------------------- */
     /*                    Helpers                   */
     /* -------------------------------------------- */
-
-    /**
-     * Creates a button for the Condition Lab
-     * @param {Object} html the html element where the button will be created
-     */
-    static _createLabButton(html) {
-        if (!game.user.isGM) return;
-
-        const succDiv = html.find("#succ");
-
-        const labButton = $(
-            `<button id="condition-lab" data-action="condition-lab">
-                    <i class="fas fa-flask"></i> ${BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title}
-                </button>`
-        );
-
-        succDiv.append(labButton);
-
-        labButton.on("click", event => {
-            return game.succ.conditionLab = new ConditionLab().render(true);
-        });
-    }
 
     /**
      * Determines whether to display the combat utility belt div in the settings sidebar

@@ -6,7 +6,7 @@
             <label for="macro-select-apply">{{localize "succ.ENHANCED_CONDITIONS.MacroConfig.ApplyHeading"}}</label>
             <select name="macro-select-apply" class="macro-select">
                 <option value="">{{localize "succ.ENHANCED_CONDITIONS.MacroConfig.SelectNone"}}</option>
-                {{selectOptions macroChoices selected=applyMacroId nameAttr="id" labelAttr="name" localize=true}}
+                {{selectOptions macroChoices selected=applyMacroId valueAttr="id" labelAttr="name" localize=true}}
             </select>
         </div>
     </div>
@@ -16,11 +16,11 @@
             <label for="macro-select-remove">{{localize "succ.ENHANCED_CONDITIONS.MacroConfig.RemoveHeading"}}</label>
             <select name="macro-select-remove" class="macro-select">
                 <option value="">{{localize "succ.ENHANCED_CONDITIONS.MacroConfig.SelectNone"}}</option>
-                {{selectOptions macroChoices selected=removeMacroId nameAttr="id" labelAttr="name" localize=true}}
+                {{selectOptions macroChoices selected=removeMacroId valueAttr="id" labelAttr="name" localize=true}}
             </select>
         </div>
     </div>
-    <br/>    
+    <br/>
     <div class="footer">
         <button name="save" class="save" type="submit">
             <i class="fas fa-save"></i>&nbsp;{{localize "succ.WORDS.Save"}}
