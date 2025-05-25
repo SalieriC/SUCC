@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
+### Changed
+- Updated to renderChatMessageHTML
+- Improved the AE editor hack
+### Fixed
+- Fixed the condition lab button (v13)
+- Deprecation errors (v13)
+- Fixed the effect config & cleaned up a few deprecation warnings
 
 ## [5.5.0] - 2025-05-21 aka "Farewell v12"
 **This is likely the last version for FVTT v12. Whether the v13 release will be backwards compatible is currently unknown.**
