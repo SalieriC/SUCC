@@ -3,10 +3,10 @@
   "title": "SWADE Ultimate Condition Changer",
   "description": "<p>A module to change status icons in the SWADE system on Foundry VTT.</p><p><a href=\"https://ko-fi.com/salieric\">Please consider donating.</a></p>",
   "compatibility": {
-    "minimum": "12",
-    "verified": "12.331"
+    "minimum": "13",
+    "verified": "13.344"
   },
-  "version": "5.5.0",
+  "version": "6.0.0",
   "relationships": {
     "systems": [
       {
@@ -14,8 +14,8 @@
         "type": "system",
         "manifest": "https://gitlab.com/api/v4/projects/16269883/packages/generic/swade/latest/system.json",
         "compatibility": {
-          "minimum": "4.4.0",
-          "verified": "4.4.0"
+          "minimum": "5.0.0",
+          "verified": "5.0.0"
         }
       }
     ]
