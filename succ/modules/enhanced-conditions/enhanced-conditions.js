@@ -238,7 +238,7 @@ export class EnhancedConditions {
      * @param {*} data
      */
     static async _onRenderChatMessageHTML(message, html, data) {
-        if (data.message.content && !data.message.content.match("enhanced-conditions")) {
+        if (!data || (data.message.content && !data.message.content.match("enhanced-conditions"))) {
             return;
         }
 
