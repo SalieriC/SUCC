@@ -6,7 +6,7 @@
     "minimum": "13",
     "verified": "13.344"
   },
-  "version": "6.0.0",
+  "version": "6.0.1",
   "relationships": {
     "systems": [
       {
@@ -40,9 +40,6 @@
   "styles": [
     "styles/succ.css"
   ],
-  "url": "https://github.com/SalieriC/SUCC",
-  "manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/main/succ/module.json",
-  "download": "https://github.com/SalieriC/SUCC/blob/main/succ.zip?raw=true",
   "authors": [
     {
       "name": "SalieriC",
@@ -60,5 +57,8 @@
       "discord": "thechemist30",
       "flags": {}
     }
-  ]
+  ],
+  "url": "https://github.com/SalieriC/SUCC",
+  "manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/main/succ/module.json",
+  "download": "https://github.com/SalieriC/SUCC/blob/main/succ.zip?raw=true"
 }
