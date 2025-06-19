@@ -9,7 +9,42 @@ import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
 /**
  * Form application for managing mapping of Conditions to Icons and JournalEntries
  */
-export class ConditionLab extends FormApplication {
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
+    static DEFAULT_OPTIONS = {
+      id: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.id,
+      tag: "form",
+      form: {
+        handler: ConditionLab.formHandler,
+        submitOnChange: false,
+        closeOnSubmit: false
+      },
+      classes: ["sheet"],
+      window: {
+        title: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title,
+        minimizable: false,
+        resizable: true,
+      },
+      position: { width: 1025, height: 700 },
+      dragDrop: [{dropSelector: "input[name^='reference-item']"}],
+      actions: {
+        restoreDefaults: function (event, button) { this.onRestoreDefaults(event); }
+      },
+    };
+
+    static PARTS = {
+        header: {
+            template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabHeader
+        },
+        form: {
+            template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabForm,
+            scrollable: ["ol.condition-lab"]
+        },
+        footer: {
+            template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabFooter,
+        }
+    };
+
     constructor(object, options={}) {
         super(object, options);
         this.data = (game.succ.conditionLab ? game.succ.conditionLab.data : object) ?? null;
@@ -22,25 +57,18 @@ export class ConditionLab extends FormApplication {
         this.displayedMap = null;
         this.filterValue = "";
         this.sortDirection = "";
+        this.dragDrop = this.createDragDropHandlers();
     }
 
-    /**
-     * Get options for the form
-     */
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            id: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.id,
-            title: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title,
-            template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLab,
-            classes: ["sheet"],
-            width: 1025,
-            height: 700,
-            resizable: true,
-            closeOnSubmit: false,
-            scrollY: ["ol.condition-lab"],
-            dragDrop: [{dropSelector: "input[name^='reference-item']"}]
+    createDragDropHandlers() {
+        return this.options.dragDrop.map((d) => {
+            d.callbacks = {
+                drop: this._onDrop.bind(this),
+            };
+            return new foundry.applications.ux.DragDrop.implementation(d);
         });
     }
+
 
     /**
      * Get updated map by combining existing in-memory map with current formdata
@@ -55,7 +83,7 @@ export class ConditionLab extends FormApplication {
     /**
      * Prepare data for form rendering
      */
-    async prepareData() {
+  async _prepareContext(options) {
         const sortDirection = this.sortDirection;
         const sortTitle = game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortAnchorTitle${sortDirection ? `_${sortDirection}` : ""}`);
         const filterTitle = game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.FilterInputTitle`);
@@ -130,6 +158,14 @@ export class ConditionLab extends FormApplication {
      */
     async getData() {
         return await this.prepareData();
+    }
+
+    _getSubmitData(updateData={}) {
+      if ( !this.form ) throw new Error("The FormApplication subclass has no registered form element");
+      const fd = new foundry.applications.ux.FormDataExtended(this.form, {editors: this.editors});
+      let data = fd.object;
+      if ( updateData ) data = foundry.utils.flattenObject(foundry.utils.mergeObject(data, updateData));
+      return data;
     }
 
     /**
@@ -332,7 +368,7 @@ export class ConditionLab extends FormApplication {
      * @param {Object} event
      * @param {Object} formData
      */
-    async _updateObject(event, formData) {
+  static async formHandler(event, form, formData) {
         const showDialogSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog);
 
         if (this.sortDirection && showDialogSetting) {
@@ -344,14 +380,14 @@ export class ConditionLab extends FormApplication {
                     if (checkbox.checked) {
                         Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog);
                     }
-                    this._processFormUpdate(formData);
+                    this._processFormUpdate(formData.object);
                 },
                 no: () => {
                     return;
                 }
             });
         } else {
-            this._processFormUpdate(formData);
+            this._processFormUpdate(formData.object);
         }
     }
 
@@ -1001,19 +1037,6 @@ export class ConditionLab extends FormApplication {
             }
         }
         this.render(true);
-    }
-
-    async _onDrop(event) {
-        event.preventDefault();
-        const eventData = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
-        const link = await foundry.applications.ux.TextEditor.implementation.getContentLink(eventData);
-        const targetInput = event.currentTarget;
-        if (link) {
-            targetInput.value = link;
-            return targetInput.dispatchEvent(new Event("change"));
-        } else {
-            return ui.notifications.error(game.i18n.localize(`${NAME}.ENHANCED_CONDITIONS.ConditionLab.BadReference`));
-        }
     }
 
     /**

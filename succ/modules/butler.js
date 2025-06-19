@@ -52,7 +52,9 @@ export const DEFAULT_CONFIG = {
             other: "Other/Imported"
         },
         templates: {
-            conditionLab: `${PATH}/templates/condition-lab.hbs`,
+            conditionLabForm: `${PATH}/templates/condition-lab/form.hbs`,
+            conditionLabHeader: `${PATH}/templates/condition-lab/header.hbs`,
+            conditionLabFooter: `${PATH}/templates/condition-lab/footer.hbs`,
             conditionLabRestoreDefaultsDialog: `${PATH}/templates/condition-lab-restore-defaults-dialog.hbs`,
             defaultConditionsMenu: `${PATH}/templates/default-conditions-menu.hbs`,
             tokenDisplaySettingsMenu: `${PATH}/templates/token-display-settings.hbs`,

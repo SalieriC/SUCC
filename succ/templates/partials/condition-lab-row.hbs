@@ -42,7 +42,7 @@
     </div>
     <!--column 3-->
     <div class="flexcol content2">
-        <div class="flexrow">
+        <div class="flexrow buttonsrow">
             <div class="flexrow related-buttons">
             {{!-- <div class="active-effect"> --}}
             <button type="button"
@@ -61,7 +61,6 @@
                     {{#unless (and (eq condition.isNew false) isCustom) }}disabled{{/unless}}>
                     <i class="fas fa-hand-sparkles"></i> {{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Button"}}
                 </button>
-                <div class="flex-break"></div>
             <button type="button"
                 name="save-macro"
                 class="save-macro"
