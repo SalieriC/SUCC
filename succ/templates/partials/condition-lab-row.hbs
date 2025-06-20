@@ -84,8 +84,6 @@
         </div>
         <div class="move-down" data-action="changeOrder">
             {{#unless sortDirection}}
-                {{log key}}
-                {{log lastConditionIndex}}
                 {{#unless (eq key lastConditionIndex)}}<a class="move-down"><i class="fas fa-chevron-down"></i></a>{{/unless}}
             {{/unless}}
         </div>
