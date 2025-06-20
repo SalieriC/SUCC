@@ -146,6 +146,8 @@ a.add-temporary {
 
 .condition-lab .flexrow {
     align-items: unset;
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
 
 .condition-lab .flexcol {
@@ -170,15 +172,16 @@ a.add-temporary {
 }
 
 .condition-lab-form {
-    background: rgba(0, 0, 0, 0.5);
     padding-right: unset;
     margin-right: unset;
 }
 
 .condition-lab-form {
+    background: rgba(0, 0, 0, 0.5);
     border: 2px inset;
 
     .theme-dark & {
+        background: rgba(155, 155, 155, 0.5);
         border: 2px inset var(--color-light-5);
     }
 }
@@ -270,6 +273,10 @@ a.add-temporary {
     width: 60px;
     height: 60px;
     background-color: rgba(0, 0, 0, 0.5);
+
+    .theme-dark & {
+        background-color: rgba(155, 155, 155, 0.5);
+    }
 }
 
 .condition-lab a.trash {
@@ -309,6 +316,7 @@ a.add-temporary {
     flex: 0 0 60px;
     width: 60px;
     height: 60px;
+    align-self: center;
 }
 
 .condition-lab .trash button {
@@ -346,14 +354,6 @@ a.add-temporary {
     /* position: absolute; */
 }
 
-.condition-lab .row-controls a.move-up {
-    /* top: 20%; */
-}
-
-.condition-lab .row-controls a.move-down {
-    /* bottom: 20%; */
-}
-
 .condition-lab .options {
     /* padding: 0 0 0 26px; */
 }
@@ -382,12 +382,11 @@ a.add-temporary {
 
 #succ-condition-lab .inset-label {
     position: absolute;
-    /* background: rgba(0,0,0,0.5); */
-    /* color: white; */
     background: rgba(0, 0, 0, 0.05);
     height: 100%;
-    padding: 4px 2px;
+    padding-left: 4px;
     font-size: small;
+    align-content: center;
 }
 
 #succ-condition-lab .condition-text-input {

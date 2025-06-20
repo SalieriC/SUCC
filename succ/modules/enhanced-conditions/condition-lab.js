@@ -12,24 +12,53 @@ import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
     static DEFAULT_OPTIONS = {
-      id: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.id,
-      tag: "form",
-      form: {
-        handler: ConditionLab.formHandler,
-        submitOnChange: false,
-        closeOnSubmit: false
-      },
-      classes: ["sheet", "standard-form"],
-      window: {
-        title: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title,
-        minimizable: false,
-        resizable: true,
-      },
-      position: { width: 1025, height: 700 },
-      dragDrop: [{dropSelector: "input[name^='reference-item']"}],
-      actions: {
-        restoreDefaults: function (event, button) { this.onRestoreDefaults(event); }
-      },
+        id: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.id,
+        tag: "form",
+        form: {
+            handler: ConditionLab.formHandler,
+            submitOnChange: false,
+            closeOnSubmit: false
+        },
+        classes: ["sheet", "standard-form"],
+        window: {
+            title: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title,
+            minimizable: false,
+            resizable: true,
+            controls: [
+                {
+                    icon: "fas fa-file-import",
+                    label: "WORDS.Import",
+                    action: "import",
+                },
+                {
+                    icon: "fas fa-file-export",
+                    label: "WORDS.Export",
+                    action: "export",
+                },
+            ]
+        },
+        position: { width: 1025, height: 700 },
+        dragDrop: [{ dropSelector: "input[name^='reference-item']" }],
+        actions: {
+            //Form actions
+            resetForm: function () { this._onResetForm(); },
+            refreshRefs: function () { this._onRefreshRefs(); },
+            restoreDefaults: function (event) { /*event.preventDefault();*/ this._onRestoreDefaults(); },
+            sortList: function () { this._onClickSortButton(); },
+            //Header actions
+            import: function () { this._importFromJSONDialog(); },
+            export: function () { this._exportToJSON(); },
+            //Row actions
+            addRow: function (event) { /*event.preventDefault();*/ this._onAddRow(); },
+            removeRow: function (event, target) { /*event.preventDefault();*/ this._onRemoveRow(target); },
+            filePicker: function (event, target) { this._onOpenFilePicker(target); },
+            optionsConfig: function (event, target) { this._onClickOptionConfig(target); },
+            activeEffectConfig: function (event, target) { this._onClickActiveEffectConfig(target); },
+            saveMacro: function (event, target) { this._onClickSaveMacro(target); },
+            macroConfig: function (event, target) { this._onClickMacroConfig(target); },
+            resetCondition: function (event, target) { this._onClickResetCondition(target); },
+            changeOrder: function (event, target) { this._onChangeSortOrder(target); },
+        },
     };
 
     static PARTS = {
@@ -38,14 +67,14 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         },
         form: {
             template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabForm,
-            scrollable: ["ol.condition-lab"]
+            scrollable: [""]
         },
         footer: {
             template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabFooter,
         }
     };
 
-    constructor(object, options={}) {
+    constructor(object, options = {}) {
         super(object, options);
         this.data = (game.succ.conditionLab ? game.succ.conditionLab.data : object) ?? null;
         this.system = game.system.id;
@@ -69,7 +98,6 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         });
     }
 
-
     /**
      * Get updated map by combining existing in-memory map with current formdata
      */
@@ -83,7 +111,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
     /**
      * Prepare data for form rendering
      */
-  async _prepareContext(options) {
+    async _prepareContext(options) {
         const sortDirection = this.sortDirection;
         const sortTitle = game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortAnchorTitle${sortDirection ? `_${sortDirection}` : ""}`);
         const filterTitle = game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.FilterInputTitle`);
@@ -113,7 +141,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
             entry.options.useAsStatusEffect = entry?.options?.useAsStatusEffect ?? true;
 
             // @TODO #711
-            entry.enrichedReference = entry.referenceId ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(entry.referenceId, {async: true, documents: true}) : "";
+            entry.enrichedReference = entry.referenceId ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(entry.referenceId, { async: true, documents: true }) : "";
 
             // Default all entries to show
             entry.hidden = entry.hidden ?? false;
@@ -143,29 +171,28 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
             mapTypeChoices,
             mapType,
             conditionMap,
+            lastConditionIndex: conditionMap.length - 1,
             displayedMap,
             isCustom,
             disableChatOutput,
             unsavedMap
-        }
+        };
 
         this.data = data;
         return data;
     }
 
     /**
-     * Gets data for the template render
+     * Get an object of update data used to update the form's target object
+     * @param {object} updateData     Additional data that should be merged with the form data
+     * @returns {object}              The prepared update data
      */
-    async getData() {
-        return await this.prepareData();
-    }
-
-    _getSubmitData(updateData={}) {
-      if ( !this.form ) throw new Error("The FormApplication subclass has no registered form element");
-      const fd = new foundry.applications.ux.FormDataExtended(this.form, {editors: this.editors});
-      let data = fd.object;
-      if ( updateData ) data = foundry.utils.flattenObject(foundry.utils.mergeObject(data, updateData));
-      return data;
+    _getSubmitData(updateData = {}) {
+        if (!this.form) throw new Error("The FormApplication subclass has no registered form element");
+        const fd = new foundry.applications.ux.FormDataExtended(this.form, { editors: this.editors });
+        let data = fd.object;
+        if (updateData) data = foundry.utils.flattenObject(foundry.utils.mergeObject(data, updateData));
+        return data;
     }
 
     /**
@@ -259,8 +286,8 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
     /**
      * Restore defaults for a mapping
      */
-    _restoreDefaults({clearCache=false, resetNames=false, resetRefs=false, resetIcons=false,
-                            resetAEs=false, resetMacros=false, resetOptions=false, removeConditionsAddedByLab=false}={}) {
+    _restoreDefaults({ clearCache = false, resetNames = false, resetRefs = false, resetIcons = false,
+        resetAEs = false, resetMacros = false, resetOptions = false, removeConditionsAddedByLab = false } = {}) {
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
 
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
@@ -323,7 +350,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         this.render(true);
     }
 
-    _restoreConditionDefaults(conditionId, options={}) {
+    _restoreConditionDefaults(conditionId, options = {}) {
         const otherMapType = Sidekick.getKeyByValue(BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes, BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other);
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
         const defaultMap = (this.mapType != otherMapType && EnhancedConditions.getMapForDefaultConditions(defaultConditions)) ? EnhancedConditions.getMapForDefaultConditions(defaultConditions) : [];
@@ -368,7 +395,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * @param {Object} event
      * @param {Object} formData
      */
-  static async formHandler(event, form, formData) {
+    static async formHandler(event, form, formData) {
         const showDialogSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog);
 
         if (this.sortDirection && showDialogSetting) {
@@ -413,7 +440,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * @param {*} newMap
      * @param {*} mapType
      */
-    async _saveMapping(newMap, mapType=this.mapType) {
+    async _saveMapping(newMap, mapType = this.mapType) {
         this.mapType = this.initialMapType = mapType;
         const preparedMap = EnhancedConditions._prepareMap(newMap);
 
@@ -447,7 +474,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         const data = {
             system: game.system.id,
             map
-        }
+        };
 
         // Trigger file save procedure
         const filename = `succ-${game.system.id}-condition-config.json`;
@@ -487,7 +514,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
     async _processImport(html) {
         const form = html.find("form")[0];
 
-        if ( !form.data.files.length ) {
+        if (!form.data.files.length) {
             return ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.Lab.Import.NoFile"));
         }
 
@@ -504,46 +531,24 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         this.render();
     }
 
-    /**
-     * Override the header buttons method
-     */
-    _getHeaderButtons() {
-        let buttons = super._getHeaderButtons();
-
-        buttons.unshift(
-            {
-                label: game.i18n.localize("WORDS.Import"),
-                class: "import",
-                icon: "fas fa-file-import",
-                onclick: async ev => {
-                    this._importFromJSONDialog();
-                }
-            },
-            {
-                label: game.i18n.localize("WORDS.Export"),
-                class: "export",
-                icon: "fas fa-file-export",
-                onclick: async ev => {
-                    this._exportToJSON();
-                }
-            }
-        );
-
-        return buttons
-    }
 
     /* -------------------------------------------- */
     /*                 Hook Handlers                */
     /* -------------------------------------------- */
 
-    /**
-     * Condition Lab Render handler
-     * @param {*} app
-     * @param {*} html
-     * @param {*} data
-     */
-     static _onRender(app, html, data) {
-        ui.succ.conditionLab = app;
+    _onFirstRender(context, options) {
+        ui.succ.conditionLab = this;
+    }
+
+    _onRender(context, options) {
+        this.dragDrop.forEach((d) => d.bind(this.element));
+        this.element.querySelector("select[class='map-type']").addEventListener("change", (event) => this._onChangeMapType(event));
+        this.element.querySelector("input[name='filter-list']").addEventListener("input", (event) => this._onChangeFilter(event));
+        Sidekick.addEventListenerAll(this.element, "input", "change", event => this._onChangeInputs(event));
+    }
+
+    _onClose(context, options) {
+        ui.succ.conditionLab = undefined;
     }
 
     /**
@@ -556,54 +561,12 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         const contentDiv = html[0].querySelector("div.dialog-content");
         const checkbox = `<div class="form-group"><label class="dont-show-again-checkbox">${game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.CheckboxText`)}<input type="checkbox" name="dont-show-again"></label></div>`;
         contentDiv.insertAdjacentHTML("beforeend", checkbox);
-        await app.setPosition({height: app.position.height + 25});
+        await app.setPosition({ height: app.position.height + 25 });
     }
 
     /* -------------------------------------------- */
     /*                Event Handlers                */
     /* -------------------------------------------- */
-
-    /**
-     * Activate app listeners
-     * @param {*} html
-     */
-    activateListeners(html) {
-        const inputs = html.find("input");
-        const mapTypeSelector = html.find("select[class='map-type']");
-        const activeEffectButton = html.find("button.active-effect-config");
-        const addRowAnchor = html.find("a[name='add-row']");
-        const removeRowAnchor = html.find("a[class='remove-row']");
-        const changeOrderAnchor = html.find(".row-controls a.move-up, .row-controls a.move-down");
-        const restoreDefaultsButton = html.find("button[class='restore-defaults']");
-        const resetFormButton = html.find("button[name='reset']");
-        const saveCloseButton = html.find("button[name='save-close']");
-        const refreshRefsButton = html.find("button[name='refresh-refs']");
-        const filterInput = html.find("input[name='filter-list']");
-        const sortButton = html.find("a.sort-list");
-        const saveMacroButton = html.find("button.save-macro");
-        const resetConditionButton = html.find("button.reset-condition-button");
-        const macroConfigButton = html.find("button.macro-config-button");
-        const optionConfigButton = html.find("button.option-config");
-
-        inputs.on("change", event => this._onChangeInputs(event));
-        mapTypeSelector.on("change", event => this._onChangeMapType(event));
-        activeEffectButton.on("click", event => this._onClickActiveEffectConfig(event));
-        addRowAnchor.on("click", async event => this._onAddRow(event));
-        removeRowAnchor.on("click", async event => this._onRemoveRow(event));
-        changeOrderAnchor.on("click", event => this._onChangeSortOrder(event));
-        restoreDefaultsButton.on("click", async event => this._onRestoreDefaults(event));
-        resetFormButton.on("click", event => this._onResetForm(event));
-        saveCloseButton.on("click", event => this._onSaveClose(event));
-        refreshRefsButton.on("click", event => this._onRefreshRefs(event));
-        filterInput.on("input", (event) => this._onChangeFilter(event));
-        sortButton.on("click", (event) => this._onClickSortButton(event));
-        resetConditionButton.on("click", (event) => this._onClickResetCondition(event));
-        saveMacroButton.on("click", (event) => this._onClickSaveMacro(event));
-        macroConfigButton.on("click", (event) => this._onClickMacroConfig(event));
-        optionConfigButton.on("click", (event) => this._onClickOptionConfig(event));
-
-        super.activateListeners(html);
-    }
 
     /**
      * Input change handler
@@ -621,10 +584,6 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
 
         if (name.startsWith("icon-path")) {
             this._onChangeIconPath(event);
-        } else if (name.startsWith("reference-id")) {
-            this._onChangeReferenceId(event);
-        } else {
-            //this.render();
         }
 
         const hasChanged = this._hasMapChanged();
@@ -643,7 +602,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
 
         this.displayedRowIds = this.displayedMap.filter(r => !r.hidden).map(r => r.id);
 
-        const conditionRowEls = this._element[0].querySelectorAll("li.row");
+        const conditionRowEls = this.element.querySelectorAll("li.row");
         for (const el of conditionRowEls) {
             const conditionId = el.dataset.conditionId;
             if (this.displayedRowIds.includes(conditionId)) {
@@ -661,7 +620,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * @returns filteredMap
      */
     _filterMapByName(map, filter) {
-        return map.map((c) => ({...c, hidden: !c.name.toLowerCase().includes(filter.toLowerCase())}));
+        return map.map((c) => ({ ...c, hidden: !c.name.toLowerCase().includes(filter.toLowerCase()) }));
     }
 
     /**
@@ -669,16 +628,15 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * @param {*} event
      */
     async _onChangeMapType(event) {
-        event.preventDefault();
-        const selection = $(event.target).find("option:selected");
-        const newType = this.mapType = selection.val();
+        const selection = event.target.options[event.target.selectedIndex];
+        const newType = this.mapType = selection.value;
 
         switch (newType) {
             case "default": {
                 const defaultMap = EnhancedConditions.getDefaultMap();
                 this.map = defaultMap?.length ? EnhancedConditions._prepareMap(defaultMap) : [];
+                break;
             }
-            break;
 
             case "custom":
                 //When switching to custom, we just take whatever was already in the map and modify it from there
@@ -701,21 +659,19 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * @param {*} event
      */
     _onChangeIconPath(event) {
-        event.preventDefault();
-
         const row = event.target.name.match(/\d+$/)[0];
 
         //target the icon
-        const icon = $(this.form).find("img[name='icon-" + row);
-        icon.attr("src", event.target.value);
+        const icon = this.form.querySelector("img[name='icon-" + row);
+        icon.setAttribute("src", event.target.value);
     }
 
     /**
      * Handle click Active Effect Config button
      * @param {*} event
      */
-    async _onClickActiveEffectConfig(event) {
-        const li = event.currentTarget.closest("li");
+    async _onClickActiveEffectConfig(target) {
+        const li = target.closest("li");
         const conditionId = li ? li.dataset.conditionId : null;
 
         if (!conditionId) return;
@@ -739,39 +695,16 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         // Build a fake effect object for the ActiveEffectConfig sheet
         const tempActor = new Actor.implementation({ name: "Temp", type: "character" });
         const effect = new ActiveEffect(conditionEffect, { parent: tempActor });
-        effect.testUserPermission = (...args) => { return true};
+        effect.testUserPermission = (...args) => { return true; };
 
         new EnhancedEffectConfig({ document: effect }).render(true);
-    }
-
-    /**
-     * Reference Link change handler
-     * @param {*} event
-     */
-    async _onChangeReferenceId(event) {
-        event.preventDefault();
-
-        const input = event.currentTarget ?? event.target;
-
-        // Update the enriched link
-        const $linkDiv = $(input.parentElement.nextElementSibling);
-        const $link = $linkDiv.first();
-        const newLink = await foundry.applications.ux.TextEditor.implementation.enrichHTML(input.value, {async: true, documents: true});
-
-        if (!$link.length) {
-            $linkDiv.append(newLink);
-        } else {
-            $linkDiv.html(newLink);
-        }
     }
 
     /**
      * Add Row event handler
      * @param {*} event
      */
-    _onAddRow(event) {
-        event.preventDefault();
-
+    _onAddRow() {
         const existingNewConditions = this.map.filter(m => m.name.match(/^New Condition \d+$/));
         const newConditionIndex = existingNewConditions.length ? Math.max(...existingNewConditions.map(m => 1 * m.name.match(/\d+$/g)[0])) + 1 : 1;
         const newConditionName = `New Condition ${newConditionIndex}`;
@@ -803,12 +736,10 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Handler for remove row event
      * @param {*} event
      */
-    _onRemoveRow(event) {
-        event.preventDefault();
-
+    _onRemoveRow(target) {
         this.map = this.updatedMap;
 
-        const row = event.currentTarget.name.match(/\d+$/)[0];
+        const row = target.name.match(/\d+$/)[0];
 
         const dialog = new Dialog({
             title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle"),
@@ -827,10 +758,10 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
                         this.render();
                     }
                 },
-                no :{
+                no: {
                     icon: `<i class="fa fa-times"></i>`,
                     label: game.i18n.localize("WORDS._No"),
-                    callback: event => {}
+                    callback: event => { }
                 }
             },
             default: "no"
@@ -843,14 +774,12 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Handle a change sort order click
      * @param {*} event
      */
-    _onChangeSortOrder(event) {
-        event.preventDefault();
-
-        const anchor = event.currentTarget;
+    _onChangeSortOrder(target) {
+        const anchor = target;
         const liRow = anchor?.closest("li");
         const rowNumber = parseInt(liRow?.dataset.mappingRow);
         const type = anchor?.className;
-        const newMap = deepClone(this.map);
+        const newMap = foundry.utils.deepClone(this.map);
         const mappingRow = newMap?.splice(rowNumber, 1) ?? [];
         let newIndex = -1;
 
@@ -878,7 +807,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Sort button handler
      * @param {*} event
      */
-    _onClickSortButton(event) {
+    _onClickSortButton() {
         const sortDirection = this.sortDirection;
         //const newSortDirection = sortDirection === "asc" ? "desc" : "asc";
         switch (sortDirection) {
@@ -918,9 +847,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      *
      * @param {*} event
      */
-    async _onRestoreDefaults(event, condition) {
-        event.preventDefault();
-
+    async _onRestoreDefaults(condition) {
         let body;
         if (condition) {
             body = game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaults.Condition.Body");
@@ -950,7 +877,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
                             resetMacros: $html[0].querySelector("input[id='reset-macros']")?.checked,
                             resetOptions: $html[0].querySelector("input[id='reset-options']")?.checked,
                             removeConditionsAddedByLab: $html[0].querySelector("input[id='remove-added']")?.checked
-                        }
+                        };
                         if (condition) {
                             this._restoreConditionDefaults(condition.id, options);
                         } else {
@@ -961,11 +888,11 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
                 no: {
                     icon: `<i class="fas fa-times"></i>`,
                     label: game.i18n.localize("WORDS.No"),
-                    callback: () => {}
+                    callback: () => { }
                 }
             },
             default: "no",
-            close: () => {}
+            close: () => { }
         });
 
         confirmationDialog.render(true);
@@ -975,7 +902,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Reset form handler
      * @param {*} event
      */
-    _onResetForm(event) {
+    _onResetForm() {
         const dialog = new Dialog({
             title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ResetFormTitle"),
             content: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ResetFormContent"),
@@ -988,10 +915,10 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
                         this.render();
                     }
                 },
-                no :{
+                no: {
                     icon: `<i class="fa fa-times"></i>`,
                     label: game.i18n.localize("WORDS._No"),
-                    callback: event => {}
+                    callback: event => { }
                 }
             },
             default: "no"
@@ -999,21 +926,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         dialog.render(true);
     }
 
-    /**
-     * Save and Close handler
-     * @param {*} event
-     */
-    _onSaveClose(event) {
-        this.submit().then(result => {
-            this.close();
-        }).catch(reject => {
-            ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Lab.SaveFailed"));
-        });
-
-    }
-
     async _onDrop(event) {
-        event.preventDefault();
         const eventData = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
         const link = await foundry.applications.ux.TextEditor.implementation.getContentLink(eventData);
         const targetInput = event.currentTarget;
@@ -1029,7 +942,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Save and Close handler
      * @param {*} event
      */
-    _onRefreshRefs(event) {
+    _onRefreshRefs() {
         for (let condition of this.map) {
             let conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
             if (conditionConfig) {
@@ -1043,8 +956,8 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Save Macro button click handler
      * @param {*} event
      */
-    async _onClickSaveMacro(event) {
-        const rowLi = event.target.closest("li");
+    async _onClickSaveMacro(target) {
+        const rowLi = target.closest("li");
         const conditionId = rowLi ? rowLi.dataset.conditionId : null;
 
         if (!conditionId) return;
@@ -1054,7 +967,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
 
         let folder = foundry.documents.collections.Macros.instance.folders.find(f => f.name == "SUCC");
         if (!folder) {
-            folder = await Folder.create( { name: "SUCC", type: "Macro" } );
+            folder = await Folder.create({ name: "SUCC", type: "Macro" });
         }
 
         // Starting from the current hotbar page, find the first empty slot
@@ -1077,7 +990,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
             type: "script",
             command: this.getMacroCommand(condition.id),
             scope: "global",
-            ownership: {default: 2},
+            ownership: { default: 2 },
             folder: folder
         }).then((macro) => {
             // If we found an empty slot, assign the macro to that slot
@@ -1091,19 +1004,19 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
 
     getMacroCommand(conditionId) {
         return `` +
-        `if (!game.modules.get('succ')?.active) {\n` +
-        `   ui.notifications.error("You cannot execute this macro unless the SUCC module is active.");\n` +
-        `   return;\n` +
-        `}\n` +
-        `game.succ.toggleCondition('` + conditionId + `', canvas.tokens.controlled);`;
+            `if (!game.modules.get('succ')?.active) {\n` +
+            `   ui.notifications.error("You cannot execute this macro unless the SUCC module is active.");\n` +
+            `   return;\n` +
+            `}\n` +
+            `game.succ.toggleCondition('` + conditionId + `', canvas.tokens.controlled);`;
     }
 
     /**
      * Macro Config button click handler
      * @param {*} event
      */
-    _onClickMacroConfig(event) {
-        const rowLi = event.target.closest("li");
+    _onClickMacroConfig(target) {
+        const rowLi = target.closest("li");
         const conditionId = rowLi ? rowLi.dataset.conditionId : null;
 
         if (!conditionId) return;
@@ -1117,14 +1030,14 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Option Config button click handler
      * @param {*} event
      */
-    async _onClickOptionConfig(event) {
-        const rowLi = event.target.closest("li");
+    async _onClickOptionConfig(target) {
+        const rowLi = target.closest("li");
         const conditionId = rowLi ? rowLi.dataset.conditionId : null;
 
         if (!conditionId) return;
 
         const condition = this.map.find(c => c.id === conditionId);
-        const labData = await this.getData();
+        const labData = await this._prepareContext();
 
         new EnhancedConditionOptionConfig(condition, labData, {
             title: (game.i18n.localize(condition.name) + " - " + game.i18n.localize("succ.ENHANCED_CONDITIONS.OptionConfig.Heading"))
@@ -1135,14 +1048,33 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Option Config button click handler
      * @param {*} event
      */
-    async _onClickResetCondition(event) {
-        const rowLi = event.target.closest("li");
+    async _onClickResetCondition(target) {
+        const rowLi = target.closest("li");
         const conditionId = rowLi ? rowLi.dataset.conditionId : null;
 
         if (!conditionId) return;
 
         const condition = this.map.find(c => c.id === conditionId);
-        this._onRestoreDefaults(event, condition);
+        this._onRestoreDefaults(condition);
+    }
+
+    /**
+     * Icon picker handler
+     * @param {*} target
+     */
+    async _onOpenFilePicker(target) {
+        const inputField = this.element.querySelector(`input[name="${target.dataset.target}"`);
+        new FilePicker.implementation({
+            type: target.dataset.type,
+            current: inputField.value,
+            allowUpload: true,
+            callback: (src) => {
+                if (inputField.value != src) {
+                    inputField.value = src;
+                    inputField.dispatchEvent(new Event('change', { 'bubbles': true }));
+                }
+            }
+        }).browse();
     }
 
     /**

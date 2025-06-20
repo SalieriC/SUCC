@@ -35,7 +35,7 @@
                 <label for="icon-path-{{@index}}" class="inset-label">{{localize "succ.WORDS.Icon"}}</label>
                 <input type="text" name="icon-path-{{@index}}" title="Status Icon Path" class="icon-path condition-text-input" value="{{condition.img}}" placeholder="/icons/example.svg" data-dtype="String" {{#unless isCustom}}disabled{{/unless}}>
             </div>
-            <button type="button" name="file-picker-{{@index}}" class="file-picker" data-type="image" data-target="icon-path-{{@index}}" title="Browse Files" tabindex="-1" {{#unless isCustom}}disabled{{/unless}}>
+            <button type="button" name="file-picker-{{@index}}" class="file-picker" data-action="filePicker" data-type="image" data-target="icon-path-{{@index}}" title="Browse Files" tabindex="-1" {{#unless isCustom}}disabled{{/unless}}>
                 <i class="fas fa-file-import fa-fw"></i>
             </button>
         </div>
@@ -44,38 +44,22 @@
     <div class="flexcol content2">
         <div class="flexrow buttonsrow">
             <div class="flexrow related-buttons">
-            {{!-- <div class="active-effect"> --}}
-            <button type="button"
-                name="option-config"
-                class="option-config"
-                title="{{condition.optionButtonTitle}}">
+                <button type="button" name="option-config" class="option-config" data-action="optionsConfig" title="{{condition.optionButtonTitle}}">
                     <i class="fas fa-cog"></i> {{localize "succ.ENHANCED_CONDITIONS.ConditionLab.Buttons.Options"}}
                 </button>
-            <button type="button"
-                    class="active-effect-config"
-                    title="{{#if condition.isNew}}
-                        {{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew"}}
-                        {{else unless isCustom}}{{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom"}}
-                        {{else}}{{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title"}}
-                        {{/if}}"
-                    {{#unless (and (eq condition.isNew false) isCustom) }}disabled{{/unless}}>
+                <button type="button" class="active-effect-config" data-action="activeEffectConfig" title="{{#if condition.isNew}}
+                        {{localize " ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew"}} {{else unless isCustom}}{{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom" }} {{else}}{{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title" }} {{/if}}" {{#unless (and (eq condition.isNew false) isCustom) }}disabled{{/unless}}>
                     <i class="fas fa-hand-sparkles"></i> {{localize "ENHANCED_CONDITIONS.Lab.ActiveEffects.Button"}}
                 </button>
-            <button type="button"
-                name="save-macro"
-                class="save-macro"
-                title="{{localize "ENHANCED_CONDITIONS.Lab.SaveMacro.Title"}}">
+                <button type="button" name="save-macro" class="save-macro" data-action="saveMacro" title="{{localize " ENHANCED_CONDITIONS.Lab.SaveMacro.Title"}}">
                     <i class="fas fa-save"></i> {{localize "ENHANCED_CONDITIONS.Lab.SaveMacro.Button"}}
                 </button>
-            <button type="button"
-                class="macro-config-button">
+                <button type="button" class="macro-config-button" data-action="macroConfig">
                     <i class="fas fa-code"></i> {{localize "ENHANCED_CONDITIONS.Lab.MacrosConfig.Button"}}
                 </button>
             </div>
             <div class="flexrow reset-condition">
-                <button type="button"
-                    name="reset-condition-button"
-                    class="reset-condition-button" {{#if condition.addedByLab}}disabled{{/if}}>
+                <button type="button" name="reset-condition-button" class="reset-condition-button" data-action="resetCondition" {{#if condition.addedByLab}}disabled{{/if}}>
                     <i class="fas fa-history"></i> {{localize "ENHANCED_CONDITIONS.Lab.ResetCondition.Button"}}
                 </button>
             </div>
@@ -84,23 +68,25 @@
     <!--column 4-->
     <!--delete row-->
     <div class="flexcol row-controls">
-        <div class="move-up">
+        <div class="move-up" data-action="changeOrder">
             {{#unless sortDirection}}
-            {{#unless (eq key 0)}}<a class="move-up"><i class="fas fa-chevron-up"></i></a>{{/unless}}
+                {{#unless (eq key 0)}}<a class="move-up"><i class="fas fa-chevron-up"></i></a>{{/unless}}
             {{/unless}}
         </div>
         <div class="remove-row">
             {{#if isCustom}}
-            {{#if addedByLab}}
-            <a name="remove-row-{{@index}}" class="remove-row" title="Delete Row">
-                <i class="fas fa-trash"></i>
-            </a>
-            {{/if}}
+                {{#if addedByLab}}
+                    <a name="remove-row-{{@index}}" class="remove-row" data-action="removeRow" title="Delete Row">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                {{/if}}
             {{/if}}
         </div>
-        <div class="move-down">
+        <div class="move-down" data-action="changeOrder">
             {{#unless sortDirection}}
-            {{#unless (eq key conditionMapLength)}}<a class="move-down"><i class="fas fa-chevron-down"></i></a>{{/unless}}
+                {{log key}}
+                {{log lastConditionIndex}}
+                {{#unless (eq key lastConditionIndex)}}<a class="move-down"><i class="fas fa-chevron-down"></i></a>{{/unless}}
             {{/unless}}
         </div>
     </div>

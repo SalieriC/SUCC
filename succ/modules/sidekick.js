@@ -270,24 +270,12 @@ export class Sidekick {
     }
 
     /**
-     * Builds a FD returned from FormDataExtended into a formData array
-     * Borrowed from foundry.js
-     * @param {*} FD
-     */
-    static buildFormData(FD) {
-        const dtypes = FD._dtypes;
-
-        // Construct update data object by casting form data
-        let formData = Array.from(FD).reduce((obj, [k, v]) => {
-            let dt = dtypes[k];
-            if (dt === "Number") obj[k] = v !== "" ? Number(v) : null;
-            else if (dt === "Boolean") obj[k] = v === "true";
-            else if (dt === "Radio") obj[k] = JSON.parse(v);
-            else obj[k] = v;
-            return obj;
-        }, {});
-
-        return formData;
+    * Helper function to add the same event listener to all selected elements
+    */
+    static addEventListenerAll(html, selector, type, listener) {
+        html.querySelectorAll(selector).forEach((e) => {
+            e.addEventListener(type, listener);
+        });
     }
 
     /**
