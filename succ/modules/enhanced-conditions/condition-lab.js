@@ -399,9 +399,10 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         const showDialogSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog);
 
         if (this.sortDirection && showDialogSetting) {
-            await Dialog.confirm({
-                title: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`),
+            await foundry.applications.api.DialogV2.confirm({
+                window: { title: `${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title` },
                 content: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Content`),
+                classes: ["succ-dialog"],
                 yes: ($html) => {
                     const checkbox = $html[0].querySelector("input[name='dont-show-again']");
                     if (checkbox.checked) {
@@ -487,22 +488,25 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Borrowed from foundry.js Entity class
      */
     async _importFromJSONDialog() {
-        new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ImportTitle"),
+        new foundry.applications.api.DialogV2({
+            window: { title: "ENHANCED_CONDITIONS.Lab.ImportTitle" },
             content: await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.importDialog, {}),
-            buttons: {
-                import: {
+            classes: ["succ-dialog"],
+            buttons: [
+                {
                     icon: '<i class="fas fa-file-import"></i>',
                     label: game.i18n.localize("WORDS.Import"),
-                    callback: html => {
-                        this._processImport(html);
+                    action: "import",
+                    callback: (event, target, dialog) => {
+                        this._processImport(dialog.element);
                     }
                 },
-                no: {
+                {
                     icon: '<i class="fas fa-times"></i>',
-                    label: game.i18n.localize("WORDS.Cancel")
+                    label: game.i18n.localize("WORDS.Cancel"),
+                    action: "no",
                 }
-            },
+            ],
             default: "import"
         }).render(true);
     }
@@ -511,8 +515,8 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Process a Condition Map Import
      * @param {*} html
      */
-    async _processImport(html) {
-        const form = html.find("form")[0];
+    async _processImport(element) {
+        const form = element.querySelector("form");
 
         if (!form.data.files.length) {
             return ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.Lab.Import.NoFile"));
@@ -741,13 +745,14 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
 
         const row = target.name.match(/\d+$/)[0];
 
-        const dialog = new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle"),
+        const dialog = new foundry.applications.api.DialogV2({
+            window: { title: "ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle" },
             content: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent"),
-            buttons: {
-                yes: {
+            buttons: [
+                {
                     icon: `<i class="fa fa-check"></i>`,
-                    label: game.i18n.localize("WORDS._Yes"),
+                    label: "WORDS._Yes",
+                    action: "yes",
                     callback: async event => {
                         const newMap = foundry.utils.duplicate(this.map);
                         if (!newMap[row].addedByLab) {
@@ -758,12 +763,13 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
                         this.render();
                     }
                 },
-                no: {
+                {
                     icon: `<i class="fa fa-times"></i>`,
-                    label: game.i18n.localize("WORDS._No"),
+                    label: "WORDS._No",
+                    action: "no",
                     callback: event => { }
                 }
-            },
+            ],
             default: "no"
         });
 
@@ -860,40 +866,44 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         const dialogData = { isDefaultMapType, body, condition };
         const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabRestoreDefaultsDialog, dialogData);
 
-        const confirmationDialog = new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle"),
-            content,
-            buttons: {
-                yes: {
-                    icon: `<i class="fas fa-check"></i>`,
-                    label: game.i18n.localize("WORDS.Yes"),
-                    callback: ($html) => {
-                        let options = {
-                            clearCache: $html[0].querySelector("input[id='clear-cache']")?.checked,
-                            resetNames: $html[0].querySelector("input[id='reset-names']")?.checked,
-                            resetRefs: $html[0].querySelector("input[id='reset-refs']")?.checked,
-                            resetIcons: $html[0].querySelector("input[id='reset-icons']")?.checked,
-                            resetAEs: $html[0].querySelector("input[id='reset-aes']")?.checked,
-                            resetMacros: $html[0].querySelector("input[id='reset-macros']")?.checked,
-                            resetOptions: $html[0].querySelector("input[id='reset-options']")?.checked,
-                            removeConditionsAddedByLab: $html[0].querySelector("input[id='remove-added']")?.checked
-                        };
-                        if (condition) {
-                            this._restoreConditionDefaults(condition.id, options);
-                        } else {
-                            this._restoreDefaults(options);
+        const confirmationDialog = new foundry.applications.api.DialogV2(
+            {
+                window: { title: "ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle" },
+                content,
+                classes: ["succ-dialog"],
+                buttons: [
+                    {
+                        icon: `<i class="fas fa-check"></i>`,
+                        label: game.i18n.localize("WORDS.Yes"),
+                        action: "yes",
+                        callback: (event, target, dialog) => {
+                            let options = {
+                                clearCache: dialog.element.querySelector("input[id='clear-cache']")?.checked,
+                                resetNames: dialog.element.querySelector("input[id='reset-names']")?.checked,
+                                resetRefs: dialog.element.querySelector("input[id='reset-refs']")?.checked,
+                                resetIcons: dialog.element.querySelector("input[id='reset-icons']")?.checked,
+                                resetAEs: dialog.element.querySelector("input[id='reset-aes']")?.checked,
+                                resetMacros: dialog.element.querySelector("input[id='reset-macros']")?.checked,
+                                resetOptions: dialog.element.querySelector("input[id='reset-options']")?.checked,
+                                removeConditionsAddedByLab: dialog.element.querySelector("input[id='remove-added']")?.checked
+                            };
+                            if (condition) {
+                                this._restoreConditionDefaults(condition.id, options);
+                            } else {
+                                this._restoreDefaults(options);
+                            }
                         }
+                    },
+                    {
+                        icon: `<i class="fas fa-times"></i>`,
+                        label: game.i18n.localize("WORDS.No"),
+                        action: "no",
+                        callback: () => { }
                     }
-                },
-                no: {
-                    icon: `<i class="fas fa-times"></i>`,
-                    label: game.i18n.localize("WORDS.No"),
-                    callback: () => { }
-                }
-            },
-            default: "no",
-            close: () => { }
-        });
+                ],
+                default: "no",
+                close: () => { }
+            });
 
         confirmationDialog.render(true);
     }
@@ -903,24 +913,27 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * @param {*} event
      */
     _onResetForm() {
-        const dialog = new Dialog({
-            title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ResetFormTitle"),
+        const dialog = new foundry.applications.api.DialogV2({
+            window: { title: "ENHANCED_CONDITIONS.Lab.ResetFormTitle" },
             content: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ResetFormContent"),
-            buttons: {
-                yes: {
+            classes: ["succ-dialog"],
+            buttons: [
+                {
                     icon: `<i class="fa fa-check"></i>`,
-                    label: game.i18n.localize("WORDS._Yes"),
+                    label: "WORDS._Yes",
+                    action: "yes",
                     callback: event => {
                         this.map = this.initialMap;
                         this.render();
                     }
                 },
-                no: {
+                {
                     icon: `<i class="fa fa-times"></i>`,
-                    label: game.i18n.localize("WORDS._No"),
+                    label: "WORDS._No",
+                    action: "no",
                     callback: event => { }
                 }
-            },
+            ],
             default: "no"
         });
         dialog.render(true);
