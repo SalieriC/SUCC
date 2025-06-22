@@ -510,24 +510,6 @@ export class Sidekick {
             Object.keys(obj1).every(key => obj2.hasOwnProperty(key) && obj1[key] === obj2[key]);
     }
 
-    static showCUBWarning() {
-        if (game.modules.get("combat-utility-belt")?.active) {
-            new Dialog({
-                title: "Incompatibility Warning",
-                content: `
-                <p>Warning, SUCC is incompatible with Combat Utility Belt.</p>
-                <p>Disable Combat Utility Belt in the module settings to avoid bad things from happening.</p>
-                <p>You'll see this message on each login so make sure you obey my command or disable SUCC and leave an angry issue on the gitHub. :D</p>
-                `,
-                buttons: {
-                    done: {
-                        label: "Got it!",
-                    }
-                }
-            }).render(true)
-        }
-    }
-
     /**
      * Creates an array with the list of skills for a given actor or a list of all custom skills and all skills from every compendium
      * @param {Actor} actor

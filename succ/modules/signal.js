@@ -45,7 +45,6 @@ export class Signal {
             Signal.registerTokenActionHudHooks();
 
             // Execute housekeeping
-            Sidekick.showCUBWarning();
             Sidekick.handlebarsHelpers();
             Sidekick.jQueryHelpers();
             Sidekick.loadTemplates();
