@@ -167,13 +167,6 @@ export function registerSettings() {
         }
     });
 
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.skipIconMigration, {
-        scope: "world",
-        type: Boolean,
-        default: false,
-        config: false
-    });
-
     /* -------------------------------------------- */
     /*                 TokenUtility                 */
     /* -------------------------------------------- */

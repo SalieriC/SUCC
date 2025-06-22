@@ -212,7 +212,6 @@ export const SETTING_KEYS = {
         specialStatusEffectMapping: "specialStatusEffectMapping",
         defaultConditionsMenu: "defaultConditionsMenu",
         useSystemIcons: "useSystemIcons",
-        skipIconMigration: "skipIconMigration"
     },
     tokenUtility: {
         clientTokenDisplaySettings: "clientTokenDisplaySettings",
