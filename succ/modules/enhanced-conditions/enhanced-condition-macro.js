@@ -12,14 +12,13 @@ export default class EnhancedConditionMacroConfig extends HandlebarsApplicationM
       form: {
         handler: EnhancedConditionMacroConfig.formHandler,
         submitOnChange: false,
-        closeOnSubmit: true
+        closeOnSubmit: true,
       },
       classes: ["standard-form", "succ-form"],
       window: {
         title: DEFAULT_CONFIG.enhancedConditions.macroConfig.title,
         minimizable: false,
         resizable: true,
-        contentClasses: ["brsw-modifier-names-content"],
       },
     };
 

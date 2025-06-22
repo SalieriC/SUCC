@@ -506,11 +506,6 @@ a.add-temporary {
     vertical-align: middle;
 }
 
-.succ-token-display-settings .save-button {
-    background: rgba(0, 0, 0, 0.1);
-    border: 2px groove var(--color-border-light-highlight);
-}
-
 .condition-options input {
     vertical-align: middle;
 }

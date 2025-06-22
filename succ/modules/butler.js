@@ -62,9 +62,12 @@ export const DEFAULT_CONFIG = {
                 specialTab: `${PATH}/templates/options-config/special-effects-tab.hbs`,
                 footer: `${PATH}/templates/options-config/footer.hbs`,
             },
+            tokenDisplaySettingsMenu: {
+                form: `${PATH}/templates/token-display-settings/form.hbs`,
+                footer: `${PATH}/templates/token-display-settings/footer.hbs`,
+            },
             conditionLabRestoreDefaultsDialog: `${PATH}/templates/condition-lab-restore-defaults-dialog.hbs`,
             defaultConditionsMenu: `${PATH}/templates/default-conditions-menu.hbs`,
-            tokenDisplaySettingsMenu: `${PATH}/templates/token-display-settings.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
             chatConditionsPartial: `${PATH}/templates/partials/chat-card-condition-list.hbs`,
             sortDirectionSaveDialog: `${PATH}/templates/sort-direction-save-dialog.hbs`,
