@@ -71,17 +71,8 @@ a.add-temporary {
 /*                 CONDITION LAB                */
 /* -------------------------------------------- */
 
-#succ-condition-lab {
-    gap: 0;
-}
-
 #succ-condition-lab .window-content {
     gap: 0.5em;
-}
-
-#succ-condition-lab h4 {
-    border-bottom: 1px solid var(--color-warm-2);
-    margin-bottom: 0.5em;
 }
 
 .condition-lab button {
@@ -629,6 +620,10 @@ dialog.succ-dialog .dialog-content {
     padding-bottom: 10px;
 }
 
+.succ-form {
+    gap: 0;
+}
+
 .succ-form .hint,
 .succ-form .notes {
   flex: 0 0 100%;
@@ -636,4 +631,9 @@ dialog.succ-dialog .dialog-content {
   line-height: var(--line-height-16);
   color: var(--color-text-dark-secondary);
   margin: 3px 0;
+}
+
+.succ-form h4 {
+    border-bottom: 1px solid var(--color-warm-2);
+    margin-bottom: 0.5em;
 }

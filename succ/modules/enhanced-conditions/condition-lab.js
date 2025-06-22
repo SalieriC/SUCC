@@ -19,7 +19,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        classes: ["sheet", "standard-form"],
+        classes: ["sheet", "standard-form", "succ-form"],
         window: {
             title: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title,
             minimizable: false,
