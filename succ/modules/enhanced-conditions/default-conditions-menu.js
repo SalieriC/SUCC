@@ -115,26 +115,23 @@ export class DefaultConditionsMenu extends FormApplication {
             let defaultCondition = this.defaultConditions.find(c => c.id === condition.id);
             defaultCondition.enabled = (formData[condition.id] != undefined && formData[condition.id]) || condition.destroyDisabled == true;
         }
-        
+
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, this.defaultConditions);
 
-        new Dialog({
-            title: game.i18n.localize("succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Dialog.RefreshMapDefaultsT"),
+        foundry.applications.api.DialogV2.confirm({
+            window: { title: "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Dialog.RefreshMapDefaultsT" },
             content: game.i18n.localize("succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Dialog.RefreshMapDefaultsB"),
-            buttons: {
-                yes: {
-                    icon: `<i class="fa fa-check"></i>`,
-                    label: game.i18n.localize("WORDS._Yes"),
-                    callback: html => {
-                        EnhancedConditions.refreshMapDefaults();
-                    }
-                },
-                no: {
-                    icon: '<i class="fas fa-times"></i>',
-                    label: game.i18n.localize("WORDS._No")
+            yes: {
+                icon: "fa fa-check",
+                label: "WORDS._Yes",
+                callback: () => {
+                    EnhancedConditions.refreshMapDefaults();
                 }
             },
-            default: "yes"
-        }).render(true);
+            no: {
+                icon: "fas fa-times",
+                label: "WORDS._No"
+            }
+        });
     }
 }
