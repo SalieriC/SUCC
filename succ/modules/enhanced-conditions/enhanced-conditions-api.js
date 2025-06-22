@@ -543,29 +543,20 @@ export class EnhancedConditionsAPI {
     static async removeTemporaryEffects(sceneId = false, confirmed = false) {
         const scene = sceneId ? game.scenes.get(sceneId) : game.scenes.current
         if (confirmed) {
-            proceedRemoval()
+            executeRemoval();
         } else {
-            new Dialog({
-                title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Name"),
+            foundry.applications.api.DialogV2.confirm({
+                window: { title: "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Name" },
                 content: game.i18n.format("ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Body", {sceneName: `${scene.navName} (${scene.name})`}),
-                buttons: {
-                    one: {
-                        label: `<i class="fa-solid fa-check"></i> ${game.i18n.localize("succ.WORDS.Proceed")}`,
-                        callback: async (_) => {
-                            proceedRemoval()
-                        }
-                    },
-                    two: {
-                        label: `<i class="fa-solid fa-ban"></i> ${game.i18n.localize("succ.WORDS.Cancel")}`,
-                        callback: async (_) => {
-                            return
-                        }
+                yes: {
+                    callback: () => {
+                        executeRemoval();
                     }
                 },
-            }).render(true);
+            });
         }
 
-        async function proceedRemoval() {
+        async function executeRemoval() {
             const sceneTokens = scene.tokens
             const nonCombatTokens = sceneTokens.filter(t => t.inCombat === false)
             if (!nonCombatTokens) {
