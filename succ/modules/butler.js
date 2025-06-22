@@ -66,8 +66,11 @@ export const DEFAULT_CONFIG = {
                 form: `${PATH}/templates/token-display-settings/form.hbs`,
                 footer: `${PATH}/templates/token-display-settings/footer.hbs`,
             },
+            defaultConditionsMenu: {
+                form: `${PATH}/templates/default-conditions-menu/form.hbs`,
+                footer: `${PATH}/templates/default-conditions-menu/footer.hbs`,
+            },
             conditionLabRestoreDefaultsDialog: `${PATH}/templates/condition-lab-restore-defaults-dialog.hbs`,
-            defaultConditionsMenu: `${PATH}/templates/default-conditions-menu.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
             chatConditionsPartial: `${PATH}/templates/partials/chat-card-condition-list.hbs`,
             sortDirectionSaveDialog: `${PATH}/templates/sort-direction-save-dialog.hbs`,

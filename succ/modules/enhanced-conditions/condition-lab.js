@@ -75,9 +75,9 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         }
     };
 
-    constructor(object, options = {}) {
-        super(object, options);
-        this.data = (game.succ.conditionLab ? game.succ.conditionLab.data : object) ?? null;
+    constructor(options = {}) {
+        super(options);
+        this.data = game.succ.conditionLab?.data ?? null;
         this.system = game.system.id;
         this.initialMapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
         this.mapType = null;

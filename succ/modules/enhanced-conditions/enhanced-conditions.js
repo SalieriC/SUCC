@@ -761,6 +761,13 @@ export class EnhancedConditions {
         const overridesJsons = await Sidekick.fetchJsons(source, BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionModuleOverridesPath);
         const conditionConfigJson = await Sidekick.fetchJson(BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionConfigFilePath);
         const groupsJsons = await Sidekick.fetchJsons(source, BUTLER.DEFAULT_CONFIG.enhancedConditions.defaultConditionGroupsPath);
+
+        groupsJsons.sort((a, b) => a.sortOrder - b.sortOrder);
+        this.conditionGroups = [];
+        for (let group of groupsJsons) {
+            this.conditionGroups.push({ ...group });
+        }
+
         game.succ.conditionConfigMap = conditionConfigJson.map;
 
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
