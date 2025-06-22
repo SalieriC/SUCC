@@ -189,7 +189,6 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * @returns {object}              The prepared update data
      */
     _getSubmitData(updateData = {}) {
-        if (!this.form) throw new Error("The FormApplication subclass has no registered form element");
         const fd = new foundry.applications.ux.FormDataExtended(this.form, { editors: this.editors });
         let data = fd.object;
         if (updateData) data = foundry.utils.flattenObject(foundry.utils.mergeObject(data, updateData));
