@@ -1,6 +1,5 @@
 import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
-import { ConditionLab } from "./condition-lab.js";
 import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
 import { EnhancedConditionsPowers } from "./enhanced-conditions-powers.js";
 
