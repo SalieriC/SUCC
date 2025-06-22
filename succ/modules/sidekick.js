@@ -35,8 +35,8 @@ export class Sidekick {
         const succDiv = html.querySelector(".succ");
         succDiv.appendChild(labButton);
 
-        labButton.addEventListener("click", (event) => {
-            return game.succ.conditionLab = new ConditionLab().render(true);
+        labButton.addEventListener("click", async (event) => {
+            return game.succ.conditionLab = await new ConditionLab().render(true);
         });
     }
 

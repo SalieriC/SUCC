@@ -527,11 +527,13 @@ a.add-temporary {
 .condition-options .condition-id-group {
     display: flex;
 }
+
 .condition-options .condition-id {
     color: var(--color-text-dark-secondary);
 }
 
 .condition-options .copy-button {
+    display: unset;
     max-width: fit-content;
     background: none;
     border: none;
@@ -555,11 +557,6 @@ a.add-temporary {
     flex: 1;
     padding: 1rem;
     overflow: hidden auto;
-}
-
-.condition-options-config .footer {
-    margin: 1rem;
-    flex: 0;
 }
 
 dialog.succ-dialog .window-content button {
@@ -630,4 +627,13 @@ dialog.succ-dialog .dialog-content {
 
 .succ-dialog .all-skills {
     padding-bottom: 10px;
+}
+
+.succ-form .hint,
+.succ-form .notes {
+  flex: 0 0 100%;
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-16);
+  color: var(--color-text-dark-secondary);
+  margin: 3px 0;
 }

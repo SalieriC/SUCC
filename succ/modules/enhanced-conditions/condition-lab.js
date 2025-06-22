@@ -4,7 +4,7 @@ import { EnhancedConditions } from "./enhanced-conditions.js";
 import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
 import EnhancedEffectConfig from "./enhanced-effect-config.js";
 import EnhancedConditionMacroConfig from "./enhanced-condition-macro.js";
-import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
+import EnhancedConditionOptionsConfig from "./enhanced-condition-options-config.js";
 
 /**
  * Form application for managing mapping of Conditions to Icons and JournalEntries
@@ -61,16 +61,17 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         },
     };
 
+    static conditionLabTemplates = BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLab;
     static PARTS = {
         header: {
-            template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabHeader
+            template: this.conditionLabTemplates.header
         },
         form: {
-            template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabForm,
+            template: this.conditionLabTemplates.form,
             scrollable: [""]
         },
         footer: {
-            template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLabFooter,
+            template: this.conditionLabTemplates.footer,
         }
     };
 
@@ -401,17 +402,16 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         if (this.sortDirection && showDialogSetting) {
             await foundry.applications.api.DialogV2.confirm({
                 window: { title: `${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title` },
-                content: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Content`),
+                content: await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.sortDirectionSaveDialog),
                 classes: ["succ-dialog"],
-                yes: ($html) => {
-                    const checkbox = $html[0].querySelector("input[name='dont-show-again']");
-                    if (checkbox.checked) {
-                        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog);
+                yes: {
+                    callback: (event, target, dialog) => {
+                        const checkbox = dialog.element.querySelector("input[name='dont-show-again']");
+                        if (checkbox.checked) {
+                            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog, false);
+                        }
+                        this._processFormUpdate(formData.object);
                     }
-                    this._processFormUpdate(formData.object);
-                },
-                no: () => {
-                    return;
                 }
             });
         } else {
@@ -1052,7 +1052,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         const condition = this.map.find(c => c.id === conditionId);
         const labData = await this._prepareContext();
 
-        new EnhancedConditionOptionConfig(condition, labData, {
+        new EnhancedConditionOptionsConfig(condition, labData, {
             title: (game.i18n.localize(condition.name) + " - " + game.i18n.localize("succ.ENHANCED_CONDITIONS.OptionConfig.Heading"))
         }).render(true);
     }

@@ -21,7 +21,7 @@
                 "SortAnchorTitle_desc": "Sort by Name - Z to A (click to change)",
                 "SortDirectionSave": {
                     "Title": "Save Mapping with Sort Direction?",
-                    "Content": "<p>Click 'Yes' to save the Condition Lab map with the current sort direction. Click 'No' to cancel Saving.</p>",
+                    "Content": "Click 'Yes' to save the Condition Lab map with the current sort direction. Click 'No' to cancel Saving.",
                     "CheckboxText": "Don't show this again"
                 },
                 "BadReference": "Could not build a link to the dropped content (actor, item, journal etc)",
@@ -62,7 +62,7 @@
                 },
                 "Dialog": {
                     "RefreshMapDefaultsT": "RefreshMapDefaults",
-                    "RefreshMapDefaultsB": "Would you like to refresh your current map to match the new defaults?<p>This will ensure that the list of conditions matches the defaults but will not reset any existing conditions. We will attempt to maintain current sort order as much as possible.<p><p>"
+                    "RefreshMapDefaultsB": "Would you like to refresh your current map to match the new defaults?<p>This will ensure that the list of conditions matches the defaults but will not reset any existing conditions. We will attempt to maintain current sort order as much as possible."
                 }
             },
             "TokenDisplaySettingsMenu": {
