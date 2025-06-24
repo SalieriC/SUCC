@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [6.1.0] - 2025-06-24 aka "AppV2"
+☮️ Peace in the world, or the world in pieces. 🕊️
+### Changed
+- Updated the whole module to use AppV2.
+### Fixed
+- Fixed a couple issues in dialogues.
+
 ## [6.0.1] - 2025-05-21 aka "Fixing rolls without affecting your chances"
 ### Fixed
 - Fixed an issue when using system rolls.
