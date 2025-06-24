@@ -19,7 +19,7 @@ export function registerSettings() {
         type: Object,
         default: [],
         config: false,
-        onChange: s => {}
+        onChange: s => { }
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, {
@@ -31,7 +31,7 @@ export function registerSettings() {
         choices: BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
         config: false,
         apiOnly: true,
-        onChange: s => {}
+        onChange: s => { }
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, {
@@ -82,16 +82,17 @@ export function registerSettings() {
         default: BUTLER.DEFAULT_CONFIG.enhancedConditions.outputChat,
         onChange: s => {
             if (s === true) {
-                const dialog = Dialog.confirm({
-                    title: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.OutputChatConfirm.Title`),
+                foundry.applications.api.DialogV2.confirm({
+                    window: { title: `${BUTLER.NAME}.ENHANCED_CONDITIONS.OutputChatConfirm.Title` },
                     content: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.OutputChatConfirm.Content`),
-                    yes: () => {
-                        const newMap = deepClone(game.succ.conditions);
-                        if (!newMap.length) return;
-                        newMap.forEach(c => c.options.outputChat = true);
-                        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
-                    },
-                    no: () => {}
+                    yes: {
+                        callback: () => {
+                            const newMap = foundry.utils.deepClone(game.succ.conditions);
+                            if (!newMap.length) return;
+                            newMap.forEach(c => c.options.outputChat = true);
+                            Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
+                        }
+                    }
                 });
             }
         }
@@ -116,7 +117,7 @@ export function registerSettings() {
         type: Boolean,
         config: false,
         default: true,
-        onChange: s => {}
+        onChange: s => { }
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultSpecialStatusEffects, {
@@ -126,7 +127,7 @@ export function registerSettings() {
         type: Object,
         default: {},
         config: false,
-        onChange: () => {}
+        onChange: () => { }
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, {
@@ -136,7 +137,7 @@ export function registerSettings() {
         type: Object,
         default: {},
         config: false,
-        onChange: () => {}
+        onChange: () => { }
     });
 
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.useSystemIcons, {
@@ -148,28 +149,22 @@ export function registerSettings() {
         config: true,
         onChange: async () => {
             await EnhancedConditions.loadConditionConfigMap();
-            const dialog = Dialog.confirm({
-                title: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.SystemIconRefresh.Title`),
+            foundry.applications.api.DialogV2.confirm({
+                window: { title: `${BUTLER.NAME}.ENHANCED_CONDITIONS.SystemIconRefresh.Title` },
                 content: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.SystemIconRefresh.Content`),
-                yes: () => {
-                    for (const condition of game.succ.conditions) {
-                        const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
-                        if (conditionConfig) {
-                            condition.img = conditionConfig.img;
+                yes: {
+                    callback: () => {
+                        for (const condition of game.succ.conditions) {
+                            const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
+                            if (conditionConfig) {
+                                condition.img = conditionConfig.img;
+                            }
                         }
+                        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, game.succ.conditions);
                     }
-                    Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, game.succ.conditions);
-                },
-                no: () => {}
+                }
             });
         }
-    });
-
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.skipIconMigration, {
-        scope: "world",
-        type: Boolean,
-        default: false,
-        config: false
     });
 
     /* -------------------------------------------- */

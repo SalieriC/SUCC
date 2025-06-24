@@ -45,7 +45,6 @@ export class Signal {
             Signal.registerTokenActionHudHooks();
 
             // Execute housekeeping
-            Sidekick.showCUBWarning();
             Sidekick.handlebarsHelpers();
             Sidekick.jQueryHelpers();
             Sidekick.loadTemplates();
@@ -147,12 +146,6 @@ export class Signal {
 
         Hooks.on("renderCombatTracker", (app, html, data) => {
             EnhancedConditions._onRenderCombatTracker(app, html, data);
-        });
-
-        /* ---------------- Custom Apps --------------- */
-
-        Hooks.on("renderConditionLab", (app, html, data) => {
-            ConditionLab._onRender(app, html, data);
         });
     }
 

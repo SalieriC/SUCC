@@ -1,0 +1,9 @@
+<section class="tab scrollable" data-group="primary" data-tab="special">
+    {{#each specialEffectOptions}}
+        <div class="formgroup">
+            <label><input type="checkbox" name={{this.optionProperty}} {{checked this.option}} {{#unless ../labData.isCustom}}disabled{{/unless}}>
+                {{localize this.optionLabel}}</label>
+            <p class="notes">{{localize this.optionNotes}}</p>
+        </div>
+    {{/each}}
+</div>

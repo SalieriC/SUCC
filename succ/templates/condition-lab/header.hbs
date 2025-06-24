@@ -1,12 +1,12 @@
-<form autocomplete="off" onsubmit="event.preventDefault();">
-    <h2>
+<div autocomplete="off">
+    <h4>
         <i class="fas fa-flask"></i> {{localize "ENHANCED_CONDITIONS.Lab.Title"}}
         {{#if unsavedMap}} <strong> {{localize "ENHANCED_CONDITIONS.Lab.MappingType.Unsaved"}}</strong>{{/if}}
-    </h2>
+    </h4>
     <div class="flexrow">
         {{!-- List Controls --}}
         <div class="flexrow condition-list-controls">
-            <div class="sort">
+            <div class="sort" data-action="sortList">
                 <a class="sort-list" title="{{sortTitle}}">
                     <span class="fa-stack fa-1x">
                         {{#unless sortDirection}}<i class="fas fa-slash fa-stack-1x"></i>{{/unless}}
@@ -31,33 +31,4 @@
         </div>
         {{!-- <hr>     --}}
     </div>
-    
-    <ol class="condition-lab list">
-        {{#each displayedMap as |condition key|}}
-        {{> "modules/succ/templates/partials/condition-lab-row.hbs" condition=condition key=key isCustom=../isCustom conditionMapLength=../displayedMap.length sortDirection=../sortDirection}}
-        {{/each}}
-        <div class="flexrow add-row">
-            <a name="add-row" title="Add Row">
-                <i class="fas fa-plus"></i> {{#if isCustom}}Add Row{{else}}Add Row (switch to System - Custom){{/if}}
-            </a>
-        </div>
-    </ol>
-    <footer class="flexrow">
-        <button type="submit" name="submit" title="Save mapping form values" {{#if unsavedMap}}class="highlight"{{/if}}>
-            <i class="far fa-save"></i> Save Mapping
-        </button>
-        <button type="button" name="reset" title="Reset unsaved changes">
-            <i class="fas fa-undo"></i> Reset Mapping
-        </button>
-    
-        <button type="button" name="refresh-refs" title="Refresh the reference links in all conditions">
-            <i class="fas fa-arrows-rotate"></i> Refresh Reference Links
-        </button>
-    
-        <button type="button" name="restore" class="restore-defaults" title="Restore mappings back to system defaults">
-            <i class="fas fa-history"></i> Restore Defaults
-        </button>
-    </footer>
-    
-
-</form>
+</div>

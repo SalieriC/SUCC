@@ -62,7 +62,7 @@
                 },
                 "Dialog": {
                     "RefreshMapDefaultsT": "Kartenvorgabenaktualisieren",
-                    "RefreshMapDefaultsB": "Möchtest du deine aktuelle Karte aktualisieren, damit sie mit den neuen Vorgaben übereinstimmt?<p>Damit wird sichergestellt, dass die Liste der Zustände mit den Vorgaben übereinstimmt, aber es werden keine bestehenden Zustände zurückgesetzt. Es wird versucht, die aktuelle Sortierreihenfolge so weit wie möglich beizubehalten.<p><p>"
+                    "RefreshMapDefaultsB": "Möchtest du deine aktuelle Karte aktualisieren, damit sie mit den neuen Vorgaben übereinstimmt?<p>Damit wird sichergestellt, dass die Liste der Zustände mit den Vorgaben übereinstimmt, aber es werden keine bestehenden Zustände zurückgesetzt. Es wird versucht, die aktuelle Sortierreihenfolge so weit wie möglich beizubehalten."
                 }
             },
             "TokenDisplaySettingsMenu": {

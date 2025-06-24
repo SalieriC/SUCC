@@ -1,0 +1,12 @@
+<div class="scrollable condition-lab-form" autocomplete="off" onsubmit="event.preventDefault();">
+    <ol class="condition-lab list">
+        {{#each displayedMap as |condition key|}}
+        {{> "modules/succ/templates/partials/condition-lab-row.hbs" condition=condition key=key isCustom=../isCustom lastConditionIndex=../lastConditionIndex sortDirection=../sortDirection}}
+        {{/each}}
+        <li class="flexrow add-row">
+            <a name="add-row" data-action="addRow" title="Add Row">
+                <i class="fas fa-plus"></i> {{#if isCustom}}Add Row{{else}}Add Row (switch to System - Custom){{/if}}
+            </a>
+        </li>
+    </ol>
+</div>

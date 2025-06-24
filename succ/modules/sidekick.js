@@ -35,8 +35,8 @@ export class Sidekick {
         const succDiv = html.querySelector(".succ");
         succDiv.appendChild(labButton);
 
-        labButton.addEventListener("click", (event) => {
-            return game.succ.conditionLab = new ConditionLab().render(true);
+        labButton.addEventListener("click", async (event) => {
+            return game.succ.conditionLab = await new ConditionLab().render(true);
         });
     }
 
@@ -270,24 +270,12 @@ export class Sidekick {
     }
 
     /**
-     * Builds a FD returned from FormDataExtended into a formData array
-     * Borrowed from foundry.js
-     * @param {*} FD
-     */
-    static buildFormData(FD) {
-        const dtypes = FD._dtypes;
-
-        // Construct update data object by casting form data
-        let formData = Array.from(FD).reduce((obj, [k, v]) => {
-            let dt = dtypes[k];
-            if (dt === "Number") obj[k] = v !== "" ? Number(v) : null;
-            else if (dt === "Boolean") obj[k] = v === "true";
-            else if (dt === "Radio") obj[k] = JSON.parse(v);
-            else obj[k] = v;
-            return obj;
-        }, {});
-
-        return formData;
+    * Helper function to add the same event listener to all selected elements
+    */
+    static addEventListenerAll(html, selector, type, listener) {
+        html.querySelectorAll(selector).forEach((e) => {
+            e.addEventListener(type, listener);
+        });
     }
 
     /**
@@ -520,24 +508,6 @@ export class Sidekick {
 
         return Object.keys(obj1).length === Object.keys(obj2).length &&
             Object.keys(obj1).every(key => obj2.hasOwnProperty(key) && obj1[key] === obj2[key]);
-    }
-
-    static showCUBWarning() {
-        if (game.modules.get("combat-utility-belt")?.active) {
-            new Dialog({
-                title: "Incompatibility Warning",
-                content: `
-                <p>Warning, SUCC is incompatible with Combat Utility Belt.</p>
-                <p>Disable Combat Utility Belt in the module settings to avoid bad things from happening.</p>
-                <p>You'll see this message on each login so make sure you obey my command or disable SUCC and leave an angry issue on the gitHub. :D</p>
-                `,
-                buttons: {
-                    done: {
-                        label: "Got it!",
-                    }
-                }
-            }).render(true)
-        }
     }
 
     /**

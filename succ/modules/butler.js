@@ -42,7 +42,7 @@ export const DEFAULT_CONFIG = {
             title: "SUCC Enhanced Condition - Macro Config"
         },
         optionConfig: {
-            id: "succ-enhanced-condition-option-config",
+            id: "succ-enhanced-condition-options-config",
             title: "SUCC Enhanced Condition - Option Config"
         },
         title: "Enhanced Conditions",
@@ -52,15 +52,30 @@ export const DEFAULT_CONFIG = {
             other: "Other/Imported"
         },
         templates: {
-            conditionLab: `${PATH}/templates/condition-lab.hbs`,
+            conditionLab: {
+                form: `${PATH}/templates/condition-lab/form.hbs`,
+                header: `${PATH}/templates/condition-lab/header.hbs`,
+                footer: `${PATH}/templates/condition-lab/footer.hbs`,
+            },
+            optionsConfig: {
+                generalTab: `${PATH}/templates/options-config/general-options-tab.hbs`,
+                specialTab: `${PATH}/templates/options-config/special-effects-tab.hbs`,
+                footer: `${PATH}/templates/options-config/footer.hbs`,
+            },
+            tokenDisplaySettingsMenu: {
+                form: `${PATH}/templates/token-display-settings/form.hbs`,
+                footer: `${PATH}/templates/token-display-settings/footer.hbs`,
+            },
+            defaultConditionsMenu: {
+                form: `${PATH}/templates/default-conditions-menu/form.hbs`,
+                footer: `${PATH}/templates/default-conditions-menu/footer.hbs`,
+            },
             conditionLabRestoreDefaultsDialog: `${PATH}/templates/condition-lab-restore-defaults-dialog.hbs`,
-            defaultConditionsMenu: `${PATH}/templates/default-conditions-menu.hbs`,
-            tokenDisplaySettingsMenu: `${PATH}/templates/token-display-settings.hbs`,
             chatOutput: `${PATH}/templates/chat-conditions.hbs`,
             chatConditionsPartial: `${PATH}/templates/partials/chat-card-condition-list.hbs`,
+            sortDirectionSaveDialog: `${PATH}/templates/sort-direction-save-dialog.hbs`,
             importDialog: `${PATH}/templates/import-conditions.html`,
             macroConfig: `${PATH}/templates/enhanced-condition-macro-config.hbs`,
-            optionConfig: `${PATH}/templates/enhanced-condition-option-config.hbs`,
             boostLowerDialog: `${PATH}/templates/boost-lower-dialog.hbs`,
             smiteDialog: `${PATH}/templates/smite-dialog.hbs`,
             protectionDialog: `${PATH}/templates/protection-dialog.hbs`,
@@ -197,7 +212,6 @@ export const SETTING_KEYS = {
         specialStatusEffectMapping: "specialStatusEffectMapping",
         defaultConditionsMenu: "defaultConditionsMenu",
         useSystemIcons: "useSystemIcons",
-        skipIconMigration: "skipIconMigration"
     },
     tokenUtility: {
         clientTokenDisplaySettings: "clientTokenDisplaySettings",

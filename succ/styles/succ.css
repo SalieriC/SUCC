@@ -71,20 +71,22 @@ a.add-temporary {
 /*                 CONDITION LAB                */
 /* -------------------------------------------- */
 
+#succ-condition-lab .window-content {
+    gap: 0.5em;
+}
+
+.condition-lab button {
+    height: unset;
+}
+
 #succ-condition-lab .hidden {
     display: none;
 }
 
 #succ-condition-lab ol.condition-lab {
     list-style: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-    max-height: 530px;
-    margin: 10px 0px;
+    margin: 0px;
     padding: 0px;
-    border: 2px inset;
-    /* background: url('/ui/denim025.png'); */
-    background: rgba(0, 0, 0, 0.5);
 }
 
 #succ-condition-lab div.sort {
@@ -128,10 +130,15 @@ a.add-temporary {
 }
 
 .condition-lab li.row {
-    /* border-bottom: 2px groove beige; */
-    background: url('/ui/parchment.jpg');
+    background: var(--background);
     border-radius: 5px;
     margin: 5px;
+}
+
+.condition-lab .flexrow {
+    align-items: unset;
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
 
 .condition-lab .flexcol {
@@ -155,6 +162,28 @@ a.add-temporary {
     flex: 8;
 }
 
+.condition-lab-form {
+    padding-right: unset;
+    margin-right: unset;
+}
+
+.condition-lab-form {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px inset;
+
+    .theme-dark & {
+        background: rgba(155, 155, 155, 0.5);
+        border: 2px inset var(--color-light-5);
+    }
+}
+
+#succ-condition-lab button.file-picker {
+    flex: 0 0 24px;
+    line-height: 24px;
+    margin: -1px 0 -1px 4px;
+    order: 99;
+}
+
 .condition-lab .active-effect {
     flex: 0 0 20px;
     display: flex;
@@ -170,7 +199,6 @@ a.add-temporary {
 .condition-lab .flexcol.text-entry .condition {
     display: flex;
     flex: 1;
-    /* margin: 0px 3px 3px 0px; */
 }
 
 .condition-lab .flexcol.text-entry.journal {
@@ -178,9 +206,12 @@ a.add-temporary {
     margin: 0px 0px 3px 0px;
 }
 
+.condition-lab.reference.flexrow {
+    align-items: center;
+}
+
 .condition-lab .reference div.enriched-link {
     flex: 0 1 0%;
-    margin: 3px;
 }
 
 .condition-lab .reference-type {
@@ -216,8 +247,13 @@ a.add-temporary {
     margin: 0px 0px 3px 0px;
 }
 
-.condition-lab .flexrow {
-    justify-content: space-around;
+.condition-lab .buttonsrow {
+    flex: 1;
+}
+
+.condition-lab .buttonsrow button {
+    flex-basis: calc(40%);
+    margin: 2px;
 }
 
 .condition-lab a.macro {
@@ -228,6 +264,10 @@ a.add-temporary {
     width: 60px;
     height: 60px;
     background-color: rgba(0, 0, 0, 0.5);
+
+    .theme-dark & {
+        background-color: rgba(155, 155, 155, 0.5);
+    }
 }
 
 .condition-lab a.trash {
@@ -267,6 +307,7 @@ a.add-temporary {
     flex: 0 0 60px;
     width: 60px;
     height: 60px;
+    align-self: center;
 }
 
 .condition-lab .trash button {
@@ -304,14 +345,6 @@ a.add-temporary {
     /* position: absolute; */
 }
 
-.condition-lab .row-controls a.move-up {
-    /* top: 20%; */
-}
-
-.condition-lab .row-controls a.move-down {
-    /* bottom: 20%; */
-}
-
 .condition-lab .options {
     /* padding: 0 0 0 26px; */
 }
@@ -340,12 +373,11 @@ a.add-temporary {
 
 #succ-condition-lab .inset-label {
     position: absolute;
-    /* background: rgba(0,0,0,0.5); */
-    /* color: white; */
     background: rgba(0, 0, 0, 0.05);
     height: 100%;
-    padding: 4px 2px;
+    padding-left: 4px;
     font-size: small;
+    align-content: center;
 }
 
 #succ-condition-lab .condition-text-input {
@@ -364,69 +396,29 @@ a.add-temporary {
     justify-content: start;
 }
 
-#succ-condition-lab .related-buttons button {
-    /* flex: 0; */
-}
-
-#succ-condition-lab .flex-break {
-    flex-basis: 100%;
-    height: 0;
-}
-
 #settings div#succ {
     margin: 0;
 }
 
-.succ-default-conditions .condition-section {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+.succ-default-conditions {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
 }
 
 .succ-default-conditions .condition-list {
     padding: 1rem;
+    border-left: 1px solid var(--color-border);
 }
 
 .succ-default-conditions footer {
     margin-top: auto;
     padding: 1rem;
+    grid-column: span 2;
 }
 
 .succ-default-conditions .condition-list input {
     vertical-align: middle;
-}
-
-.succ-default-conditions .save-button {
-    background: rgba(0, 0, 0, 0.1);
-    border: 2px groove var(--color-border-light-highlight);
-}
-
-.succ-default-conditions aside.sidebar {
-    flex: 0 0 200px;
-    height: 100%;
-    padding: 1rem;
-    border-right: 1px solid var(--color-border-light-primary);
-    font-size: var(--font-size-12);
-}
-
-.succ-default-conditions aside.sidebar nav.tabs {
-    flex-direction: column;
-    justify-content: flex-start;
-    overflow: hidden auto;
-    align-items: normal;
-}
-
-.succ-default-conditions aside.sidebar nav.tabs .group-tab {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    border-bottom: 1px solid var(--color-border-light-primary);
-    text-align: left;
-}
-
-.succ-default-conditions aside.sidebar nav.tabs .group-tab.active {
-    font-weight: bold;
-    border-bottom: 1px solid var(--color-underline-active);
+    flex: 0 0 20px;
 }
 
 .succ-token-display-settings .settings-section {
@@ -483,11 +475,6 @@ a.add-temporary {
     vertical-align: middle;
 }
 
-.succ-token-display-settings .save-button {
-    background: rgba(0, 0, 0, 0.1);
-    border: 2px groove var(--color-border-light-highlight);
-}
-
 .condition-options input {
     vertical-align: middle;
 }
@@ -495,11 +482,13 @@ a.add-temporary {
 .condition-options .condition-id-group {
     display: flex;
 }
+
 .condition-options .condition-id {
     color: var(--color-text-dark-secondary);
 }
 
 .condition-options .copy-button {
+    display: unset;
     max-width: fit-content;
     background: none;
     border: none;
@@ -523,11 +512,6 @@ a.add-temporary {
     flex: 1;
     padding: 1rem;
     overflow: hidden auto;
-}
-
-.condition-options-config .footer {
-    margin: 1rem;
-    flex: 0;
 }
 
 dialog.succ-dialog .window-content button {
@@ -598,4 +582,35 @@ dialog.succ-dialog .dialog-content {
 
 .succ-dialog .all-skills {
     padding-bottom: 10px;
+}
+
+.succ-form {
+    gap: 0;
+}
+
+.succ-form .tab {
+    gap: 0;
+}
+
+.succ-form .hint,
+.succ-form .notes {
+  flex: 0 0 100%;
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-16);
+  color: var(--color-text-dark-secondary);
+  margin: 3px 0;
+}
+
+.succ-form h4 {
+    border-bottom: 1px solid var(--color-warm-2);
+    margin-bottom: 0.5em;
+}
+
+.succ-form input[type="checkbox"] {
+    &:indeterminate {
+        &::before {
+            color: var(--color-warm-2);
+            content: "\f146";
+        }
+    }
 }

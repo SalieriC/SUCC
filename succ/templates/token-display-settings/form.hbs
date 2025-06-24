@@ -1,0 +1,54 @@
+<div class='sheet-body settings-list'>
+    {{#if isGM}}
+        <div class="display-settings-header">
+            <div></div>
+            <div>{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Header.World"}}</div>
+            <div>{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Header.Client"}}</div>
+        </div>
+    {{/if}}
+
+    <div class="display-settings-group">
+        <label>{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.SizeN"}}</label>
+
+        {{#if isGM}}
+            <select name="world-effect-size" data-dtype="String">
+                {{selectOptions this.sizeChoices selected=this.worldTokenDisplaySettings.effectSize localize=true valueAttr="id" labelAttr="label"}}
+            </select>
+        {{/if}}
+
+        <select name="effect-size" data-dtype="String">
+            {{selectOptions this.clientSizeChoices selected=this.clientTokenDisplaySettings.effectSize localize=true valueAttr="id" labelAttr="label"}}
+        </select>
+        <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.SizeD"}}</p>
+    </div>
+
+    <div class="display-settings-group">
+        <label>{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.BGShapeN"}}</label>
+
+        {{#if isGM}}
+            <select name="world-bg-shape" data-dtype="String">
+                {{selectOptions this.shapeChoices selected=this.worldTokenDisplaySettings.bgShape localize=true valueAttr="id" labelAttr="label"}}
+            </select>
+        {{/if}}
+
+        <select name="bg-shape" data-dtype="String">
+            {{selectOptions this.clientShapeChoices selected=this.clientTokenDisplaySettings.bgShape localize=true valueAttr="id" labelAttr="label"}}
+        </select>
+        <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.BGShapeD"}}</p>
+    </div>
+
+    <div class="display-settings-group">
+        <label>{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.PositioningN"}}</label>
+
+        {{#if isGM}}
+            <select name="world-effect-positioning" data-dtype="String">
+                {{selectOptions this.positioningChoices selected=this.worldTokenDisplaySettings.effectPositioning localize=true valueAttr="id" labelAttr="label"}}
+            </select>
+        {{/if}}
+
+        <select name="effect-positioning" data-dtype="String">
+            {{selectOptions this.clientPositioningChoices selected=this.clientTokenDisplaySettings.effectPositioning localize=true valueAttr="id" labelAttr="label"}}
+        </select>
+        <p class="notes">{{localize "succ.ENHANCED_CONDITIONS.TokenDisplaySettingsMenu.Settings.PositioningD"}}</p>
+    </div>
+</div>
