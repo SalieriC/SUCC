@@ -52,10 +52,10 @@ export class EnhancedConditionsAPIDialogs {
                     label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Apply"),
                     action: "apply",
                     callback: (event, button, dialog) => {
-                        let selectedWeaponName = dialog.querySelector("#weapon").value;
-                        let damageBonus = dialog.querySelector("#damageBonus").value;
-                        let apBonus = dialog.querySelector("#apBonus").value;
-                        let heavy = dialog.querySelector("#heavy").checked;
+                        let selectedWeaponName = dialog.element.querySelector("#weapon").value;
+                        let damageBonus = dialog.element.querySelector("#damageBonus").value;
+                        let apBonus = dialog.element.querySelector("#apBonus").value;
+                        let heavy = dialog.element.querySelector("#heavy").checked;
                         return { weaponName: selectedWeaponName, damageBonus: damageBonus, apBonus: apBonus, heavy: heavy };
                     }
                 },
@@ -88,7 +88,7 @@ export class EnhancedConditionsAPIDialogs {
                     label: game.i18n.localize("SWADE.Armor"),
                     action: "armor",
                     callback: (event, button, dialog) => {
-                        let protectionAmount = Number(dialog.querySelector("#protectionAmount").value);
+                        let protectionAmount = Number(dialog.element.querySelector("#protectionAmount").value);
                         return { bonus: protectionAmount, type: "armor" };
                     }
                 },
@@ -96,7 +96,7 @@ export class EnhancedConditionsAPIDialogs {
                     label: game.i18n.localize("SWADE.Tough"),
                     action: "toughness",
                     callback: (event, button, dialog) => {
-                        let protectionAmount = Number(dialog.querySelector("#protectionAmount").value);
+                        let protectionAmount = Number(dialog.element.querySelector("#protectionAmount").value);
                         return { bonus: protectionAmount, type: "toughness" };
                     }
                 },
@@ -204,7 +204,7 @@ export class EnhancedConditionsAPIDialogs {
                     label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Apply"),
                     action: "apply",
                     callback: (event, button, dialog) => {
-                        let pace = Number(dialog.querySelector("#pace").value);
+                        let pace = Number(dialog.element.querySelector("#pace").value);
                         return { pace };
                     }
                 },
