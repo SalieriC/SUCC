@@ -57,7 +57,6 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
             saveMacro: function (event, target) { this._onClickSaveMacro(target); },
             macroConfig: function (event, target) { this._onClickMacroConfig(target); },
             resetCondition: function (event, target) { this._onClickResetCondition(target); },
-            changeOrder: function (event, target) { this._onChangeSortOrder(target); },
         },
     };
 
@@ -548,6 +547,8 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         this.element.querySelector("select[class='map-type']").addEventListener("change", (event) => this._onChangeMapType(event));
         this.element.querySelector("input[name='filter-list']").addEventListener("input", (event) => this._onChangeFilter(event));
         Sidekick.addEventListenerAll(this.element, "input", "change", event => this._onChangeInputs(event));
+
+        new LabDragSort(this.element, this);
     }
 
     _onClose(context, options) {
@@ -779,29 +780,12 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Handle a change sort order click
      * @param {*} event
      */
-    _onChangeSortOrder(target) {
+    _onChangeSortOrder(target, newIndex) {
         const anchor = target;
         const liRow = anchor?.closest("li");
         const rowNumber = parseInt(liRow?.dataset.mappingRow);
-        const type = anchor?.className;
         const newMap = foundry.utils.deepClone(this.map);
         const mappingRow = newMap?.splice(rowNumber, 1) ?? [];
-        let newIndex = -1;
-
-        switch (type) {
-            case "move-up":
-                newIndex = rowNumber - 1;
-                break;
-
-            case "move-down":
-                newIndex = rowNumber + 1;
-                break;
-
-            default:
-                break;
-        }
-
-        if (newIndex <= -1) return;
 
         newMap.splice(newIndex, 0, ...mappingRow);
         this.map = newMap;
@@ -1148,5 +1132,67 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         }
 
         return propertyChanged;
+    }
+}
+
+
+class LabDragSort {
+    constructor(html, lab) {
+        this.lab = lab;
+        this.labList = html.querySelector('.condition-lab.list');
+
+        this.labList.querySelectorAll("li").forEach((el) => {
+            el.ondragstart = this.onDragStart.bind(this);
+            el.ondragover = this.onDragOver.bind(this);
+            el.ondragend = this.onDragEnd.bind(this);
+        });
+
+        this.labList.querySelectorAll(".sort-handle").forEach((el) => {
+            const li = el.closest("li");
+            el.onmousedown = li.setAttribute('draggable', 'true');
+            el.onmouseup = li.setAttribute('draggable', 'false');
+        });
+    }
+
+    onDragStart(ev) {
+        ev.dataTransfer.setData('text/plain', JSON.stringify({ type: "Charge" }));
+        this.dragging = ev.currentTarget;
+        this.dragging.classList.add("dragging");
+        const liRect = this.dragging.getBoundingClientRect();
+        ev.dataTransfer.setDragImage(this.dragging, ev.x - liRect.left, ev.y - liRect.top);
+    }
+
+    onDragOver(ev) {
+        ev.preventDefault();
+        const li = ev.currentTarget.closest("li");
+        let dropTarget = undefined;
+        if (this.dragging && li != this.dragging) {
+            if (this.dragging.parentElement == li.parentElement) {
+                dropTarget = li;
+                if (this.dragging.parentNode === dropTarget.parentNode) {
+                    dropTarget = dropTarget !== this.dragging.nextElementSibling ? dropTarget : dropTarget.nextElementSibling;
+                }
+            }
+        }
+
+        if (dropTarget) {
+            this.labList.insertBefore(this.dragging, dropTarget);
+        } else {
+            //We can't swap places with the last row
+            return;
+        }
+    }
+
+    onDragEnd() {
+        this.dragging.classList.remove('dragging');
+
+        const oldIndex = parseInt(this.dragging.dataset.mappingRow);
+        let newIndex = this.dragging.previousElementSibling ?
+            parseInt(this.dragging.previousElementSibling.dataset.mappingRow) : -1; //-1 since we'll add 1 to it on the next line
+        newIndex = newIndex < oldIndex ? newIndex + 1 : newIndex;
+
+        this.lab._onChangeSortOrder(this.dragging, newIndex);
+
+        this.dragging = null;
     }
 }
