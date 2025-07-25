@@ -496,8 +496,17 @@ dialog.succ-dialog .dialog-content {
     gap: unset;
 }
 
+.succ-dialog h2 {
+    display: flex;
+
+    > img {
+        margin-right: 10px;
+    }
+}
+
 .succ-dialog .smite-dialog h2 {
     margin: 0px;
+    display: flex;
 }
 
 .succ-dialog .smite-dialog .smite-group {
