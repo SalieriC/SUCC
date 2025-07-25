@@ -11,7 +11,7 @@ export class BoostLowerDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     static DEFAULT_OPTIONS = {
         id: "boost-lower-dialog",
         tag: "form",
-        window: { title: "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name", contentClasses: ["dialog succ-dialog"] },
+        window: { title: "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name", contentClasses: ["dialog", "succ-dialog"] },
         position: { width: 400 },
         actions: {
             success: function (event, button) {
