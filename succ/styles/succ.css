@@ -301,7 +301,7 @@ a.add-temporary {
     cursor: grab;
 }
 
-.dragging {
+.condition-lab .dragging {
     cursor: grabbing;
     visibility: hidden;
 
