@@ -1139,60 +1139,122 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
 class LabDragSort {
     constructor(html, lab) {
         this.lab = lab;
+        this.labForm = html.querySelector('.condition-lab-form');
+        this.scrollHeight = this.labForm.scrollHeight;
         this.labList = html.querySelector('.condition-lab.list');
 
-        this.labList.querySelectorAll("li").forEach((el) => {
-            el.ondragstart = this.onDragStart.bind(this);
-            el.ondragover = this.onDragOver.bind(this);
-            el.ondragend = this.onDragEnd.bind(this);
-        });
+        document.addEventListener("mouseup", this.onDragEnd.bind(this));
+        document.addEventListener("mousemove", this.onDrag.bind(this));
+        this.labForm.addEventListener("scroll", this.onScroll.bind(this));
 
         this.labList.querySelectorAll(".sort-handle").forEach((el) => {
-            const li = el.closest("li");
-            el.onmousedown = li.setAttribute('draggable', 'true');
-            el.onmouseup = li.setAttribute('draggable', 'false');
+            el.onmousedown = this.onDragStart.bind(this);
         });
+    }
+
+    onScroll(ev) {
+        if (this.dragging) {
+            ev.preventDefault();
+            this.onMove();
+        }
     }
 
     onDragStart(ev) {
-        ev.dataTransfer.setData('text/plain', JSON.stringify({ type: "Charge" }));
-        this.dragging = ev.currentTarget;
+        this.dragging = ev.currentTarget.closest("li");
         this.dragging.classList.add("dragging");
-        const liRect = this.dragging.getBoundingClientRect();
-        ev.dataTransfer.setDragImage(this.dragging, ev.x - liRect.left, ev.y - liRect.top);
-    }
 
-    onDragOver(ev) {
-        ev.preventDefault();
-        const li = ev.currentTarget.closest("li");
-        let dropTarget = undefined;
-        if (this.dragging && li != this.dragging) {
-            if (this.dragging.parentElement == li.parentElement) {
-                dropTarget = li;
-                if (this.dragging.parentNode === dropTarget.parentNode) {
-                    dropTarget = dropTarget !== this.dragging.nextElementSibling ? dropTarget : dropTarget.nextElementSibling;
+        this.clientX = ev.clientX;
+        this.clientY = ev.clientY;
+        this.initialX = this.clientX;
+        this.initialY = this.clientY;
+        this.initialScrollTop = this.labForm.scrollTop;
+
+        const duration = 1000 / 60;
+        this.scrollInterval = setInterval(() => {
+            const edgeDist = 75;
+            const scrollSpeed = 3;
+
+            const formRect = this.labForm.getBoundingClientRect();
+            if (this.clientY < formRect.top + edgeDist) {
+                const scrollDelta = Math.min(this.labForm.scrollTop, scrollSpeed);
+                if (scrollDelta > 0) {
+                    this.labForm.scrollTop -= scrollSpeed;
+                    this.onMove();
+                }
+            } else if (this.clientY > formRect.bottom - edgeDist) {
+                const distToBot = this.scrollHeight - (this.labForm.scrollTop + this.labForm.offsetHeight);
+                const scrollDelta = Math.min(distToBot, scrollSpeed);
+                if (scrollDelta > 0) {
+                    this.labForm.scrollTop += scrollSpeed;
+                    this.onMove();
                 }
             }
-        }
+        }, duration);
+    }
 
-        if (dropTarget) {
+    onDrag(ev) {
+        if (this.dragging) {
+            ev.preventDefault();
+            this.clientX = ev.clientX;
+            this.clientY = ev.clientY;
+            this.onMove();
+        }
+    }
+
+    onMove() {
+        if (this.dragging) {
+            //Check if we're overlapping a different condition row
+            const elements = document.elementsFromPoint(this.clientX, this.clientY);
+            for (const element of elements) {
+                if (element == this.dragging ||
+                    !element.classList.contains("row") ||
+                    !this.labList.contains(element)) {
+                    continue;
+                }
+                this.onDragOver(element);
+                break;
+            }
+
+            this.currentX = this.clientX - this.initialX;
+
+            //Our current Y is offset by the amount we scrolled see we started dragging
+            const scrollDelta = this.labForm.scrollTop - this.initialScrollTop;
+            this.currentY = (this.clientY + scrollDelta) - this.initialY;
+
+            this.dragging.style.transform = `translate3d(${this.currentX}px, ${this.currentY}px, 0)`;
+        }
+    }
+
+    onDragOver(row) {
+        if (this.dragging && row != this.dragging) {
+            const dropTarget = row !== this.dragging.nextElementSibling ? row : row.nextElementSibling;
+            const scrollBefore = this.labForm.scrollTop;
+            const topBefore = this.dragging.offsetTop;
+
             this.labList.insertBefore(this.dragging, dropTarget);
-        } else {
-            //We can't swap places with the last row
-            return;
+
+            //Update the initialY based on our new position in the list
+            this.initialY += this.dragging.offsetTop - topBefore;
+
+            //The scroll will jump if we're swapping at the top of the list which causes jitter
+            //Always ensure the scroll pos stays the same after a swap
+            this.labForm.scrollTop = scrollBefore;
         }
     }
 
     onDragEnd() {
-        this.dragging.classList.remove('dragging');
+        if (this.dragging) {
+            this.dragging.classList.remove('dragging');
 
-        const oldIndex = parseInt(this.dragging.dataset.mappingRow);
-        let newIndex = this.dragging.previousElementSibling ?
-            parseInt(this.dragging.previousElementSibling.dataset.mappingRow) : -1; //-1 since we'll add 1 to it on the next line
-        newIndex = newIndex < oldIndex ? newIndex + 1 : newIndex;
+            const oldIndex = parseInt(this.dragging.dataset.mappingRow);
+            let newIndex = this.dragging.previousElementSibling ?
+                parseInt(this.dragging.previousElementSibling.dataset.mappingRow) : -1; //-1 since we'll add 1 to it on the next line
+            newIndex = newIndex < oldIndex ? newIndex + 1 : newIndex;
 
-        this.lab._onChangeSortOrder(this.dragging, newIndex);
+            this.lab._onChangeSortOrder(this.dragging, newIndex);
 
-        this.dragging = null;
+            this.dragging = null;
+            clearInterval(this.scrollInterval);
+        }
     }
 }

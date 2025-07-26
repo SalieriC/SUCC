@@ -301,9 +301,11 @@ a.add-temporary {
     cursor: grab;
 }
 
-.condition-lab .dragging {
+.condition-lab li.row.dragging {
     cursor: grabbing;
-    visibility: hidden;
+    z-index: 1000;
+    position: relative;
+    transition: none;
 
     * {
         transition: none;
