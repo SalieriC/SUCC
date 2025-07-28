@@ -7,8 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [6.2.0] - 2025-07-28 aka "Mouse Movement"
+### Added
+- Exposed getActorFromEntity
+### Changed
+- Replaced the sort up/down buttons with drag sorting
+- Reworked to use mouse events instead of the dragging system
+### Fixed
+- Fixed dialog bug
+- Fixed an issue with lower trait
+
 ## [6.1.0] - 2025-06-24 aka "AppV2"
-☮️ Peace in the world, or the world in pieces. 🕊️
 ### Changed
 - Updated the whole module to use AppV2.
 ### Fixed
