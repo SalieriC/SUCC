@@ -1,5 +1,14 @@
 <li class="row flexrow {{#if condition.hidden}}hidden{{/if}}" data-mapping-row="{{@index}}" data-condition-id="{{condition.id}}">
     <!--column 1-->
+    <div class="flexcol row-controls">
+        {{#unless sortDirection}}
+            <div class='sort-handle'>
+                <a>
+                    <i class='fas fa-grip-vertical fa-2x'></i>
+                </a>
+            </div>
+        {{/unless}}
+    </div>
 
     <!--column 2-->
     <div class="flexcol content1">
@@ -68,11 +77,6 @@
     <!--column 4-->
     <!--delete row-->
     <div class="flexcol row-controls">
-        <div class="move-up" data-action="changeOrder">
-            {{#unless sortDirection}}
-                {{#unless (eq key 0)}}<a class="move-up"><i class="fas fa-chevron-up"></i></a>{{/unless}}
-            {{/unless}}
-        </div>
         <div class="remove-row">
             {{#if isCustom}}
                 {{#if addedByLab}}
@@ -81,11 +85,6 @@
                     </a>
                 {{/if}}
             {{/if}}
-        </div>
-        <div class="move-down" data-action="changeOrder">
-            {{#unless sortDirection}}
-                {{#unless (eq key lastConditionIndex)}}<a class="move-down"><i class="fas fa-chevron-down"></i></a>{{/unless}}
-            {{/unless}}
         </div>
     </div>
 </li>

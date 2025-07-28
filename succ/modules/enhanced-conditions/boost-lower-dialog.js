@@ -11,7 +11,7 @@ export class BoostLowerDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     static DEFAULT_OPTIONS = {
         id: "boost-lower-dialog",
         tag: "form",
-        window: { title: "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name", contentClasses: ["dialog succ-dialog"] },
+        window: { title: "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name", contentClasses: ["dialog", "succ-dialog"] },
         position: { width: 400 },
         actions: {
             success: function (event, button) {
@@ -54,7 +54,7 @@ export class BoostLowerDialog extends HandlebarsApplicationMixin(ApplicationV2) 
 
     _onRender(context, options) {
         const allSkillsCheckbox = this.element.querySelector('input[id="all-skills"]');
-        allSkillsCheckbox.addEventListener("change", event => {
+        allSkillsCheckbox?.addEventListener("change", event => {
             //When the all skills option changes, we need to refresh the dialog to get the new list
             this.showAllSkills = event.target.checked;
             this.render();

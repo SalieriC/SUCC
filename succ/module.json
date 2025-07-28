@@ -40,6 +40,11 @@
   "styles": [
     "styles/succ.css"
   ],
+  "flags": {
+    "hotReload": {
+      "extensions": ["css", "hbs"]
+    }
+  },
   "authors": [
     {
       "name": "SalieriC",

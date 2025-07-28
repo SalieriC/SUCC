@@ -57,7 +57,6 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
             saveMacro: function (event, target) { this._onClickSaveMacro(target); },
             macroConfig: function (event, target) { this._onClickMacroConfig(target); },
             resetCondition: function (event, target) { this._onClickResetCondition(target); },
-            changeOrder: function (event, target) { this._onChangeSortOrder(target); },
         },
     };
 
@@ -548,6 +547,8 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         this.element.querySelector("select[class='map-type']").addEventListener("change", (event) => this._onChangeMapType(event));
         this.element.querySelector("input[name='filter-list']").addEventListener("input", (event) => this._onChangeFilter(event));
         Sidekick.addEventListenerAll(this.element, "input", "change", event => this._onChangeInputs(event));
+
+        new LabDragSort(this.element, this);
     }
 
     _onClose(context, options) {
@@ -779,29 +780,12 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      * Handle a change sort order click
      * @param {*} event
      */
-    _onChangeSortOrder(target) {
+    _onChangeSortOrder(target, newIndex) {
         const anchor = target;
         const liRow = anchor?.closest("li");
         const rowNumber = parseInt(liRow?.dataset.mappingRow);
-        const type = anchor?.className;
         const newMap = foundry.utils.deepClone(this.map);
         const mappingRow = newMap?.splice(rowNumber, 1) ?? [];
-        let newIndex = -1;
-
-        switch (type) {
-            case "move-up":
-                newIndex = rowNumber - 1;
-                break;
-
-            case "move-down":
-                newIndex = rowNumber + 1;
-                break;
-
-            default:
-                break;
-        }
-
-        if (newIndex <= -1) return;
 
         newMap.splice(newIndex, 0, ...mappingRow);
         this.map = newMap;
@@ -1148,5 +1132,129 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
         }
 
         return propertyChanged;
+    }
+}
+
+
+class LabDragSort {
+    constructor(html, lab) {
+        this.lab = lab;
+        this.labForm = html.querySelector('.condition-lab-form');
+        this.scrollHeight = this.labForm.scrollHeight;
+        this.labList = html.querySelector('.condition-lab.list');
+
+        document.addEventListener("mouseup", this.onDragEnd.bind(this));
+        document.addEventListener("mousemove", this.onDrag.bind(this));
+        this.labForm.addEventListener("scroll", this.onScroll.bind(this));
+
+        this.labList.querySelectorAll(".sort-handle").forEach((el) => {
+            el.onmousedown = this.onDragStart.bind(this);
+        });
+    }
+
+    onScroll(ev) {
+        if (this.dragging) {
+            ev.preventDefault();
+            this.onMove();
+        }
+    }
+
+    onDragStart(ev) {
+        this.dragging = ev.currentTarget.closest("li");
+        this.dragging.classList.add("dragging");
+
+        this.clientX = ev.clientX;
+        this.clientY = ev.clientY;
+        this.initialX = this.clientX;
+        this.initialY = this.clientY;
+        this.initialScrollTop = this.labForm.scrollTop;
+
+        const duration = 1000 / 60;
+        this.scrollInterval = setInterval(() => {
+            const edgeDist = 75;
+            const scrollSpeed = 3;
+
+            const formRect = this.labForm.getBoundingClientRect();
+            if (this.clientY < formRect.top + edgeDist) {
+                const scrollDelta = Math.min(this.labForm.scrollTop, scrollSpeed);
+                if (scrollDelta > 0) {
+                    this.labForm.scrollTop -= scrollSpeed;
+                    this.onMove();
+                }
+            } else if (this.clientY > formRect.bottom - edgeDist) {
+                const distToBot = this.scrollHeight - (this.labForm.scrollTop + this.labForm.offsetHeight);
+                const scrollDelta = Math.min(distToBot, scrollSpeed);
+                if (scrollDelta > 0) {
+                    this.labForm.scrollTop += scrollSpeed;
+                    this.onMove();
+                }
+            }
+        }, duration);
+    }
+
+    onDrag(ev) {
+        if (this.dragging) {
+            ev.preventDefault();
+            this.clientX = ev.clientX;
+            this.clientY = ev.clientY;
+            this.onMove();
+        }
+    }
+
+    onMove() {
+        if (this.dragging) {
+            //Check if we're overlapping a different condition row
+            const elements = document.elementsFromPoint(this.clientX, this.clientY);
+            for (const element of elements) {
+                if (element == this.dragging ||
+                    !element.classList.contains("row") ||
+                    !this.labList.contains(element)) {
+                    continue;
+                }
+                this.onDragOver(element);
+                break;
+            }
+
+            this.currentX = this.clientX - this.initialX;
+
+            //Our current Y is offset by the amount we scrolled see we started dragging
+            const scrollDelta = this.labForm.scrollTop - this.initialScrollTop;
+            this.currentY = (this.clientY + scrollDelta) - this.initialY;
+
+            this.dragging.style.transform = `translate3d(${this.currentX}px, ${this.currentY}px, 0)`;
+        }
+    }
+
+    onDragOver(row) {
+        if (this.dragging && row != this.dragging) {
+            const dropTarget = row !== this.dragging.nextElementSibling ? row : row.nextElementSibling;
+            const scrollBefore = this.labForm.scrollTop;
+            const topBefore = this.dragging.offsetTop;
+
+            this.labList.insertBefore(this.dragging, dropTarget);
+
+            //Update the initialY based on our new position in the list
+            this.initialY += this.dragging.offsetTop - topBefore;
+
+            //The scroll will jump if we're swapping at the top of the list which causes jitter
+            //Always ensure the scroll pos stays the same after a swap
+            this.labForm.scrollTop = scrollBefore;
+        }
+    }
+
+    onDragEnd() {
+        if (this.dragging) {
+            this.dragging.classList.remove('dragging');
+
+            const oldIndex = parseInt(this.dragging.dataset.mappingRow);
+            let newIndex = this.dragging.previousElementSibling ?
+                parseInt(this.dragging.previousElementSibling.dataset.mappingRow) : -1; //-1 since we'll add 1 to it on the next line
+            newIndex = newIndex < oldIndex ? newIndex + 1 : newIndex;
+
+            this.lab._onChangeSortOrder(this.dragging, newIndex);
+
+            this.dragging = null;
+            clearInterval(this.scrollInterval);
+        }
     }
 }

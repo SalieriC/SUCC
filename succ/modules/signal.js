@@ -70,6 +70,7 @@ export class Signal {
             game.succ.removeAllConditions = EnhancedConditionsAPI.removeAllConditions;
             game.succ.toggleCondition = EnhancedConditionsAPI.toggleCondition;
             game.succ.removeTemporaryEffects = EnhancedConditionsAPI.removeTemporaryEffects;
+            game.succ.getActorFromEntity = EnhancedConditionsAPI.getActorFromEntity;
 
             //Dialogs API
             game.succ.boostLowerTraitDialog = EnhancedConditionsAPIDialogs.boostLowerTraitDialog;
