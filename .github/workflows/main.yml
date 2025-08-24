@@ -30,7 +30,7 @@ jobs:
         bugs: https://github.com/${{github.repository}}/issues
 
     # Create a zip file with all files required by the module to add to the release
-    - run: zip -r ./module.zip LICENSE succ/module.json succ/succ.js succ/assets/ succ/config/ succ/lang/ succ/modules/ succ/styles/ succ/templates/
+    - run: zip -r ./module.zip LICENSE ./succ/module.json ./succ/succ.js ./succ/assets/ ./succ/config/ ./succ/lang/ ./succ/modules/ ./succ/styles/ ./succ/templates/
 
     # Create a release for this specific version
     - name: Update Release with Files
