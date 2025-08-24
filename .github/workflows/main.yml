@@ -43,5 +43,5 @@ jobs:
         prerelease: false
         omitBody: true
         token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: './module.json, ./module.zip'
+        artifacts: './succ/module.json, ./module.zip'
         tag: ${{ github.event.release.tag_name }}
