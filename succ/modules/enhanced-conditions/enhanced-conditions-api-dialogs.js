@@ -1,6 +1,8 @@
 import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
+import { ApplyConditionsDialog } from "./apply-conditions-dialog.js";
 import { BoostLowerDialog } from "./boost-lower-dialog.js";
+import { EnhancedConditionsAPI } from "./enhanced-conditions-api.js";
 import { EnhancedConditions } from "./enhanced-conditions.js";
 
 /**
@@ -11,6 +13,25 @@ export class EnhancedConditionsAPIDialogs {
     /* -------------------------------------------- */
     /*                      API                     */
     /* -------------------------------------------- */
+
+    /**
+     * Shows the apply conditions dialog and adds the selected conditions
+     */
+    static async applyConditionsDialog() {
+        let targets = Array.from(game.user.targets);
+        targets = targets.length ? targets : canvas.tokens.controlled;
+        if (!targets.length) {
+            ui.notifications.error("No targets selected.");
+            return;
+        }
+
+        let result = await new ApplyConditionsDialog().wait();
+        if (!result) {
+            return;
+        }
+
+        EnhancedConditionsAPI.addCondition(result.conditions, targets);
+    }
 
     /**
      * Shows the boost/lower trait dialog and returns the result

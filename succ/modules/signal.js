@@ -73,6 +73,7 @@ export class Signal {
             game.succ.getActorFromEntity = EnhancedConditionsAPI.getActorFromEntity;
 
             //Dialogs API
+            game.succ.applyConditionsDialog = EnhancedConditionsAPIDialogs.applyConditionsDialog;
             game.succ.boostLowerTraitDialog = EnhancedConditionsAPIDialogs.boostLowerTraitDialog;
             game.succ.smiteDialog = EnhancedConditionsAPIDialogs.smiteDialog;
             game.succ.protectionDialog = EnhancedConditionsAPIDialogs.protectionDialog;

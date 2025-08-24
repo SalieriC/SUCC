@@ -34,6 +34,19 @@
       "flags": {}
     }
   ],
+  "packs": [
+    {
+      "name": "succ-macros",
+      "label": "SUCC Macros",
+      "path": "packs/macros",
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "TRUSTED": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ],
   "esmodules": [
     "succ.js"
   ],

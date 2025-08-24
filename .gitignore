@@ -3,3 +3,7 @@ succ/.vscode/launch.json
 succ/succ.lock
 succ/package-lock.json
 succ/package.json
+/succ/packs
+/node_modules
+pnpm-lock.yaml
+/packs
