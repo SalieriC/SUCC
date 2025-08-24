@@ -21,7 +21,7 @@ jobs:
       id: sub_manifest_link_version
       uses: microsoft/variable-substitution@v1
       with:
-        files: 'module.json'
+        files: 'succ/module.json'
       env:
         version: ${{github.event.release.tag_name}}
         url: https://github.com/${{github.repository}}
