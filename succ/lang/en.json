@@ -15,7 +15,6 @@
             "ConditionLab": {
                 "NoReference": "--No Reference Entry-- (Drag a Journal, Item, Actor, etc. into this field to set)",
                 "FilterInputTitle": "Filter by Name",
-                "FilterButtonTitle": "Apply Filter",
                 "SortAnchorTitle": "Sort by Name - unsorted (click to change)",
                 "SortAnchorTitle_asc": "Sort by Name - A to Z (click to change)",
                 "SortAnchorTitle_desc": "Sort by Name - Z to A (click to change)",
@@ -99,6 +98,11 @@
                     "Counterclockwise": "Circle (Counterclockwise)",
                     "Clockwise": "Circle (Clockwise)"
                 }
+            },
+            "ApplyConditionsDialog": {
+                "Title": "Apply Conditions",
+                "Desc": "Select the conditions to apply to the selected targets. If a target already has a selected condition, it will be ignored.",
+                "FilterInputTitle": "Filter by Name"
             },
             "MacroConfig": {
                 "Heading": "Macros to Execute",
@@ -270,6 +274,8 @@
     "ENHANCED_CONDITIONS.ChatCard.Buttons.Remove": "Remove Condition",
     "ENHANCED_CONDITIONS.ChatCard.Error.TokenDeleted": "The token associated with this condition change was not found.",
 
+    "ENHANCED_CONDITIONS.Conditions": "Conditions",
+
     "ENHANCED_CONDITIONS.Condition.Boost": "Boost Trait",
     "ENHANCED_CONDITIONS.Condition.Lower": "Lower Trait",
     "ENHANCED_CONDITIONS.Condition.TheDrop": "The Drop",
@@ -330,7 +336,7 @@
     "ENHANCED_CONDITIONS.Dialog.NumbBuilder.Name": "Numb Builder",
     "ENHANCED_CONDITIONS.Dialog.NumbBuilder.Body": "<p><i>Numb</i> reduces the target's Wound and Fatigue penalties by 1 or 2 with a raise. Please choose the degree of success the caster had.</p>",
     "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name": "Smite Builder",
-    "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Body": "<p><i>Smite</i> increases the damage potential of one of the target's weapons. Select the weapon and modifiers.</p>",
+    "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Body": "<p><i>Smite</i> increases the damage potential of one of the target's weapons. Select the weapon and modifiers. (Using standard rules, a Success adds 2 damage and a Raise adds 4.)</p>",
     "ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Name": "Protection Builder",
     "ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Body": "<p><i>Protection</i> increases the armor or toughness of the recipient. Please choose the amount to increase and click on the appropriate button, depending on modifiers used by the spellcaster.</p>",
     "ENHANCED_CONDITIONS.Dialog.Success": "Success",
@@ -368,53 +374,11 @@
     "SETTINGS.EnhancedConditions.ActiveConditionMapN": "Active Condition Map",
     "SETTINGS.EnhancedConditions.ActiveConditionMapH": "Stores the active condition map",
 
-    "WORDS.IUnderstand": "I Understand",
     "WORDS.Import": "Import",
     "WORDS.Export": "Export",
     "WORDS.Cancel": "Cancel",
     "WORDS._Yes": " Yes",
     "WORDS._No": " No",
     "WORDS.Yes": "Yes",
-    "WORDS.No": "No",
-    "WORDS.None": "None",
-
-    "SUCC.added": "Added",
-    "SUCC.removed": "Removed",
-    "SUCC.undo": "Undo",
-    "SUCC.remove": "Remove",
-    "SUCC.setting.default_icons": "Use SWADE default icons",
-    "SUCC.setting.default_icons_hint": "Setting this option will use the default icons from the SWADE system instead of the ones shipped with this module. Do not activate if you want to use your own icons configured below.",
-    "SUCC.setting.icon_definitions": "Icon definitions",
-    "SUCC.setting.icon_definitions_hint": "JSON for changing status images",
-    "SUCC.setting.output_to_chat": "Output Conditions to Chat:",
-    "SUCC.setting.output_to_chat_hint": "When active, this will create a chat message when default conditions are changed on an actor or token. The chat message will contain a rules reference link, if either the SWADE core rules module or the SWPF rules module is activated. This is especially useful for new players as the relevant rules can be opened on a single click.",
-    "SUCC.dialogue.protection_builder_name": "Protection builder",
-    "SUCC.dialogue.protection_builder_dialogue": "<p><i>Protection</i> increases the armor or toughness of the recipient. Please choose the amount to increase and click on the appropriate button, depending on modifiers used by the spellcaster.</p>",
-    "SUCC.dialogue.smite_builder_name": "Smite builder",
-    "SUCC.dialogue.smite_builder_dialogue": "<p><i>Smite</i> increases the damage of one of the recipients weapons. Please choose the weapon and amount to increase the weapons damage.</p>",
-    "SUCC.dialogue.amount_to_increase": "Amount to increase: ",
-    "SUCC.dialogue.weapon_to_affect": "Weapon to affect: ",
-    "SUCC.dialogue.apply": "Apply",
-    "SUCC.dialogue.cancel": "Cancel",
-    "SUCC.smite.no_weapons": "No weapon to apply smite to was found.",
-    "SUCC.setting.modify_status_definitions": "Modify system status",
-    "SUCC.setting.modify_status_definitions_hint": "JSON to modify the default system status values",
-    "SUCC.setting.boost_lower": "Add Boost and Lower Conditions",
-    "SUCC.setting.boost_lower_hint": "If set to true, two new conditions will be added to apply the effects of the boost/lower power.",
-    "SUCC.condition.boost": "Boost Trait",
-    "SUCC.condition.lower": "Lower Trait",
-    "SUCC.condition.the_drop": "The Drop",
-    "SUCC.dialogue.boost_builder_name": "Boost Trait Builder",
-    "SUCC.dialogue.boost_builder_dialogue": "<p><i>Boost</i> raises a single Trait of the recipient. Please choose the affected Trait and the degree of success the caster had.</p>",
-    "SUCC.dialogue.lower_builder_name": "Lower Trait Builder",
-    "SUCC.dialogue.lower_builder_dialogue": "<p><i>Lower</i> lowers a single Trait of the recipient. Please choose the affected Trait and the degree of success the caster had.</p>",
-    "SUCC.dialogue.trait": "Trait:",
-    "SUCC.dialogue.attribute": "|ATTRIBUTE|",
-    "SUCC.dialogue.skill": "|SKILL|",
-    "SUCC.dialogue.success": "Success",
-    "SUCC.dialogue.raise": "Raise",
-    "SUCC.effectBuilder.unskilled-coreRules": "Unskilled Attempt",
-    "SUCC.setting.disable_status_dialogue": "Disable Shaken, Stunned and Bleeding Out removal dialogue:",
-    "SUCC.setting.disable_status_dialogue_hint": "If set to true, the game will not show the dialogue to remove Shaken and Stunned, allowing you to make rolls for it without the need to dismiss the dialogue.",
-    "SUCC.notification.no_conviction_token_left": "This actor has no conviction tokens left."
+    "WORDS.No": "No"
 }

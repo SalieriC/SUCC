@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "pullFromWorld": "node build/pullFromWorld.mjs",
+    "pushToWorld": "node build/pushToWorld.mjs"
+  },
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.2"
+  }
+}

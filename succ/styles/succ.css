@@ -106,7 +106,7 @@ a.add-temporary {
 
 #succ-condition-lab div.filter div.input-wrapper i {
     position: absolute;
-    top: 5px;
+    top: 8px;
     left: 5px;
 }
 
@@ -598,4 +598,70 @@ dialog.succ-dialog .dialog-content {
             content: "\f146";
         }
     }
+}
+
+
+
+.app-cond-dialog h4 {
+    border-bottom: 1px solid var(--color-warm-2);
+    margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+
+    >img {
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+        border:0;
+    }
+}
+
+.app-cond-dialog {
+    gap: 0;
+}
+
+.app-cond-dialog .condition-selection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.condition-selection .condition img {
+    max-height: 1rem;
+}
+
+.app-cond-dialog .condition-list-controls {
+    margin-bottom: 0.5rem;
+}
+
+.app-cond-dialog div.sort {
+    flex: 0 1 20px;
+    margin-right: 3px;
+}
+
+.app-cond-dialog div.filter {
+    margin-left: 25px;
+    max-width: 50%;
+    display: flex;
+}
+
+.app-cond-dialog div.filter div.input-wrapper {
+    position: relative;
+}
+
+.app-cond-dialog div.filter div.input-wrapper i {
+    position: absolute;
+    top: 8px;
+    left: 5px;
+}
+
+.app-cond-dialog .sort-list i {
+    font-size: x-large;
+}
+
+.app-cond-dialog div.filter div.input-wrapper input {
+    padding-left: 20px;
 }

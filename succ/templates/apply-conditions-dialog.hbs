@@ -1,0 +1,43 @@
+<form class="standard-form">
+    <div>
+        <h4><img src="modules/succ/assets/icons/apply-conditions.svg" />{{localize "succ.ENHANCED_CONDITIONS.ApplyConditionsDialog.Title"}}</h4>
+        <p>{{localize "succ.ENHANCED_CONDITIONS.ApplyConditionsDialog.Desc"}}</p>
+        <div class="flexrow condition-list-controls">
+            <div class="sort" data-action="sortList">
+                <a class="sort-list">
+                    <span class="fa-stack fa-1x">
+                        {{#unless sortDirection}}<i class="fas fa-slash fa-stack-1x"></i>{{/unless}}
+                        {{#if (eq sortDirection "desc")}}<i class="fas fa-sort-alpha-down-alt fa-stack-1x"></i>
+                        {{else}}<i class="fas fa-sort-alpha-down fa-stack-1x"></i>
+                        {{/if}}
+                    </span>
+                </a>
+            </div>
+            <div class="filter">
+                <div class="input-wrapper">
+                    <i class="fas fa-filter"></i>
+                    <input type="text" name="filter-list"
+                    title="{{localize "succ.ENHANCED_CONDITIONS.ApplyConditionsDialog.FilterInputTitle"}}"
+                    placeholder="{{localize "succ.ENHANCED_CONDITIONS.ApplyConditionsDialog.FilterInputTitle"}}"
+                    value="{{filterValue}}" data-dtype="String">
+                </div>
+            </div>
+        </div>
+        <fieldset>
+            <legend>{{localize "ENHANCED_CONDITIONS.Conditions"}}</legend>
+            <div class="condition-selection" name="conditions">
+                {{#each conditions}}
+                    <div class="condition {{#if hidden}}hidden{{/if}}" data-condition-id="{{id}}">
+                        <label class="checkbox">
+                            <input type="checkbox" value="{{id}}" {{#if checked}}checked{{/if}}><img src={{img}} />{{localize name}}
+                        </label>
+                    </div>
+                {{/each}}
+            </div>
+        </fieldset>
+    </div>
+    <footer class="form-footer">
+        <button type="button" data-action="apply">{{localize "ENHANCED_CONDITIONS.Dialog.Apply"}}</button>
+        <button type="button" data-action="cancel">{{localize "ENHANCED_CONDITIONS.Dialog.Cancel"}}</button>
+    </footer>
+</form>

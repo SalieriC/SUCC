@@ -81,7 +81,8 @@ export const DEFAULT_CONFIG = {
             protectionDialog: `${PATH}/templates/protection-dialog.hbs`,
             deflectionDialog: `${PATH}/templates/deflection-dialog.hbs`,
             numbDialog: `${PATH}/templates/numb-dialog.hbs`,
-            flyingDialog: `${PATH}/templates/flying-dialog.hbs`
+            flyingDialog: `${PATH}/templates/flying-dialog.hbs`,
+            applyConditionsDialog: `${PATH}/templates/apply-conditions-dialog.hbs`
         },
         specialStatusEffects: {
             defeated: { //Cannot be changed by users
