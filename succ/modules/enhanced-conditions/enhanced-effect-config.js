@@ -19,6 +19,8 @@ export default class EnhancedEffectConfig extends foundry.applications.sheets.Ac
         condition.activeEffect = condition.activeEffect ? foundry.utils.mergeObject(condition.activeEffect, submitData) : submitData;
         await Sidekick.setModuleFlag(condition.activeEffect, FLAGS.enhancedConditions.activeEffectCustomized, true);
 
+        this.render(true);
+
         if (ui.succ.conditionLab) {
             ui.succ.conditionLab.render();
         }
