@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [7.0.1] - 2025-12-18 aka "Driving Home for Christmas"
+### Fixed
+- AE config is now rendered when it changes.
+
 ## [7.0.0] - 2025-08-27 aka "The New World"
 ### Added
 - Apply Conditions Dialog
