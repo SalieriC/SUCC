@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [7.0.2] - 2026-01-15 aka "New Year, new fix"
+### Fixed
+- Hotfix to restore system behaviour by using condition flags from the system.
+
 ## [7.0.1] - 2025-12-18 aka "Driving Home for Christmas"
 ### Fixed
 - AE config is now rendered when it changes.
