@@ -813,6 +813,7 @@ export class EnhancedConditions {
                 conditionConfig.activeEffect = foundry.utils.mergeObject(conditionConfig.activeEffect, {
                     ...statusEffect.duration != undefined ? { duration: statusEffect.duration } : null,
                     ...statusEffect.system != undefined ? { system: statusEffect.system } : null,
+                    ...statusEffect.flags != undefined ? { flags: statusEffect.flags } : null,
                 });
 
                 //Combine the list of changes rather than stomping
