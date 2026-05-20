@@ -14,7 +14,6 @@ export const DEFAULT_CONFIG = {
         conditionModuleOverridesPath: `${CONFIG_PATH}/condition-config-module-overrides`,
         defaultConditionGroupsPath: `${CONFIG_PATH}/default-condition-groups`,
         outputChat: true,
-        removeDefaultEffects: true,
         conditionLab: {
             id: "succ-condition-lab",
             title: "Condition Lab",
@@ -206,7 +205,6 @@ export const SETTING_KEYS = {
         defaultConditions: "defaultConditions",
         deletedConditionsMap: "deletedConditionsMap",
         mapType: "conditionMapType",
-        removeDefaultEffects: "removeDefaultEffects",
         outputChat: "conditionsOutputToChat",
         showSortDirectionDialog: "showSortDirectionDialog",
         defaultSpecialStatusEffects: "defaultSpecialStatusEffects",

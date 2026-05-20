@@ -98,18 +98,6 @@ export function registerSettings() {
         }
     });
 
-    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.removeDefaultEffects, {
-        name: "SETTINGS.EnhancedConditions.RemoveDefaultEffectsN",
-        hint: "SETTINGS.EnhancedConditions.RemoveDefaultEffectsH",
-        scope: "world",
-        type: Boolean,
-        config: true,
-        default: BUTLER.DEFAULT_CONFIG.enhancedConditions.removeDefaultEffects,
-        onChange: s => {
-            EnhancedConditions._updateStatusEffects();
-        }
-    });
-
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog, {
         name: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.ShowSortDirectionDialogN`,
         hint: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.ShowSortDirectionDialogH`,

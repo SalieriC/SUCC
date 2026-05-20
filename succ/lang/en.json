@@ -367,8 +367,6 @@
     "SETTINGS.EnhancedConditions.OutputCombatH": "On each round of Combat, output any conditions for the current combatant to chat",
     "SETTINGS.EnhancedConditions.DefaultMapN": "Default Condition Maps",
     "SETTINGS.EnhancedConditions.DefaultMapH": "Module-provided maps of conditions to icons",
-    "SETTINGS.EnhancedConditions.RemoveDefaultEffectsN": "Remove Default Status Effects",
-    "SETTINGS.EnhancedConditions.RemoveDefaultEffectsH": "Remove existing status effect icons from token HUD",
     "SETTINGS.EnhancedConditions.MapTypeN": "Active Condition Map Type",
     "SETTINGS.EnhancedConditions.MapTypeH": "Condition map type currently in use -- default, custom or other",
     "SETTINGS.EnhancedConditions.ActiveConditionMapN": "Active Condition Map",

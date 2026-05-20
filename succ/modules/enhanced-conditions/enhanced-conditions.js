@@ -993,24 +993,10 @@ export class EnhancedConditions {
             EnhancedConditions._backupCoreEffects();
         }
 
-        const removeDefaultEffects = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.removeDefaultEffects);
         const activeConditionMap = conditionMap || Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-
-        if (!removeDefaultEffects && !activeConditionMap) {
-            return;
-        }
-
         const activeConditionEffects = EnhancedConditions._prepareStatusEffects(activeConditionMap, {excludeDisabledStatusEffects: true});
 
-        if (removeDefaultEffects) {
-            CONFIG.statusEffects = activeConditionEffects ?? [];
-        } else if (activeConditionMap instanceof Array) {
-            //add the icons from the condition map to the status effects array
-            const coreEffects = CONFIG.defaultStatusEffects || Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
-
-            // Create a Set based on the core status effects and the Enhanced Condition effects. Using a Set ensures unique icons only
-            CONFIG.statusEffects = coreEffects.concat(activeConditionEffects);
-        }
+        CONFIG.statusEffects = Object.fromEntries(activeConditionEffects.map(c => [c.id, c]));
 
         //Loop over our list of special effect and update them to match our settings
         Object.keys(CONFIG.specialStatusEffects).forEach((key) => {

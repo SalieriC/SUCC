@@ -335,8 +335,6 @@
     "SETTINGS.EnhancedConditions.OutputCombatH": "n jeder Kampfrunde alle Zustände für den aktuellen Kämpfer im Chat veröffentlichen",
     "SETTINGS.EnhancedConditions.DefaultMapN": "Standard-Zustandszuordnung",
     "SETTINGS.EnhancedConditions.DefaultMapH": "Vom Modul bereitgestellte Zuordnungen von Zuständen zu Icons",
-    "SETTINGS.EnhancedConditions.RemoveDefaultEffectsN": "Standard-Zustandseffekte entfernen",
-    "SETTINGS.EnhancedConditions.RemoveDefaultEffectsH": "Vorhandene Status-Effekt-Icons aus dem Spielfigur-HUD entfernen",
     "SETTINGS.EnhancedConditions.MapTypeN": "Aktive Zustandszuordnungsart",
     "SETTINGS.EnhancedConditions.MapTypeH": "Derzeit verwendeter Zustandszuordnungsart - Default, Custom oder Other",
     "SETTINGS.EnhancedConditions.ActiveConditionMapN": "Aktive Zustandszuordnung",

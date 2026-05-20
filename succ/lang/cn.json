@@ -58,8 +58,6 @@
 	"SETTINGS.EnhancedConditions.OutputCombatH": "在战斗中的每一轮，输出当前参战者的所有状态到聊天中",
 	"SETTINGS.EnhancedConditions.DefaultMapN": "默认状态映射",
 	"SETTINGS.EnhancedConditions.DefaultMapH": "MOD-提供的状态到图标的映射",
-	"SETTINGS.EnhancedConditions.RemoveDefaultEffectsN": "移除默认状态效果",
-	"SETTINGS.EnhancedConditions.RemoveDefaultEffectsH": "从指示物的HUD中移除已存在的状态效果图标",
 	"SETTINGS.EnhancedConditions.MapTypeN": "激活的状态映射类型",
 	"SETTINGS.EnhancedConditions.MapTypeH": "当前使用的状态映射类型 -- 默认值, 自定义或其他",
 	"SETTINGS.EnhancedConditions.ActiveConditionMapN": "激活的状态映射",
