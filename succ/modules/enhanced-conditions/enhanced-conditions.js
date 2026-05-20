@@ -751,7 +751,7 @@ export class EnhancedConditions {
 
         //Loop over the default conditions and look for ones that are missing from our full map
         const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
-        for (let statusEffect of statusEffects) {
+        for (let statusEffect of Object.values(statusEffects)) {
             const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === statusEffect.id);
             if (!conditionConfig) {
                 //If the condition doesn't exist in the full map, it must be something new that was added to the system, so we need to add it
@@ -793,7 +793,7 @@ export class EnhancedConditions {
         }
 
         // If the default config contains changes and we have not overridden them in the system definition, copy those over
-        for (let statusEffect of statusEffects) {
+        for (let statusEffect of Object.values(statusEffects)) {
             if (!statusEffect.changes && !statusEffect.duration && !statusEffect.flags && !statusEffect.system) {
                 continue;
             }
@@ -908,7 +908,7 @@ export class EnhancedConditions {
 
             //If this condition matches something in our default status effects, copy its id
             let statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
-            const statusEffect = statusEffects.find(e => e.name === condition.name);
+            const statusEffect = Object.values(statusEffects).find(e => e.name === condition.name);
             if (statusEffect) {
                 condition.id = statusEffect.id;
             } else if (condition.options?.customId) {
@@ -1065,7 +1065,8 @@ export class EnhancedConditions {
 
         const statusEffects = [];
 
-        for (const c of conditionMap) {
+        for (let i = 0; i < conditionMap.length; ++i) {
+            const c = conditionMap[i];
             if (excludeDisabledStatusEffects && !c.destroyDisabled &&
                 c.options?.useAsStatusEffect != undefined &&
                 !c.options.useAsStatusEffect) {
@@ -1085,6 +1086,7 @@ export class EnhancedConditions {
                 system: c.activeEffect?.system,
                 name: c.name,
                 img: c.img,
+                order: i,
                 changes: c.activeEffect?.changes || [],
                 duration: c.duration || c.activeEffect?.duration || {},
                 description: c.activeEffect?.description || '',
