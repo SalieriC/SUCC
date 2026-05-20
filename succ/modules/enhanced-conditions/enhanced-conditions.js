@@ -280,30 +280,6 @@ export class EnhancedConditions {
         EnhancedConditions.updateConditionTimestamps();
     }
 
-    /**
-     *
-     * @param {*} app
-     * @param {*} html
-     * @param {*} data
-     */
-    static async _onRenderCombatTracker(app, html, data) {
-        const effectIcons = html.querySelectorAll("img[class='token-effect']");
-
-        effectIcons.forEach((element, index) => {
-            const url = new URL(element.src);
-            const path = url?.pathname?.substring(1);
-            const conditions = EnhancedConditions.getConditionsByImg(path);
-            const statusEffect = CONFIG.statusEffects.find(e => e.img === path);
-
-            if (conditions?.length) {
-                element.title = conditions[0];
-            } else if (statusEffect?.name) {
-                element.title = statusEffect.name;
-            }
-            element.title = game.i18n.localize(element.title);
-        });
-    }
-
     /* -------------------------------------------- */
     /*                    Workers                   */
     /* -------------------------------------------- */
@@ -1145,28 +1121,6 @@ export class EnhancedConditions {
             }
 
             return firstOnly ? filteredConditions[0] : filteredConditions;
-        }
-
-        return null;
-    }
-
-    /**
-     * Retrieves a condition name by its mapped icon
-     * @param {*} icon
-     */
-    static getConditionsByImg(img, { firstOnly = false } = {}) {
-        const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-
-        if (!conditionMap || !img) {
-            return;
-        }
-
-        if (conditionMap instanceof Array && conditionMap.length) {
-            const filteredIcons = conditionMap.filter(c => c.img === img).map(c => c.name);
-            if (!filteredIcons.length) {
-                return null;
-            }
-            return firstOnly ? filteredIcons[0] : filteredIcons;
         }
 
         return null;
