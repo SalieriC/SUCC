@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [8.0.0] - 2026-05-21 aka "V14 compatibility speedrun"
+**PLEASE NOTE: This version is NOT backwards compatible and requires both, FVTT and SWADE to be updated first.**
+### Added
+- Added support for FVTT version 14 and the related SWADE system version 6.0.1.
+
 ## [7.0.2] - 2026-01-15 aka "New Year, new fix"
 ### Fixed
 - Hotfix to restore system behaviour by using condition flags from the system.
