@@ -280,30 +280,6 @@ export class EnhancedConditions {
         EnhancedConditions.updateConditionTimestamps();
     }
 
-    /**
-     *
-     * @param {*} app
-     * @param {*} html
-     * @param {*} data
-     */
-    static async _onRenderCombatTracker(app, html, data) {
-        const effectIcons = html.querySelectorAll("img[class='token-effect']");
-
-        effectIcons.forEach((element, index) => {
-            const url = new URL(element.src);
-            const path = url?.pathname?.substring(1);
-            const conditions = EnhancedConditions.getConditionsByImg(path);
-            const statusEffect = CONFIG.statusEffects.find(e => e.img === path);
-
-            if (conditions?.length) {
-                element.title = conditions[0];
-            } else if (statusEffect?.name) {
-                element.title = statusEffect.name;
-            }
-            element.title = game.i18n.localize(element.title);
-        });
-    }
-
     /* -------------------------------------------- */
     /*                    Workers                   */
     /* -------------------------------------------- */
@@ -751,7 +727,7 @@ export class EnhancedConditions {
 
         //Loop over the default conditions and look for ones that are missing from our full map
         const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
-        for (let statusEffect of statusEffects) {
+        for (let statusEffect of Object.values(statusEffects)) {
             const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === statusEffect.id);
             if (!conditionConfig) {
                 //If the condition doesn't exist in the full map, it must be something new that was added to the system, so we need to add it
@@ -793,7 +769,7 @@ export class EnhancedConditions {
         }
 
         // If the default config contains changes and we have not overridden them in the system definition, copy those over
-        for (let statusEffect of statusEffects) {
+        for (let statusEffect of Object.values(statusEffects)) {
             if (!statusEffect.changes && !statusEffect.duration && !statusEffect.flags && !statusEffect.system) {
                 continue;
             }
@@ -908,7 +884,7 @@ export class EnhancedConditions {
 
             //If this condition matches something in our default status effects, copy its id
             let statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
-            const statusEffect = statusEffects.find(e => e.name === condition.name);
+            const statusEffect = Object.values(statusEffects).find(e => e.name === condition.name);
             if (statusEffect) {
                 condition.id = statusEffect.id;
             } else if (condition.options?.customId) {
@@ -993,24 +969,10 @@ export class EnhancedConditions {
             EnhancedConditions._backupCoreEffects();
         }
 
-        const removeDefaultEffects = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.removeDefaultEffects);
         const activeConditionMap = conditionMap || Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-
-        if (!removeDefaultEffects && !activeConditionMap) {
-            return;
-        }
-
         const activeConditionEffects = EnhancedConditions._prepareStatusEffects(activeConditionMap, {excludeDisabledStatusEffects: true});
 
-        if (removeDefaultEffects) {
-            CONFIG.statusEffects = activeConditionEffects ?? [];
-        } else if (activeConditionMap instanceof Array) {
-            //add the icons from the condition map to the status effects array
-            const coreEffects = CONFIG.defaultStatusEffects || Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
-
-            // Create a Set based on the core status effects and the Enhanced Condition effects. Using a Set ensures unique icons only
-            CONFIG.statusEffects = coreEffects.concat(activeConditionEffects);
-        }
+        CONFIG.statusEffects = Object.fromEntries(activeConditionEffects.map(c => [c.id, c]));
 
         //Loop over our list of special effect and update them to match our settings
         Object.keys(CONFIG.specialStatusEffects).forEach((key) => {
@@ -1065,7 +1027,8 @@ export class EnhancedConditions {
 
         const statusEffects = [];
 
-        for (const c of conditionMap) {
+        for (let i = 0; i < conditionMap.length; ++i) {
+            const c = conditionMap[i];
             if (excludeDisabledStatusEffects && !c.destroyDisabled &&
                 c.options?.useAsStatusEffect != undefined &&
                 !c.options.useAsStatusEffect) {
@@ -1085,6 +1048,7 @@ export class EnhancedConditions {
                 system: c.activeEffect?.system,
                 name: c.name,
                 img: c.img,
+                order: i,
                 changes: c.activeEffect?.changes || [],
                 duration: c.duration || c.activeEffect?.duration || {},
                 description: c.activeEffect?.description || '',
@@ -1157,28 +1121,6 @@ export class EnhancedConditions {
             }
 
             return firstOnly ? filteredConditions[0] : filteredConditions;
-        }
-
-        return null;
-    }
-
-    /**
-     * Retrieves a condition name by its mapped icon
-     * @param {*} icon
-     */
-    static getConditionsByImg(img, { firstOnly = false } = {}) {
-        const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-
-        if (!conditionMap || !img) {
-            return;
-        }
-
-        if (conditionMap instanceof Array && conditionMap.length) {
-            const filteredIcons = conditionMap.filter(c => c.img === img).map(c => c.name);
-            if (!filteredIcons.length) {
-                return null;
-            }
-            return firstOnly ? filteredIcons[0] : filteredIcons;
         }
 
         return null;

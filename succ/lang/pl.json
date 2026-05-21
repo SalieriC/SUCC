@@ -60,8 +60,6 @@
   "SETTINGS.EnhancedConditions.OutputCombatH": "W każdej rundzie Starcia, wysyłaj na czacie wszelkie Stany obecnego uczestnika walki",
   "SETTINGS.EnhancedConditions.DefaultMapN": "Domyślne Mapy Stanów",
   "SETTINGS.EnhancedConditions.DefaultMapH": "Zapewniane przez moduł mapy stanów na ikony",
-  "SETTINGS.EnhancedConditions.RemoveDefaultEffectsN": "Usuń Domyślne Efekty Statusu",
-  "SETTINGS.EnhancedConditions.RemoveDefaultEffectsH": "Usuń istniejące ikony efektów statusu z interfejsu żetonu",
   "SETTINGS.EnhancedConditions.MapTypeN": "Typ Aktywnej Mapy Stanów",
   "SETTINGS.EnhancedConditions.MapTypeH": "Obecnie używana Mapa Stanów -- domyślna, własna lub inna",
   "SETTINGS.EnhancedConditions.ActiveConditionMapN": "Aktywna Mapa Stanów",

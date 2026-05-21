@@ -18,7 +18,7 @@
         },
         {
             "id": "dead",
-            "name": "COMBAT.CombatantDefeated",
+            "name": "COMBATANT.FIELDS.defeated.label",
             "img": "modules/succ/assets/icons/3-dead.svg",
             "options": {
                 "markDefeated": true,
