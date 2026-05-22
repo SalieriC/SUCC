@@ -24,8 +24,17 @@ export class EnhancedConditions {
     static async _onReady() {
         if (game.user.isGM) {
             await EnhancedConditions.loadConditionConfigMap();
-            await EnhancedConditions.migrateFlagsToSystem();
             await EnhancedConditions.updateConditionMapFromDefaults();
+
+            //They changed the string id for dead in 6.0.0 so we need to update it
+            let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+            const deadCondition = conditionMap.find(c=> c.id === "dead");
+            if (deadCondition.name === "COMBAT.CombatantDefeated") {
+                //Clear the cache
+                Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.statusEffects);
+                deadCondition.name = "COMBATANT.FIELDS.defeated.label";
+                await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, conditionMap);
+            }
         }
 
         let defaultConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
@@ -1160,43 +1169,6 @@ export class EnhancedConditions {
         defaultConditions = defaultConditions ? defaultConditions : Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions);
 
         return EnhancedConditions.getMapForDefaultConditions(defaultConditions);
-    }
-    /**
-     * The system changed AEs to use system instead of flags.swade. This function migrates our data to that structure
-     */
-    static async migrateFlagsToSystem() {
-        let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-        for (let condition of conditionMap) {
-            if (!condition.activeEffect) {
-                continue;
-            }
-
-            if (condition.activeEffect.system == undefined) {
-                const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
-                if (conditionConfig?.activeEffect?.system) {
-                    condition.activeEffect.system = conditionConfig.activeEffect.system;
-                }
-            }
-
-            if (condition.activeEffect.flags?.swade) {
-                const flags = condition.activeEffect.flags.swade;
-                condition.activeEffect.system = condition.activeEffect.system ?? {};
-                condition.activeEffect.system = foundry.utils.mergeObject(condition.activeEffect.system, flags);
-
-                delete condition.activeEffect.system.related; //Hack to deal with a temp issue in the system code effect definitions
-                delete condition.activeEffect.flags.swade.expiration;
-                delete condition.activeEffect.flags.swade.loseTurnOnHold;
-                if (Object.keys(condition.activeEffect.flags.swade).length == 0) {
-                    delete condition.activeEffect.flags.swade;
-
-                    if (Object.keys(condition.activeEffect.flags).length == 0) {
-                        delete condition.activeEffect.flags;
-                    }
-                }
-            }
-        }
-
-        await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, conditionMap);
     }
 
     /**
