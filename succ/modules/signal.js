@@ -143,12 +143,6 @@ export class Signal {
                     break;
             }
         });
-
-        /* -------------- Combat Tracker -------------- */
-
-        Hooks.on("renderCombatTracker", (app, html, data) => {
-            EnhancedConditions._onRenderCombatTracker(app, html, data);
-        });
     }
 
     /* -------------------------------------------- */
