@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [8.0.1] - 2026-05-23 aka "V14 compatibility speedrun"
+**PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
+### Added
+- Added migration for the 'dead' condition name.
+### Fixed
+- Error messages when applying and removing contions with chat output.
+
 ## [8.0.0] - 2026-05-21 aka "V14 compatibility speedrun"
 **PLEASE NOTE: This version is NOT backwards compatible and requires both, FVTT and SWADE to be updated first.**
 ### Added
