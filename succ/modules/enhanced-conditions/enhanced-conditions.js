@@ -478,7 +478,7 @@ export class EnhancedConditions {
         }
 
         const chatUser = game.userId;
-        const chatType = CONST.CHAT_MESSAGE_STYLES.OTHER;
+        const chatStyle = CONST.CHAT_MESSAGE_STYLES.OTHER;
         const speaker = isActorEntity ? ChatMessage.getSpeaker({ actor: entity }) : ChatMessage.getSpeaker({ token: entity });
         const timestamp = type.active ? null : Date.now();
 
@@ -535,7 +535,7 @@ export class EnhancedConditions {
             await ChatMessage.create({
                 speaker,
                 content,
-                type: chatType,
+                style: chatStyle,
                 author: chatUser
             });
         }

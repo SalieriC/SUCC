@@ -89,7 +89,7 @@ export function registerSettings() {
                         callback: () => {
                             const newMap = foundry.utils.deepClone(game.succ.conditions);
                             if (!newMap.length) return;
-                            newMap.forEach(c => c.options.outputChat = true);
+                            newMap.forEach(c => { c.options ??= {}; c.options.outputChat = true; });
                             Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
                         }
                     }
