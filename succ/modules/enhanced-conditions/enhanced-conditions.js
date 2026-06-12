@@ -28,8 +28,8 @@ export class EnhancedConditions {
 
             //They changed the string id for dead in 6.0.0 so we need to update it
             let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
-            const deadCondition = conditionMap.find(c=> c.id === "dead");
-            if (deadCondition.name === "COMBAT.CombatantDefeated") {
+            const deadCondition = conditionMap?.find(c=> c.id === "dead");
+            if (deadCondition?.name === "COMBAT.CombatantDefeated") {
                 //Clear the cache
                 Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.statusEffects);
                 deadCondition.name = "COMBATANT.FIELDS.defeated.label";
@@ -779,7 +779,7 @@ export class EnhancedConditions {
 
         // If the default config contains changes and we have not overridden them in the system definition, copy those over
         for (let statusEffect of Object.values(statusEffects)) {
-            if (!statusEffect.changes && !statusEffect.duration && !statusEffect.flags && !statusEffect.system) {
+            if (!statusEffect.changes && !statusEffect.duration && !statusEffect.flags && !statusEffect.system && !statusEffect.statuses) {
                 continue;
             }
 
@@ -789,6 +789,8 @@ export class EnhancedConditions {
                     // We've decided that we want to prioritize what we have in our condition-config.json file
                     continue;
                 }
+
+                conditionConfig.statuses = statusEffect.statuses;
 
                 conditionConfig.activeEffect = conditionConfig.activeEffect ? conditionConfig.activeEffect : {};
 
@@ -1030,7 +1032,7 @@ export class EnhancedConditions {
     static _prepareStatusEffects(conditionMap, {excludeDisabledStatusEffects=false}={}) {
         conditionMap = conditionMap instanceof Array ? conditionMap : [conditionMap];
 
-        if (!conditionMap.length) return;
+        if (!conditionMap.length) return [];
 
         const existingIds = conditionMap.filter(c => c.id).map(c => c.id);
 
@@ -1061,7 +1063,7 @@ export class EnhancedConditions {
                 changes: c.activeEffect?.changes || [],
                 duration: c.duration || c.activeEffect?.duration || {},
                 description: c.activeEffect?.description || '',
-                statuses: [id]
+                statuses: c.statuses
             }
             statusEffects.push(effect);
         };
@@ -1189,6 +1191,8 @@ export class EnhancedConditions {
                     conditionMap.push(foundry.utils.duplicate(conditionConfig));
                 }
             } else {
+                condition.statuses = conditionConfig.statuses;
+
                 if (!conditionConfig.activeEffect) {
                     //The default condition doesn't have an active effect, so we'll just leave whatever is in the condition alone
                     //We're making the assumption here that none of the core system effects will ever have an active effect in one version and then remove it later
