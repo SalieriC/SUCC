@@ -827,8 +827,10 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
      */
     _sortMapByName(map, direction) {
         return map.sort((a, b) => {
-            if (direction === "desc") return b.name.localeCompare(a.name);
-            return a.name.localeCompare(b.name);
+            const aLoc = game.i18n.localize(a.name);
+            const bLoc = game.i18n.localize(b.name);
+            if (direction === "desc") return bLoc.localeCompare(aLoc);
+            return aLoc.localeCompare(bLoc);
         });
     }
 
