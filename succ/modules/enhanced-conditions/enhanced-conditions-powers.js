@@ -238,15 +238,6 @@ export class EnhancedConditionsPowers {
         //It loses .data in the middle because toObject() is just the cleaned up data
         let updates = effect.toObject();
         updates.name += " (" + type + ")";
-
-        if (type === "Melee") {
-            updates.changes.push({ key: "system.stats.globalMods.targetAttackMelee", mode: 2, priority: undefined, value: -2 });
-        } else if (type === "Ranged") {
-            updates.changes.push({ key: "system.stats.globalMods.targetAttackRanged", mode: 2, priority: undefined, value: -2 });
-        } else {
-            updates.changes.push({ key: "system.stats.globalMods.targetAttack", mode: 2, priority: undefined, value: -2 });
-        }
-
         await effect.update(updates);
     }
 
