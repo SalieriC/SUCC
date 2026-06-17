@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [8.0.3] - 2026-06-17 aka "More Fixes"
+**PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
+### Added
+- Deflection now applies the system modificator `targetAttack` to allow for automation.
+### Fixed
+- Search function now uses localised names.
+
+## [8.0.2] - 2026-06-14 aka "Emergency Fixes"
+**PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
+### Fixed
+- Fixed several issues that occured in newly created worlds.
+- Fixed a bug that occured when applying Entangled.
+
 ## [8.0.1] - 2026-05-23 aka "V14 compatibility speedrun"
 **PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
 ### Added
