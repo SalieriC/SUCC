@@ -283,7 +283,6 @@ export class Sidekick {
     * @param {*} existingIds
     */
     static createId(existingIds = [], { iterations = 10000, length = 16 } = {}) {
-
         let i = 0;
         while (i < iterations) {
             const id = foundry.utils.randomID(length);
@@ -295,6 +294,50 @@ export class Sidekick {
         }
 
         throw new Error(`SWADE Ultimate Condition Changer - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`)
+    };
+
+    /**
+    * Get a random unique _id, which must be exactly 16 characters long
+    * @param {*} existingIds
+    */
+    static createId16(baseId, existingIds, { iterations = 10000 } = {}) {
+        if(baseId.length === 16) return baseId;
+
+        if (baseId.length < 16) {
+            const newId = baseId + "0".repeat(16 - baseId.length);
+            if (!existingIds.includes(newId)) {
+                return newId;
+            }
+        } else {
+            //Start by seeing if a truncated version of the id is available
+            baseId = baseId.substring(0, 16);
+            if (!existingIds.includes(baseId)) {
+                return baseId;
+            }
+
+            //We have multiple ids with long names that truncate to the same value
+            //In this case, truncate the id a bit more and then fill it with zeroes
+            baseId = baseId.substring(0, 12);
+            const newId = baseId + "0".repeat(4);
+            if (!existingIds.includes(newId)) {
+                return newId;
+            }
+        }
+
+        //In the unlikely event we make it to here, generate a random id to fill up the end of the id
+        baseId = baseId.substring(0, 12);
+
+        let i = 0;
+        while (i < iterations) {
+            const id = baseId + foundry.utils.randomID(4);
+            if (!existingIds.includes(id)) {
+                return id;
+            }
+            i++;
+            console.log(`SWADE Ultimate Condition Changer | Id ${id} already exists in the provided list of ids. ${i ? `This is attempt ${i} of ${iterations} ` : ""}Trying again...`);
+        }
+
+        throw new Error(`SWADE Ultimate Condition Changer | Tried to create a unique id over ${iterations} iterations and failed.`)
     };
 
     /**
