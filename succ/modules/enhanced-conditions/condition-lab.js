@@ -715,10 +715,15 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
 
         const newMap = foundry.utils.duplicate(this.map);
         const exisitingIds = this.map.filter(c => c.id).map(c => c.id);
+        const existing_Ids = this.map.filter(c => c._id).map(c => c._id);
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
 
+        const id = Sidekick.createId(exisitingIds);
+        const _id = Sidekick.createId16(id, existing_Ids);
+
         newMap.push({
-            id: Sidekick.createId(exisitingIds),
+            id: id,
+            _id: _id,
             name: newConditionName,
             img: "icons/svg/d20-black.svg",
             referenceId: "",

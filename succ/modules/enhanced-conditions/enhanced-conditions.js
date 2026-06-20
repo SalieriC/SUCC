@@ -742,6 +742,7 @@ export class EnhancedConditions {
                 //If the condition doesn't exist in the full map, it must be something new that was added to the system, so we need to add it
                 let newCondition = {
                     id: statusEffect.id,
+                    _id: statusEffect._id,
                     name: statusEffect.name,
                     img: statusEffect.img
                 };
@@ -880,6 +881,7 @@ export class EnhancedConditions {
 
         // Map existing ids for ease of access
         const existingIds = conditionMap.filter(c => c.id).map(c => c.id);
+        const existing_Ids = [];
         const processedIds = [];
 
         // Iterate through the map validating/preparing the data
@@ -906,6 +908,7 @@ export class EnhancedConditions {
 
             // If conditionId doesn't exist, or is a duplicate, create a new Id
             condition.id = (!condition.id || processedIds.includes(condition.id)) ? Sidekick.createId(existingIds) : condition.id;
+            condition._id = Sidekick.createId16(condition.id, existing_Ids);
             processedIds.push(condition.id);
 
             condition.options = condition.options || {};
@@ -1035,6 +1038,7 @@ export class EnhancedConditions {
         if (!conditionMap.length) return [];
 
         const existingIds = conditionMap.filter(c => c.id).map(c => c.id);
+        const existing_Ids = [];
 
         const statusEffects = [];
 
@@ -1047,8 +1051,14 @@ export class EnhancedConditions {
             }
 
             const id = c.id ?? Sidekick.createId(existingIds);
+            existingIds.push(id);
+
+            const _id = c._id ?? Sidekick.createId16(id, existing_Ids);
+            existing_Ids.push(_id);
+
             const effect = {
                 id: id,
+                _id: _id,
                 flags: {
                     ...c.activeEffect?.flags,
                     [BUTLER.NAME]: {
