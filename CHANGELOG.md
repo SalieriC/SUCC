@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [8.0.4] - 2026-06-21 aka "Even More Fixes"
+**PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
+### Added
+- Better support for conditions the module doesn't know.
+### Fixed
+- Creation of 16 digit ID.
+
 ## [8.0.3] - 2026-06-17 aka "More Fixes"
 **PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
 ### Added
