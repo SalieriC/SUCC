@@ -1,0 +1,8 @@
+{
+    "id": "unknown-conditions",
+    "name": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.UnknownN",
+    "description": "succ.ENHANCED_CONDITIONS.DefaultConditionsMenu.Groups.UnknownD",
+    "sortOrder": 110,
+    "canBeDisabled": true,
+    "conditions": []
+}

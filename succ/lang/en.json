@@ -48,6 +48,8 @@
                     "UncommonD": "Less often used conditions from the list of default SWADE system conditions.",
                     "RareN": "Rare System Conditions",
                     "RareD": "Rarely used conditions from the list of default SWADE system conditions.",
+                    "UnknownN": "Unknown Conditions",
+                    "UnknownD": "Conditions that were added from unknown sources.",
                     "ExpandedPowersN": "Expanded Powers",
                     "ExpandedPowersD": "Conditions associated with powers in the core rules.",
                     "PowerModifiersN": "Power Modifiers",

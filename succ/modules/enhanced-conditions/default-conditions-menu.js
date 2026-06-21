@@ -57,13 +57,28 @@ export class DefaultConditionsMenu extends HandlebarsApplicationMixin(Applicatio
     async _prepareContext(options) {
         await super._prepareContext(options);
 
+        let defaultConditions = [...this.defaultConditions];
         let groups = {};
         for (let group of EnhancedConditions.conditionGroups) {
+            if (group.id === "unknown-conditions") continue;
+
             groups[group.id] = { ...group, conditions: [] };
             for (let condition of group.conditions) {
-                let defaultCondition = this.defaultConditions.find(c => c.id === condition.id);
+                const idx = defaultConditions.findIndex(c => c.id === condition.id);
+                let defaultCondition = defaultConditions[idx];
+                defaultConditions.splice(idx, 1);
+
                 const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
                 groups[group.id].conditions.push({ id: condition.id, name: conditionConfig.name, enabled: defaultCondition.enabled });
+            }
+        }
+
+        if (defaultConditions.length) {
+            const unknownGroup = EnhancedConditions.conditionGroups.find(g => g.id === "unknown-conditions");
+            groups[unknownGroup.id] = { ...unknownGroup, conditions: [] };
+            for (let condition of defaultConditions) {
+                const conditionConfig = game.succ.conditionConfigMap.find(c => c.id === condition.id);
+                groups[unknownGroup.id].conditions.push({ id: condition.id, name: conditionConfig.name, enabled: condition.enabled });
             }
         }
 
@@ -131,7 +146,12 @@ export class DefaultConditionsMenu extends HandlebarsApplicationMixin(Applicatio
     static async formHandler(event, form, formData) {
         for (let condition of game.succ.conditionConfigMap) {
             let defaultCondition = this.defaultConditions.find(c => c.id === condition.id);
-            defaultCondition.enabled = (formData.object[condition.id] != undefined && formData.object[condition.id]) || condition.destroyDisabled == true;
+            if (formData.object[condition.id] === undefined || condition.destroyDisabled) {
+                defaultCondition.enabled = true;
+                continue;
+            }
+
+            defaultCondition.enabled = formData.object[condition.id];
         }
 
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultConditions, this.defaultConditions);
