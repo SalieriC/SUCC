@@ -185,6 +185,27 @@ export class EnhancedConditions {
     }
 
     /**
+     * Update Active Effect handler
+     * @param {*} effect
+     * @param {*} change
+     * @param {*} options
+     * @param {*} userId
+     */
+    static async _onUpdateActiveEffect(effect, change, options, userId) {
+        if (game.userId !== userId) {
+            return;
+        }
+
+        if (!Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.disablingDestroys)) {
+            return;
+        }
+
+        if (change.disabled === true && effect.flags?.succ?.conditionId) {
+            await EnhancedConditionsAPI.removeCondition(effect.flags.succ.conditionId, effect.actor);
+        }
+    }
+
+    /**
      * Create Active Effect handler
      * @param {*} actor
      * @param {*} update

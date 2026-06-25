@@ -93,13 +93,9 @@ export class Signal {
 
         /* ------------------- Actor ------------------ */
 
-        Hooks.on("createActiveEffect", (effect, options, userId) => {
-            EnhancedConditions._onCreateActiveEffect(effect, options, userId);
-        });
-
-        Hooks.on("deleteActiveEffect", (effect, options, userId) => {
-            EnhancedConditions._onDeleteActiveEffect(effect, options, userId);
-        });
+        Hooks.on("createActiveEffect", EnhancedConditions._onCreateActiveEffect);
+        Hooks.on("updateActiveEffect", EnhancedConditions._onUpdateActiveEffect);
+        Hooks.on("deleteActiveEffect", EnhancedConditions._onDeleteActiveEffect);
 
         Hooks.on("updateActor", (tokenDocument, updateData, options, userId) => {
             EnhancedConditions._onUpdateActor(tokenDocument, updateData, options, userId);

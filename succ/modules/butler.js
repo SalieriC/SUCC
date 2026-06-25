@@ -204,6 +204,7 @@ export const SETTING_KEYS = {
         map: "activeConditionMap",
         defaultConditions: "defaultConditions",
         deletedConditionsMap: "deletedConditionsMap",
+        disablingDestroys: "disablingDestroys",
         mapType: "conditionMapType",
         outputChat: "conditionsOutputToChat",
         showSortDirectionDialog: "showSortDirectionDialog",
