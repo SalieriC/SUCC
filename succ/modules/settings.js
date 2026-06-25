@@ -155,6 +155,15 @@ export function registerSettings() {
         }
     });
 
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.disablingDestroys, {
+        name: `succ.SETTINGS.ENHANCED_CONDITIONS.DisablingDestroysN`,
+        hint: `succ.SETTINGS.ENHANCED_CONDITIONS.DisablingDestroysH`,
+        scope: "user",
+        type: Boolean,
+        default: true,
+        config: true,
+    });
+
     /* -------------------------------------------- */
     /*                 TokenUtility                 */
     /* -------------------------------------------- */

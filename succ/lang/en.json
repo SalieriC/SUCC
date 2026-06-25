@@ -180,6 +180,8 @@
         },
         "SETTINGS": {
             "ENHANCED_CONDITIONS": {
+                "DisablingDestroysN": "Disabling Destroys",
+                "DisablingDestroysH": "If true, condition effects are destroyed when disabled.",
                 "ShowSortDirectionDialogN": "Show Condition Lab Sort Direction Save Dialog",
                 "ShowSortDirectionDialogH": "Whether or not to show the confirmation dialog for saving the sort direction.",
                 "UseSystemIconsN": "Use System Icons",
