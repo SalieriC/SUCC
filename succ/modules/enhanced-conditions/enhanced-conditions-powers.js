@@ -24,7 +24,7 @@ export class EnhancedConditionsPowers {
         let result = await EnhancedConditionsAPIDialogs.boostLowerTraitDialog(actor, type);
 
         if (!result) {
-            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true, sendTelemetry: false });
             return;
         }
 
@@ -138,7 +138,7 @@ export class EnhancedConditionsPowers {
         let result = await EnhancedConditionsAPIDialogs.smiteDialog(actor);
 
         if (!result) {
-            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true, sendTelemetry: false });
             return;
         }
 
@@ -185,7 +185,7 @@ export class EnhancedConditionsPowers {
         let result = await EnhancedConditionsAPIDialogs.protectionDialog();
 
         if (!result) {
-            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true, sendTelemetry: false });
             return;
         }
 
@@ -221,7 +221,7 @@ export class EnhancedConditionsPowers {
         let result = await EnhancedConditionsAPIDialogs.deflectionDialog();
 
         if (!result) {
-            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true, sendTelemetry: false });
             return;
         }
 
@@ -264,7 +264,7 @@ export class EnhancedConditionsPowers {
         let result = await EnhancedConditionsAPIDialogs.numbDialog();
 
         if (!result) {
-            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true, sendTelemetry: false });
             return;
         }
 
@@ -298,7 +298,7 @@ export class EnhancedConditionsPowers {
         let result = await EnhancedConditionsAPIDialogs.flyingDialog();
 
         if (!result) {
-            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true });
+            await EnhancedConditionsAPI.removeCondition(condition.id, actor, { warn: true, sendTelemetry: false });
             return;
         }
 

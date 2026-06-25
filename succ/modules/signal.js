@@ -2,7 +2,7 @@
 /*                    Imports                   */
 /* -------------------------------------------- */
 import * as BUTLER from "./butler.js";
-import { Sidekick } from "./sidekick.js";
+import { Sidekick, TelemetryUtils } from "./sidekick.js";
 import { registerSettings } from "./settings.js";
 
 /* ------------------ EnhancedConditions ----------------- */
@@ -82,7 +82,8 @@ export class Signal {
             game.succ.flyingDialog = EnhancedConditionsAPIDialogs.flyingDialog;
         });
 
-        Hooks.on("ready", () => {
+        Hooks.on("ready", async () => {
+            await TelemetryUtils.generateWorldInstallId();
             EnhancedConditions._onReady();
         });
 

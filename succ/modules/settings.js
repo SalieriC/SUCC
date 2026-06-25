@@ -164,6 +164,22 @@ export function registerSettings() {
         config: true,
     });
 
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.telemetryOptOut, {
+        name: game.i18n.localize("succ.SETTINGS.TelemetryOptOutN"),
+        hint: game.i18n.localize("succ.SETTINGS.TelemetryOptOutH"),
+        scope: "user",
+        type: Boolean,
+        default: false,
+        config: true,
+    });
+
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.telemetryWorldInstallId, {
+        scope: "world",
+        type: String,
+        default: "",
+        config: false,
+    });
+
     /* -------------------------------------------- */
     /*                 TokenUtility                 */
     /* -------------------------------------------- */

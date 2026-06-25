@@ -13,7 +13,7 @@ export const DEFAULT_CONFIG = {
         conditionConfigFilePath: `${CONFIG_PATH}/condition-config.json`,
         conditionModuleOverridesPath: `${CONFIG_PATH}/condition-config-module-overrides`,
         defaultConditionGroupsPath: `${CONFIG_PATH}/default-condition-groups`,
-        outputChat: true,
+        outputChat: false,
         conditionLab: {
             id: "succ-condition-lab",
             title: "Condition Lab",
@@ -217,6 +217,8 @@ export const SETTING_KEYS = {
         clientTokenDisplaySettings: "clientTokenDisplaySettings",
         worldTokenDisplaySettings: "worldTokenDisplaySettings",
         tokenDisplaySettingsMenu: "tokenDisplaySettingsMenu"
-    }
+    },
+    telemetryOptOut: "telemetryOptOut",
+    telemetryWorldInstallId: "telemetryWorldInstallId",
 }
 

@@ -685,7 +685,7 @@ export class ConditionLab extends HandlebarsApplicationMixin(ApplicationV2) {
 
         if (!condition) return;
 
-        const conditionEffect = condition.activeEffect ?? EnhancedConditionsAPI.getActiveEffect(condition);
+        const conditionEffect = condition.activeEffect ?? EnhancedConditionsAPI.getActiveEffect(condition, { sendTelemetry: false });
 
         if (!conditionEffect) return;
 
