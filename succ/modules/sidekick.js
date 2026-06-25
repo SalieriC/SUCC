@@ -301,6 +301,7 @@ export class Sidekick {
     * @param {*} existingIds
     */
     static createId16(baseId, existingIds, { iterations = 10000 } = {}) {
+        baseId = baseId.replaceAll("-", "");
         if(baseId.length === 16) return baseId;
 
         if (baseId.length < 16) {
