@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [8.0.5] - 2026-06-25 aka "Still More Fixes"
+**PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
+### Fixed
+- Fixed a major bug with ID generation. (**Please update ASAP if you're using version 8.x.x of SUCC.**)
+### Added
+- Added an option to delete conditions (rather than disable)
+- Updated actions that use Node24.
+
 ## [8.0.4] - 2026-06-21 aka "Even More Fixes"
 **PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
 ### Added
