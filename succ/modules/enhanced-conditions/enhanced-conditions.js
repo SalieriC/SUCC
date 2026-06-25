@@ -125,14 +125,14 @@ export class EnhancedConditions {
             //Add Conviction:
             if (update?.system?.details?.conviction?.active === true) {
                 //Check if condition was toggled on token, otherwise toggle it here:
-                if (EnhancedConditionsAPI.hasCondition(convictionCondition.id, actor, { warn: false }) === true) { return; }
+                if (EnhancedConditionsAPI.hasCondition(convictionCondition.id, actor, { warn: false, sendTelemetry: false }) === true) { return; }
 
-                await EnhancedConditionsAPI.addCondition(convictionCondition.id, actor);
+                await EnhancedConditionsAPI.addCondition(convictionCondition.id, actor, { sendTelemetry: false });
             }
 
             //Remove Conviction:
             if (update?.system?.details?.conviction?.active === false) {
-                await EnhancedConditionsAPI.removeCondition(convictionCondition.id, actor, { warn: false });
+                await EnhancedConditionsAPI.removeCondition(convictionCondition.id, actor, { warn: false, sendTelemetry: false });
             }
         }
     }
@@ -148,7 +148,7 @@ export class EnhancedConditions {
         //Add/Remove Encumbrance if game setting for that is true and a condition is set for it:
         if (game.settings.get('swade', 'applyEncumbrance') && encumberedId) {
             //Check if overencumbered and if the condition is already applied:
-            const hasEncumberedCondition = EnhancedConditionsAPI.hasCondition(encumberedId, actor)
+            const hasEncumberedCondition = EnhancedConditionsAPI.hasCondition(encumberedId, actor, { sendTelemetry: false })
             let isEncumbered = actor.system.details.encumbrance.value > actor.system.details.encumbrance.max ? true : false
             //If BRSW is enabled also check if NPCs should get encumbrance:
             if (game.modules.get('betterrolls-swade2')?.active) {
@@ -157,8 +157,8 @@ export class EnhancedConditions {
                     .indexOf('NPCDontUseEncumbrance') > -1;
                 if (npcAvoidEncumbrance && actor.type === 'npc') { isEncumbered = false }
             }
-            if (isEncumbered && !hasEncumberedCondition) { EnhancedConditionsAPI.addCondition(encumberedId, actor) }
-            else if (!isEncumbered && hasEncumberedCondition) { EnhancedConditionsAPI.removeCondition(encumberedId, actor) }
+            if (isEncumbered && !hasEncumberedCondition) { EnhancedConditionsAPI.addCondition(encumberedId, actor, { sendTelemetry: false }) }
+            else if (!isEncumbered && hasEncumberedCondition) { EnhancedConditionsAPI.removeCondition(encumberedId, actor, { sendTelemetry: false }) }
         }
     }
 
@@ -247,7 +247,7 @@ export class EnhancedConditions {
 
             if (!entity) return;
 
-            EnhancedConditionsAPI.removeCondition(conditionId, entity, { warn: false });
+            EnhancedConditionsAPI.removeCondition(conditionId, entity, { warn: false, sendTelemetry: false });
         }));
 
         undoRemoveAnchors.forEach( (anchor) => anchor.addEventListener("click", (event) => {
@@ -275,7 +275,7 @@ export class EnhancedConditions {
 
             if (!entity) return;
 
-            EnhancedConditionsAPI.addCondition(conditionId, entity);
+            EnhancedConditionsAPI.addCondition(conditionId, entity, { sendTelemetry: false });
         }));
     }
 
@@ -600,7 +600,7 @@ export class EnhancedConditions {
         } else if (actor.system.details.conviction.value < 1 && actor.system.details.conviction.active === false) {
             //Condition was toggled instead of the button on the actor sheet but actor has no conviction tokens.
             ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Notification.NoConvictionToken"));
-            await EnhancedConditionsAPI.removeCondition('conviction', actor, { warn: true });
+            await EnhancedConditionsAPI.removeCondition('conviction', actor, { warn: true, sendTelemetry: false });
         }
     }
 
@@ -622,7 +622,7 @@ export class EnhancedConditions {
      * @param {*} conditionId
      */
     static async removeOtherConditions(entity, conditionId) {
-        const entityConditions = await EnhancedConditionsAPI.getConditions(entity, { warn: false });
+        const entityConditions = await EnhancedConditionsAPI.getConditions(entity, { warn: false, sendTelemetry: false });
         let conditions = entityConditions ? entityConditions.conditions : [];
         conditions = conditions instanceof Array ? conditions : [conditions];
 
@@ -632,7 +632,7 @@ export class EnhancedConditions {
 
         if (!removeConditions.length) return;
 
-        for (const c of removeConditions) await EnhancedConditionsAPI.removeCondition(c.id, entity, { warn: true });
+        for (const c of removeConditions) await EnhancedConditionsAPI.removeCondition(c.id, entity, { warn: true, sendTelemetry: false });
     }
 
     /**

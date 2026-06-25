@@ -184,7 +184,9 @@
                 "ShowSortDirectionDialogH": "Whether or not to show the confirmation dialog for saving the sort direction.",
                 "UseSystemIconsN": "Use System Icons",
                 "UseSystemIconsH": "If true, conditions will default to using the default system icon when available."
-            }
+            },
+            "TelemetryOptOutH": "SUCC collects basic API usage telemetry. Enable this to opt out.",
+            "TelemetryOptOutN": "Opt Out of Telemetry"
         },
         "WORDS": {
             "Icon": "Icon",

@@ -7,7 +7,7 @@ export class SUCCTokenActionHud {
 
     static hasValidTokenActionHudVersion() {
         let tahModule = game.modules.get("token-action-hud-core");
-        
+
         const minVersion = "2.0.6";
         return tahModule && (tahModule.version == minVersion || foundry.utils.isNewerVersion(tahModule.version, minVersion));
     }
@@ -35,7 +35,7 @@ export class SUCCTokenActionHud {
                     let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
                     for (let condition of conditionMap) {
                         const encodedValue = [BUTLER.NAME, condition.id].join(this.actionHandler.delimiter);
-    
+
                         actionsData.push({
                             id: condition.id,
                             name: game.i18n.localize(condition.name),
@@ -66,11 +66,11 @@ export class SUCCTokenActionHud {
                 let options = {};
                 options.forceOverlay = actionHandler.isRightClick;
                 options.allowDuplicates = actionHandler.isShift;
-                
-                if (!options.allowDuplicates && EnhancedConditionsAPI.hasCondition(actionId, actionHandler.actor)) {
-                    EnhancedConditionsAPI.removeCondition(actionId, actionHandler.actor);
-                }else {    
-                    EnhancedConditionsAPI.addCondition(actionId, actionHandler.actor, options);
+
+                if (!options.allowDuplicates && EnhancedConditionsAPI.hasCondition(actionId, actionHandler.acto, { sendTelemetry: false })) {
+                    EnhancedConditionsAPI.removeCondition(actionId, actionHandler.actor, { sendTelemetry: false });
+                }else {
+                    EnhancedConditionsAPI.addCondition(actionId, actionHandler.actor, options, { sendTelemetry: false });
                 }
 
                 return true;

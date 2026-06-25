@@ -216,6 +216,8 @@ export const SETTING_KEYS = {
         clientTokenDisplaySettings: "clientTokenDisplaySettings",
         worldTokenDisplaySettings: "worldTokenDisplaySettings",
         tokenDisplaySettingsMenu: "tokenDisplaySettingsMenu"
-    }
+    },
+    telemetryOptOut: "telemetryOptOut",
+    telemetryWorldInstallId: "telemetryWorldInstallId",
 }
 
