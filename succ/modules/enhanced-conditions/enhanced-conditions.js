@@ -22,6 +22,7 @@ export class EnhancedConditions {
      * 4. Override status effects
      */
     static async _onReady() {
+        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, []);
         if (game.user.isGM) {
             await EnhancedConditions.loadConditionConfigMap();
             await EnhancedConditions.updateConditionMapFromDefaults();
@@ -742,7 +743,6 @@ export class EnhancedConditions {
                 //If the condition doesn't exist in the full map, it must be something new that was added to the system, so we need to add it
                 let newCondition = {
                     id: statusEffect.id,
-                    _id: statusEffect._id,
                     name: statusEffect.name,
                     img: statusEffect.img
                 };
@@ -879,39 +879,25 @@ export class EnhancedConditions {
 
         const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
 
-        // Map existing ids for ease of access
-        const existingIds = conditionMap.filter(c => c.id).map(c => c.id);
-        const existing_Ids = [];
-        const processedIds = [];
+        const statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
+
+        const existingIds = [];
+        const existingId16s = [];
 
         // Iterate through the map validating/preparing the data
         for (let i = 0; i < conditionMap.length; i++) {
-            let condition = foundry.utils.duplicate(conditionMap[i]);
-
-            // Delete falsy values
-            if (!condition) preparedMap.splice(i, 1);
-
-            if (!condition.name) {
-                condition.name = condition.name ?? (condition.img ? Sidekick.getNameFromFilePath(condition.img) : "");
-            }
+            const condition = foundry.utils.duplicate(conditionMap[i]);
 
             //If this condition matches something in our default status effects, copy its id
-            let statusEffects = CONFIG.defaultStatusEffects ? CONFIG.defaultStatusEffects : CONFIG.statusEffects;
-            const statusEffect = Object.values(statusEffects).find(e => e.name === condition.name);
-            if (statusEffect) {
-                condition.id = statusEffect.id;
-            } else if (condition.options?.customId) {
-                condition.id = condition.options.customId;
-            } else if (!condition.id) {
-                condition.id = Sidekick.createId(existingIds);
-            }
+            const statusEffect = Object.values(statusEffects).find(e => e.id === condition.id);
 
             // If conditionId doesn't exist, or is a duplicate, create a new Id
-            condition.id = (!condition.id || processedIds.includes(condition.id)) ? Sidekick.createId(existingIds) : condition.id;
-            condition._id = Sidekick.createId16(condition.id, existing_Ids);
-            processedIds.push(condition.id);
+            condition.id = (!condition.id || existingIds.includes(condition.id)) ? Sidekick.createId(existingIds) : condition.id;
+            condition._id = statusEffect?._id ?? Sidekick.createId16(condition.id, existingId16s);
+            existingIds.push(condition.id);
+            existingId16s.push(condition._id);
 
-            condition.options = condition.options || {};
+            condition.options ??= {};
             if (condition.options.outputChat === undefined) condition.options.outputChat = outputChatSetting;
             preparedMap.push(condition);
         }
@@ -1037,8 +1023,8 @@ export class EnhancedConditions {
 
         if (!conditionMap.length) return [];
 
-        const existingIds = conditionMap.filter(c => c.id).map(c => c.id);
-        const existing_Ids = [];
+        const existingIds = [];
+        const existingId16s = [];
 
         const statusEffects = [];
 
@@ -1053,8 +1039,8 @@ export class EnhancedConditions {
             const id = c.id ?? Sidekick.createId(existingIds);
             existingIds.push(id);
 
-            const _id = c._id ?? Sidekick.createId16(id, existing_Ids);
-            existing_Ids.push(_id);
+            const _id = c._id ?? Sidekick.createId16(id, existingId16s);
+            existingId16s.push(_id);
 
             const effect = {
                 id: id,
