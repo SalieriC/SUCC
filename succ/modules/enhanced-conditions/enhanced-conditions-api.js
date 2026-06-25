@@ -1,5 +1,5 @@
 import * as BUTLER from "../butler.js";
-import { Sidekick } from "../sidekick.js";
+import { Sidekick, TelemetryUtils } from "../sidekick.js";
 import { EnhancedConditions } from "./enhanced-conditions.js";
 
 /**
@@ -30,7 +30,17 @@ export class EnhancedConditionsAPI {
      * // Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
      * game.succ.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
      */
-    static async addCondition(conditionId, entities=null, {allowDuplicates=false, replaceExisting=false, forceOverlay=false, duration=undefined, effectOptions={}}={}) {
+    static async addCondition(conditionId, entities=null, {allowDuplicates=false, replaceExisting=false, forceOverlay=false, duration=undefined, effectOptions={}, sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.addCondition, {
+                allowDuplicates,
+                replaceExisting,
+                forceOverlay,
+                duration,
+                effectOptions,
+            });
+        }
+
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -54,7 +64,7 @@ export class EnhancedConditionsAPI {
         conditions = conditions instanceof Array ? conditions : [conditions];
         const conditionIds = conditions.map(c => c.id);
 
-        let effects = EnhancedConditionsAPI.getActiveEffect(conditions);
+        let effects = EnhancedConditionsAPI.getActiveEffect(conditions, { sendTelemetry: false });
 
         if (!effects) {
             ui.notifications.error(`${game.i18n.localize("ENHANCED_CONDITIONS.AddCondition.Failed.NoEffect")} ${conditions}`);
@@ -71,7 +81,7 @@ export class EnhancedConditionsAPI {
         let resultEffects = []
 
         for (let entity of entities) {
-            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity, { sendTelemetry: false });
 
             if (!actor) continue;
 
@@ -90,7 +100,7 @@ export class EnhancedConditionsAPI {
                 }
             }
 
-            const hasDuplicates = EnhancedConditionsAPI.hasCondition(conditionIds, actor, {warn: false});
+            const hasDuplicates = EnhancedConditionsAPI.hasCondition(conditionIds, actor, { warn: false, sendTelemetry: false });
             const newEffects = [];
             const updateEffects = [];
 
@@ -106,7 +116,7 @@ export class EnhancedConditionsAPI {
                 */
 
                 // Get the existing conditions on the actor
-                let existingConditionEffects = EnhancedConditionsAPI.getConditionEffects(actor, {warn: false});
+                let existingConditionEffects = EnhancedConditionsAPI.getConditionEffects(actor, {warn: false, sendTelemetry: false});
                 existingConditionEffects = existingConditionEffects instanceof Array ? existingConditionEffects : [existingConditionEffects];
 
                 // Loop through the effects sorting them into either existing or new effects
@@ -140,7 +150,7 @@ export class EnhancedConditionsAPI {
             // If the any of the conditions remove others, remove all conditions
             // @todo maybe add this to the logic above?
             if (conditions.some(c => c?.options?.removeOthers)) {
-                await EnhancedConditionsAPI.removeAllConditions(actor, {warn: false});
+                await EnhancedConditionsAPI.removeAllConditions(actor, {warn: false, sendTelemetry: false});
             }
 
             const createData = hasDuplicates ? newEffects : effects;
@@ -172,7 +182,11 @@ export class EnhancedConditionsAPI {
      * // Remove Condition named "Charmed" from the currently controlled Token, but don't show any warnings if it fails.
      * game.succ.removeCondition("Charmed", {warn=false});
      */
-    static async removeCondition(conditionId, entities=null, {warn=false}={}) {
+    static async removeCondition(conditionId, entities=null, {warn=false, sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.removeCondition);
+        }
+
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -196,7 +210,7 @@ export class EnhancedConditionsAPI {
             return;
         }
 
-        let effects = EnhancedConditionsAPI.getActiveEffect(conditions);
+        let effects = EnhancedConditionsAPI.getActiveEffect(conditions, { sendTelemetry: false });
 
         if (!effects) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDTIONS.RemoveCondition.Failed.NoEffect"));
@@ -209,7 +223,7 @@ export class EnhancedConditionsAPI {
         if (entities && !(entities instanceof Array)) entities = [entities];
 
         for (let entity of entities) {
-            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity, { sendTelemetry: false });
             const activeEffects = actor.effects.contents.filter(e => effects.map(e => e.flags[BUTLER.NAME].conditionId).includes(e.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId)));
 
             if (!activeEffects || (activeEffects && !activeEffects.length)) {
@@ -235,7 +249,11 @@ export class EnhancedConditionsAPI {
      * // Remove all Conditions on the currently controlled Token
      * game.succ.removeAllConditions();
      */
-    static async removeAllConditions(entities=null, {warn=true}={}) {
+    static async removeAllConditions(entities=null, {warn=true, sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.removeAllConditions);
+        }
+
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -251,9 +269,9 @@ export class EnhancedConditionsAPI {
         entities = entities instanceof Array ? entities : [entities];
 
         for (let entity of entities) {
-            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity, { sendTelemetry: false });
 
-            let actorConditionEffects = EnhancedConditionsAPI.getConditionEffects(actor, {warn: false});
+            let actorConditionEffects = EnhancedConditionsAPI.getConditionEffects(actor, {warn: false, sendTelemetry: false});
 
             if (!actorConditionEffects) continue;
 
@@ -274,15 +292,22 @@ export class EnhancedConditionsAPI {
      * @see EnhancedConditions#addCondition
      * @see EnhancedConditions#removeCondition
      */
-    static async toggleCondition(conditionId, entities=null, finalState, options={}) {
+    static async toggleCondition(conditionId, entities=null, finalState, options={}, {sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.toggleCondition, {
+                finalState,
+                options,
+            });
+        }
+
         if (typeof finalState === 'undefined') {
-            let currentState = EnhancedConditionsAPI.hasCondition(conditionId, entities)
+            let currentState = EnhancedConditionsAPI.hasCondition(conditionId, entities, { sendTelemetry: false })
             finalState = !currentState
         }
         if (finalState) {
-            return await EnhancedConditionsAPI.addCondition(conditionId, entities, options);
+            return await EnhancedConditionsAPI.addCondition(conditionId, entities, { ...options, sendTelemetry: false });
         } else {
-            return await EnhancedConditionsAPI.removeCondition(conditionId, entities);
+            return await EnhancedConditionsAPI.removeCondition(conditionId, entities, { sendTelemetry: false });
         }
     }
 
@@ -292,7 +317,11 @@ export class EnhancedConditionsAPI {
      * @param {*} map the map to search through. If null, we'll use the current map
      * @param {*} options.warn whether or not to raise warnings on errors
      */
-    static getCondition(conditionId, map=null, {warn=false}={}) {
+    static getCondition(conditionId, map=null, {warn=false, sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.getCondition);
+        }
+
         if (!conditionId) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetCondition.Failed.NoCondition"));
         }
@@ -308,7 +337,11 @@ export class EnhancedConditionsAPI {
      * @param {Actor | String | Object} entity the Actor or Token to get the condition from
      * @param {*} options.warn whether or not to raise warnings on errors
      */
-    static getConditionFrom(conditionId, entity, {warn=false}={}) {
+    static getConditionFrom(conditionId, entity, {warn=false, sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.getConditionFrom);
+        }
+
         if (!conditionId) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.GetCondition.Failed.NoCondition"));
         }
@@ -318,7 +351,7 @@ export class EnhancedConditionsAPI {
             return;
         }
 
-        const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
+        const actor = EnhancedConditionsAPI.getActorFromEntity(entity, { sendTelemetry: false });
 
         if (!actor) {
             return;
@@ -354,7 +387,11 @@ export class EnhancedConditionsAPI {
      * // Get conditions for the currently controlled Token
      * game.succ.getConditions();
      */
-    static getConditions(entities=null, {warn=true}={}) {
+    static getConditions(entities=null, {warn=true, sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.getConditions);
+        }
+
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -385,7 +422,7 @@ export class EnhancedConditionsAPI {
         const results = [];
 
         for (let entity of entities) {
-            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity, { sendTelemetry: false });
 
             const effects = actor?.effects.contents;
 
@@ -416,7 +453,11 @@ export class EnhancedConditionsAPI {
      * Gets the Active Effect data (if any) for the given condition
      * @param {*} condition the id of the Condition to get
      */
-    static getActiveEffect(condition) {
+    static getActiveEffect(condition, {sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.getActiveEffect);
+        }
+
         return EnhancedConditions._prepareStatusEffects(condition);
     }
 
@@ -427,7 +468,11 @@ export class EnhancedConditionsAPI {
      * @param {Boolean} warn  whether or not to raise warnings on errors
      * @returns {Map | Object} A Map containing the Actor Id and the Condition Active Effect instances if any
      */
-    static getConditionEffects(entities, map=null, {warn=true}={}) {
+    static getConditionEffects(entities, map=null, {warn=true, sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.getConditionEffects);
+        }
+
         if (!entities) {
             // First check for any controlled tokens
             if (canvas?.tokens?.controlled.length) entities = canvas.tokens.controlled;
@@ -447,7 +492,7 @@ export class EnhancedConditionsAPI {
         let results = new Collection();
 
         for (const entity of entities) {
-            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity, { sendTelemetry: false });
             const activeEffects = actor.effects.contents;
 
             if (!activeEffects.length) continue;
@@ -478,7 +523,11 @@ export class EnhancedConditionsAPI {
      * // Check for the "Charmed" and "Deafened" conditions on the controlled tokens
      * game.succ.hasCondition(["Charmed", "Deafened"]);
      */
-    static hasCondition(conditionId, entities=null, {warn=true}={}) {
+    static hasCondition(conditionId, entities=null, {warn=true, sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.hasCondition);
+        }
+
         if (!conditionId) {
             if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition"));
             console.log(`SWADE Ultimate Condition Changer - Enhanced Conditions | ${game.i18n.localize("ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition")}`);
@@ -513,7 +562,7 @@ export class EnhancedConditionsAPI {
         conditions = conditions instanceof Array ? conditions : [conditions];
 
         for (let entity of entities) {
-            const actor = EnhancedConditionsAPI.getActorFromEntity(entity);
+            const actor = EnhancedConditionsAPI.getActorFromEntity(entity, { sendTelemetry: false });
 
             if (!actor.effects.size) continue;
 
@@ -532,7 +581,11 @@ export class EnhancedConditionsAPI {
      * @param {Actor | Token | TokenDocument | String} entity  The entity to convert
      * @returns {Actor} Returns the converted Actor or null if none was found
      */
-    static getActorFromEntity(entity) {
+    static getActorFromEntity(entity, {sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.hasCondition);
+        }
+
         return entity instanceof Actor ? entity : entity instanceof foundry.canvas.placeables.Token || entity instanceof TokenDocument ? entity.actor : null;
     }
 
@@ -540,7 +593,11 @@ export class EnhancedConditionsAPI {
      * @param sceneId The scene ID on which the function looks for token actors to remove the conditions from; defaults to current scene.
      * @param confirmed Boolean to skip the confirmation dialogue.
      */
-    static async removeTemporaryEffects(sceneId = false, confirmed = false) {
+    static async removeTemporaryEffects(sceneId = false, confirmed = false, {sendTelemetry=true}={}) {
+        if (sendTelemetry) {
+            TelemetryUtils.sendAPITelemetry(EnhancedConditionsAPI.removeTemporaryEffects);
+        }
+
         const scene = sceneId ? game.scenes.get(sceneId) : game.scenes.current
         if (confirmed) {
             executeRemoval();

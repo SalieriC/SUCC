@@ -736,3 +736,112 @@ export class Sidekick {
         await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.specialStatusEffects);
     }
 }
+
+export class TelemetryUtils {
+    static POSTHOG_API_KEY = "phc_pTRr4oK26yQDbmFSkPuCNswLTtZABEHktpn9cNqYuAnr";
+
+    static async generateWorldInstallId() {
+        if (!game.user.isGM) {
+            return;
+        }
+
+        let id = Sidekick.getSetting(BUTLER.SETTING_KEYS.telemetryWorldInstallId);
+        if (!id) {
+            id = foundry.utils.randomID();
+            await Sidekick.setSetting(BUTLER.SETTING_KEYS.telemetryWorldInstallId, id);
+        }
+
+        return id;
+    }
+
+    static async getWorldInstallId() {
+        let id = Sidekick.getSetting(BUTLER.SETTING_KEYS.telemetryWorldInstallId);
+        if (!id) {
+            console.warn("Getting the world install ID before it has been set");
+
+            //Try generating it now
+            id = TelemetryUtils.generateWorldInstallId();
+        }
+        return id;
+    }
+
+    static async sendTelemetry(event, includeUserId, properties = {}) {
+        if (Sidekick.getSetting(BUTLER.SETTING_KEYS.telemetryOptOut)) return;
+
+        const installId = await TelemetryUtils.getWorldInstallId();
+        const distinctId = includeUserId ? `${installId}:${game.user.id}` : installId;
+
+        const succVersion = game.modules.get(BUTLER.NAME).version;
+
+        properties = {
+            ...properties,
+            module: BUTLER.NAME,
+            moduleVersion: succVersion,
+            foundryVersion: game.version,
+            isTest: succVersion === "0.0.0",
+        }
+
+        try {
+            await fetch("https://us.i.posthog.com/capture/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    api_key: TelemetryUtils.POSTHOG_API_KEY,
+                    event,
+                    distinct_id: distinctId,
+                    properties
+                })
+            });
+        } catch (error) {
+            console.warn("SUCC telemetry request failed: ", error);
+        }
+    }
+
+    static sendAPITelemetry(apiFunction, properties = {}) {
+        function getCallerSource() {
+            const original = Error.prepareStackTrace;
+
+            try {
+                Error.prepareStackTrace = (_, stack) => stack;
+
+                const err = new Error();
+                Error.captureStackTrace(err, getCallerSource);
+
+                const stack = err.stack;
+                for(const s of stack) {
+                    const filename = s.getFileName();
+                    if (!filename) continue;
+
+                    let path = new URL(filename).pathname;
+                    if (path.startsWith("/modules/succ/")) continue;
+
+                    if (path.startsWith("/modules/")) {
+                        path = path.substring("/modules/".length);
+                        const nextSlash = path.indexOf("/");
+                        return path.substring(0, nextSlash);
+                    }
+
+                    if (path.startsWith("/system/")) {
+                        path = path.substring("/system/".length);
+                        const nextSlash = path.indexOf("/");
+                        return path.substring(0, nextSlash);
+                    }
+
+                    return "macro";
+                }
+
+                return "";
+            } finally {
+                Error.prepareStackTrace = original;
+            }
+        }
+
+        properties = {
+            ...properties,
+            callerSource: getCallerSource(),
+        }
+        TelemetryUtils.sendTelemetry("api_call_" + apiFunction.name, false, properties);
+    }
+}

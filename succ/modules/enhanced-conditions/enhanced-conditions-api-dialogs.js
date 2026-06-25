@@ -30,7 +30,7 @@ export class EnhancedConditionsAPIDialogs {
             return;
         }
 
-        EnhancedConditionsAPI.addCondition(result.conditions, targets);
+        EnhancedConditionsAPI.addCondition(result.conditions, targets, { sendTelemetry: false });
     }
 
     /**
