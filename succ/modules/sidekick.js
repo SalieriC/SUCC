@@ -766,9 +766,14 @@ export class TelemetryUtils {
     }
 
     static async sendTelemetry(event, includeUserId, properties = {}) {
+        return;
         if (Sidekick.getSetting(BUTLER.SETTING_KEYS.telemetryOptOut)) return;
 
         const installId = await TelemetryUtils.getWorldInstallId();
+        if (!installId) {
+            return;
+        }
+
         const distinctId = includeUserId ? `${installId}:${game.user.id}` : installId;
 
         const succVersion = game.modules.get(BUTLER.NAME).version;
