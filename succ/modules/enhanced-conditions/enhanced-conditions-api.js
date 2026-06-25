@@ -157,7 +157,7 @@ export class EnhancedConditionsAPI {
             const updateData = updateEffects;
 
             if (createData.length) {
-                const createdDocuments = await actor.createEmbeddedDocuments("ActiveEffect", createData);
+                const createdDocuments = await actor.createEmbeddedDocuments("ActiveEffect", createData, { keepId: true });
                 resultEffects = resultEffects.concat(createdDocuments);
             }
 

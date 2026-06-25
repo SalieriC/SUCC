@@ -812,7 +812,13 @@ export class EnhancedConditions {
                     continue;
                 }
 
-                conditionConfig.statuses = statusEffect.statuses;
+                conditionConfig.statuses ??= [];
+
+                if (statusEffect.statuses) {
+                    conditionConfig.statuses = [...conditionConfig.statuses, ...statusEffect.statuses];
+                }
+
+                conditionConfig.statuses.push(conditionConfig.id);
 
                 conditionConfig.activeEffect = conditionConfig.activeEffect ? conditionConfig.activeEffect : {};
 
