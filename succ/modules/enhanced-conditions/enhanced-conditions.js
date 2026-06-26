@@ -22,7 +22,6 @@ export class EnhancedConditions {
      * 4. Override status effects
      */
     static async _onReady() {
-        Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, []);
         if (game.user.isGM) {
             await EnhancedConditions.loadConditionConfigMap();
             await EnhancedConditions.updateConditionMapFromDefaults();
