@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
-## [8.0.5] - 2026-06-25 aka "Still More Fixes"
+## [8.0.6] - 2026-06-26 aka "Yet More Fixes"
+**PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
+This release includes the changes in 8.0.5 except for a bad line of code.
+### Fixed
+- Fixed statuses array
+- Fixed conditions added with addCondition not connecting with status effects
+- Fixed a bad line of code.
+
+## [REDACTED] [8.0.5] - 2026-06-25 aka "Still More Fixes"
 **PLEASE NOTE: This version is NOT backwards compatible with Foundry v13.**
 ### Fixed
 - Fixed a major bug with ID generation. (**Please update ASAP if you're using version 8.x.x of SUCC.**)
