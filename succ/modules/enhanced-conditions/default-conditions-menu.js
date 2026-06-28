@@ -3,7 +3,7 @@ import { Sidekick } from "../sidekick.js";
 import { EnhancedConditions } from "./enhanced-conditions.js";
 
 /**
- * Form application for managing mapping of Conditions to Icons and JournalEntries
+ * Menu for selecting which conditions are enabled by default
  */
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 export class DefaultConditionsMenu extends HandlebarsApplicationMixin(ApplicationV2) {
