@@ -83,6 +83,7 @@ export class Signal {
         });
 
         Hooks.on("ready", async () => {
+            TelemetryUtils.showOneTimeMessage();
             await TelemetryUtils.generateWorldInstallId();
             EnhancedConditions._onReady();
         });

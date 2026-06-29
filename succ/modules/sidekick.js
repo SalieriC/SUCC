@@ -293,7 +293,7 @@ export class Sidekick {
             console.log(`SWADE Ultimate Condition Changer - Sidekick | Id ${id} already exists in the provided list of ids. ${i ? `This is attempt ${i} of ${iterations} ` : ""}Trying again...`);
         }
 
-        throw new Error(`SWADE Ultimate Condition Changer - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`)
+        throw new Error(`SWADE Ultimate Condition Changer - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`);
     };
 
     /**
@@ -302,7 +302,7 @@ export class Sidekick {
     */
     static createId16(baseId, existingIds, { iterations = 10000 } = {}) {
         baseId = baseId.replaceAll("-", "");
-        if(baseId.length === 16) return baseId;
+        if (baseId.length === 16) return baseId;
 
         if (baseId.length < 16) {
             const newId = baseId + "0".repeat(16 - baseId.length);
@@ -338,7 +338,7 @@ export class Sidekick {
             console.log(`SWADE Ultimate Condition Changer | Id ${id} already exists in the provided list of ids. ${i ? `This is attempt ${i} of ${iterations} ` : ""}Trying again...`);
         }
 
-        throw new Error(`SWADE Ultimate Condition Changer | Tried to create a unique id over ${iterations} iterations and failed.`)
+        throw new Error(`SWADE Ultimate Condition Changer | Tried to create a unique id over ${iterations} iterations and failed.`);
     };
 
     /**
@@ -485,7 +485,7 @@ export class Sidekick {
             `${BUTLER.PATH}/templates/partials/chat-card-condition-list.hbs`,
             `${BUTLER.PATH}/templates/partials/condition-lab-row.hbs`
         ];
-        await foundry.applications.handlebars.loadTemplates(templates)
+        await foundry.applications.handlebars.loadTemplates(templates);
     }
 
     /**
@@ -579,7 +579,7 @@ export class Sidekick {
             //Remove duplicate skills
             skills = skills.filter(function (skill, idx, array) {
                 return idx == 0 || skill.name != array[idx - 1].name;
-            })
+            });
         }
 
         return skills;
@@ -598,12 +598,12 @@ export class Sidekick {
             <option value="spirit">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("spirit")}</option>
             <option value="strength">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("strength")}</option>
             <option value="vigor">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Attribute")} ${Sidekick.getLocalizedAttributeName("vigor")}</option>
-        `
+        `;
         // Adding Skills
         let skills = await Sidekick.getSkillOptions(actor, getAllSkills);
 
         for (let skill of skills) {
-            traitOptions = traitOptions + `<option value="${skill.name}">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Skill")} ${skill.name}</option>`
+            traitOptions = traitOptions + `<option value="${skill.name}">${game.i18n.localize("ENHANCED_CONDITIONS.Dialog.Skill")} ${skill.name}</option>`;
         }
 
         return traitOptions;
@@ -645,7 +645,7 @@ export class Sidekick {
             let compendiumB = b.compendium?.metadata?.id;
             return Sidekick.compareSkillCompendiums(compendiumA, compendiumB, coreSkillsPack);
         });
-        return allSkills
+        return allSkills;
     }
 
     /**
@@ -767,7 +767,6 @@ export class TelemetryUtils {
     }
 
     static async sendTelemetry(event, includeUserId, properties = {}) {
-        return;
         if (Sidekick.getSetting(BUTLER.SETTING_KEYS.telemetryOptOut)) return;
 
         const installId = await TelemetryUtils.getWorldInstallId();
@@ -785,7 +784,7 @@ export class TelemetryUtils {
             moduleVersion: succVersion,
             foundryVersion: game.version,
             isTest: succVersion === "0.0.0",
-        }
+        };
 
         try {
             await fetch("https://us.i.posthog.com/capture/", {
@@ -816,7 +815,7 @@ export class TelemetryUtils {
                 Error.captureStackTrace(err, getCallerSource);
 
                 const stack = err.stack;
-                for(const s of stack) {
+                for (const s of stack) {
                     const filename = s.getFileName();
                     if (!filename) continue;
 
@@ -847,7 +846,24 @@ export class TelemetryUtils {
         properties = {
             ...properties,
             callerSource: getCallerSource(),
-        }
+        };
         TelemetryUtils.sendTelemetry("api_call_" + apiFunction.name, false, properties);
+    }
+
+    static showOneTimeMessage() {
+        if (!game.user.isGM) {
+            return;
+        }
+
+        if (Sidekick.getSetting(BUTLER.SETTING_KEYS.telemetryMessageShown)) {
+            return;
+        }
+
+        Sidekick.setSetting(BUTLER.SETTING_KEYS.telemetryMessageShown, true);
+
+        foundry.applications.api.DialogV2.prompt({
+            content: game.i18n.localize("succ.SETTINGS.TelemetryOneTimeMessage"),
+            ok: { label: "WORDS.OK" }
+        }).render(true);
     }
 }

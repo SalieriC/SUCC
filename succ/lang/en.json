@@ -187,6 +187,7 @@
                 "UseSystemIconsN": "Use System Icons",
                 "UseSystemIconsH": "If true, conditions will default to using the default system icon when available."
             },
+            "TelemetryOneTimeMessage": "SUCC collects basic, anonymous API usage telemetry. This will allow me to understand who, if anyone, is using the API functions and will make my life much easier. You can opt out in the settings.",
             "TelemetryOptOutH": "SUCC collects basic API usage telemetry. Enable this to opt out.",
             "TelemetryOptOutN": "Opt Out of Telemetry"
         },
@@ -384,5 +385,6 @@
     "WORDS._Yes": " Yes",
     "WORDS._No": " No",
     "WORDS.Yes": "Yes",
-    "WORDS.No": "No"
+    "WORDS.No": "No",
+    "WORDS.OK": "OK"
 }
