@@ -173,6 +173,13 @@ export function registerSettings() {
         config: true,
     });
 
+    Sidekick.registerSetting(BUTLER.SETTING_KEYS.telemetryMessageShown, {
+        scope: "world",
+        type: Boolean,
+        default: false,
+        config: false,
+    });
+
     Sidekick.registerSetting(BUTLER.SETTING_KEYS.telemetryWorldInstallId, {
         scope: "world",
         type: String,
