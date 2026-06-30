@@ -1,0 +1,183 @@
+{
+    "ENHANCED_CONDITIONS.AddCondition.Failed.AlreadyActive": "já está ativo. Falha ao aplicar condição",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.NoCondition": "Falha ao aplicar condição. Não foi possível encontrar a condição:",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.NoIcon": "Falha ao aplicar condição. Não foi possível encontrar o ícone.",
+    "ENHANCED_CONDITIONS.AddCondition.Failed.NoToken": "Falha ao aplicar condição. Nenhum token fornecido",
+    "ENHANCED_CONDITIONS.ChatCard.Buttons.Remove": "Remover Condições",
+    "ENHANCED_CONDITIONS.ChatCard.Buttons.Undo": "Reverter Remover Condições",
+    "ENHANCED_CONDITIONS.ChatCard.Title.Active": "Condições Ativas",
+    "ENHANCED_CONDITIONS.ChatCard.Title.Added": "Condições Adicionadas",
+    "ENHANCED_CONDITIONS.ChatCard.Title.Removed": "Condições Removidas",
+    "ENHANCED_CONDITIONS.Condition.Boost": "Aumentar Característica",
+    "ENHANCED_CONDITIONS.Condition.Deflection": "Deflexão",
+    "ENHANCED_CONDITIONS.Condition.Lower": "Reduzir Característica",
+    "ENHANCED_CONDITIONS.Condition.Rage": "Fúria",
+    "ENHANCED_CONDITIONS.Condition.Slumber": "Sono",
+    "ENHANCED_CONDITIONS.Condition.TheDrop": "Finalização",
+    "ENHANCED_CONDITIONS.Dialog.Apply": "Aplicar",
+    "ENHANCED_CONDITIONS.Dialog.Attribute": "|ATRIBUTO|",
+    "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Body": "<p><i>Aumentar Característica</i> aumenta uma única Característica do receptor. Escolha a Característica afetada e o grau de sucesso do conjurador.</p>",
+    "ENHANCED_CONDITIONS.Dialog.BoostBuilder.Name": "Construtor de Aumentar Característica",
+    "ENHANCED_CONDITIONS.Dialog.Cancel": "Cancelar",
+    "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Body": "<p><i>Reduzir Característica</i> reduz uma única Característica do receptor. Escolha a Característica afetada e o grau de sucesso do conjurador.</p>",
+    "ENHANCED_CONDITIONS.Dialog.LowerBuilder.Name": "Construtor de Reduzir Característica",
+    "ENHANCED_CONDITIONS.Dialog.NoWeapons": "Não foi encontrada nenhuma arma para aplicar Ferir.",
+    "ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Body": "<p><i>Proteção</i> aumenta a armadura ou a resistência do receptor. Escolha a quantidade a ser aumentada e clique no botão apropriado, dependendo dos modificadores usados pelo conjurador.</p>",
+    "ENHANCED_CONDITIONS.Dialog.ProtectionBuilder.Name": "Construtor de Proteção",
+    "ENHANCED_CONDITIONS.Dialog.Raise": "Ampliação",
+    "ENHANCED_CONDITIONS.Dialog.RemoveTemporaryEffects.Name": "Remover efeitos temporários",
+    "ENHANCED_CONDITIONS.Dialog.Skill": "|PERÍCIA|",
+    "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Body": "<p><i>Ferir</i> aumenta o dano de uma das armas do receptor. Escolha a arma e a quantidade para aumentar o dano da arma.</p>",
+    "ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name": "Construtor de Ferir",
+    "ENHANCED_CONDITIONS.Dialog.Success": "Sucesso",
+    "ENHANCED_CONDITIONS.Dialog.Trait": "Característica: ",
+    "ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition": "Obter condições falhou. Nenhum mapa de condição encontrado",
+    "ENHANCED_CONDITIONS.GetConditions.Failed.NoResults": "Obter condições falhou. Nenhuma condição encontrada no ator/token",
+    "ENHANCED_CONDITIONS.GetConditions.Failed.NoToken": "Obter condições falhou. Nenhuma entidade fornecida e nenhuma foi encontrada automaticamente",
+    "ENHANCED_CONDITIONS.Lab.ActiveEffects.Title": "Configuração de Ativar Efeitos",
+    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew": "Configuração do Efeito Ativo (Desativado - Grave o mapeamento primeiro)",
+    "ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNotCustom": "Ative Effect Config (Desativado - Não é possível editar o mapeamento padrão)",
+    "ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent": "Tem certeza que deseja apagar esta linha?",
+    "ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle": "Confirmar exclusão de linha",
+    "ENHANCED_CONDITIONS.Lab.ExportTitle": "Exportar Mapa de Condições",
+    "ENHANCED_CONDITIONS.Lab.Import.NoFile": "Não fez upload de um ficheiro de dados!",
+    "ENHANCED_CONDITIONS.Lab.ImportTitle": "Importar Mapa de Condições",
+    "ENHANCED_CONDITIONS.Lab.MappingType.Label": "Tipo de Mapeamento",
+    "ENHANCED_CONDITIONS.Lab.MappingType.Unsaved": "(alterações não gravadas)",
+    "ENHANCED_CONDITIONS.Lab.Options.OutputChat.Label": "Exibir no Bate-papo",
+    "ENHANCED_CONDITIONS.Lab.Options.Overlay.Label": "Sobrepor",
+    "ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label": "Remover os Outros",
+    "ENHANCED_CONDITIONS.Lab.Options.Title": "Opções:",
+    "ENHANCED_CONDITIONS.Lab.ResetFormTitle": "Redefinir formulário?",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaults.Body": "<p>Tem certeza que deseja restaurar este mapeamento para os padrões?</p><strong>Se gravar, esta alteração será permanente.</strong>",
+    "ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle": "Restaurar padrões?",
+    "ENHANCED_CONDITIONS.Lab.SaveFailed": "Lab de condição falhou ao gravar e fechar",
+    "ENHANCED_CONDITIONS.Lab.SaveSuccess": "Mapeamento do Laboratório de Condições gravado!",
+    "ENHANCED_CONDITIONS.Lab.Title": "Laboratório de Condições",
+    "ENHANCED_CONDITIONS.MapMismatch": "Este mapa não corresponde ao seu sistema de jogo e pode não funcionar como esperado.",
+    "ENHANCED_CONDITIONS.Notification.NoConvictionToken": "Este ator já não tem fichas de convicção.",
+    "ENHANCED_CONDITIONS.RemoveAllConditions.Failed.NoCondition": "Falha ao remover condições. Não há nenhum mapa de condição ativo",
+    "ENHANCED_CONDITIONS.RemoveAllConditions.Failed.NoToken": "Falha ao remover condições. Nenhum token fornecido",
+    "ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition": "Falha na remoção da condição. Não foi possível encontrar a condição com o nome:",
+    "ENHANCED_CONDITIONS.RemoveCondition.Failed.NoIcon": "Falha na remoção da condição. Não foi possível encontrar o ícone",
+    "ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken": "Falha na remoção da condição. Nenhum token fornecido",
+    "ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive": "não está ativo no token. Falha na remoção da condição.",
+    "SETTINGS.EnhancedConditions.ActiveConditionMapH": "Armazena o mapa de condições ativo",
+    "SETTINGS.EnhancedConditions.ActiveConditionMapN": "Mapa de Condição Ativo",
+    "SETTINGS.EnhancedConditions.CoreIconsH": "Uma cópia dos principais ícones de estado",
+    "SETTINGS.EnhancedConditions.CoreIconsN": "Ícones Principais de Estatus",
+    "SETTINGS.EnhancedConditions.DefaultMapH": "Mapas de condições fornecidos pelo módulo para ícones",
+    "SETTINGS.EnhancedConditions.DefaultMapN": "Mapas de Condição Padrão",
+    "SETTINGS.EnhancedConditions.MapTypeH": "Tipo de mapa de condições atualmente em uso -- padrão, personalizado ou outro",
+    "SETTINGS.EnhancedConditions.MapTypeN": "Tipo de Mapa de Condição Ativo",
+    "SETTINGS.EnhancedConditions.OutputChatH": "Saída correspondente às condições para o bate-papo",
+    "SETTINGS.EnhancedConditions.OutputChatN": "Saída para bate-papo",
+    "SETTINGS.EnhancedConditions.OutputCombatH": "Em cada rodada de combate, exiba quaisquer condições para o combatente atual no bate-papo",
+    "SETTINGS.EnhancedConditions.OutputCombatN": "Saída durante o combate",
+    "SETTINGS.EnhancedConditions.SystemH": "Uma referência ao sistema do jogo. O padrão é outro se não for conhecido pelo módulo",
+    "SETTINGS.EnhancedConditions.SystemN": "Sistema de Jogo",
+    "WORDS.Cancel": "Cancelar",
+    "WORDS.Export": "Exportar",
+    "WORDS.Import": "Importar",
+    "WORDS.No": "Não",
+    "WORDS.Yes": "Sim",
+    "WORDS._No": " Não",
+    "WORDS._Yes": " Sim",
+    "succ": {
+        "ENHANCED_CONDITIONS": {
+            "ChatCard": {
+                "Heading": "Mudanças de Condição Aprimoradas",
+                "HeadingActive": "Condições Aprimoradas Ativas",
+                "Title": {
+                    "Active": "Ativo",
+                    "Added": "Adicionado",
+                    "Removed": "Removido"
+                }
+            },
+            "ConditionLab": {
+                "BadReference": "Não foi possível criar uma ligação para o conteúdo descartado (ator, elemento, diário etc.)",
+                "Buttons": {
+                    "Options": "Opções"
+                },
+                "FilterInputTitle": "Filtrar por Nome",
+                "NoReference": "--Sem Entrada de Referência-- (Arraste um Diário, elemento, Ator, etc para este campo para definir)",
+                "SortAnchorTitle": "Ordenador por Nome - não-ordenado (clique para mudar)",
+                "SortAnchorTitle_asc": "Ordenador por Nome - À Z (clique para mudar)",
+                "SortAnchorTitle_desc": "Ordenador por Nome - Z a A (clique para mudar)",
+                "SortDirectionSave": {
+                    "CheckboxText": "Não mostrar isto novamente",
+                    "Title": "Gravar Mapeamento com Direção de Classificação?"
+                }
+            },
+            "MacroConfig": {
+                "ApplyHeading": "Aplicar Macro",
+                "Description": "Selecione uma macro a ser executada quando esta condição for adicionada a ou removida de um token/ator",
+                "Heading": "Macros a serem Executadas",
+                "RemoveHeading": "Remover macro",
+                "SelectNone": "--Sem macro--"
+            },
+            "OptionConfig": {
+                "BlindToken": {
+                    "Label": "Token Cego",
+                    "Notes": "Quando aplicada, esta Condição também fará com que o token fique cego (o jogador não conseguirá ver outros tokens no mapa)"
+                },
+                "BoostTrait": {
+                    "Label": "Aumentar Característica",
+                    "Notes": "Quando aplicada, esta condição abrirá a caixa de diálogo de Aumentar Característica"
+                },
+                "Conviction": {
+                    "Label": "Convicção",
+                    "Notes": "Quando aplicada, esta Condição ativará a Convicção no Token afetado"
+                },
+                "Heading": "Opções",
+                "LowerTrait": {
+                    "Label": "Reduzir Característica",
+                    "Notes": "Quando aplicada, esta condição abrirá a caixa de diálogo de Reduzir Característica"
+                },
+                "MarkInvisible": {
+                    "Label": "Marcar Invisível",
+                    "Notes": "Quando aplicada, esta Condição fará com que o Token afetado seja marcado como Invisível"
+                },
+                "Protection": {
+                    "Label": "Proteção",
+                    "Notes": "Quando aplicada, esta condição abrirá a caixa de diálogo de Proteção"
+                },
+                "SaveNote": "Observação: Clicar em gravar gravará o mapeamento do Laboratório de Condições",
+                "Smite": {
+                    "Label": "Ferir",
+                    "Notes": "Quando aplicada, esta condição abrirá a caixa de diálogo de Ferir"
+                },
+                "SpecialStatusEffectOverride": {
+                    "Content": "Outra condição ({existingCondition}) já está configurada para aplicar este efeito de estado especial: {statusEffect}. <p>Se clicar em \"Sim\" e gravar as opções dessa condição, substituirá este mapeamento existente.</p>",
+                    "Title": "Substituir condição existente para este efeito de estado?"
+                }
+            },
+            "OutputChatConfirm": {
+                "Content": "Clique em 'Sim' para ativar 'Saída para chat' em todas as condições",
+                "Title": "Ativar saída para chat a todas as condições?"
+            }
+        },
+        "NAME": "SWADE Ultimate Condition Changer",
+        "PHRASES": {
+            "SaveAndClose": "Gravar e Fechar"
+        },
+        "SETTINGS": {
+            "ENHANCED_CONDITIONS": {
+                "ShowSortDirectionDialogH": "Se deve ou não mostrar a caixa de diálogo de confirmação para gravar a direção de classificação.",
+                "ShowSortDirectionDialogN": "Mostrar caixa de diálogo de gravar Direção de Classificação do Laboratório de Condições"
+            }
+        },
+        "SHORT_NAME": "SUCC",
+        "WORDS": {
+            "Actor": "Ator",
+            "Cancel": "Cancelar",
+            "Icon": "Ícone",
+            "Name": "Nome",
+            "Proceed": "Prosseguir",
+            "Reference": "Referência",
+            "Reset": "Resetar",
+            "Save": "Gravar",
+            "Token": "Token"
+        }
+    }
+}
