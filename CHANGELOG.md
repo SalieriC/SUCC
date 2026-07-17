@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [8.1.3] - 2026-07-15 aka "Cleanup"
+**This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
+## Added
+- Sort direction for the apply conditions dialogue are now saved.
+## Fixed
+- Fixed statuses property for effects that don't have them by default.
+- Fixed the `allowDuplicates` option when creating status effects. This is a bit hacky because FVTT doesn't allow duplicated status effects so the duplicates are created as regular active Effects and won't show up on the Token condition interface. This is meant to allow macros and modules to apply a (de-)buff even if the same is already applied to this actor (i.e. boost Fighting and boost Shooting).
+## Removed
+- Removed `replaceExisting` when creating conditions as it hasn't been used.
+
 ## [8.1.2] - 2026-07-15 aka "Telemetry hotfix"
 **This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
 ## Fixed
