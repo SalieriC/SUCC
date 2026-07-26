@@ -832,11 +832,15 @@ export class TelemetryUtils {
                     : stack.map(s => s.toString().replace(urlRegex, ""));
                 stackStrings = stackStrings.filter(s => s && !s.includes("TelemetryUtils.sendAPITelemetry"));
 
+                const stripBazaar = path => path.replace(/^\/bazaar\/(?:modules|systems)\/[^/]+\/[^/]+/, "");
                 const getPath = isFirefox
-                    ? s => s.match(/@((?:\/modules|\/systems)\/[^:]+)/)?.[1]
+                    ? s => {
+                        const path = s.match(/@((?:\/bazaar)?\/(?:modules|systems)\/[^:]+)/)?.[1];
+                        return path ? stripBazaar(path) : null;
+                    }
                     : s => {
                         const filename = s.getFileName?.();
-                        return filename ? new URL(filename).pathname : null;
+                        return filename ? stripBazaar(new URL(filename).pathname) : null;
                     };
 
                 let source = "Unknown";
