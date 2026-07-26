@@ -24,11 +24,9 @@
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-rules.swpfcore01charac.JournalEntryPage.01edges000000000#barbarian]",
             "ignoreSystemSettings": true,
             "activeEffect": {
-                "system": {
-                    "expiration": 3
-                },
                 "duration": {
-                    "rounds": 5
+                    "rounds": 5,
+                    "expiry": "turnStartPrompt"
                 },
                 "changes": [
                     {
