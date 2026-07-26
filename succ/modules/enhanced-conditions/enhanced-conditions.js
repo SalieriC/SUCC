@@ -108,6 +108,9 @@ export class EnhancedConditions {
             game.succ.conditions = conditionMap;
         }
 
+
+        game.swade.effectCallbacks.set("conviction", EnhancedConditions.convictionExpiration);
+
         ui.combat.render(true);
         Hooks.callAll('succReady', game.succ);
     }
@@ -442,6 +445,51 @@ export class EnhancedConditions {
             await applySharedOptions(options);
             EnhancedConditionsPowers.numbBuilder(activeEffect, options.bonus);
         }
+    }
+
+    static async convictionExpiration(effect) {
+        const bennyImage = game.settings.get("swade", "bennyImage3DFront") || "/systems/swade/assets/benny/benny-chip-front.png";
+        function onRender(event, dialog) {
+            const button = dialog.element.querySelector('button[data-action="maintain"]');
+            if (button) {
+                const img = document.createElement("img");
+                img.src = bennyImage;
+                img.classList.add("succ-button-image");
+                button.append(img);
+            }
+        }
+
+        const buttons = [];
+        const actor = effect.actor;
+        if (actor.system.bennies.value > 0) {
+            buttons.push({
+                label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.ConvictionExpiration.Maintain"),
+                action: "maintain",
+                callback: async () => actor.spendBenny()
+            });
+        }
+
+        buttons.push(
+            {
+                label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.ConvictionExpiration.MaintainFree"),
+                action: "free",
+            },
+            {
+                label: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.ConvictionExpiration.Remove"),
+                action: "remove",
+                callback: async () => actor.deleteEmbeddedDocuments("ActiveEffect", [effect.id])
+            }
+        );
+
+        await foundry.applications.api.DialogV2.wait({
+            window: { title: "ENHANCED_CONDITIONS.Dialog.ConvictionExpiration.Name" },
+            position: { width: "auto" },
+            content: game.i18n.format("ENHANCED_CONDITIONS.Dialog.ConvictionExpiration.Body", { name: actor.name }),
+            classes: ["succ-dialog"],
+            rejectClose: false,
+            buttons: buttons,
+            render: onRender,
+        });
     }
 
 

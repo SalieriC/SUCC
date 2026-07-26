@@ -451,6 +451,13 @@ a.add-temporary {
     vertical-align: middle;
 }
 
+.succ-button-image {
+    border: none;
+    vertical-align: text-bottom;
+    max-width: 100%;
+    max-height: 80%;
+}
+
 .condition-options input {
     vertical-align: middle;
 }

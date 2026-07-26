@@ -62,7 +62,7 @@ export class EnhancedConditionsAPIDialogs {
         const smiteData = { condition, weapOptions };
         const content = await foundry.applications.handlebars.renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.smiteDialog, smiteData);
 
-        let result = await foundry.applications.api.DialogV2.wait({
+        const result = await foundry.applications.api.DialogV2.wait({
             window: { title: game.i18n.localize("ENHANCED_CONDITIONS.Dialog.SmiteBuilder.Name") },
             position: { width: 400 },
             content: content,
