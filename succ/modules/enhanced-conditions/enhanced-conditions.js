@@ -203,7 +203,7 @@ export class EnhancedConditions {
         }
 
         if (change.disabled === true && effect.flags?.succ?.conditionId) {
-            await EnhancedConditionsAPI.removeCondition(effect.flags.succ.conditionId, effect.actor);
+            await EnhancedConditionsAPI.removeCondition(effect.flags.succ.conditionId, effect.actor, { sendTelemetry: false });
         }
     }
 
