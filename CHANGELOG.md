@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [8.2.0] - 2026-08-12 aka "Convicted"
+**This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
+## Added
+- Conviction handling (ask players to spend a Benny for upkeep).
+## Fixed
+- More fixes of the telemetry.
+
 ## [8.1.3] - 2026-07-15 aka "Cleanup"
 **This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
 ## Added
