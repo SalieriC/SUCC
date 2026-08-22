@@ -208,7 +208,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 1,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
