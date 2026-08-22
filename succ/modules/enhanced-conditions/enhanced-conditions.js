@@ -901,6 +901,7 @@ export class EnhancedConditions {
 
             if (condition.activeEffect) {
                 condition.activeEffect.name = game.i18n.localize(condition.name);
+                condition.activeEffect.description = condition.referenceId;
             }
         }
     }
