@@ -7,42 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [8.3.0] - 2026-08-25 aka "Blinded"
+### Added
+- Cross references to rules in effect descriptions.
+### Changed
+- Blind expires at the end of turn, instead of at the beginning.
+
 ## [8.2.0] - 2026-08-12 aka "Convicted"
 **This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
-## Added
+### Added
 - Conviction handling (ask players to spend a Benny for upkeep).
-## Fixed
+### Fixed
 - More fixes of the telemetry.
 
 ## [8.1.3] - 2026-07-15 aka "Cleanup"
 **This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
-## Added
+### Added
 - Sort direction for the apply conditions dialogue are now saved.
-## Fixed
+### Fixed
 - Fixed statuses property for effects that don't have them by default.
 - Fixed the `allowDuplicates` option when creating status effects. This is a bit hacky because FVTT doesn't allow duplicated status effects so the duplicates are created as regular active Effects and won't show up on the Token condition interface. This is meant to allow macros and modules to apply a (de-)buff even if the same is already applied to this actor (i.e. boost Fighting and boost Shooting).
-## Removed
+### Removed
 - Removed `replaceExisting` when creating conditions as it hasn't been used.
 
 ## [8.1.2] - 2026-07-15 aka "Telemetry hotfix"
 **This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
-## Fixed
+### Fixed
 - Fixed a couple issues related to the telemetry on Firefox.
 
 ## [8.1.1] - 2026-07-09 aka "Corrections relatives à la télémétrie"
 **This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
-## Added
+### Added
 - Finished French language via Weblate by @Arnok136 (Arnok Sden).
-## Fixed
+### Fixed
 - Fixed a couple issues related to the telemetry.
 
 ## [8.1.0] - 2026-07-04 aka "Telemetry Update"
-## Added
+### Added
 - **WARNING: Added telemetry.** This is purely to monitor API usage in order to refine, enhance, and possibly sunsetting API functions. If you're uncomfortable with that feel free to opt-out in the settings.
 - Added a warning message with the option to opt-out of telemetry on first launch after updating.
 - Added Brazilian Portugese language via Weblate by @SantosSi.
 - Added French language via Weblate by @Arnok136 (Arnok Sden).
-## Fixed
+### Fixed
 - Icons not showing on tokens by now using the showIcon property.
 
 ## [8.0.6] - 2026-06-26 aka "Yet More Fixes"
