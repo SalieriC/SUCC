@@ -14,6 +14,7 @@
         {"id":"on-fire", "enabledByDefault": true},
         {"id":"reach", "enabledByDefault": true},
         {"id":"the-drop", "enabledByDefault": false},
-        {"id":"torch", "enabledByDefault": true}
+        {"id":"torch", "enabledByDefault": true},
+        {"id":"rending-attack", "enabledByDefault": false}
     ]
 }

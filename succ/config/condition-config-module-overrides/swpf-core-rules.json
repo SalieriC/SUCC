@@ -258,6 +258,10 @@
         {
             "id": "shape-change",
             "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-powers.Item.rB1U38hCiB7tkD1e]"
+        },
+        {
+            "id": "rending-attack",
+            "referenceId": "@UUID[Compendium.swpf-core-rules.swpf-abilities.Item.F2U2daS7UdVpGyJR]"
         }
     ]
 }

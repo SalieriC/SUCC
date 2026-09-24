@@ -511,6 +511,17 @@
             }
         },
         {
+            "id": "rending-attack",
+            "name": "SWADE_CORE_RULES.Status.RendingAttack.Name",
+            "img": "modules/succ/assets/icons/3-rending-attack.svg",
+            "activeEffect": {
+                "duration": {
+                    "rounds": 1,
+                    "expiry": "turnStartPrompt"
+                }
+            }
+        },
+        {
             "id": "shape-change",
             "name": "ENHANCED_CONDITIONS.Condition.ShapeChange",
             "img": "modules/succ/assets/icons/m-shape-change.svg",
