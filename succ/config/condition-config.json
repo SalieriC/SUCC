@@ -220,7 +220,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             },
             "options": {
@@ -244,7 +244,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             },
             "options": {
@@ -259,7 +259,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             },
             "options": {
@@ -274,7 +274,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 1,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             },
             "options": {
@@ -289,7 +289,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -313,7 +313,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -325,7 +325,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -337,7 +337,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 600,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -349,7 +349,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -361,7 +361,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -373,7 +373,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -416,7 +416,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 1,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -428,7 +428,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -452,7 +452,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -464,7 +464,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -495,7 +495,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -506,7 +506,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -518,7 +518,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -529,7 +529,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -540,7 +540,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },
@@ -551,7 +551,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 }
             }
         },

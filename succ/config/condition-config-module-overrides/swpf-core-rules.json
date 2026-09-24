@@ -26,7 +26,7 @@
             "activeEffect": {
                 "duration": {
                     "rounds": 5,
-                    "expiry": "turnStartPrompt"
+                    "expiry": "turnEndPrompt"
                 },
                 "changes": [
                     {
