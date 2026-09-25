@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
-## [8.4.0] - 2026-09-25 aka "Blinded"
+## [8.4.0] - 2026-09-25 aka "Rendered"
 **This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
 ### Added
 - Support for rending attack (SWPF).
