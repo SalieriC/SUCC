@@ -31,7 +31,7 @@
             "img": "modules/succ/assets/icons/1-aiming.svg",
             "activeEffect": {
                 "duration": {
-                    "rounds": 1,
+                    "rounds": 2,
                     "expiry": "turnEndPrompt"
                 }
             }
