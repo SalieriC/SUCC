@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ☮️ Peace in the world, or the world in pieces. 🕊️
 
+## [8.4.1] - 2026-11-08 aka "Take aim!"
+**This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
+### Fixed
+- Fixed expiration of Aim to end on the following turn instead of the turn it was activated.
+
 ## [8.4.0] - 2026-09-25 aka "Rendered"
 **This module uses telemetry in order to improve the API. If that makes you uncomfortable you can opt-out in the settings.**
 ### Added
